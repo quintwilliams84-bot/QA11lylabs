@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://qa11ylabs.com/sitemap.xml
+
+User-agent: *
+Disallow: /evidence/

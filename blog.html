@@ -1,0 +1,2951 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <!-- QA11Y BRAND HEAD START -->
+  <!-- Favicons & app icons -->
+  <link rel="icon" href="assets/brand/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/brand/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/brand/favicon-16.png">
+  <link rel="icon" type="image/svg+xml" href="assets/brand/qa11ylabs-logo-icon.svg">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/brand/apple-touch-icon.png">
+  <link rel="manifest" href="assets/brand/site.webmanifest">
+  <meta name="theme-color" content="#0B0C10">
+
+  <!-- Open Graph -->
+  <meta property="og:site_name" content="QA11Y Labs">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="QA11Y Labs — Architecting a more inclusive digital world">
+  <meta property="og:description" content="Accessibility audits, remediation, monitoring, and consulting from a senior architect with 25+ years of daily screen reader expertise.">
+  <meta property="og:image" content="https://qa11ylabs.com/assets/brand/og-image-primary.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="QA11Y Labs primary logo: cyan shield check mark with QA11Y in cyan and Labs in gold, on a dark terminal-style background.">
+  <meta property="og:url" content="https://qa11ylabs.com/">
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="QA11Y Labs — Architecting a more inclusive digital world">
+  <meta name="twitter:description" content="Accessibility audits, remediation, monitoring, and consulting from a senior architect with 25+ years of daily screen reader expertise.">
+  <meta name="twitter:image" content="https://qa11ylabs.com/assets/brand/og-image-primary.png">
+  <meta name="twitter:image:alt" content="QA11Y Labs primary logo: cyan shield check mark with QA11Y in cyan and Labs in gold.">
+  <!-- QA11Y BRAND HEAD END -->
+<title>The Log — QA11Y Labs | Accessibility Blog</title>
+  <meta name="description" content="Practical accessibility insights written by someone who lives it. Real-world WCAG, screen reader, ARIA, and legal compliance coverage from Quint Williams, founder of QA11Y Labs." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://api.fontshare.com" />
+  <link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@500,700&f[]=satoshi@400,500,600,700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* =============================================
+       CSS CUSTOM PROPERTIES — DARK MODE DEFAULT
+       ============================================= */
+    :root,
+    [data-theme="dark"] {
+      --color-bg: #0B0C10;
+      --color-surface: #0f1117;
+      --color-surface-2: #151820;
+      --color-border: #1e2330;
+      --color-divider: #1a1f2e;
+      --color-text: #C5C6C7;
+      --color-text-muted: #7a7e8a;
+      --color-text-faint: #454a57;
+      --color-text-inverse: #0B0C10;
+      --color-primary: #66FCF1;
+      --color-primary-hover: #45e8dc;
+      --color-primary-dim: #1a3f3d;
+      --color-cta: #F2A900;
+      --color-cta-hover: #e09800;
+      --color-cta-dim: #3a2a00;
+      --color-teal: #45A29E;
+      --color-teal-dim: #112827;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.5);
+      --shadow-md: 0 4px 16px rgba(0,0,0,0.6);
+      --shadow-lg: 0 12px 40px rgba(0,0,0,0.7);
+      --glow-cyan: 0 0 40px rgba(102,252,241,0.08);
+    }
+
+    [data-theme="light"] {
+      --color-bg: #f4f5f7;
+      --color-surface: #fff;
+      --color-surface-2: #eef0f4;
+      --color-border: #d0d4de;
+      --color-divider: #d8dce8;
+      --color-text: #1a1d26;
+      --color-text-muted: #5a5f6e;
+      --color-text-faint: #9198aa;
+      --color-text-inverse: #fff;
+      --color-primary: #007a76;
+      --color-primary-hover: #006460;
+      --color-primary-dim: #d4f0ee;
+      --color-cta: #c47900;
+      --color-cta-hover: #a86800;
+      --color-cta-dim: #fef3da;
+      --color-teal: #007a76;
+      --color-teal-dim: #d4f0ee;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+      --shadow-md: 0 4px 16px rgba(0,0,0,0.12);
+      --shadow-lg: 0 12px 40px rgba(0,0,0,0.15);
+      --glow-cyan: none;
+    }
+
+    /* =============================================
+       TYPOGRAPHY SCALE
+       ============================================= */
+    :root {
+      --font-display: 'Cabinet Grotesk', sans-serif;
+      --font-body: 'Satoshi', sans-serif;
+
+      --text-xs:   clamp(0.7rem,  0.65rem + 0.25vw, 0.75rem);
+      --text-sm:   clamp(0.8rem,  0.75rem + 0.25vw, 0.875rem);
+      --text-base: clamp(0.9375rem, 0.9rem + 0.2vw, 1rem);
+      --text-md:   clamp(1rem,    0.95rem + 0.25vw, 1.125rem);
+      --text-lg:   clamp(1.125rem, 1.05rem + 0.35vw, 1.25rem);
+      --text-xl:   clamp(1.25rem,  1.1rem + 0.75vw, 1.5rem);
+      --text-2xl:  clamp(1.5rem,   1.25rem + 1.25vw, 2rem);
+      --text-3xl:  clamp(1.875rem, 1.5rem + 1.875vw, 2.5rem);
+      --text-hero: clamp(2.5rem,   2rem + 2.5vw, 3.75rem);
+
+      /* Spacing */
+      --space-1:  0.25rem;
+      --space-2:  0.5rem;
+      --space-3:  0.75rem;
+      --space-4:  1rem;
+      --space-5:  1.25rem;
+      --space-6:  1.5rem;
+      --space-8:  2rem;
+      --space-10: 2.5rem;
+      --space-12: 3rem;
+      --space-16: 4rem;
+      --space-20: 5rem;
+      --space-24: 6rem;
+
+      /* Radius */
+      --radius-sm: 4px;
+      --radius-md: 8px;
+      --radius-lg: 12px;
+      --radius-xl: 16px;
+      --radius-2xl: 24px;
+      --radius-full: 9999px;
+
+      /* Transition */
+      --transition-fast: 150ms ease;
+      --transition-base: 250ms ease;
+      --transition-slow: 400ms ease;
+
+      /* Layout */
+      --content-default: 1100px;
+      --header-height: 72px;
+    }
+
+    /* =============================================
+       RESET & BASE
+       ============================================= */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-body);
+      font-size: var(--text-base);
+      line-height: 1.6;
+      color: var(--color-text);
+      background-color: var(--color-bg);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    img { max-width: 100%; height: auto; display: block; }
+    a { color: inherit; }
+    ul { list-style: none; }
+    button { cursor: pointer; font-family: inherit; }
+
+    /* =============================================
+       SKIP LINK
+       ============================================= */
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: var(--space-4);
+      z-index: 10000;
+      padding: var(--space-3) var(--space-6);
+      background: var(--color-primary);
+      color: var(--color-text-inverse);
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: var(--text-sm);
+      border-radius: var(--radius-md);
+      text-decoration: none;
+      transition: top var(--transition-fast);
+    }
+    .skip-link:focus {
+      top: var(--space-4);
+    }
+
+    /* =============================================
+       FOCUS STYLES
+       ============================================= */
+    :focus-visible {
+      outline: 3px solid var(--color-cta);
+      outline-offset: 3px;
+      border-radius: var(--radius-sm);
+    }
+
+    /* =============================================
+       HEADER / NAV
+       ============================================= */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      height: var(--header-height);
+      display: flex;
+      align-items: center;
+      background: rgba(11, 12, 16, 0.9);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--color-border);
+      transition: background var(--transition-base);
+    }
+
+    [data-theme="light"] .site-header {
+      background: rgba(244, 245, 247, 0.9);
+    }
+
+    .header-inner {
+      max-width: var(--content-default);
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 var(--space-6);
+      display: flex;
+      align-items: center;
+      gap: var(--space-6);
+    }
+
+    /* Logo */
+    .logo-link {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      flex-shrink: 0;
+    }
+
+    .logo-wordmark {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: var(--text-md);
+      line-height: 1;
+      white-space: nowrap;
+      letter-spacing: -0.02em;
+    }
+
+    .logo-wordmark .logo-qa {
+      color: var(--color-primary);
+    }
+
+    [data-theme="light"] .logo-wordmark .logo-qa {
+      color: #1a1d26;
+    }
+
+    .logo-wordmark .logo-11y {
+      color: var(--color-primary);
+    }
+
+    .logo-wordmark .logo-labs {
+      color: var(--color-cta);
+    }
+
+    /* Primary Nav */
+    .primary-nav {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-list {
+      display: flex;
+      align-items: center;
+      gap: var(--space-1);
+    }
+
+    .nav-link {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-1);
+      padding: var(--space-2) var(--space-3);
+      font-family: var(--font-display);
+      font-size: var(--text-sm);
+      font-weight: 500;
+      color: var(--color-text-muted);
+      text-decoration: none;
+      border-radius: var(--radius-md);
+      transition: color var(--transition-fast), background var(--transition-fast);
+      white-space: nowrap;
+    }
+
+    .nav-link:hover {
+      color: var(--color-text);
+      background: var(--color-surface-2);
+    }
+
+    .nav-link[aria-current="page"] {
+      color: var(--color-primary);
+    }
+
+    /* Services Dropdown */
+    .nav-dropdown {
+      position: relative;
+    }
+
+    .nav-dropdown-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-1);
+      padding: var(--space-2) var(--space-3);
+      font-family: var(--font-display);
+      font-size: var(--text-sm);
+      font-weight: 500;
+      color: var(--color-text-muted);
+      background: none;
+      border: none;
+      border-radius: var(--radius-md);
+      transition: color var(--transition-fast), background var(--transition-fast);
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .nav-dropdown-toggle:hover {
+      color: var(--color-text);
+      background: var(--color-surface-2);
+    }
+
+    .nav-dropdown-toggle .chevron {
+      transition: transform var(--transition-fast);
+    }
+
+    .nav-dropdown-toggle[aria-expanded="true"] .chevron {
+      transform: rotate(180deg);
+    }
+
+    .nav-dropdown-menu {
+      position: absolute;
+      top: calc(100% + var(--space-2));
+      left: 50%;
+      transform: translateX(-50%);
+      min-width: 220px;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      padding: var(--space-2);
+      display: none;
+      z-index: 100;
+    }
+
+    .nav-dropdown-menu.is-open {
+      display: block;
+    }
+
+    .nav-dropdown-menu a {
+      display: block;
+      padding: var(--space-3) var(--space-4);
+      font-family: var(--font-display);
+      font-size: var(--text-sm);
+      font-weight: 500;
+      color: var(--color-text-muted);
+      text-decoration: none;
+      border-radius: var(--radius-md);
+      transition: color var(--transition-fast), background var(--transition-fast);
+    }
+
+    .nav-dropdown-menu a:hover {
+      color: var(--color-text);
+      background: var(--color-surface-2);
+    }
+
+    /* Header Actions */
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      flex-shrink: 0;
+      margin-left: auto;
+    }
+
+    /* Theme Toggle */
+    .theme-toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 38px;
+      height: 38px;
+      background: none;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      color: var(--color-text-muted);
+      transition: color var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast);
+    }
+
+    .theme-toggle:hover {
+      color: var(--color-text);
+      border-color: var(--color-primary);
+      background: var(--color-primary-dim);
+    }
+
+    .theme-toggle .icon-sun { display: none; }
+    .theme-toggle .icon-moon { display: block; }
+    [data-theme="light"] .theme-toggle .icon-sun { display: block; }
+    [data-theme="light"] .theme-toggle .icon-moon { display: none; }
+
+    /* CTA Button */
+    .btn-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-2) var(--space-5);
+      font-family: var(--font-display);
+      font-size: var(--text-sm);
+      font-weight: 600;
+      color: var(--color-text-inverse);
+      background: var(--color-cta);
+      border: 2px solid var(--color-cta);
+      border-radius: var(--radius-md);
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background var(--transition-fast), border-color var(--transition-fast);
+    }
+
+    .btn-cta:hover {
+      background: var(--color-cta-hover);
+      border-color: var(--color-cta-hover);
+    }
+
+    /* Large CTA Button */
+    .btn-cta-lg {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-4) var(--space-8);
+      font-family: var(--font-display);
+      font-size: var(--text-base);
+      font-weight: 600;
+      color: var(--color-text-inverse);
+      background: var(--color-cta);
+      border: 2px solid var(--color-cta);
+      border-radius: var(--radius-md);
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background var(--transition-fast), border-color var(--transition-fast);
+    }
+
+    .btn-cta-lg:hover {
+      background: var(--color-cta-hover);
+      border-color: var(--color-cta-hover);
+    }
+
+    /* Outline Button */
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-4) var(--space-8);
+      font-family: var(--font-display);
+      font-size: var(--text-base);
+      font-weight: 600;
+      color: var(--color-primary);
+      background: transparent;
+      border: 2px solid var(--color-primary);
+      border-radius: var(--radius-md);
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background var(--transition-fast), color var(--transition-fast);
+    }
+
+    .btn-outline:hover {
+      background: var(--color-primary-dim);
+    }
+
+    /* Mobile hamburger */
+    .nav-hamburger {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      width: 38px;
+      height: 38px;
+      background: none;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      color: var(--color-text-muted);
+      margin-left: var(--space-2);
+    }
+
+    /* Mobile nav panel */
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      background: var(--color-bg);
+      padding: var(--space-6);
+      overflow-y: auto;
+      flex-direction: column;
+    }
+
+    .mobile-nav.is-open {
+      display: flex;
+    }
+
+    .mobile-nav-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: var(--space-8);
+    }
+
+    .mobile-nav-close {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 38px;
+      height: 38px;
+      background: none;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      color: var(--color-text-muted);
+    }
+
+    .mobile-nav-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+
+    .mobile-nav-link {
+      display: block;
+      padding: var(--space-4) var(--space-4);
+      font-family: var(--font-display);
+      font-size: var(--text-lg);
+      font-weight: 600;
+      color: var(--color-text);
+      text-decoration: none;
+      border-radius: var(--radius-md);
+      border-bottom: 1px solid var(--color-divider);
+    }
+
+    .mobile-nav-link:hover {
+      background: var(--color-surface-2);
+    }
+
+    .mobile-nav-link[aria-current="page"] {
+      color: var(--color-primary);
+    }
+
+    .mobile-nav-submenu {
+      padding-left: var(--space-4);
+    }
+
+    .mobile-nav-submenu a {
+      display: block;
+      padding: var(--space-3) var(--space-4);
+      font-family: var(--font-display);
+      font-size: var(--text-md);
+      font-weight: 500;
+      color: var(--color-text-muted);
+      text-decoration: none;
+      border-radius: var(--radius-md);
+    }
+
+    .mobile-nav-submenu a:hover {
+      color: var(--color-text);
+      background: var(--color-surface-2);
+    }
+
+    .mobile-cta {
+      margin-top: var(--space-8);
+    }
+
+    .mobile-cta .btn-cta {
+      width: 100%;
+      padding: var(--space-4);
+      font-size: var(--text-md);
+      justify-content: center;
+    }
+
+    /* =============================================
+       LAYOUT HELPERS
+       ============================================= */
+    .container {
+      max-width: var(--content-default);
+      margin: 0 auto;
+      padding: 0 var(--space-6);
+    }
+
+    /* =============================================
+       EYEBROW / PILL
+       ============================================= */
+    .eyebrow-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-2) var(--space-4);
+      background: var(--color-primary-dim);
+      border: 1px solid rgba(102, 252, 241, 0.2);
+      border-radius: var(--radius-full);
+      font-family: var(--font-display);
+      font-size: var(--text-xs);
+      font-weight: 600;
+      color: var(--color-primary);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: var(--space-6);
+    }
+
+    .eyebrow-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--color-primary);
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.75); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .eyebrow-dot {
+        animation: none;
+      }
+    }
+
+    .section-eyebrow {
+      display: inline-block;
+      font-family: var(--font-display);
+      font-size: var(--text-xs);
+      font-weight: 600;
+      color: var(--color-primary);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: var(--space-4);
+    }
+
+    /* =============================================
+       HERO SECTION
+       ============================================= */
+    .hero {
+      position: relative;
+      padding: var(--space-24) 0 var(--space-20);
+      overflow: hidden;
+      text-align: center;
+    }
+
+    /* Ambient grid */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--color-border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--color-border) 1px, transparent 1px);
+      background-size: 48px 48px;
+      opacity: 0.3;
+      pointer-events: none;
+    }
+
+    /* Cyan glow orb */
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: -80px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 400px;
+      background: radial-gradient(ellipse at center, rgba(102, 252, 241, 0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 780px;
+      margin: 0 auto;
+    }
+
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: var(--text-hero);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--color-text);
+      margin-bottom: var(--space-6);
+    }
+
+    .hero-subtext {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+      line-height: 1.7;
+      max-width: 620px;
+      margin: 0 auto var(--space-8);
+    }
+
+    /* =============================================
+       FEATURED POST
+       ============================================= */
+    .featured-section {
+      padding: 0 0 var(--space-12);
+    }
+
+    .featured-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-xl);
+      padding: var(--space-10) var(--space-10);
+      box-shadow: var(--shadow-md), var(--glow-cyan);
+      position: relative;
+      overflow: hidden;
+      transition: border-color var(--transition-base), box-shadow var(--transition-base);
+    }
+
+    .featured-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 4px;
+      background: var(--color-primary);
+      border-radius: var(--radius-sm) 0 0 var(--radius-sm);
+    }
+
+    .featured-card:hover {
+      border-color: rgba(102, 252, 241, 0.25);
+      box-shadow: var(--shadow-lg), var(--glow-cyan);
+    }
+
+    .featured-card-inner {
+      padding-left: var(--space-4);
+    }
+
+    .featured-meta-row {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      flex-wrap: wrap;
+      margin-bottom: var(--space-5);
+    }
+
+    .badge-featured {
+      display: inline-flex;
+      align-items: center;
+      padding: var(--space-1) var(--space-3);
+      background: var(--color-cta-dim);
+      border: 1px solid rgba(242, 169, 0, 0.3);
+      border-radius: var(--radius-full);
+      font-family: var(--font-display);
+      font-size: var(--text-xs);
+      font-weight: 700;
+      color: var(--color-cta);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .badge-category {
+      display: inline-flex;
+      align-items: center;
+      padding: var(--space-1) var(--space-3);
+      background: var(--color-primary-dim);
+      border: 1px solid rgba(102, 252, 241, 0.2);
+      border-radius: var(--radius-full);
+      font-family: var(--font-display);
+      font-size: var(--text-xs);
+      font-weight: 600;
+      color: var(--color-primary);
+      letter-spacing: 0.04em;
+    }
+
+    .post-date {
+      font-size: var(--text-sm);
+      color: var(--color-text-faint);
+    }
+
+    .featured-title {
+      font-family: var(--font-display);
+      font-size: var(--text-2xl);
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      color: var(--color-text);
+      margin-bottom: var(--space-4);
+    }
+
+    .featured-title a {
+      text-decoration: none;
+      color: inherit;
+      transition: color var(--transition-fast);
+    }
+
+    .featured-title a:hover {
+      color: var(--color-primary);
+    }
+
+    .featured-excerpt {
+      font-size: var(--text-md);
+      color: var(--color-text-muted);
+      line-height: 1.75;
+      max-width: 720px;
+      margin-bottom: var(--space-6);
+    }
+
+    .featured-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: var(--space-4);
+    }
+
+    .featured-author {
+      display: grid;
+      grid-template-columns: 44px 1fr;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .author-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center 34%;
+      border: 2px solid rgba(102, 252, 241, 0.65);
+      box-shadow: 0 0 0 2px rgba(255, 201, 71, 0.18);
+      background: var(--color-surface-2);
+      flex: 0 0 auto;
+    }
+
+    .author-copy {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-1);
+    }
+
+    .author-name {
+      font-family: var(--font-display);
+      font-size: var(--text-sm);
+      font-weight: 600;
+      color: var(--color-text);
+    }
+
+    .author-role {
+      font-size: var(--text-xs);
+      color: var(--color-text-muted);
+    }
+
+    .featured-right {
+      display: flex;
+      align-items: center;
+      gap: var(--space-6);
+    }
+
+    .read-time {
+      font-size: var(--text-sm);
+      color: var(--color-text-faint);
+    }
+
+    .read-link {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-family: var(--font-display);
+      font-size: var(--text-sm);
+      font-weight: 600;
+      color: var(--color-primary);
+      text-decoration: none;
+      transition: color var(--transition-fast), gap var(--transition-fast);
+    }
+
+    .read-link:hover {
+      color: var(--color-primary-hover);
+      gap: var(--space-3);
+    }
+
+    /* =============================================
+       FILTER BAR
+       ============================================= */
+    .filter-section {
+      padding: var(--space-8) 0 var(--space-4);
+    }
+
+    .filter-bar {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      display: inline-flex;
+      align-items: center;
+      padding: var(--space-2) var(--space-4);
+      font-family: var(--font-display);
+      font-size: var(--text-sm);
+      font-weight: 500;
+      color: var(--color-text-muted);
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-full);
+      cursor: pointer;
+      transition: color var(--transition-fast), background var(--transition-fast), border-color var(--transition-fast);
+      white-space: nowrap;
+    }
+
+    .filter-btn:hover {
+      color: var(--color-text);
+      border-color: var(--color-primary);
+      background: var(--color-primary-dim);
+    }
+
+    .filter-btn[aria-pressed="true"] {
+      color: var(--color-text-inverse);
+      background: var(--color-cta);
+      border-color: var(--color-cta);
+      font-weight: 600;
+    }
+
+    [data-theme="light"] .filter-btn[aria-pressed="true"] {
+      color: #fff;
+    }
+
+    .filter-count {
+      font-size: var(--text-xs);
+      color: var(--color-text-faint);
+      margin-top: var(--space-3);
+    }
+
+    /* =============================================
+       POSTS GRID
+       ============================================= */
+    .posts-section {
+      padding: var(--space-8) 0 var(--space-20);
+    }
+
+    .posts-header {
+      margin-bottom: var(--space-8);
+    }
+
+    .posts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: var(--space-6);
+    }
+
+    /* Post Card */
+    .post-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-xl);
+      padding: var(--space-8);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+      transition: border-color var(--transition-base), box-shadow var(--transition-base), transform var(--transition-base);
+    }
+
+    .post-card:hover {
+      border-color: rgba(102, 252, 241, 0.2);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .post-card:hover {
+        transform: none;
+      }
+    }
+
+    .post-card[hidden] {
+      display: none;
+    }
+
+    .post-card-meta {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      flex-wrap: wrap;
+    }
+
+    .post-card-title {
+      font-family: var(--font-display);
+      font-size: var(--text-lg);
+      font-weight: 700;
+      line-height: 1.25;
+      letter-spacing: -0.01em;
+      color: var(--color-text);
+      flex: 1;
+    }
+
+    .post-card-title a {
+      text-decoration: none;
+      color: inherit;
+      transition: color var(--transition-fast);
+    }
+
+    .post-card-title a:hover {
+      color: var(--color-primary);
+    }
+
+    .post-card-excerpt {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+      line-height: 1.7;
+      flex: 1;
+    }
+
+    .post-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-3);
+      padding-top: var(--space-4);
+      border-top: 1px solid var(--color-divider);
+      margin-top: auto;
+    }
+
+    .post-card-author-row {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .post-card-read-link {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-1);
+      font-family: var(--font-display);
+      font-size: var(--text-xs);
+      font-weight: 600;
+      color: var(--color-primary);
+      text-decoration: none;
+      transition: color var(--transition-fast), gap var(--transition-fast);
+      white-space: nowrap;
+    }
+
+    .post-card-read-link:hover {
+      color: var(--color-primary-hover);
+      gap: var(--space-2);
+    }
+
+    /* =============================================
+       NEWSLETTER SECTION
+       ============================================= */
+    .newsletter-section {
+      background: var(--color-surface);
+      border-top: 1px solid var(--color-border);
+      border-bottom: 1px solid var(--color-border);
+      padding: var(--space-20) 0;
+    }
+
+    .newsletter-inner {
+      max-width: 560px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .newsletter-inner .section-eyebrow {
+      display: block;
+    }
+
+    .newsletter-title {
+      font-family: var(--font-display);
+      font-size: var(--text-3xl);
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      color: var(--color-text);
+      margin-bottom: var(--space-4);
+    }
+
+    .newsletter-subtext {
+      font-size: var(--text-md);
+      color: var(--color-text-muted);
+      line-height: 1.7;
+      margin-bottom: var(--space-8);
+    }
+
+    .newsletter-form-wrap {
+      text-align: left;
+    }
+
+    .newsletter-form-wrap.is-hidden {
+      display: none;
+    }
+
+    .form-label {
+      display: block;
+      font-family: var(--font-display);
+      font-size: var(--text-sm);
+      font-weight: 600;
+      color: var(--color-text);
+      margin-bottom: var(--space-2);
+    }
+
+    .form-input-row {
+      display: flex;
+      gap: var(--space-3);
+    }
+
+    .form-input {
+      flex: 1;
+      padding: var(--space-3) var(--space-4);
+      font-family: var(--font-body);
+      font-size: var(--text-base);
+      color: var(--color-text);
+      background: var(--color-surface-2);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+      min-width: 0;
+    }
+
+    .form-input::placeholder {
+      color: var(--color-text-faint);
+    }
+
+    .form-input:focus {
+      outline: 3px solid var(--color-cta);
+      outline-offset: 2px;
+      border-color: var(--color-cta);
+    }
+
+    .form-hint {
+      display: block;
+      margin-top: var(--space-3);
+      font-size: var(--text-xs);
+      color: var(--color-text-faint);
+    }
+
+    .newsletter-success {
+      display: none;
+      padding: var(--space-5) var(--space-6);
+      background: var(--color-primary-dim);
+      border: 1px solid rgba(102, 252, 241, 0.25);
+      border-radius: var(--radius-lg);
+      text-align: center;
+    }
+
+    .newsletter-success.is-visible {
+      display: block;
+    }
+
+    .newsletter-success p {
+      font-family: var(--font-display);
+      font-size: var(--text-md);
+      font-weight: 600;
+      color: var(--color-primary);
+    }
+
+    @media (max-width: 520px) {
+      .form-input-row {
+        flex-direction: column;
+      }
+    }
+
+    /* =============================================
+       BOTTOM CTA
+       ============================================= */
+    .bottom-cta {
+      padding: var(--space-20) 0;
+      text-align: center;
+    }
+
+    .bottom-cta-inner {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .bottom-cta h2 {
+      font-family: var(--font-display);
+      font-size: var(--text-3xl);
+      font-weight: 700;
+      color: var(--color-text);
+      letter-spacing: -0.02em;
+      margin-bottom: var(--space-4);
+    }
+
+    .bottom-cta p {
+      font-size: var(--text-md);
+      color: var(--color-text-muted);
+      line-height: 1.7;
+      margin-bottom: var(--space-8);
+    }
+
+    .cta-buttons {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-4);
+      flex-wrap: wrap;
+    }
+
+    /* =============================================
+       FOOTER
+       ============================================= */
+    .site-footer {
+      background: var(--color-surface);
+      border-top: 1px solid var(--color-border);
+      padding: var(--space-12) 0 var(--space-8);
+    }
+
+    .footer-inner {
+      max-width: var(--content-default);
+      margin: 0 auto;
+      padding: 0 var(--space-6);
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: var(--space-8);
+      align-items: start;
+      margin-bottom: var(--space-8);
+      padding-bottom: var(--space-8);
+      border-bottom: 1px solid var(--color-divider);
+    }
+
+    @media (max-width: 640px) {
+      .footer-top {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .footer-brand .logo-link {
+      margin-bottom: var(--space-4);
+      display: inline-flex;
+    }
+
+    .footer-tagline {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+      max-width: 300px;
+      line-height: 1.6;
+    }
+
+    .footer-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-4) var(--space-6);
+      align-items: center;
+    }
+
+    .footer-nav a {
+      font-family: var(--font-display);
+      font-size: var(--text-sm);
+      font-weight: 500;
+      color: var(--color-text-muted);
+      text-decoration: none;
+      transition: color var(--transition-fast);
+    }
+
+    .footer-nav a:hover {
+      color: var(--color-primary);
+    }
+
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: var(--space-4);
+    }
+
+    .footer-copyright {
+      font-size: var(--text-xs);
+      color: var(--color-text-faint);
+    }
+
+    /* =============================================
+       RESPONSIVE NAV BREAKPOINTS
+       ============================================= */
+    @media (max-width: 899px) {
+      .primary-nav {
+        display: none;
+      }
+      .header-actions .btn-cta {
+        display: none;
+      }
+      .nav-hamburger {
+        display: inline-flex;
+      }
+    }
+
+    @media (min-width: 900px) {
+      .nav-hamburger {
+        display: none;
+      }
+    }
+
+    /* =============================================
+       MISC UTILITY
+       ============================================= */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    @media (max-width: 768px) {
+      .featured-card {
+        padding: var(--space-8) var(--space-6);
+      }
+      .featured-card-inner {
+        padding-left: var(--space-2);
+      }
+      .featured-footer {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .featured-right {
+        flex-direction: row;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .filter-bar {
+        gap: var(--space-2);
+      }
+      .hero h1 {
+        font-size: clamp(1.875rem, 7vw, 3rem);
+      }
+    }
+  
+    /* Brand refresh: keep persistent header content off the viewport edge. */
+    .site-header .header-inner {
+      padding-inline: var(--space-4, 1rem);
+    }
+    @media (min-width: 768px) {
+      .site-header .header-inner {
+        padding-inline: var(--space-6, 1.5rem);
+      }
+    }
+    
+    /* Brand refresh: shared navigation compatibility and mobile drawer behavior. */
+    .nav-dropdown:hover .nav-dropdown-menu,
+    .dropdown:hover .nav-dropdown-menu,
+    .nav-dropdown:focus-within .nav-dropdown-menu,
+    .dropdown:focus-within .nav-dropdown-menu,
+    .nav-dropdown-menu.is-open {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(0);
+      display: block;
+    }
+    .mobile-nav {
+      display: none;
+      flex-direction: column;
+      gap: var(--space-4, 1rem);
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      overflow-y: auto;
+      padding: var(--space-5, 1.25rem);
+      background: var(--color-bg, #0B0C10);
+      color: var(--color-text, #F7F9FB);
+    }
+    .mobile-nav.open {
+      display: flex;
+    }
+    .mobile-nav-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-4, 1rem);
+      padding-bottom: var(--space-4, 1rem);
+      border-bottom: 1px solid var(--color-border, rgba(102,252,241,.18));
+    }
+    .mobile-nav-close {
+      min-width: 44px;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius-full, 9999px);
+      color: inherit;
+      background: transparent;
+      border: 1px solid var(--color-border, rgba(102,252,241,.18));
+    }
+    .mobile-nav-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2, .5rem);
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+    .mobile-nav-link,
+    .mobile-submenu-link {
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      width: 100%;
+      padding: var(--space-3, .75rem) var(--space-4, 1rem);
+      border-radius: var(--radius-md, .5rem);
+      color: var(--color-text-secondary, var(--color-text-muted, #C5C6C7));
+      text-decoration: none;
+    }
+    .mobile-nav-link:hover,
+    .mobile-nav-link:focus-visible,
+    .mobile-submenu-link:hover,
+    .mobile-submenu-link:focus-visible,
+    .mobile-nav-link[aria-current="page"] {
+      color: var(--color-cyan, var(--color-primary, #66FCF1));
+      background: rgba(102,252,241,.08);
+    }
+    .mobile-cta {
+      margin-top: auto;
+      padding-top: var(--space-4, 1rem);
+      border-top: 1px solid var(--color-border, rgba(102,252,241,.18));
+    }
+    @media (min-width: 900px) {
+      .mobile-nav.open { display: none; }
+    }
+    
+    /* Brand refresh: avoid mid-width nav overflow by using drawer navigation on tablets. */
+    @media (max-width: 1099px) {
+      .primary-nav,
+      .header-actions .btn-cta {
+        display: none !important;
+      }
+      .nav-hamburger,
+      .mobile-menu-btn {
+        display: inline-flex !important;
+      }
+    }
+    @media (min-width: 1100px) {
+      .primary-nav {
+        display: flex !important;
+      }
+      .nav-hamburger,
+      .mobile-menu-btn {
+        display: none !important;
+      }
+    }
+    </style>
+
+
+<style id="qa11y-final-responsive-nav">
+  /* QA11Y final responsive navigation safeguard: drawer owns navigation below tablet/desktop handoff. */
+  @media (max-width: 1100px) {
+    header .desktop-nav,
+    header .nav-list,
+    header nav[aria-label="Primary"] .nav-list {
+      display: none !important;
+    }
+    header .nav-hamburger,
+    header .mobile-menu-btn,
+    header #mobile-toggle {
+      display: inline-flex !important;
+      align-items: center;
+      justify-content: center;
+      min-width: 44px;
+      min-height: 44px;
+    }
+    #mobile-nav.open,
+    #mobile-nav.is-open,
+    .mobile-nav.open,
+    .mobile-nav.is-open {
+      display: flex !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+      pointer-events: auto !important;
+      transform: none !important;
+    }
+  }
+  @media (min-width: 1101px) {
+    header .nav-hamburger,
+    header .mobile-menu-btn,
+    header #mobile-toggle {
+      display: none !important;
+    }
+  }
+</style>
+
+<style id="qa11y-pa11y-aa-contrast">
+  /* QA11Y Labs targeted WCAG AA hardening.
+     Scoped by component background: dark surfaces use light text; light surfaces use dark ink. */
+  :root {
+    --qa11y-aa-bg: #0B0C10;
+    --qa11y-aa-surface: #12151D;
+    --qa11y-aa-text: #F7FAFC;
+    --qa11y-aa-cyan: #8FFDF7;
+    --qa11y-aa-gold: #F7C948;
+    --qa11y-aa-ink: #05070A;
+    --qa11y-aa-body-ink: #1A1D26;
+  }
+
+  .article-hero,
+  .related-posts,
+  .site-footer,
+  footer {
+    background-color: var(--qa11y-aa-bg) !important;
+  }
+
+  .article-hero .article-title,
+  .article-hero .article-eyebrow,
+  .article-hero .article-author-name,
+  .article-hero .article-meta,
+  .article-hero .article-meta span,
+  .article-hero .article-meta time,
+  .article-hero .article-meta-divider,
+  .site-footer h3,
+  .site-footer .footer-tagline,
+  .site-footer .footer-copyright,
+  .site-footer .footer-copy,
+  .site-footer .footer-bottom,
+  .site-footer .footer-bottom p,
+  .site-footer .footer-bottom span,
+  .site-footer .footer-bottom a,
+  .site-footer .footer-nav a,
+  .site-footer .footer-legal a,
+  .site-footer .logo-qa,
+  .site-footer .logo-11y,
+  footer h3,
+  footer .footer-tagline,
+  footer .footer-copyright,
+  footer .footer-copy,
+  footer .footer-bottom,
+  footer .footer-bottom p,
+  footer .footer-bottom span,
+  footer .footer-bottom a,
+  footer .footer-nav a,
+  footer .footer-legal a,
+  footer .logo-qa,
+  footer .logo-11y,
+  footer span[aria-hidden="true"],
+  footer a[href="accessibility.html"] {
+    color: var(--qa11y-aa-text) !important;
+  }
+
+  .site-footer .logo-11y,
+  footer .logo-11y,
+  .site-footer .logo-qa,
+  footer .logo-qa {
+    color: var(--qa11y-aa-cyan) !important;
+  }
+  .logo-labs,
+  .site-footer .logo-labs,
+  footer .logo-labs {
+    color: var(--qa11y-aa-gold) !important;
+  }
+
+  .related-card,
+  .trust-pill,
+  .tag,
+  .badge-category,
+  .badge-featured,
+  .eyebrow-pill,
+  .filter-btn,
+  .trust-pill-check {
+    color: var(--qa11y-aa-text) !important;
+    background-color: var(--qa11y-aa-surface) !important;
+    border-color: rgba(102, 252, 241, 0.45) !important;
+  }
+  .related-posts-heading,
+  .related-card-title,
+  .related-card-time,
+  .related-card-cat,
+  .resource-card .card-source,
+  .stat-card .stat-sub,
+  .case-study-section h3,
+  .case-study-stats h3,
+  .case-study-right h3 {
+    color: var(--qa11y-aa-text) !important;
+  }
+
+  /* Light content surfaces. */
+  .article-body h2,
+  .article-body h3,
+  .article-body strong,
+  .hero-subtext,
+  .section-number,
+  .info-label,
+  .featured-card .post-date,
+  .featured-card .read-time,
+  .featured-card .featured-excerpt,
+  .filter-count,
+  .jump-nav-label,
+  .form-hint,
+  .scan-note,
+  .scan-url-hint,
+  .zcal-fallback,
+  .field-required,
+  .cta-divider,
+  .sample-report-icon,
+  .subsection-heading {
+    color: var(--qa11y-aa-body-ink) !important;
+  }
+
+  .article-body pre,
+  .article-body code,
+  .article-body p code,
+  .article-body li code,
+  .article-body strong code,
+  .article-body h2 code,
+  .article-body h3 code {
+    background-color: #080C10 !important;
+    color: #F7FFFF !important;
+  }
+
+  .btn-cta,
+  .btn-cta-lg,
+  .btn-cta-sm,
+  .btn-submit,
+  .btn-scan {
+    color: var(--qa11y-aa-ink) !important;
+    background-color: #66FCF1 !important;
+    border-color: #66FCF1 !important;
+    text-shadow: none !important;
+  }
+  .btn-scan span,
+  #scan-btn-label {
+    color: var(--qa11y-aa-ink) !important;
+  }
+
+  .btn-amber {
+    color: var(--qa11y-aa-ink) !important;
+    background-color: var(--qa11y-aa-gold) !important;
+    border-color: var(--qa11y-aa-gold) !important;
+    text-shadow: none !important;
+  }
+
+  .btn-outline {
+    color: var(--qa11y-aa-text) !important;
+    background-color: #111722 !important;
+    border-color: rgba(143, 253, 247, 0.55) !important;
+  }
+
+
+  /* Final pa11y pass: exact remaining component contexts. */
+  .post-card .post-date,
+  .post-card .read-time {
+    color: #454A57 !important;
+  }
+  .subsection-heading,
+  .jump-nav-label,
+  .trust-label,
+  .cta-divider {
+    color: var(--qa11y-aa-text) !important;
+  }
+  .sample-report-icon {
+    color: var(--qa11y-aa-ink) !important;
+    background-color: var(--qa11y-aa-text) !important;
+  }
+</style>
+
+
+<style id="qa11y-accessible-nav-fix">
+  /* QA11Y accessible navigation fix: desktop services disclosure + mobile submenu safeguards. */
+  .nav-dropdown {
+    position: relative;
+  }
+
+  .nav-dropdown-toggle,
+  .mobile-nav-disclosure {
+    touch-action: manipulation;
+  }
+
+  .nav-dropdown-toggle[aria-expanded="true"] .chevron,
+  .mobile-nav-disclosure[aria-expanded="true"] .chevron {
+    transform: rotate(180deg);
+  }
+
+  .nav-dropdown-menu[hidden],
+  .mobile-submenu[hidden] {
+    display: none !important;
+  }
+
+  .nav-dropdown-menu.is-open,
+  .nav-dropdown-toggle[aria-expanded="true"] + .nav-dropdown-menu {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    transform: translateX(-50%) translateY(0) !important;
+  }
+
+  .nav-dropdown-menu a,
+  .mobile-submenu a {
+    min-height: 44px;
+  }
+
+  .nav-dropdown-toggle:focus-visible,
+  .mobile-nav-disclosure:focus-visible,
+  .nav-hamburger:focus-visible,
+  .mobile-nav-close:focus-visible {
+    outline: 2px solid var(--color-cyan, var(--color-primary, #66FCF1));
+    outline-offset: 3px;
+  }
+</style>
+
+</head>
+<body>
+
+  <!-- ============================================
+       SKIP LINK
+       ============================================ -->
+  <a class="skip-link" href="blog.html#main-content">Skip to main content</a>
+
+  <!-- ============================================
+       HEADER
+       ============================================ -->
+    <header class="site-header" role="banner">
+    <div class="header-inner">
+
+      <!-- Logo -->
+      <a class="logo-link logo-link--image" href="index.html" aria-label="QA11Y Labs — Home">
+        <img class="logo-image" src="assets/brand/qa11ylabs-logo-horizontal-transparent.png" alt="QA11Y Labs" width="160" height="40" decoding="async">
+      </a>
+
+      <!-- Primary Nav -->
+      <nav class="primary-nav" aria-label="Primary navigation">
+        <ul class="nav-list" role="list">
+          <li><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-dropdown">
+            <button
+              class="nav-link nav-dropdown-toggle"
+              aria-haspopup="true"
+              aria-expanded="false"
+              aria-controls="services-menu"
+              id="services-menu-btn"
+              type="button"
+            >
+              Services
+              <svg class="chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" focusable="false">
+                <path d="M2.5 4.5l3.5 3.5 3.5-3.5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <ul
+              class="nav-dropdown-menu"
+              id="services-menu"
+              role="menu"
+              aria-labelledby="services-menu-btn"
+            >
+              <li role="none"><a href="services.html" role="menuitem" class="dropdown-item">All Services</a></li>
+              <li role="none"><a href="services.html#audits-heading" role="menuitem" class="dropdown-item">WCAG Audits</a></li>
+              <li role="none"><a href="services.html#remediation-heading" role="menuitem" class="dropdown-item">Remediation</a></li>
+              <li role="none"><a href="services.html#retainers-heading" role="menuitem" class="dropdown-item">Monitoring</a></li>
+              <li role="none"><a href="services.html#consulting-heading" role="menuitem" class="dropdown-item">Consulting</a></li>
+            </ul>
+          </li>
+          <li><a class="nav-link" href="case-studies.html">Case Studies</a></li>
+          <li><a class="nav-link" aria-current="page" href="blog.html">The Log</a></li>
+          <li><a class="nav-link" href="resources.html">Resources</a></li>
+          <li><a class="nav-link" href="about.html">About</a></li>
+          <li><a class="nav-link" href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+
+      <!-- Header Actions -->
+      <div class="header-actions">
+        <button
+          class="theme-toggle"
+          id="theme-toggle"
+          aria-label="Toggle light/dark mode"
+          type="button"
+        >
+          <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
+            <circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"/>
+            <path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
+            <path d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <a class="btn-cta" href="schedule.html">Schedule Consultation</a>
+        <button
+          class="nav-hamburger"
+          id="nav-hamburger"
+          aria-label="Open navigation menu"
+          aria-expanded="false"
+          aria-controls="mobile-nav"
+          type="button"
+        >
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true" focusable="false">
+            <path d="M2 5h16M2 10h16M2 15h16" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MOBILE NAV -->
+  <div
+    class="mobile-nav"
+    id="mobile-nav"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Navigation menu"
+  >
+    <div class="mobile-nav-header">
+      <a class="logo-link logo-link--image" href="index.html" aria-label="QA11Y Labs — Home">
+        <img class="logo-image" src="assets/brand/qa11ylabs-logo-horizontal-transparent.png" alt="QA11Y Labs" width="160" height="40" decoding="async">
+      </a>
+      <button
+        class="mobile-nav-close"
+        id="mobile-nav-close"
+        aria-label="Close navigation menu"
+        type="button"
+      >
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true" focusable="false">
+          <path d="M4 4l12 12M16 4L4 16" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+    <nav aria-label="Mobile navigation">
+      <ul class="mobile-nav-list" role="list">
+        <li><a class="mobile-nav-link" href="index.html">Home</a></li>
+        <li>
+          <button
+            class="mobile-nav-link mobile-nav-disclosure"
+            aria-expanded="false"
+            aria-controls="mobile-services-list"
+            type="button"
+          >
+            Services
+            <svg class="chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" focusable="false">
+              <path d="M2.5 4.5l3.5 3.5 3.5-3.5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <ul class="mobile-submenu" id="mobile-services-list" hidden>
+            <li><a class="mobile-submenu-link" href="services.html">All Services</a></li>
+            <li><a class="mobile-submenu-link" href="services.html#audits-heading">WCAG Audits</a></li>
+            <li><a class="mobile-submenu-link" href="services.html#remediation-heading">Remediation</a></li>
+            <li><a class="mobile-submenu-link" href="services.html#retainers-heading">Monitoring</a></li>
+            <li><a class="mobile-submenu-link" href="services.html#consulting-heading">Consulting</a></li>
+          </ul>
+        </li>
+        <li><a class="mobile-nav-link" href="case-studies.html">Case Studies</a></li>
+        <li><a class="mobile-nav-link" aria-current="page" href="blog.html">The Log</a></li>
+        <li><a class="mobile-nav-link" href="resources.html">Resources</a></li>
+        <li><a class="mobile-nav-link" href="about.html">About</a></li>
+        <li><a class="mobile-nav-link" href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="mobile-cta">
+      <a class="btn-cta" href="schedule.html">Schedule Consultation</a>
+    </div>
+  </div>
+
+
+  <main id="main-content" tabindex="-1">
+
+    <!-- ==========================================
+         HERO SECTION
+         ========================================== -->
+    <section class="hero" aria-labelledby="hero-heading">
+      <div class="container">
+        <div class="hero-content">
+          <div class="eyebrow-pill" aria-hidden="true">
+            <span class="eyebrow-dot"></span>
+            The Log
+          </div>
+          <h1 id="hero-heading">Practical accessibility — written by someone who lives it.</h1>
+          <p class="hero-subtext">
+            No certification fluff. No recycled WCAG summaries. Just real-world insights from 25+ years of daily screen reader use.
+          </p>
+          <a class="btn-cta-lg" href="blog.html#newsletter">Subscribe for updates</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         FEATURED POST
+         ========================================== -->
+    <section class="featured-section" aria-labelledby="featured-post-heading">
+      <div class="container">
+        <p class="sr-only" id="featured-post-heading">Featured article</p>
+        <article class="featured-card" aria-labelledby="featured-title">
+          <div class="featured-card-inner">
+            <div class="featured-meta-row">
+              <span class="badge-featured" aria-label="Featured article">Featured</span>
+              <span class="badge-category">WCAG 2.2</span>
+              <time class="post-date" datetime="2026-04-15">April 15, 2026</time>
+            </div>
+            <h2 class="featured-title" id="featured-title">
+              <a href="blog-wcag-22-new-criteria.html">What WCAG 2.2 Actually Changes — And What It Doesn't</a>
+            </h2>
+            <p class="featured-excerpt">
+              WCAG 2.2 added 9 new success criteria and removed one. But which ones actually matter for your users? After testing them all with JAWS, NVDA, and VoiceOver, here's what I found actually makes a difference in the real world.
+            </p>
+            <div class="featured-footer">
+              <div class="featured-author">
+                <img class="author-avatar" src="assets/images/quintin-williams-author-avatar.jpg" width="44" height="44" alt="Quintin Williams" loading="lazy" decoding="async">
+                <span class="author-copy">
+                  <span class="author-name">Quint Williams</span>
+                  <span class="author-role">Founder, QA11Y Labs</span>
+                </span>
+              </div>
+              <div class="featured-right">
+                <span class="read-time">8 min read</span>
+                <a class="read-link" href="blog-wcag-22-new-criteria.html">
+                  Read Article
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false">
+                    <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         FILTER BAR
+         ========================================== -->
+    <section class="filter-section" aria-labelledby="filter-label">
+      <div class="container">
+        <p class="sr-only" id="filter-label">Filter posts by category</p>
+        <div class="filter-bar" role="group" aria-labelledby="filter-label">
+          <button class="filter-btn" data-filter="all" aria-pressed="true" type="button">All</button>
+          <button class="filter-btn" data-filter="wcag" aria-pressed="false" type="button">WCAG 2.2</button>
+          <button class="filter-btn" data-filter="screen-readers" aria-pressed="false" type="button">Screen Readers</button>
+          <button class="filter-btn" data-filter="aria" aria-pressed="false" type="button">ARIA</button>
+          <button class="filter-btn" data-filter="legal" aria-pressed="false" type="button">Legal &amp; Compliance</button>
+          <button class="filter-btn" data-filter="developer-tips" aria-pressed="false" type="button">Developer Tips</button>
+        </div>
+        <p class="filter-count" id="filter-results" aria-live="polite" aria-atomic="true"></p>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         POSTS GRID
+         ========================================== -->
+    <section class="posts-section" aria-labelledby="posts-heading">
+      <div class="container">
+        <div class="posts-header">
+          <span class="section-eyebrow" id="posts-heading">All Posts</span>
+        </div>
+        <div class="posts-grid" id="posts-grid" role="list">
+
+          <!-- Post 0: Automated Tools -->
+          <article
+            class="post-card"
+            data-category="screen-readers"
+            role="listitem"
+            aria-labelledby="post-title-0"
+          >
+            <div class="post-card-meta">
+              <span class="badge-category">Screen Readers</span>
+              <time class="post-date" datetime="2026-04-15">April 15, 2026</time>
+            </div>
+            <h3 class="post-card-title" id="post-title-0">
+              <a href="blog-automated-tools-30-percent.html">Why Automated Tools Only Catch 30% of Accessibility Barriers</a>
+            </h3>
+            <p class="post-card-excerpt">
+              axe-core, Lighthouse, and Pa11y are essential — but they miss the majority of real barriers. After thousands of hours with JAWS, here's what only a human tester can catch.
+            </p>
+            <div class="post-card-footer">
+              <div class="post-card-author-row">
+                <span class="post-card-author"><img class="author-avatar" src="assets/images/quintin-williams-author-avatar.jpg" width="32" height="32" alt="Quintin Williams" loading="lazy" decoding="async"><span class="author-name">Quint Williams</span></span>
+                <span class="read-time">9 min read</span>
+              </div>
+              <a class="post-card-read-link" href="blog-automated-tools-30-percent.html" aria-label="Read Why Automated Tools Only Catch 30% of Accessibility Barriers">
+                Read
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true" focusable="false">
+                  <path d="M2.5 7h9M7.5 3.5L11 7l-3.5 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            </div>
+          </article>
+
+          <!-- Post 1: Screen Readers -->
+          <article
+            class="post-card"
+            data-category="screen-readers"
+            role="listitem"
+            aria-labelledby="post-title-1"
+          >
+            <div class="post-card-meta">
+              <span class="badge-category">Screen Readers</span>
+              <time class="post-date" datetime="2026-04-08">April 8, 2026</time>
+            </div>
+            <h3 class="post-card-title" id="post-title-1">
+              <a href="blog-nvda-2024-update.html">NVDA 2024: What Changed and Why It Matters for Web Developers</a>
+            </h3>
+            <p class="post-card-excerpt">
+              The latest NVDA release introduced changes to how it handles ARIA live regions and modal dialogs. If you haven't updated your test workflows, you may be missing real user bugs.
+            </p>
+            <div class="post-card-footer">
+              <div class="post-card-author-row">
+                <span class="post-card-author"><img class="author-avatar" src="assets/images/quintin-williams-author-avatar.jpg" width="32" height="32" alt="Quintin Williams" loading="lazy" decoding="async"><span class="author-name">Quint Williams</span></span>
+                <span class="read-time">6 min read</span>
+              </div>
+              <a class="post-card-read-link" href="blog-nvda-2024-update.html" aria-label="Read NVDA 2024: What Changed and Why It Matters for Web Developers">
+                Read
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true" focusable="false">
+                  <path d="M2.5 7h9M7.5 3.5L11 7l-3.5 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            </div>
+          </article>
+
+          <!-- Post 2: ARIA -->
+          <article
+            class="post-card"
+            data-category="aria"
+            role="listitem"
+            aria-labelledby="post-title-2"
+          >
+            <div class="post-card-meta">
+              <span class="badge-category">ARIA</span>
+              <time class="post-date" datetime="2026-03-29">March 29, 2026</time>
+            </div>
+            <h3 class="post-card-title" id="post-title-2">
+              <a href="blog-aria-mistakes.html">The 5 ARIA Mistakes I See on Almost Every Site I Audit</a>
+            </h3>
+            <p class="post-card-excerpt">
+              After 40+ accessibility audits, certain ARIA patterns appear again and again — and they're almost always wrong. Here's what to look for and how to fix each one.
+            </p>
+            <div class="post-card-footer">
+              <div class="post-card-author-row">
+                <span class="post-card-author"><img class="author-avatar" src="assets/images/quintin-williams-author-avatar.jpg" width="32" height="32" alt="Quintin Williams" loading="lazy" decoding="async"><span class="author-name">Quint Williams</span></span>
+                <span class="read-time">10 min read</span>
+              </div>
+              <a class="post-card-read-link" href="blog-aria-mistakes.html" aria-label="Read The 5 ARIA Mistakes I See on Almost Every Site I Audit">
+                Read
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true" focusable="false">
+                  <path d="M2.5 7h9M7.5 3.5L11 7l-3.5 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            </div>
+          </article>
+
+          <!-- Post 3: Legal -->
+          <article
+            class="post-card"
+            data-category="legal"
+            role="listitem"
+            aria-labelledby="post-title-3"
+          >
+            <div class="post-card-meta">
+              <span class="badge-category">Legal &amp; Compliance</span>
+              <time class="post-date" datetime="2026-03-18">March 18, 2026</time>
+            </div>
+            <h3 class="post-card-title" id="post-title-3">
+              <a href="blog-ada-title-ii-2026.html">ADA Title II: What State and Local Governments Need to Know Before the Deadline</a>
+            </h3>
+            <p class="post-card-excerpt">
+              The 2024 ADA Title II rule is now in effect for large entities. Here's a plain-language breakdown of what it requires, who it covers, and how to get compliant before your deadline.
+            </p>
+            <div class="post-card-footer">
+              <div class="post-card-author-row">
+                <span class="post-card-author"><img class="author-avatar" src="assets/images/quintin-williams-author-avatar.jpg" width="32" height="32" alt="Quintin Williams" loading="lazy" decoding="async"><span class="author-name">Quint Williams</span></span>
+                <span class="read-time">7 min read</span>
+              </div>
+              <a class="post-card-read-link" href="blog-ada-title-ii-2026.html" aria-label="Read ADA Title II: What State and Local Governments Need to Know Before the Deadline">
+                Read
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true" focusable="false">
+                  <path d="M2.5 7h9M7.5 3.5L11 7l-3.5 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            </div>
+          </article>
+
+          <!-- Post 4: Developer Tips -->
+          <article
+            class="post-card"
+            data-category="developer-tips"
+            role="listitem"
+            aria-labelledby="post-title-4"
+          >
+            <div class="post-card-meta">
+              <span class="badge-category">Developer Tips</span>
+              <time class="post-date" datetime="2026-03-05">March 5, 2026</time>
+            </div>
+            <h3 class="post-card-title" id="post-title-4">
+              <a href="blog-focus-styles-wcag22.html">Why Your Focus Styles Are Failing WCAG 2.2 (And How to Fix Them)</a>
+            </h3>
+            <p class="post-card-excerpt">
+              WCAG 2.2 SC 2.4.11 and 2.4.12 tightened focus indicator requirements significantly. Most sites I test still haven't updated their CSS — here's exactly what's required.
+            </p>
+            <div class="post-card-footer">
+              <div class="post-card-author-row">
+                <span class="post-card-author"><img class="author-avatar" src="assets/images/quintin-williams-author-avatar.jpg" width="32" height="32" alt="Quintin Williams" loading="lazy" decoding="async"><span class="author-name">Quint Williams</span></span>
+                <span class="read-time">5 min read</span>
+              </div>
+              <a class="post-card-read-link" href="blog-focus-styles-wcag22.html" aria-label="Read Why Your Focus Styles Are Failing WCAG 2.2 (And How to Fix Them)">
+                Read
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true" focusable="false">
+                  <path d="M2.5 7h9M7.5 3.5L11 7l-3.5 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            </div>
+          </article>
+
+          <!-- Post 5: Screen Readers -->
+          <article
+            class="post-card"
+            data-category="screen-readers"
+            role="listitem"
+            aria-labelledby="post-title-5"
+          >
+            <div class="post-card-meta">
+              <span class="badge-category">Screen Readers</span>
+              <time class="post-date" datetime="2026-02-20">February 20, 2026</time>
+            </div>
+            <h3 class="post-card-title" id="post-title-5">
+              <a href="blog-voiceover-ios-workflow.html">Testing with VoiceOver on iOS: A Practical Workflow</a>
+            </h3>
+            <p class="post-card-excerpt">
+              VoiceOver on iOS behaves differently from desktop screen readers in ways that surprise even experienced accessibility testers. This is the workflow I use for every mobile audit.
+            </p>
+            <div class="post-card-footer">
+              <div class="post-card-author-row">
+                <span class="post-card-author"><img class="author-avatar" src="assets/images/quintin-williams-author-avatar.jpg" width="32" height="32" alt="Quintin Williams" loading="lazy" decoding="async"><span class="author-name">Quint Williams</span></span>
+                <span class="read-time">9 min read</span>
+              </div>
+              <a class="post-card-read-link" href="blog-voiceover-ios-workflow.html" aria-label="Read Testing with VoiceOver on iOS: A Practical Workflow">
+                Read
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true" focusable="false">
+                  <path d="M2.5 7h9M7.5 3.5L11 7l-3.5 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            </div>
+          </article>
+
+          <!-- Post 6: WCAG 2.2 -->
+          <article
+            class="post-card"
+            data-category="wcag"
+            role="listitem"
+            aria-labelledby="post-title-6"
+          >
+            <div class="post-card-meta">
+              <span class="badge-category">WCAG 2.2</span>
+              <time class="post-date" datetime="2026-02-10">February 10, 2026</time>
+            </div>
+            <h3 class="post-card-title" id="post-title-6">
+              <a href="blog-sc-258-target-size.html">SC 2.5.8 Explained: Target Size (Minimum) in Plain Language</a>
+            </h3>
+            <p class="post-card-excerpt">
+              The new target size criterion trips up a lot of developers — especially around what counts as "spacing" vs. actual target size. Here's the clearest explanation I can write.
+            </p>
+            <div class="post-card-footer">
+              <div class="post-card-author-row">
+                <span class="post-card-author"><img class="author-avatar" src="assets/images/quintin-williams-author-avatar.jpg" width="32" height="32" alt="Quintin Williams" loading="lazy" decoding="async"><span class="author-name">Quint Williams</span></span>
+                <span class="read-time">12 min read</span>
+              </div>
+              <a class="post-card-read-link" href="blog-sc-258-target-size.html" aria-label="Read SC 2.5.8 Explained: Target Size (Minimum) in Plain Language">
+                Read
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true" focusable="false">
+                  <path d="M2.5 7h9M7.5 3.5L11 7l-3.5 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            </div>
+          </article>
+
+          <!-- Post 7: ARIA -->
+          <article
+            class="post-card"
+            data-category="aria"
+            role="listitem"
+            aria-labelledby="post-title-7"
+          >
+            <div class="post-card-meta">
+              <span class="badge-category">ARIA</span>
+              <time class="post-date" datetime="2026-01-28">January 28, 2026</time>
+            </div>
+            <h3 class="post-card-title" id="post-title-7">
+              <a href="blog-accessible-modal.html">How to Build an Accessible Modal Dialog — The Right Way</a>
+            </h3>
+            <p class="post-card-excerpt">
+              Modal dialogs are one of the most commonly broken UI patterns I test. Focus trapping, role=dialog, aria-modal — here's the complete pattern that actually works with all major screen readers.
+            </p>
+            <div class="post-card-footer">
+              <div class="post-card-author-row">
+                <span class="post-card-author"><img class="author-avatar" src="assets/images/quintin-williams-author-avatar.jpg" width="32" height="32" alt="Quintin Williams" loading="lazy" decoding="async"><span class="author-name">Quint Williams</span></span>
+                <span class="read-time">8 min read</span>
+              </div>
+              <a class="post-card-read-link" href="blog-accessible-modal.html" aria-label="Read How to Build an Accessible Modal Dialog — The Right Way">
+                Read
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true" focusable="false">
+                  <path d="M2.5 7h9M7.5 3.5L11 7l-3.5 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            </div>
+          </article>
+
+          <!-- Post 8: Developer Tips -->
+          <article
+            class="post-card"
+            data-category="developer-tips"
+            role="listitem"
+            aria-labelledby="post-title-8"
+          >
+            <div class="post-card-meta">
+              <span class="badge-category">Developer Tips</span>
+              <time class="post-date" datetime="2026-01-15">January 15, 2026</time>
+            </div>
+            <h3 class="post-card-title" id="post-title-8">
+              <a href="blog-form-field-accessibility.html">The Accessibility Properties Every Form Field Needs</a>
+            </h3>
+            <p class="post-card-excerpt">
+              Missing labels, broken associations, and vague error messages — form accessibility failures are among the most common and most fixable. This checklist covers everything.
+            </p>
+            <div class="post-card-footer">
+              <div class="post-card-author-row">
+                <span class="post-card-author"><img class="author-avatar" src="assets/images/quintin-williams-author-avatar.jpg" width="32" height="32" alt="Quintin Williams" loading="lazy" decoding="async"><span class="author-name">Quint Williams</span></span>
+                <span class="read-time">4 min read</span>
+              </div>
+              <a class="post-card-read-link" href="blog-form-field-accessibility.html" aria-label="Read The Accessibility Properties Every Form Field Needs">
+                Read
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true" focusable="false">
+                  <path d="M2.5 7h9M7.5 3.5L11 7l-3.5 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            </div>
+          </article>
+
+        </div><!-- /#posts-grid -->
+      </div>
+    </section>
+
+    <!-- ==========================================
+         NEWSLETTER SECTION
+         ========================================== -->
+    <section class="newsletter-section" id="newsletter" aria-labelledby="newsletter-heading">
+      <div class="container">
+        <div class="newsletter-inner">
+          <span class="section-eyebrow">Stay Updated</span>
+          <h2 class="newsletter-title" id="newsletter-heading">Accessibility writing, straight from someone who lives it.</h2>
+          <p class="newsletter-subtext">New posts typically publish 2–3 times per month. No spam, no fluff.</p>
+
+          <!-- Success message (hidden until submit) -->
+          <div
+            class="newsletter-success"
+            id="newsletter-success"
+            role="status"
+            aria-live="polite"
+            aria-atomic="true"
+          >
+            <p>You're subscribed! Look out for the next issue.</p>
+          </div>
+
+          <!-- Form -->
+          <div class="newsletter-form-wrap" id="newsletter-form-wrap">
+            <form
+              action="blog.html#"
+              method="post"
+              id="newsletter-form"
+              novalidate
+            >
+              <label class="form-label" for="newsletter-email">Your email address</label>
+              <div class="form-input-row">
+                <input
+                  class="form-input"
+                  type="email"
+                  id="newsletter-email"
+                  name="email"
+                  required
+                  autocomplete="email"
+                  placeholder="you@example.com"
+                  aria-describedby="newsletter-hint"
+                />
+                <button class="btn-cta-lg" type="submit" style="padding: var(--space-3) var(--space-6); font-size: var(--text-sm);">Subscribe</button>
+              </div>
+              <span class="form-hint" id="newsletter-hint">We'll never share your email. Unsubscribe anytime.</span>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         BOTTOM CTA
+         ========================================== -->
+    <section class="bottom-cta" aria-labelledby="bottom-cta-heading">
+      <div class="container">
+        <div class="bottom-cta-inner">
+          <h2 id="bottom-cta-heading">Want expert eyes on your site?</h2>
+          <p>Reading about accessibility is a start. Working with someone who lives it is another level.</p>
+          <div class="cta-buttons">
+            <a class="btn-cta-lg" href="services.html#audits-heading">Book an Audit</a>
+            <a class="btn-outline" href="free-scan.html">Run a Free Scan</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================
+       FOOTER
+       ============================================ -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a class="logo-link logo-link--image" href="index.html" aria-label="QA11Y Labs — Home">
+        <img class="logo-image" src="assets/brand/qa11ylabs-logo-horizontal-transparent.png" alt="QA11Y Labs" width="160" height="40" decoding="async">
+      </a>
+          <p class="footer-tagline">Architecting a more inclusive digital world.</p>
+        </div>
+
+        <nav class="footer-nav" aria-label="Footer navigation">
+          <a href="index.html">Home</a>
+          <a href="services.html">Services</a>
+          <a href="about.html">About</a>
+          <a href="case-studies.html">Case Studies</a>
+          <a href="resources.html">Resources</a>
+          <a href="free-scan.html">Free Scan</a>
+          <a href="blog.html" aria-current="page">The Log</a>
+          <a href="contact.html">Contact</a>
+          <a href="schedule.html">Schedule</a>
+          <a href="https://www.linkedin.com/in/quintin-williams-b0195a119" target="_blank" rel="noopener noreferrer" aria-label="Quintin Williams on LinkedIn (opens in new tab)"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg> LinkedIn</a>
+        </nav>
+      </div>
+
+      <div class="footer-bottom">
+        <p class="footer-copyright">&copy; 2026 QA11Y Labs. All rights reserved.</p>
+      </div>
+    </div>
+          <div class="footer-legal">
+          <a href="privacy.html">Privacy Policy</a>
+          <span aria-hidden="true">·</span>
+          <a href="terms.html">Terms of Service</a>
+          <span aria-hidden="true">·</span>
+          <a href="accessibility.html">Accessibility Statement</a>
+        </div>
+  </footer>
+
+  <!-- ============================================
+       JAVASCRIPT — in-memory only, no storage APIs
+       ============================================ -->
+  <script>
+    (function () {
+      'use strict';
+
+      // ============================================
+      // THEME TOGGLE — in-memory, OS default
+      // ============================================
+      var currentTheme = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+
+      function applyTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        currentTheme = theme;
+        var btn = document.getElementById('theme-toggle');
+        if (btn) {
+          btn.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+          btn.setAttribute('aria-pressed', theme === 'light' ? 'true' : 'false');
+        }
+      }
+
+      // Apply OS default on load
+      applyTheme(currentTheme);
+
+      var themeToggle = document.getElementById('theme-toggle');
+      if (themeToggle) {
+        themeToggle.addEventListener('click', function () {
+          applyTheme(currentTheme === 'dark' ? 'light' : 'dark');
+        });
+      }
+
+      // ============================================
+      // SERVICES DROPDOWN — arrow keys, Escape, Tab
+      // ============================================
+      var dropdownToggle = document.getElementById('services-menu-button');
+      var dropdownMenu = document.getElementById('services-menu');
+
+      function openDropdown() {
+        if (!dropdownToggle || !dropdownMenu) return;
+        dropdownToggle.setAttribute('aria-expanded', 'true');
+        dropdownMenu.classList.add('is-open');
+        var firstItem = dropdownMenu.querySelector('[role="menuitem"]');
+        if (firstItem) firstItem.focus();
+      }
+
+      function closeDropdown() {
+        if (!dropdownToggle || !dropdownMenu) return;
+        dropdownToggle.setAttribute('aria-expanded', 'false');
+        dropdownMenu.classList.remove('is-open');
+      }
+
+      if (dropdownToggle) {
+        dropdownToggle.addEventListener('click', function () {
+          var expanded = dropdownToggle.getAttribute('aria-expanded') === 'true';
+          if (expanded) {
+            closeDropdown();
+          } else {
+            openDropdown();
+          }
+        });
+
+        dropdownToggle.addEventListener('keydown', function (e) {
+          if (e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            openDropdown();
+          } else if (e.key === 'Escape') {
+            closeDropdown();
+          }
+        });
+      }
+
+      if (dropdownMenu) {
+        var menuItems = dropdownMenu.querySelectorAll('[role="menuitem"]');
+
+        dropdownMenu.addEventListener('keydown', function (e) {
+          var focusedIndex = Array.prototype.indexOf.call(menuItems, document.activeElement);
+
+          if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            var next = (focusedIndex + 1) % menuItems.length;
+            menuItems[next].focus();
+          } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            var prev = (focusedIndex - 1 + menuItems.length) % menuItems.length;
+            menuItems[prev].focus();
+          } else if (e.key === 'Escape') {
+            closeDropdown();
+            if (dropdownToggle) dropdownToggle.focus();
+          } else if (e.key === 'Tab') {
+            closeDropdown();
+          }
+        });
+      }
+
+      // Close dropdown when clicking outside
+      document.addEventListener('click', function (e) {
+        if (dropdownMenu && dropdownToggle) {
+          if (!dropdownMenu.contains(e.target) && !dropdownToggle.contains(e.target)) {
+            closeDropdown();
+          }
+        }
+      });
+
+      // ============================================
+      // MOBILE MENU — aria-expanded, Escape, focus trap
+      // ============================================
+      var hamburger = document.getElementById('nav-hamburger');
+      var mobileNav = document.getElementById('mobile-nav');
+      var mobileNavClose = document.getElementById('mobile-nav-close');
+      var lastFocusedBeforeOpen = null;
+
+      function getFocusableElements(container) {
+        return Array.prototype.slice.call(
+          container.querySelectorAll(
+            'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+          )
+        ).filter(function (el) {
+          return !el.closest('[hidden]') && el.offsetParent !== null;
+        });
+      }
+
+      function openMobileNav() {
+        if (!hamburger || !mobileNav) return;
+        lastFocusedBeforeOpen = document.activeElement;
+        hamburger.setAttribute('aria-expanded', 'true');
+        mobileNav.classList.add('is-open');
+        var closebtn = document.getElementById('mobile-nav-close');
+        if (closebtn) closebtn.focus();
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeMobileNav() {
+        if (!hamburger || !mobileNav) return;
+        hamburger.setAttribute('aria-expanded', 'false');
+        mobileNav.classList.remove('is-open');
+        document.body.style.overflow = '';
+        if (lastFocusedBeforeOpen) {
+          lastFocusedBeforeOpen.focus();
+          lastFocusedBeforeOpen = null;
+        }
+      }
+
+      // Brand refresh: legacy drawer handlers disabled; unified handler below owns open/close state.
+      if (false && hamburger) {
+        hamburger.addEventListener('click', openMobileNav);
+      }
+
+      if (false && mobileNavClose) {
+        mobileNavClose.addEventListener('click', closeMobileNav);
+      }
+
+      // Escape key closes mobile nav and dropdown
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+          if (mobileNav && mobileNav.classList.contains('is-open')) {
+            closeMobileNav();
+          }
+          if (dropdownMenu && dropdownMenu.classList.contains('is-open')) {
+            closeDropdown();
+            if (dropdownToggle) dropdownToggle.focus();
+          }
+        }
+      });
+
+      // Focus trap for mobile nav
+      if (mobileNav) {
+        mobileNav.addEventListener('keydown', function (e) {
+          if (e.key !== 'Tab') return;
+          var focusable = getFocusableElements(mobileNav);
+          if (focusable.length === 0) return;
+          var first = focusable[0];
+          var last = focusable[focusable.length - 1];
+
+          if (e.shiftKey) {
+            if (document.activeElement === first) {
+              e.preventDefault();
+              last.focus();
+            }
+          } else {
+            if (document.activeElement === last) {
+              e.preventDefault();
+              first.focus();
+            }
+          }
+        });
+      }
+
+      // ============================================
+      // FILTER BAR — filters posts, updates aria-pressed,
+      //              announces count via aria-live
+      // ============================================
+      var filterButtons = document.querySelectorAll('.filter-btn');
+      var postCards = document.querySelectorAll('.post-card');
+      var filterResults = document.getElementById('filter-results');
+
+      function updateFilterCount(count, filter) {
+        if (!filterResults) return;
+        if (filter === 'all') {
+          filterResults.textContent = 'Showing all ' + count + ' posts';
+        } else {
+          filterResults.textContent = 'Showing ' + count + (count === 1 ? ' post' : ' posts') + ' in this category';
+        }
+      }
+
+      function applyFilter(activeFilter) {
+        var visibleCount = 0;
+
+        postCards.forEach(function (card) {
+          var category = card.getAttribute('data-category');
+          var show = activeFilter === 'all' || category === activeFilter;
+          if (show) {
+            card.removeAttribute('hidden');
+            visibleCount++;
+          } else {
+            card.setAttribute('hidden', '');
+          }
+        });
+
+        filterButtons.forEach(function (btn) {
+          var isActive = btn.getAttribute('data-filter') === activeFilter;
+          btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+        });
+
+        updateFilterCount(visibleCount, activeFilter);
+      }
+
+      filterButtons.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var filter = btn.getAttribute('data-filter');
+          applyFilter(filter);
+        });
+      });
+
+      // Initialize with "all" filter count announcement
+      updateFilterCount(postCards.length, 'all');
+
+      // ============================================
+      // NEWSLETTER FORM — inline success, hides fields
+      // ============================================
+      var newsletterForm = document.getElementById('newsletter-form');
+      var newsletterFormWrap = document.getElementById('newsletter-form-wrap');
+      var newsletterSuccess = document.getElementById('newsletter-success');
+
+      if (newsletterForm) {
+        newsletterForm.addEventListener('submit', function (e) {
+          e.preventDefault();
+          var emailInput = document.getElementById('newsletter-email');
+          if (!emailInput || !emailInput.value) return;
+
+          // Hide form, show success
+          if (newsletterFormWrap) {
+            newsletterFormWrap.classList.add('is-hidden');
+          }
+          if (newsletterSuccess) {
+            newsletterSuccess.classList.add('is-visible');
+            newsletterSuccess.focus();
+          }
+        });
+      }
+
+    })();
+  </script>
+
+<script>
+
+    /* Brand refresh: unified theme, dropdown, and mobile navigation behavior. */
+    (function () {
+      const html = document.documentElement;
+      const toggle = document.querySelector('[data-theme-toggle], .theme-toggle, #theme-toggle');
+      const sunIcon = `<svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"/><path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`;
+      const moonIcon = `<svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+      let theme = html.getAttribute('data-theme') || 'dark';
+      function setTheme(nextTheme) {
+        theme = nextTheme;
+        html.setAttribute('data-theme', theme);
+        if (toggle) {
+          toggle.setAttribute('aria-label', 'Switch to ' + (theme === 'dark' ? 'light' : 'dark') + ' mode');
+          if (!toggle.querySelector('.icon-sun, .icon-moon') || toggle.children.length !== 2) {
+            toggle.innerHTML = theme === 'dark' ? moonIcon : sunIcon;
+          }
+        }
+      }
+      setTheme(theme);
+      if (toggle && !toggle.dataset.brandRefreshBound) {
+        toggle.dataset.brandRefreshBound = 'true';
+        toggle.addEventListener('click', function () { setTheme(theme === 'dark' ? 'light' : 'dark'); });
+      }
+    })();
+
+    (function () {
+      const openBtn = document.getElementById('nav-hamburger') || document.getElementById('mobile-toggle');
+      const nav = document.getElementById('mobile-nav');
+      const closeBtn = document.getElementById('mobile-nav-close');
+      if (!openBtn || !nav || openBtn.dataset.brandRefreshBound) return;
+      openBtn.dataset.brandRefreshBound = 'true';
+      function setOpen(open) {
+        nav.classList.toggle('open', open);
+        nav.classList.toggle('is-open', open);
+        openBtn.setAttribute('aria-expanded', String(open));
+        openBtn.setAttribute('aria-label', open ? 'Close navigation menu' : 'Open navigation menu');
+        document.body.classList.toggle('nav-open', open);
+        if (open) {
+          const first = nav.querySelector('a, button');
+          first && first.focus();
+        }
+      }
+      openBtn.addEventListener('click', function () { setOpen(!(nav.classList.contains('open') || nav.classList.contains('is-open'))); });
+      closeBtn && closeBtn.addEventListener('click', function () { setOpen(false); openBtn.focus(); });
+      nav.addEventListener('click', function (event) {
+        const link = event.target.closest('a');
+        if (link) setOpen(false);
+      });
+      document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape' && (nav.classList.contains('open') || nav.classList.contains('is-open'))) {
+          setOpen(false);
+          openBtn.focus();
+        }
+      });
+    })();
+
+    (function () {
+      document.querySelectorAll('.mobile-nav-disclosure[aria-controls]').forEach(function (button) {
+        if (button.dataset.brandRefreshBound) return;
+        button.dataset.brandRefreshBound = 'true';
+        const submenu = document.getElementById(button.getAttribute('aria-controls'));
+        button.addEventListener('click', function () {
+          const expanded = button.getAttribute('aria-expanded') === 'true';
+          button.setAttribute('aria-expanded', String(!expanded));
+          if (submenu) submenu.hidden = expanded;
+        });
+      });
+    })();
+
+    (function () {
+      document.querySelectorAll('.nav-dropdown-toggle[aria-controls]').forEach(function (button) {
+        if (button.dataset.brandRefreshBound) return;
+        button.dataset.brandRefreshBound = 'true';
+        const menu = document.getElementById(button.getAttribute('aria-controls'));
+        button.addEventListener('click', function () {
+          const expanded = button.getAttribute('aria-expanded') === 'true';
+          button.setAttribute('aria-expanded', String(!expanded));
+          if (menu) menu.classList.toggle('is-open', !expanded);
+        });
+        document.addEventListener('click', function (event) {
+          if (!button.closest('.nav-dropdown, .dropdown')?.contains(event.target)) {
+            button.setAttribute('aria-expanded', 'false');
+            menu && menu.classList.remove('is-open');
+          }
+        });
+      });
+    })();
+  </script>
+
+
+<script id="qa11y-final-drawer-handler">
+  /* QA11Y final drawer handler: capture-phase guard for legacy templates. */
+  (function () {
+    if (window.__qa11yFinalDrawerHandler) return;
+    window.__qa11yFinalDrawerHandler = true;
+    function findButton(target) {
+      return target && target.closest && target.closest('header #nav-hamburger, header #mobile-toggle, header .mobile-menu-btn, #mobile-nav-close');
+    }
+    function getOpenButton() {
+      return document.querySelector('header #nav-hamburger, header #mobile-toggle, header .mobile-menu-btn');
+    }
+    function setOpen(open) {
+      var nav = document.getElementById('mobile-nav');
+      var openBtn = getOpenButton();
+      if (!nav || !openBtn) return;
+      nav.classList.toggle('open', open);
+      nav.classList.toggle('is-open', open);
+      openBtn.setAttribute('aria-expanded', String(open));
+      openBtn.setAttribute('aria-label', open ? 'Close navigation menu' : 'Open navigation menu');
+      document.body.classList.toggle('nav-open', open);
+      document.body.style.overflow = open ? 'hidden' : '';
+      if (open) {
+        var first = nav.querySelector('a, button');
+        if (first) first.focus({ preventScroll: true });
+      }
+    }
+    document.addEventListener('click', function (event) {
+      var control = findButton(event.target);
+      if (!control) return;
+      var nav = document.getElementById('mobile-nav');
+      if (!nav) return;
+      var isClose = control.id === 'mobile-nav-close';
+      var open = nav.classList.contains('open') || nav.classList.contains('is-open');
+      event.preventDefault();
+      event.stopPropagation();
+      event.stopImmediatePropagation();
+      setOpen(isClose ? false : !open);
+    }, true);
+    document.addEventListener('keydown', function (event) {
+      var nav = document.getElementById('mobile-nav');
+      if (event.key === 'Escape' && nav && (nav.classList.contains('open') || nav.classList.contains('is-open'))) {
+        event.preventDefault();
+        setOpen(false);
+        var openBtn = getOpenButton();
+        if (openBtn) openBtn.focus({ preventScroll: true });
+      }
+    }, true);
+    document.addEventListener('click', function (event) {
+      var nav = document.getElementById('mobile-nav');
+      if (!nav || !(nav.classList.contains('open') || nav.classList.contains('is-open'))) return;
+      if (event.target.closest && event.target.closest('#mobile-nav a')) setOpen(false);
+    }, true);
+  })();
+</script>
+
+
+<script id="qa11y-accessible-nav-handler">
+  /* QA11Y accessible navigation handler: supports click, Space, Enter, Escape, arrows, and outside-click. */
+  (function () {
+    if (window.__qa11yAccessibleNavHandler) return;
+    window.__qa11yAccessibleNavHandler = true;
+
+    function controlledBy(button) {
+      if (!button) return null;
+      var id = button.getAttribute('aria-controls');
+      return id ? document.getElementById(id) : null;
+    }
+
+    function dropdownFor(button) {
+      return button && button.closest ? button.closest('.nav-dropdown, .dropdown') : null;
+    }
+
+    function menuItems(menu) {
+      return menu ? Array.prototype.slice.call(menu.querySelectorAll('a[href], button:not([disabled])')) : [];
+    }
+
+    function setMenuOpen(button, open, options) {
+      var menu = controlledBy(button);
+      if (!button || !menu) return;
+      if (open) closeAllDesktop(button);
+      button.setAttribute('aria-expanded', String(open));
+      menu.hidden = !open;
+      menu.classList.toggle('is-open', open);
+      if (open && options && options.focusFirst) {
+        var first = menuItems(menu)[0];
+        if (first) first.focus({ preventScroll: true });
+      }
+      if (!open && options && options.returnFocus) {
+        button.focus({ preventScroll: true });
+      }
+    }
+
+    function closeAllDesktop(exceptButton) {
+      document.querySelectorAll('.nav-dropdown-toggle[aria-controls]').forEach(function (button) {
+        if (button !== exceptButton) setMenuOpen(button, false);
+      });
+    }
+
+    function toggleDesktop(button, focusFirst) {
+      var expanded = button.getAttribute('aria-expanded') === 'true';
+      setMenuOpen(button, !expanded, { focusFirst: !!focusFirst });
+    }
+
+    function setMobileSubmenuOpen(button, open, options) {
+      var submenu = controlledBy(button);
+      if (!button || !submenu) return;
+      button.setAttribute('aria-expanded', String(open));
+      submenu.hidden = !open;
+      submenu.classList.toggle('is-open', open);
+      if (open && options && options.focusFirst) {
+        var first = menuItems(submenu)[0];
+        if (first) first.focus({ preventScroll: true });
+      }
+    }
+
+    function toggleMobileSubmenu(button, focusFirst) {
+      var expanded = button.getAttribute('aria-expanded') === 'true';
+      setMobileSubmenuOpen(button, !expanded, { focusFirst: !!focusFirst });
+    }
+
+    function moveWithin(items, current, direction) {
+      if (!items.length) return;
+      var index = items.indexOf(current);
+      if (index < 0) index = direction > 0 ? -1 : 0;
+      var next = (index + direction + items.length) % items.length;
+      items[next].focus({ preventScroll: true });
+    }
+
+    document.querySelectorAll('.nav-dropdown-toggle[aria-controls]').forEach(function (button) {
+      var menu = controlledBy(button);
+      if (!menu) return;
+      setMenuOpen(button, button.getAttribute('aria-expanded') === 'true');
+      var wrapper = dropdownFor(button);
+      if (wrapper && !wrapper.dataset.qa11yHoverBound) {
+        wrapper.dataset.qa11yHoverBound = 'true';
+        wrapper.addEventListener('pointerenter', function () { setMenuOpen(button, true); });
+        wrapper.addEventListener('pointerleave', function () {
+          if (!wrapper.contains(document.activeElement)) setMenuOpen(button, false);
+        });
+        wrapper.addEventListener('focusout', function () {
+          window.setTimeout(function () {
+            if (!wrapper.contains(document.activeElement)) setMenuOpen(button, false);
+          }, 0);
+        });
+      }
+    });
+
+    document.querySelectorAll('.mobile-nav-disclosure[aria-controls]').forEach(function (button) {
+      setMobileSubmenuOpen(button, button.getAttribute('aria-expanded') === 'true');
+    });
+
+    document.addEventListener('click', function (event) {
+      var desktopButton = event.target.closest && event.target.closest('.nav-dropdown-toggle[aria-controls]');
+      if (desktopButton) {
+        event.preventDefault();
+        event.stopPropagation();
+        event.stopImmediatePropagation();
+        toggleDesktop(desktopButton, false);
+        return;
+      }
+
+      var mobileButton = event.target.closest && event.target.closest('.mobile-nav-disclosure[aria-controls]');
+      if (mobileButton) {
+        event.preventDefault();
+        event.stopPropagation();
+        event.stopImmediatePropagation();
+        toggleMobileSubmenu(mobileButton, false);
+        return;
+      }
+
+      if (!(event.target.closest && event.target.closest('.nav-dropdown, .dropdown'))) {
+        closeAllDesktop();
+      }
+    }, true);
+
+    document.addEventListener('keydown', function (event) {
+      var desktopButton = event.target.closest && event.target.closest('.nav-dropdown-toggle[aria-controls]');
+      var mobileButton = event.target.closest && event.target.closest('.mobile-nav-disclosure[aria-controls]');
+
+      if (desktopButton && (event.key === ' ' || event.key === 'Enter')) {
+        event.preventDefault();
+        event.stopPropagation();
+        toggleDesktop(desktopButton, false);
+        return;
+      }
+
+      if (desktopButton && event.key === 'ArrowDown') {
+        event.preventDefault();
+        setMenuOpen(desktopButton, true, { focusFirst: true });
+        return;
+      }
+
+      if (mobileButton && (event.key === ' ' || event.key === 'Enter')) {
+        event.preventDefault();
+        event.stopPropagation();
+        toggleMobileSubmenu(mobileButton, false);
+        return;
+      }
+
+      if (mobileButton && event.key === 'ArrowDown') {
+        event.preventDefault();
+        setMobileSubmenuOpen(mobileButton, true, { focusFirst: true });
+        return;
+      }
+
+      var openMenu = event.target.closest && event.target.closest('.nav-dropdown-menu.is-open, .mobile-submenu.is-open');
+      if (openMenu) {
+        var items = menuItems(openMenu);
+        if (event.key === 'ArrowDown') {
+          event.preventDefault();
+          moveWithin(items, event.target, 1);
+          return;
+        }
+        if (event.key === 'ArrowUp') {
+          event.preventDefault();
+          moveWithin(items, event.target, -1);
+          return;
+        }
+        if (event.key === 'Home') {
+          event.preventDefault();
+          if (items[0]) items[0].focus({ preventScroll: true });
+          return;
+        }
+        if (event.key === 'End') {
+          event.preventDefault();
+          if (items[items.length - 1]) items[items.length - 1].focus({ preventScroll: true });
+          return;
+        }
+      }
+
+      if (event.key === 'Escape') {
+        var openDesktop = document.querySelector('.nav-dropdown-toggle[aria-expanded="true"]');
+        if (openDesktop) {
+          event.preventDefault();
+          setMenuOpen(openDesktop, false, { returnFocus: true });
+          return;
+        }
+        var openMobile = document.querySelector('.mobile-nav-disclosure[aria-expanded="true"]');
+        if (openMobile) {
+          event.preventDefault();
+          setMobileSubmenuOpen(openMobile, false);
+          openMobile.focus({ preventScroll: true });
+        }
+      }
+    }, true);
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#0B4EA2" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta
+      name="description"
+      content="I Got You driver demo view: today's assigned rides, pickup details, and placeholder driver actions."
+    />
+    <meta name="color-scheme" content="light" />
+    <title>I Got You — Driver Demo</title>
+    <link rel="icon" type="image/svg+xml" href="./icons/icon.svg" />
+    <link rel="apple-touch-icon" href="./icons/icon-192.png" />
+    <link rel="preconnect" href="https://api.fontshare.com" />
+    <link
+      href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&f[]=cabinet-grotesk@500,700,800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to today's rides</a>
+
+    <header class="app-header" role="banner">
+      <a class="brand-lockup" href="./" aria-label="I Got You driver — home">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 64 64" focusable="false" role="img" aria-label="">
+            <circle cx="32" cy="32" r="30" fill="#FFD43B" />
+            <circle cx="32" cy="32" r="30" fill="none" stroke="#061a38" stroke-width="3" />
+            <circle cx="32" cy="32" r="22" fill="none" stroke="#061a38" stroke-width="2" />
+            <g fill="#061a38">
+              <circle cx="32" cy="10" r="2.5" />
+              <circle cx="32" cy="54" r="2.5" />
+              <circle cx="10" cy="32" r="2.5" />
+              <circle cx="54" cy="32" r="2.5" />
+            </g>
+            <circle cx="32" cy="32" r="6" fill="#061a38" />
+          </svg>
+        </span>
+        <span class="brand-text">
+          <span class="brand-name">I Got You</span>
+          <span class="brand-tag">Driver demo</span>
+        </span>
+      </a>
+      <span class="env-pill" aria-label="Demo environment, no live dispatch">DEMO</span>
+    </header>
+
+    <main id="main" class="shell">
+      <section class="hero" aria-labelledby="hero-title">
+        <p class="eyebrow" id="today-date" aria-live="polite">Today</p>
+        <h1 id="hero-title" class="hero-title">Good <span id="time-of-day">morning</span>, <span id="driver-name">Driver</span></h1>
+        <p class="hero-sub">
+          Here's your run sheet. Status changes stay on this device only — this is a placeholder
+          demo with no live dispatch, SMS, maps, or payment.
+        </p>
+
+        <dl class="day-summary" aria-label="Today's driver summary">
+          <div class="day-stat">
+            <dt>Total rides</dt>
+            <dd id="stat-total">—</dd>
+          </div>
+          <div class="day-stat">
+            <dt>Completed</dt>
+            <dd id="stat-completed">—</dd>
+          </div>
+          <div class="day-stat">
+            <dt>Next pickup</dt>
+            <dd id="stat-next">—</dd>
+          </div>
+        </dl>
+
+        <div class="dispatch-note" role="note" aria-label="Dispatch reminder">
+          <strong>Dispatch reminder</strong>
+          <p>
+            Front-seat preference and walker assists are flagged below. Call dispatch at
+            <a href="tel:+15550100198" class="inline-link">(555) 010-0198</a> if a rider is a
+            no-show after 5 minutes.
+          </p>
+        </div>
+      </section>
+
+      <section class="rides" aria-labelledby="rides-title">
+        <div class="section-head">
+          <h2 id="rides-title">Today's rides</h2>
+          <div class="section-actions">
+            <button id="print-run-sheet" class="primary-button" type="button">
+              <span aria-hidden="true">🖨</span> Print run sheet
+              <span class="visually-hidden">— open the browser print dialog with a clean run sheet</span>
+            </button>
+            <button id="reset-demo" class="ghost-button" type="button">
+              Reset demo
+              <span class="visually-hidden">— restore all rides to assigned status</span>
+            </button>
+          </div>
+        </div>
+
+        <ol id="ride-list" class="ride-list" aria-live="polite"></ol>
+      </section>
+
+      <!-- Print-only run sheet. Built into JS render so each print reflects current status. -->
+      <section id="run-sheet-print" class="run-sheet" aria-hidden="true">
+        <header class="run-sheet-head">
+          <div class="run-sheet-brand">
+            <span class="run-sheet-mark" aria-hidden="true"></span>
+            <span class="run-sheet-name">I Got You</span>
+          </div>
+          <div class="run-sheet-meta">
+            <p><strong>Driver run sheet</strong></p>
+            <p id="run-sheet-date"></p>
+            <p id="run-sheet-driver"></p>
+          </div>
+        </header>
+        <table class="run-sheet-table">
+          <caption class="visually-hidden">Today's ride run sheet</caption>
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Time</th>
+              <th scope="col">Rider</th>
+              <th scope="col">Phone</th>
+              <th scope="col">Pickup</th>
+              <th scope="col">Destination</th>
+              <th scope="col">Notes</th>
+              <th scope="col">Status</th>
+            </tr>
+          </thead>
+          <tbody id="run-sheet-body"></tbody>
+        </table>
+        <footer class="run-sheet-foot">
+          <p>Demo only. Service-free run sheet — no live dispatch, SMS, maps, or payment integrations.</p>
+          <p>Printed on <span id="run-sheet-printed"></span></p>
+        </footer>
+      </section>
+
+      <footer class="app-footer">
+        <p>
+          Rider view:
+          <a href="../igotyou-demo/" class="inline-link">Open rider request app</a>
+        </p>
+        <p class="muted">
+          Service-free demo. Data stays on this device. No real maps, SMS, auth, payments, or
+          email are connected.
+        </p>
+      </footer>
+    </main>
+
+    <div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+
+    <script src="./driver.js"></script>
+  </body>
+</html>

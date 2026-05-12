@@ -1,0 +1,13 @@
+{
+  "standard": "WCAG2AA",
+  "timeout": 60000,
+  "wait": 1000,
+  "chromeLaunchConfig": {
+    "executablePath": "/root/.cache/ms-playwright/chromium-1217/chrome-linux64/chrome",
+    "args": [
+      "--no-sandbox",
+      "--disable-setuid-sandbox",
+      "--disable-dev-shm-usage"
+    ]
+  }
+}

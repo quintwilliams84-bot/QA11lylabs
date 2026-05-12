@@ -1,0 +1,23 @@
+<svg width="900" height="180" viewBox="0 0 900 180" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">QA11Y Labs compact transparent logo</title>
+  <desc id="desc">Transparent-background compact QA11Y Labs wordmark for email signatures, cards, and document headers.</desc>
+  <defs>
+    <linearGradient id="cyan" x1="148" y1="54" x2="470" y2="129" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#CFFFFB"/>
+      <stop offset="0.35" stop-color="#66FCF1"/>
+      <stop offset="1" stop-color="#45A29E"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="435" y1="52" x2="632" y2="130" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFE7A3"/>
+      <stop offset="0.5" stop-color="#F2A900"/>
+      <stop offset="1" stop-color="#C47900"/>
+    </linearGradient>
+  </defs>
+  <path d="M78 31L34 50V84C34 109.2 52.7 127.8 78 134C103.3 127.8 122 109.2 122 84V50L78 31Z" fill="#112827" stroke="#66FCF1" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M56 84L72 100L101 69" stroke="#66FCF1" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M55 62H68" stroke="#F2A900" stroke-width="3" stroke-linecap="round"/>
+  <path d="M55 73H84" stroke="#45A29E" stroke-width="3" stroke-linecap="round"/>
+  <text x="150" y="109" fill="#66FCF1" font-family="Arial, Noto Sans, DejaVu Sans, sans-serif" font-size="72" font-weight="800" letter-spacing="-3" direction="ltr" unicode-bidi="bidi-override" text-anchor="start">QA11Y</text>
+  <text x="430" y="109" fill="#F2A900" font-family="Arial, Noto Sans, DejaVu Sans, sans-serif" font-size="72" font-weight="800" letter-spacing="-3" direction="ltr" unicode-bidi="bidi-override" text-anchor="start">Labs</text>
+  <text x="152" y="145" fill="#C5C6C7" font-family="Arial, Noto Sans, DejaVu Sans, sans-serif" font-size="20" font-weight="500" letter-spacing="1.2" direction="ltr" unicode-bidi="bidi-override" text-anchor="start">Accessibility audits, remediation, monitoring, and consulting</text>
+</svg>

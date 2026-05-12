@@ -1,0 +1,16 @@
+node_modules/
+.env
+.env.*
+*.log
+*.bak*
+uploads/
+generated-reports/
+client-reports/
+reports/
+triage-reports/
+transcripts/
+*.tar.gz
+*.zip
+.DS_Store
+coverage/
+dist-debug/

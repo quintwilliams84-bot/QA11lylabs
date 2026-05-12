@@ -1,0 +1,14 @@
+{
+  "name": "QA11Y Labs",
+  "short_name": "QA11Y Labs",
+  "description": "Architecting a more inclusive digital world. Accessibility audits, remediation, monitoring, and consulting.",
+  "icons": [
+    { "src": "/assets/brand/favicon-16.png", "sizes": "16x16", "type": "image/png" },
+    { "src": "/assets/brand/favicon-32.png", "sizes": "32x32", "type": "image/png" },
+    { "src": "/assets/brand/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" },
+    { "src": "/assets/brand/qa11ylabs-favicon-512.png", "sizes": "512x512", "type": "image/png" }
+  ],
+  "theme_color": "#0B0C10",
+  "background_color": "#0B0C10",
+  "display": "browser"
+}

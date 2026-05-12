@@ -1,0 +1,3016 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <!-- QA11Y BRAND HEAD START -->
+  <!-- Favicons & app icons -->
+  <link rel="icon" href="assets/brand/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/brand/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/brand/favicon-16.png">
+  <link rel="icon" type="image/svg+xml" href="assets/brand/qa11ylabs-logo-icon.svg">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/brand/apple-touch-icon.png">
+  <link rel="manifest" href="assets/brand/site.webmanifest">
+  <meta name="theme-color" content="#0B0C10">
+
+  <!-- Open Graph -->
+  <meta property="og:site_name" content="QA11Y Labs">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="QA11Y Labs — Architecting a more inclusive digital world">
+  <meta property="og:description" content="Accessibility audits, remediation, monitoring, and consulting from a senior architect with 25+ years of daily screen reader expertise.">
+  <meta property="og:image" content="https://qa11ylabs.com/assets/brand/og-image-primary.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="QA11Y Labs primary logo: cyan shield check mark with QA11Y in cyan and Labs in gold, on a dark terminal-style background.">
+  <meta property="og:url" content="https://qa11ylabs.com/">
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="QA11Y Labs — Architecting a more inclusive digital world">
+  <meta name="twitter:description" content="Accessibility audits, remediation, monitoring, and consulting from a senior architect with 25+ years of daily screen reader expertise.">
+  <meta name="twitter:image" content="https://qa11ylabs.com/assets/brand/og-image-primary.png">
+  <meta name="twitter:image:alt" content="QA11Y Labs primary logo: cyan shield check mark with QA11Y in cyan and Labs in gold.">
+  <!-- QA11Y BRAND HEAD END -->
+<title>Schedule a Consultation — QA11Y Labs | Free 30-Minute Discovery Call</title>
+  <meta name="description" content="Book a free 30-minute discovery call with QA11Y Labs. No sales pitch — just an honest conversation about your accessibility challenges and how we can help." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://api.fontshare.com" />
+  <link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@500,700&f[]=satoshi@400,500,600,700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* =============================================
+       CSS CUSTOM PROPERTIES — DARK MODE DEFAULT
+       ============================================= */
+    :root,
+    [data-theme="dark"] {
+      --color-bg: #0B0C10;
+      --color-surface: #0f1117;
+      --color-surface-2: #151820;
+      --color-border: #1e2330;
+      --color-divider: #1a1f2e;
+      --color-text: #C5C6C7;
+      --color-text-muted: #7a7e8a;
+      --color-text-faint: #454a57;
+      --color-text-inverse: #0B0C10;
+      --color-primary: #66FCF1;
+      --color-primary-hover: #45e8dc;
+      --color-primary-dim: #1a3f3d;
+      --color-cta: #F2A900;
+      --color-cta-hover: #e09800;
+      --color-cta-dim: #3a2a00;
+      --color-teal: #45A29E;
+      --color-teal-dim: #112827;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.5);
+      --shadow-md: 0 4px 16px rgba(0,0,0,0.6);
+      --shadow-lg: 0 12px 40px rgba(0,0,0,0.7);
+      --glow-cyan: 0 0 40px rgba(102,252,241,0.08);
+    }
+
+    [data-theme="light"] {
+      --color-bg: #f4f5f7;
+      --color-surface: #fff;
+      --color-surface-2: #eef0f4;
+      --color-border: #d0d4de;
+      --color-divider: #d8dce8;
+      --color-text: #1a1d26;
+      --color-text-muted: #5a5f6e;
+      --color-text-faint: #9198aa;
+      --color-text-inverse: #fff;
+      --color-primary: #007a76;
+      --color-primary-hover: #006460;
+      --color-primary-dim: #d4f0ee;
+      --color-cta: #c47900;
+      --color-cta-hover: #a86800;
+      --color-cta-dim: #fef3da;
+      --color-teal: #007a76;
+      --color-teal-dim: #d4f0ee;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+      --shadow-md: 0 4px 16px rgba(0,0,0,0.12);
+      --shadow-lg: 0 12px 40px rgba(0,0,0,0.15);
+      --glow-cyan: none;
+    }
+
+    /* =============================================
+       TYPOGRAPHY SCALE
+       ============================================= */
+    :root {
+      --font-display: 'Cabinet Grotesk', sans-serif;
+      --font-body: 'Satoshi', sans-serif;
+
+      --text-xs:   clamp(0.7rem,  0.65rem + 0.25vw, 0.75rem);
+      --text-sm:   clamp(0.8rem,  0.75rem + 0.25vw, 0.875rem);
+      --text-base: clamp(0.9375rem, 0.9rem + 0.2vw, 1rem);
+      --text-md:   clamp(1rem,    0.95rem + 0.25vw, 1.125rem);
+      --text-lg:   clamp(1.125rem, 1.05rem + 0.35vw, 1.25rem);
+      --text-xl:   clamp(1.25rem,  1.1rem + 0.75vw, 1.5rem);
+      --text-2xl:  clamp(1.5rem,   1.25rem + 1.25vw, 2rem);
+      --text-3xl:  clamp(1.875rem, 1.5rem + 1.875vw, 2.5rem);
+      --text-hero: clamp(2.5rem,   2rem + 2.5vw, 3.75rem);
+
+      /* Spacing */
+      --space-1:  0.25rem;
+      --space-2:  0.5rem;
+      --space-3:  0.75rem;
+      --space-4:  1rem;
+      --space-5:  1.25rem;
+      --space-6:  1.5rem;
+      --space-8:  2rem;
+      --space-10: 2.5rem;
+      --space-12: 3rem;
+      --space-16: 4rem;
+      --space-20: 5rem;
+      --space-24: 6rem;
+
+      /* Radius */
+      --radius-sm: 4px;
+      --radius-md: 8px;
+      --radius-lg: 12px;
+      --radius-xl: 16px;
+      --radius-2xl: 24px;
+      --radius-full: 9999px;
+
+      /* Transition */
+      --transition-fast: 150ms ease;
+      --transition-base: 250ms ease;
+      --transition-slow: 400ms ease;
+
+      /* Layout */
+      --content-default: 1100px;
+      --header-height: 72px;
+    }
+
+    /* =============================================
+       RESET & BASE
+       ============================================= */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-body);
+      font-size: var(--text-base);
+      line-height: 1.6;
+      color: var(--color-text);
+      background-color: var(--color-bg);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    img { max-width: 100%; height: auto; display: block; }
+    a { color: inherit; }
+    ul { list-style: none; }
+    button { cursor: pointer; font-family: inherit; }
+
+    /* =============================================
+       SKIP LINK
+       ============================================= */
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: var(--space-4);
+      z-index: 10000;
+      padding: var(--space-3) var(--space-6);
+      background: var(--color-primary);
+      color: var(--color-text-inverse);
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: var(--text-sm);
+      border-radius: var(--radius-md);
+      text-decoration: none;
+      transition: top var(--transition-fast);
+    }
+    .skip-link:focus {
+      top: var(--space-4);
+    }
+
+    /* Screen-reader only utility */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    /* =============================================
+       FOCUS STYLES
+       ============================================= */
+    :focus-visible {
+      outline: 3px solid var(--color-cta);
+      outline-offset: 3px;
+      border-radius: var(--radius-sm);
+    }
+
+    /* =============================================
+       HEADER / NAV
+       ============================================= */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      height: var(--header-height);
+      display: flex;
+      align-items: center;
+      background: rgba(11, 12, 16, 0.8);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--color-border);
+      transition: background var(--transition-base);
+    }
+
+    [data-theme="light"] .site-header {
+      background: rgba(244, 245, 247, 0.85);
+    }
+
+    .header-inner {
+      max-width: var(--content-default);
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 var(--space-6);
+      display: flex;
+      align-items: center;
+      gap: var(--space-6);
+    }
+
+    /* Logo */
+    .logo-link {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      flex-shrink: 0;
+    }
+
+    .logo-wordmark {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: var(--text-md);
+      line-height: 1;
+      white-space: nowrap;
+      letter-spacing: -0.02em;
+    }
+
+    .logo-wordmark .logo-qa {
+      color: var(--color-primary);
+    }
+
+    [data-theme="light"] .logo-wordmark .logo-qa {
+      color: #1a1d26;
+    }
+
+    .logo-wordmark .logo-11y {
+      color: var(--color-primary);
+    }
+
+    .logo-wordmark .logo-labs {
+      color: var(--color-cta);
+    }
+
+    /* Primary Nav */
+    .primary-nav {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-list {
+      display: flex;
+      align-items: center;
+      gap: var(--space-1);
+    }
+
+    .nav-link {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-1);
+      padding: var(--space-2) var(--space-3);
+      font-family: var(--font-display);
+      font-size: var(--text-sm);
+      font-weight: 500;
+      color: var(--color-text-muted);
+      text-decoration: none;
+      border-radius: var(--radius-md);
+      transition: color var(--transition-fast), background var(--transition-fast);
+      white-space: nowrap;
+    }
+
+    .nav-link:hover {
+      color: var(--color-text);
+      background: var(--color-surface-2);
+    }
+
+    .nav-link[aria-current="page"] {
+      color: var(--color-primary);
+    }
+
+    /* Services Dropdown */
+    .nav-dropdown {
+      position: relative;
+    }
+
+    .nav-dropdown-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-1);
+      padding: var(--space-2) var(--space-3);
+      font-family: var(--font-display);
+      font-size: var(--text-sm);
+      font-weight: 500;
+      color: var(--color-text-muted);
+      background: none;
+      border: none;
+      border-radius: var(--radius-md);
+      transition: color var(--transition-fast), background var(--transition-fast);
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .nav-dropdown-toggle:hover {
+      color: var(--color-text);
+      background: var(--color-surface-2);
+    }
+
+    .nav-dropdown-toggle .chevron {
+      transition: transform var(--transition-fast);
+    }
+
+    .nav-dropdown-toggle[aria-expanded="true"] .chevron {
+      transform: rotate(180deg);
+    }
+
+    .nav-dropdown-menu {
+      position: absolute;
+      top: calc(100% + var(--space-2));
+      left: 50%;
+      transform: translateX(-50%);
+      min-width: 220px;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      padding: var(--space-2);
+      display: none;
+      z-index: 100;
+    }
+
+    .nav-dropdown-menu.is-open {
+      display: block;
+    }
+
+    .nav-dropdown-menu a {
+      display: block;
+      padding: var(--space-3) var(--space-4);
+      font-family: var(--font-display);
+      font-size: var(--text-sm);
+      font-weight: 500;
+      color: var(--color-text-muted);
+      text-decoration: none;
+      border-radius: var(--radius-md);
+      transition: color var(--transition-fast), background var(--transition-fast);
+    }
+
+    .nav-dropdown-menu a:hover {
+      color: var(--color-text);
+      background: var(--color-surface-2);
+    }
+
+    /* Header Actions */
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      flex-shrink: 0;
+      margin-left: auto;
+    }
+
+    /* Theme Toggle */
+    .theme-toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 38px;
+      height: 38px;
+      background: none;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      color: var(--color-text-muted);
+      transition: color var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast);
+    }
+
+    .theme-toggle:hover {
+      color: var(--color-text);
+      border-color: var(--color-primary);
+      background: var(--color-primary-dim);
+    }
+
+    .theme-toggle .icon-sun { display: none; }
+    .theme-toggle .icon-moon { display: block; }
+    [data-theme="light"] .theme-toggle .icon-sun { display: block; }
+    [data-theme="light"] .theme-toggle .icon-moon { display: none; }
+
+    /* CTA Button — header */
+    .btn-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-2) var(--space-5);
+      font-family: var(--font-display);
+      font-size: var(--text-sm);
+      font-weight: 600;
+      color: var(--color-text-inverse);
+      background: var(--color-cta);
+      border: 2px solid var(--color-cta);
+      border-radius: var(--radius-md);
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background var(--transition-fast), border-color var(--transition-fast);
+    }
+
+    .btn-cta:hover {
+      background: var(--color-cta-hover);
+      border-color: var(--color-cta-hover);
+    }
+
+    /* Active/current page state for CTA button */
+    .btn-cta[aria-current="page"] {
+      background: var(--color-cta-hover);
+      border-color: var(--color-cta-hover);
+      outline: 2px solid var(--color-cta);
+      outline-offset: 2px;
+    }
+
+    /* Large CTA */
+    .btn-cta-lg {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-4) var(--space-8);
+      font-family: var(--font-display);
+      font-size: var(--text-md);
+      font-weight: 700;
+      color: var(--color-text-inverse);
+      background: var(--color-cta);
+      border: 2px solid var(--color-cta);
+      border-radius: var(--radius-md);
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background var(--transition-fast), border-color var(--transition-fast);
+    }
+
+    .btn-cta-lg:hover {
+      background: var(--color-cta-hover);
+      border-color: var(--color-cta-hover);
+    }
+
+    /* Outline Button */
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-3) var(--space-6);
+      font-family: var(--font-display);
+      font-size: var(--text-base);
+      font-weight: 600;
+      color: var(--color-primary);
+      background: transparent;
+      border: 2px solid var(--color-primary);
+      border-radius: var(--radius-md);
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background var(--transition-fast), color var(--transition-fast);
+    }
+
+    .btn-outline:hover {
+      background: var(--color-primary-dim);
+    }
+
+    /* Mobile hamburger */
+    .nav-hamburger {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      width: 38px;
+      height: 38px;
+      background: none;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      color: var(--color-text-muted);
+      margin-left: var(--space-2);
+    }
+
+    /* Mobile nav panel */
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      background: var(--color-bg);
+      padding: var(--space-6);
+      overflow-y: auto;
+      flex-direction: column;
+    }
+
+    .mobile-nav.is-open {
+      display: flex;
+    }
+
+    .mobile-nav-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: var(--space-8);
+    }
+
+    .mobile-nav-close {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 38px;
+      height: 38px;
+      background: none;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      color: var(--color-text-muted);
+    }
+
+    .mobile-nav-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+
+    .mobile-nav-link {
+      display: block;
+      padding: var(--space-4) var(--space-4);
+      font-family: var(--font-display);
+      font-size: var(--text-lg);
+      font-weight: 600;
+      color: var(--color-text);
+      text-decoration: none;
+      border-radius: var(--radius-md);
+      border-bottom: 1px solid var(--color-divider);
+    }
+
+    .mobile-nav-link:hover {
+      background: var(--color-surface-2);
+    }
+
+    .mobile-nav-link[aria-current="page"] {
+      color: var(--color-primary);
+    }
+
+    .mobile-nav-submenu {
+      padding-left: var(--space-4);
+    }
+
+    .mobile-nav-submenu a {
+      display: block;
+      padding: var(--space-3) var(--space-4);
+      font-family: var(--font-display);
+      font-size: var(--text-md);
+      font-weight: 500;
+      color: var(--color-text-muted);
+      text-decoration: none;
+      border-radius: var(--radius-md);
+    }
+
+    .mobile-nav-submenu a:hover {
+      color: var(--color-text);
+      background: var(--color-surface-2);
+    }
+
+    .mobile-cta {
+      margin-top: var(--space-8);
+    }
+
+    .mobile-cta .btn-cta {
+      width: 100%;
+      padding: var(--space-4);
+      font-size: var(--text-md);
+      justify-content: center;
+    }
+
+    /* =============================================
+       LAYOUT HELPERS
+       ============================================= */
+    .container {
+      max-width: var(--content-default);
+      margin: 0 auto;
+      padding: 0 var(--space-6);
+    }
+
+    .section {
+      padding: var(--space-20) 0;
+    }
+
+    @media (max-width: 768px) {
+      .section {
+        padding: var(--space-12) 0;
+      }
+    }
+
+    /* =============================================
+       EYEBROW / PILL
+       ============================================= */
+    .eyebrow-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-2) var(--space-4);
+      background: var(--color-primary-dim);
+      border: 1px solid rgba(102, 252, 241, 0.2);
+      border-radius: var(--radius-full);
+      font-family: var(--font-display);
+      font-size: var(--text-xs);
+      font-weight: 600;
+      color: var(--color-primary);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: var(--space-6);
+    }
+
+    .eyebrow-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--color-primary);
+      animation: pulse-dot 2s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.75); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .eyebrow-dot {
+        animation: none;
+      }
+    }
+
+    /* =============================================
+       HERO SECTION
+       ============================================= */
+    .hero {
+      position: relative;
+      padding: var(--space-24) 0 var(--space-16);
+      overflow: hidden;
+      text-align: center;
+    }
+
+    /* Ambient grid */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--color-border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--color-border) 1px, transparent 1px);
+      background-size: 48px 48px;
+      opacity: 0.3;
+      pointer-events: none;
+    }
+
+    /* Cyan glow orb */
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: -80px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 400px;
+      background: radial-gradient(ellipse at center, rgba(102, 252, 241, 0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 780px;
+      margin: 0 auto;
+    }
+
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: var(--text-hero);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--color-text);
+      margin-bottom: var(--space-6);
+    }
+
+    .hero-subtext {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+      line-height: 1.7;
+      max-width: 600px;
+      margin: 0 auto var(--space-8);
+    }
+
+    /* Trust pills */
+    .trust-pills {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: var(--space-4) var(--space-6);
+    }
+
+    .trust-pill {
+      font-family: var(--font-display);
+      font-size: var(--text-sm);
+      font-weight: 500;
+      color: var(--color-text-muted);
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+
+    .trust-pill-check {
+      color: var(--color-primary);
+      font-weight: 700;
+    }
+
+    /* Divider between pills */
+    .trust-pill-divider {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--color-text-faint);
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 600px) {
+      .trust-pill-divider { display: none; }
+      .trust-pills { gap: var(--space-3); }
+    }
+
+    /* =============================================
+       TWO-COLUMN BOOKING LAYOUT
+       ============================================= */
+    .booking-section {
+      padding: var(--space-16) 0 var(--space-20);
+    }
+
+    .booking-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: var(--space-10);
+      align-items: start;
+    }
+
+    @media (max-width: 900px) {
+      .booking-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-10);
+      }
+    }
+
+    /* =============================================
+       BOOKING FORM CARD (left column)
+       ============================================= */
+    .form-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-xl);
+      padding: var(--space-8);
+      box-shadow: var(--shadow-md);
+    }
+
+    .form-card h2 {
+      font-family: var(--font-display);
+      font-size: var(--text-2xl);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--color-text);
+      margin-bottom: var(--space-8);
+    }
+
+    /* Field groups */
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+      margin-bottom: var(--space-6);
+    }
+
+    .field-group:last-of-type {
+      margin-bottom: 0;
+    }
+
+    .field-label {
+      font-family: var(--font-display);
+      font-size: var(--text-sm);
+      font-weight: 600;
+      color: var(--color-text);
+    }
+
+    .field-required {
+      color: var(--color-cta);
+      margin-left: var(--space-1);
+      font-weight: 700;
+      aria-hidden: true;
+    }
+
+    .field-input,
+    .field-select,
+    .field-textarea {
+      width: 100%;
+      padding: var(--space-3) var(--space-4);
+      font-family: var(--font-body);
+      font-size: var(--text-base);
+      color: var(--color-text);
+      background: var(--color-surface-2);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+      appearance: none;
+      -webkit-appearance: none;
+    }
+
+    .field-input:focus,
+    .field-select:focus,
+    .field-textarea:focus {
+      outline: 3px solid var(--color-cta);
+      outline-offset: 2px;
+      border-color: var(--color-primary);
+    }
+
+    .field-input::placeholder,
+    .field-textarea::placeholder {
+      color: var(--color-text-faint);
+    }
+
+    .field-textarea {
+      resize: vertical;
+      min-height: 110px;
+      line-height: 1.6;
+    }
+
+    /* Select wrapper for custom arrow */
+    .select-wrapper {
+      position: relative;
+    }
+
+    .select-wrapper::after {
+      content: '';
+      position: absolute;
+      right: var(--space-4);
+      top: 50%;
+      transform: translateY(-50%);
+      width: 0;
+      height: 0;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-top: 6px solid var(--color-text-muted);
+      pointer-events: none;
+    }
+
+    .field-select {
+      cursor: pointer;
+      padding-right: var(--space-10);
+    }
+
+    .field-select option {
+      background: var(--color-surface-2);
+      color: var(--color-text);
+    }
+
+    /* Field hint */
+    .field-hint {
+      font-size: var(--text-xs);
+      color: var(--color-text-muted);
+      line-height: 1.5;
+    }
+
+    /* Field error */
+    .field-error {
+      font-size: var(--text-xs);
+      font-weight: 600;
+      color: #ff6b6b;
+      display: none;
+      align-items: center;
+      gap: var(--space-1);
+    }
+
+    .field-error.is-visible {
+      display: flex;
+    }
+
+    /* Invalid state */
+    .field-input.is-invalid,
+    .field-select.is-invalid,
+    .field-textarea.is-invalid {
+      border-color: #ff6b6b;
+    }
+
+    /* Submit button */
+    .btn-submit {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: var(--space-4) var(--space-8);
+      font-family: var(--font-display);
+      font-size: var(--text-md);
+      font-weight: 700;
+      color: var(--color-text-inverse);
+      background: var(--color-cta);
+      border: 2px solid var(--color-cta);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: background var(--transition-fast), border-color var(--transition-fast);
+      white-space: nowrap;
+      margin-top: var(--space-8);
+    }
+
+    .btn-submit:hover {
+      background: var(--color-cta-hover);
+      border-color: var(--color-cta-hover);
+    }
+
+    .btn-submit:focus-visible {
+      outline: 3px solid var(--color-cta);
+      outline-offset: 3px;
+    }
+
+    /* =============================================
+       SUCCESS STATE
+       ============================================= */
+    .form-success {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: var(--space-12) var(--space-8);
+      gap: var(--space-5);
+    }
+
+    .form-success.is-visible {
+      display: flex;
+    }
+
+    .success-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: var(--color-primary-dim);
+      border: 2px solid rgba(102, 252, 241, 0.3);
+      color: var(--color-primary);
+      flex-shrink: 0;
+    }
+
+    .success-heading {
+      font-family: var(--font-display);
+      font-size: var(--text-2xl);
+      font-weight: 700;
+      color: var(--color-text);
+      letter-spacing: -0.02em;
+    }
+
+    .success-heading:focus {
+      outline: 3px solid var(--color-cta);
+      outline-offset: 3px;
+      border-radius: var(--radius-sm);
+    }
+
+    .success-body {
+      font-size: var(--text-base);
+      color: var(--color-text-muted);
+      line-height: 1.7;
+      max-width: 420px;
+    }
+
+    /* =============================================
+       INFO COLUMN (right)
+       ============================================= */
+    .info-column {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-8);
+    }
+
+    /* What happens next card */
+    .next-steps-card {
+      background: var(--color-surface-2);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-xl);
+      padding: var(--space-6);
+    }
+
+    .next-steps-card h3 {
+      font-family: var(--font-display);
+      font-size: var(--text-lg);
+      font-weight: 700;
+      color: var(--color-text);
+      margin-bottom: var(--space-6);
+      letter-spacing: -0.01em;
+    }
+
+    /* Numbered steps */
+    .steps-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-5);
+    }
+
+    .step-item {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-4);
+    }
+
+    .step-number {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--color-primary-dim);
+      border: 1.5px solid rgba(102, 252, 241, 0.3);
+      color: var(--color-primary);
+      font-family: var(--font-display);
+      font-size: var(--text-xs);
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .step-text {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+      line-height: 1.6;
+    }
+
+    /* What we cover list */
+    .covers-block {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+    }
+
+    .covers-block-title {
+      font-family: var(--font-display);
+      font-size: var(--text-sm);
+      font-weight: 700;
+      color: var(--color-text);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      margin-bottom: var(--space-1);
+    }
+
+    .covers-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+    }
+
+    .covers-item {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-3);
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+      line-height: 1.55;
+    }
+
+    .covers-check {
+      color: var(--color-primary);
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* Prefer email blurb */
+    .prefer-email-block {
+      padding: var(--space-5) var(--space-6);
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+    }
+
+    .prefer-email-title {
+      font-family: var(--font-display);
+      font-size: var(--text-sm);
+      font-weight: 600;
+      color: var(--color-text);
+      margin-bottom: var(--space-2);
+    }
+
+    .prefer-email-link {
+      color: var(--color-primary);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: var(--text-sm);
+    }
+
+    .prefer-email-link:hover {
+      text-decoration: underline;
+      color: var(--color-primary-hover);
+    }
+
+    .prefer-email-sub {
+      font-size: var(--text-xs);
+      color: var(--color-text-muted);
+      margin-top: var(--space-2);
+    }
+
+    /* =============================================
+       WHY QA11Y LABS SECTION
+       ============================================= */
+    .why-section {
+      background: var(--color-surface);
+      border-top: 1px solid var(--color-border);
+      border-bottom: 1px solid var(--color-border);
+      padding: var(--space-20) 0;
+    }
+
+    @media (max-width: 768px) {
+      .why-section { padding: var(--space-12) 0; }
+    }
+
+    .why-header {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto var(--space-12);
+    }
+
+    .section-eyebrow {
+      display: inline-block;
+      font-family: var(--font-display);
+      font-size: var(--text-xs);
+      font-weight: 600;
+      color: var(--color-primary);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: var(--space-4);
+    }
+
+    .why-header h2 {
+      font-family: var(--font-display);
+      font-size: var(--text-3xl);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--color-text);
+      line-height: 1.15;
+    }
+
+    /* Feature rows */
+    .features-rows {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .feature-row {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-6);
+      padding: var(--space-8) 0;
+      border-top: 1px solid var(--color-divider);
+    }
+
+    .feature-row:last-child {
+      border-bottom: 1px solid var(--color-divider);
+    }
+
+    @media (max-width: 640px) {
+      .feature-row {
+        flex-direction: column;
+        gap: var(--space-4);
+      }
+    }
+
+    .feature-icon-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius-lg);
+      background: var(--color-primary-dim);
+      border: 1px solid rgba(102, 252, 241, 0.2);
+      color: var(--color-primary);
+      flex-shrink: 0;
+    }
+
+    .feature-body {
+      flex: 1;
+    }
+
+    .feature-title {
+      font-family: var(--font-display);
+      font-size: var(--text-lg);
+      font-weight: 700;
+      color: var(--color-text);
+      margin-bottom: var(--space-2);
+      letter-spacing: -0.01em;
+    }
+
+    .feature-desc {
+      font-size: var(--text-base);
+      color: var(--color-text-muted);
+      line-height: 1.7;
+      max-width: 680px;
+    }
+
+    /* =============================================
+       BOTTOM CTA SECTION
+       ============================================= */
+    .bottom-cta {
+      padding: var(--space-20) 0;
+    }
+
+    @media (max-width: 768px) {
+      .bottom-cta { padding: var(--space-12) 0; }
+    }
+
+    .bottom-cta-inner {
+      text-align: center;
+      max-width: 580px;
+      margin: 0 auto;
+    }
+
+    .bottom-cta-inner h2 {
+      font-family: var(--font-display);
+      font-size: var(--text-3xl);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--color-text);
+      margin-bottom: var(--space-4);
+      line-height: 1.15;
+    }
+
+    .bottom-cta-inner p {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+      line-height: 1.7;
+      margin-bottom: var(--space-8);
+    }
+
+    .cta-buttons {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-4);
+      flex-wrap: wrap;
+    }
+
+    /* =============================================
+       FOOTER
+       ============================================= */
+    .site-footer {
+      border-top: 1px solid var(--color-border);
+      padding: var(--space-12) 0 var(--space-8);
+    }
+
+    .footer-inner {
+      max-width: var(--content-default);
+      margin: 0 auto;
+      padding: 0 var(--space-6);
+    }
+
+    .footer-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: var(--space-8);
+      margin-bottom: var(--space-10);
+      flex-wrap: wrap;
+    }
+
+    .footer-brand {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+    }
+
+    .footer-tagline {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    .footer-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2) var(--space-6);
+      align-items: center;
+    }
+
+    .footer-nav a {
+      font-family: var(--font-display);
+      font-size: var(--text-sm);
+      font-weight: 500;
+      color: var(--color-text-muted);
+      text-decoration: none;
+      transition: color var(--transition-fast);
+    }
+
+    .footer-nav a:hover {
+      color: var(--color-text);
+    }
+
+    .footer-nav a[aria-current="page"] {
+      color: var(--color-primary);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid var(--color-divider);
+      padding-top: var(--space-6);
+    }
+
+    .footer-copyright {
+      font-size: var(--text-sm);
+      color: var(--color-text-faint);
+    }
+
+    /* =============================================
+       RESPONSIVE NAV SHOW/HIDE
+       ============================================= */
+    @media (max-width: 899px) {
+      .primary-nav { display: none; }
+      .nav-hamburger { display: inline-flex; }
+      /* Hide "Schedule Consultation" CTA in header on mobile — shown in mobile menu */
+      .header-actions .btn-cta { display: none; }
+    }
+
+    @media (min-width: 900px) {
+      .nav-hamburger { display: none; }
+    }
+
+  
+    /* ── Zcal embed column ── */
+    .zcal-column { }
+    .zcal-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-xl);
+      padding: var(--space-6);
+      box-shadow: var(--shadow-md);
+    }
+    .zcal-heading {
+      font-family: var(--font-display);
+      font-size: var(--text-xl);
+      font-weight: 700;
+      color: var(--color-text);
+      margin-bottom: var(--space-2);
+    }
+    .zcal-sub {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+      margin-bottom: var(--space-4);
+    }
+    .zcal-embed-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--color-surface-2);
+    }
+    .zcal-fallback {
+      font-size: var(--text-xs);
+      color: var(--color-text-faint);
+      margin-top: var(--space-3);
+      text-align: center;
+    }
+    .zcal-fallback a {
+      color: var(--color-primary);
+      text-decoration: underline;
+    }
+
+  
+    /* Brand refresh: keep persistent header content off the viewport edge. */
+    .site-header .header-inner {
+      padding-inline: var(--space-4, 1rem);
+    }
+    @media (min-width: 768px) {
+      .site-header .header-inner {
+        padding-inline: var(--space-6, 1.5rem);
+      }
+    }
+    
+    /* Brand refresh: shared navigation compatibility and mobile drawer behavior. */
+    .nav-dropdown:hover .nav-dropdown-menu,
+    .dropdown:hover .nav-dropdown-menu,
+    .nav-dropdown:focus-within .nav-dropdown-menu,
+    .dropdown:focus-within .nav-dropdown-menu,
+    .nav-dropdown-menu.is-open {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(0);
+      display: block;
+    }
+    .mobile-nav {
+      display: none;
+      flex-direction: column;
+      gap: var(--space-4, 1rem);
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      overflow-y: auto;
+      padding: var(--space-5, 1.25rem);
+      background: var(--color-bg, #0B0C10);
+      color: var(--color-text, #F7F9FB);
+    }
+    .mobile-nav.open {
+      display: flex;
+    }
+    .mobile-nav-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-4, 1rem);
+      padding-bottom: var(--space-4, 1rem);
+      border-bottom: 1px solid var(--color-border, rgba(102,252,241,.18));
+    }
+    .mobile-nav-close {
+      min-width: 44px;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius-full, 9999px);
+      color: inherit;
+      background: transparent;
+      border: 1px solid var(--color-border, rgba(102,252,241,.18));
+    }
+    .mobile-nav-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2, .5rem);
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+    .mobile-nav-link,
+    .mobile-submenu-link {
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      width: 100%;
+      padding: var(--space-3, .75rem) var(--space-4, 1rem);
+      border-radius: var(--radius-md, .5rem);
+      color: var(--color-text-secondary, var(--color-text-muted, #C5C6C7));
+      text-decoration: none;
+    }
+    .mobile-nav-link:hover,
+    .mobile-nav-link:focus-visible,
+    .mobile-submenu-link:hover,
+    .mobile-submenu-link:focus-visible,
+    .mobile-nav-link[aria-current="page"] {
+      color: var(--color-cyan, var(--color-primary, #66FCF1));
+      background: rgba(102,252,241,.08);
+    }
+    .mobile-cta {
+      margin-top: auto;
+      padding-top: var(--space-4, 1rem);
+      border-top: 1px solid var(--color-border, rgba(102,252,241,.18));
+    }
+    @media (min-width: 900px) {
+      .mobile-nav.open { display: none; }
+    }
+    
+    /* Brand refresh: avoid mid-width nav overflow by using drawer navigation on tablets. */
+    @media (max-width: 1099px) {
+      .primary-nav,
+      .header-actions .btn-cta {
+        display: none !important;
+      }
+      .nav-hamburger,
+      .mobile-menu-btn {
+        display: inline-flex !important;
+      }
+    }
+    @media (min-width: 1100px) {
+      .primary-nav {
+        display: flex !important;
+      }
+      .nav-hamburger,
+      .mobile-menu-btn {
+        display: none !important;
+      }
+    }
+    </style>
+
+
+<style id="qa11y-final-responsive-nav">
+  /* QA11Y final responsive navigation safeguard: drawer owns navigation below tablet/desktop handoff. */
+  @media (max-width: 1100px) {
+    header .desktop-nav,
+    header .nav-list,
+    header nav[aria-label="Primary"] .nav-list {
+      display: none !important;
+    }
+    header .nav-hamburger,
+    header .mobile-menu-btn,
+    header #mobile-toggle {
+      display: inline-flex !important;
+      align-items: center;
+      justify-content: center;
+      min-width: 44px;
+      min-height: 44px;
+    }
+    #mobile-nav.open,
+    #mobile-nav.is-open,
+    .mobile-nav.open,
+    .mobile-nav.is-open {
+      display: flex !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+      pointer-events: auto !important;
+      transform: none !important;
+    }
+  }
+  @media (min-width: 1101px) {
+    header .nav-hamburger,
+    header .mobile-menu-btn,
+    header #mobile-toggle {
+      display: none !important;
+    }
+  }
+</style>
+
+<style id="qa11y-pa11y-aa-contrast">
+  /* QA11Y Labs targeted WCAG AA hardening.
+     Scoped by component background: dark surfaces use light text; light surfaces use dark ink. */
+  :root {
+    --qa11y-aa-bg: #0B0C10;
+    --qa11y-aa-surface: #12151D;
+    --qa11y-aa-text: #F7FAFC;
+    --qa11y-aa-cyan: #8FFDF7;
+    --qa11y-aa-gold: #F7C948;
+    --qa11y-aa-ink: #05070A;
+    --qa11y-aa-body-ink: #1A1D26;
+  }
+
+  .article-hero,
+  .related-posts,
+  .site-footer,
+  footer {
+    background-color: var(--qa11y-aa-bg) !important;
+  }
+
+  .article-hero .article-title,
+  .article-hero .article-eyebrow,
+  .article-hero .article-author-name,
+  .article-hero .article-meta,
+  .article-hero .article-meta span,
+  .article-hero .article-meta time,
+  .article-hero .article-meta-divider,
+  .site-footer h3,
+  .site-footer .footer-tagline,
+  .site-footer .footer-copyright,
+  .site-footer .footer-copy,
+  .site-footer .footer-bottom,
+  .site-footer .footer-bottom p,
+  .site-footer .footer-bottom span,
+  .site-footer .footer-bottom a,
+  .site-footer .footer-nav a,
+  .site-footer .footer-legal a,
+  .site-footer .logo-qa,
+  .site-footer .logo-11y,
+  footer h3,
+  footer .footer-tagline,
+  footer .footer-copyright,
+  footer .footer-copy,
+  footer .footer-bottom,
+  footer .footer-bottom p,
+  footer .footer-bottom span,
+  footer .footer-bottom a,
+  footer .footer-nav a,
+  footer .footer-legal a,
+  footer .logo-qa,
+  footer .logo-11y,
+  footer span[aria-hidden="true"],
+  footer a[href="accessibility.html"] {
+    color: var(--qa11y-aa-text) !important;
+  }
+
+  .site-footer .logo-11y,
+  footer .logo-11y,
+  .site-footer .logo-qa,
+  footer .logo-qa {
+    color: var(--qa11y-aa-cyan) !important;
+  }
+  .logo-labs,
+  .site-footer .logo-labs,
+  footer .logo-labs {
+    color: var(--qa11y-aa-gold) !important;
+  }
+
+  .related-card,
+  .trust-pill,
+  .tag,
+  .badge-category,
+  .badge-featured,
+  .eyebrow-pill,
+  .filter-btn,
+  .trust-pill-check {
+    color: var(--qa11y-aa-text) !important;
+    background-color: var(--qa11y-aa-surface) !important;
+    border-color: rgba(102, 252, 241, 0.45) !important;
+  }
+  .related-posts-heading,
+  .related-card-title,
+  .related-card-time,
+  .related-card-cat,
+  .resource-card .card-source,
+  .stat-card .stat-sub,
+  .case-study-section h3,
+  .case-study-stats h3,
+  .case-study-right h3 {
+    color: var(--qa11y-aa-text) !important;
+  }
+
+  /* Light content surfaces. */
+  .article-body h2,
+  .article-body h3,
+  .article-body strong,
+  .hero-subtext,
+  .section-number,
+  .info-label,
+  .featured-card .post-date,
+  .featured-card .read-time,
+  .featured-card .featured-excerpt,
+  .filter-count,
+  .jump-nav-label,
+  .form-hint,
+  .scan-note,
+  .scan-url-hint,
+  .zcal-fallback,
+  .field-required,
+  .cta-divider,
+  .sample-report-icon,
+  .subsection-heading {
+    color: var(--qa11y-aa-body-ink) !important;
+  }
+
+  .article-body pre,
+  .article-body code,
+  .article-body p code,
+  .article-body li code,
+  .article-body strong code,
+  .article-body h2 code,
+  .article-body h3 code {
+    background-color: #080C10 !important;
+    color: #F7FFFF !important;
+  }
+
+  .btn-cta,
+  .btn-cta-lg,
+  .btn-cta-sm,
+  .btn-submit,
+  .btn-scan {
+    color: var(--qa11y-aa-ink) !important;
+    background-color: #66FCF1 !important;
+    border-color: #66FCF1 !important;
+    text-shadow: none !important;
+  }
+  .btn-scan span,
+  #scan-btn-label {
+    color: var(--qa11y-aa-ink) !important;
+  }
+
+  .btn-amber {
+    color: var(--qa11y-aa-ink) !important;
+    background-color: var(--qa11y-aa-gold) !important;
+    border-color: var(--qa11y-aa-gold) !important;
+    text-shadow: none !important;
+  }
+
+  .btn-outline {
+    color: var(--qa11y-aa-text) !important;
+    background-color: #111722 !important;
+    border-color: rgba(143, 253, 247, 0.55) !important;
+  }
+
+
+  /* Final pa11y pass: exact remaining component contexts. */
+  .post-card .post-date,
+  .post-card .read-time {
+    color: #454A57 !important;
+  }
+  .subsection-heading,
+  .jump-nav-label,
+  .trust-label,
+  .cta-divider {
+    color: var(--qa11y-aa-text) !important;
+  }
+  .sample-report-icon {
+    color: var(--qa11y-aa-ink) !important;
+    background-color: var(--qa11y-aa-text) !important;
+  }
+</style>
+
+
+<style id="qa11y-accessible-nav-fix">
+  /* QA11Y accessible navigation fix: desktop services disclosure + mobile submenu safeguards. */
+  .nav-dropdown {
+    position: relative;
+  }
+
+  .nav-dropdown-toggle,
+  .mobile-nav-disclosure {
+    touch-action: manipulation;
+  }
+
+  .nav-dropdown-toggle[aria-expanded="true"] .chevron,
+  .mobile-nav-disclosure[aria-expanded="true"] .chevron {
+    transform: rotate(180deg);
+  }
+
+  .nav-dropdown-menu[hidden],
+  .mobile-submenu[hidden] {
+    display: none !important;
+  }
+
+  .nav-dropdown-menu.is-open,
+  .nav-dropdown-toggle[aria-expanded="true"] + .nav-dropdown-menu {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    transform: translateX(-50%) translateY(0) !important;
+  }
+
+  .nav-dropdown-menu a,
+  .mobile-submenu a {
+    min-height: 44px;
+  }
+
+  .nav-dropdown-toggle:focus-visible,
+  .mobile-nav-disclosure:focus-visible,
+  .nav-hamburger:focus-visible,
+  .mobile-nav-close:focus-visible {
+    outline: 2px solid var(--color-cyan, var(--color-primary, #66FCF1));
+    outline-offset: 3px;
+  }
+</style>
+
+</head>
+
+<body>
+
+  <!-- ============================================
+       SKIP LINK
+       ============================================ -->
+  <a class="skip-link" href="schedule.html#main-content">Skip to main content</a>
+
+  <!-- ============================================
+       HEADER
+       ============================================ -->
+    <header class="site-header" role="banner">
+    <div class="header-inner">
+
+      <!-- Logo -->
+      <a class="logo-link logo-link--image" href="index.html" aria-label="QA11Y Labs — Home">
+        <img class="logo-image" src="assets/brand/qa11ylabs-logo-horizontal-transparent.png" alt="QA11Y Labs" width="160" height="40" decoding="async">
+      </a>
+
+      <!-- Primary Nav -->
+      <nav class="primary-nav" aria-label="Primary navigation">
+        <ul class="nav-list" role="list">
+          <li><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-dropdown">
+            <button
+              class="nav-link nav-dropdown-toggle"
+              aria-haspopup="true"
+              aria-expanded="false"
+              aria-controls="services-menu"
+              id="services-menu-btn"
+              type="button"
+            >
+              Services
+              <svg class="chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" focusable="false">
+                <path d="M2.5 4.5l3.5 3.5 3.5-3.5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <ul
+              class="nav-dropdown-menu"
+              id="services-menu"
+              role="menu"
+              aria-labelledby="services-menu-btn"
+            >
+              <li role="none"><a href="services.html" role="menuitem" class="dropdown-item">All Services</a></li>
+              <li role="none"><a href="services.html#audits-heading" role="menuitem" class="dropdown-item">WCAG Audits</a></li>
+              <li role="none"><a href="services.html#remediation-heading" role="menuitem" class="dropdown-item">Remediation</a></li>
+              <li role="none"><a href="services.html#retainers-heading" role="menuitem" class="dropdown-item">Monitoring</a></li>
+              <li role="none"><a href="services.html#consulting-heading" role="menuitem" class="dropdown-item">Consulting</a></li>
+            </ul>
+          </li>
+          <li><a class="nav-link" href="case-studies.html">Case Studies</a></li>
+          <li><a class="nav-link" href="blog.html">The Log</a></li>
+          <li><a class="nav-link" href="free-scan.html">Free Scan</a></li>
+          <li><a class="nav-link" href="resources.html">Resources</a></li>
+          <li><a class="nav-link" href="about.html">About</a></li>
+          <li><a class="nav-link" href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+
+      <!-- Header Actions -->
+      <div class="header-actions">
+        <button
+          class="theme-toggle"
+          id="theme-toggle"
+          aria-label="Toggle light/dark mode"
+          type="button"
+        >
+          <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
+            <circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"/>
+            <path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
+            <path d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <a class="btn-cta" href="schedule.html">Schedule Consultation</a>
+        <button
+          class="nav-hamburger"
+          id="nav-hamburger"
+          aria-label="Open navigation menu"
+          aria-expanded="false"
+          aria-controls="mobile-nav"
+          type="button"
+        >
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true" focusable="false">
+            <path d="M2 5h16M2 10h16M2 15h16" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MOBILE NAV -->
+  <div
+    class="mobile-nav"
+    id="mobile-nav"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Navigation menu"
+  >
+    <div class="mobile-nav-header">
+      <a class="logo-link logo-link--image" href="index.html" aria-label="QA11Y Labs — Home">
+        <img class="logo-image" src="assets/brand/qa11ylabs-logo-horizontal-transparent.png" alt="QA11Y Labs" width="160" height="40" decoding="async">
+      </a>
+      <button
+        class="mobile-nav-close"
+        id="mobile-nav-close"
+        aria-label="Close navigation menu"
+        type="button"
+      >
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true" focusable="false">
+          <path d="M4 4l12 12M16 4L4 16" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+    <nav aria-label="Mobile navigation">
+      <ul class="mobile-nav-list" role="list">
+        <li><a class="mobile-nav-link" href="index.html">Home</a></li>
+        <li>
+          <button
+            class="mobile-nav-link mobile-nav-disclosure"
+            aria-expanded="false"
+            aria-controls="mobile-services-list"
+            type="button"
+          >
+            Services
+            <svg class="chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" focusable="false">
+              <path d="M2.5 4.5l3.5 3.5 3.5-3.5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <ul class="mobile-submenu" id="mobile-services-list" hidden>
+            <li><a class="mobile-submenu-link" href="services.html">All Services</a></li>
+            <li><a class="mobile-submenu-link" href="services.html#audits-heading">WCAG Audits</a></li>
+            <li><a class="mobile-submenu-link" href="services.html#remediation-heading">Remediation</a></li>
+            <li><a class="mobile-submenu-link" href="services.html#retainers-heading">Monitoring</a></li>
+            <li><a class="mobile-submenu-link" href="services.html#consulting-heading">Consulting</a></li>
+          </ul>
+        </li>
+        <li><a class="mobile-nav-link" href="case-studies.html">Case Studies</a></li>
+        <li><a class="mobile-nav-link" href="blog.html">The Log</a></li>
+        <li><a class="mobile-nav-link" href="free-scan.html">Free Scan</a></li>
+        <li><a class="mobile-nav-link" href="resources.html">Resources</a></li>
+        <li><a class="mobile-nav-link" href="about.html">About</a></li>
+        <li><a class="mobile-nav-link" href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="mobile-cta">
+      <a class="btn-cta" href="schedule.html">Schedule Consultation</a>
+    </div>
+  </div>
+
+
+  <main id="main-content" tabindex="-1">
+
+    <!-- ==========================================
+         HERO SECTION
+         ========================================== -->
+    <section class="hero" aria-labelledby="hero-heading">
+      <div class="container">
+        <div class="hero-content">
+          <!-- Eyebrow pill -->
+          <div class="eyebrow-pill" aria-hidden="true">
+            <span class="eyebrow-dot"></span>
+            Schedule a Consultation
+          </div>
+
+          <h1 id="hero-heading">Book your free 30-minute discovery call.</h1>
+
+          <p class="hero-subtext">
+            No sales pitch. Just an honest conversation about your accessibility challenges and how we can help.
+          </p>
+
+          <!-- Trust pills -->
+          <div class="trust-pills" aria-label="Key guarantees">
+            <span class="trust-pill">
+              <span class="trust-pill-check" aria-hidden="true">✓</span>
+              Free, no obligation
+            </span>
+            <span class="trust-pill-divider" aria-hidden="true"></span>
+            <span class="trust-pill">
+              <span class="trust-pill-check" aria-hidden="true">✓</span>
+              Responds within 1 business day
+            </span>
+            <span class="trust-pill-divider" aria-hidden="true"></span>
+            <span class="trust-pill">
+              <span class="trust-pill-check" aria-hidden="true">✓</span>
+              Expert screen reader practitioner
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         TWO-COLUMN BOOKING SECTION
+         ========================================== -->
+    <section class="booking-section" aria-labelledby="form-heading">
+      <div class="container">
+        <div class="booking-grid">
+
+          <!-- LEFT: Booking Form -->
+          <div class="form-card">
+            <!-- Form wrapper — hidden when success shown -->
+            <div id="schedule-form-wrapper">
+              <h2 id="form-heading">Tell us about your project</h2>
+
+              <form
+                id="schedule-form"
+                action="schedule.html#"
+                method="post"
+                novalidate
+                aria-label="Schedule a consultation form"
+              >
+
+                <!-- 1. Name -->
+                <div class="field-group">
+                  <label class="field-label" for="sched-name">
+                    Full Name
+                    <span class="field-required" aria-hidden="true">*</span>
+                    <span class="sr-only">(required)</span>
+                  </label>
+                  <input
+                    class="field-input"
+                    type="text"
+                    id="sched-name"
+                    name="name"
+                    required
+                    aria-required="true"
+                    autocomplete="name"
+                    aria-describedby="sched-name-error"
+                    placeholder="Your full name"
+                  />
+                  <span
+                    class="field-error"
+                    id="sched-name-error"
+                    role="alert"
+                    aria-live="assertive"
+                  >
+                    <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false" width="14" height="14">
+                      <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/>
+                      <path d="M8 4.5v4M8 11h.01" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                    Please enter your full name.
+                  </span>
+                </div>
+
+                <!-- 2. Email -->
+                <div class="field-group">
+                  <label class="field-label" for="sched-email">
+                    Email Address
+                    <span class="field-required" aria-hidden="true">*</span>
+                    <span class="sr-only">(required)</span>
+                  </label>
+                  <input
+                    class="field-input"
+                    type="email"
+                    id="sched-email"
+                    name="email"
+                    required
+                    aria-required="true"
+                    autocomplete="email"
+                    aria-describedby="sched-email-error sched-email-hint"
+                    placeholder="you@example.com"
+                  />
+                  <span class="field-hint" id="sched-email-hint">We'll send the calendar invite and confirmation here.</span>
+                  <span
+                    class="field-error"
+                    id="sched-email-error"
+                    role="alert"
+                    aria-live="assertive"
+                  >
+                    <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false" width="14" height="14">
+                      <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/>
+                      <path d="M8 4.5v4M8 11h.01" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                    Please enter a valid email address.
+                  </span>
+                </div>
+
+                <!-- 3. Organization -->
+                <div class="field-group">
+                  <label class="field-label" for="sched-org">
+                    Organization / Company
+                  </label>
+                  <input
+                    class="field-input"
+                    type="text"
+                    id="sched-org"
+                    name="organization"
+                    autocomplete="organization"
+                    aria-describedby="sched-org-hint"
+                    placeholder="Your organization name"
+                  />
+                  <span class="field-hint" id="sched-org-hint">Optional — helps us prepare for the call.</span>
+                </div>
+
+                <!-- 4. Preferred time slot -->
+                <div class="field-group">
+                  <label class="field-label" for="sched-time">
+                    Preferred Time Slot
+                    <span class="field-required" aria-hidden="true">*</span>
+                    <span class="sr-only">(required)</span>
+                  </label>
+                  <div class="select-wrapper">
+                    <select
+                      class="field-select"
+                      id="sched-time"
+                      name="preferred_time"
+                      required
+                      aria-required="true"
+                      aria-describedby="sched-time-error"
+                    >
+                      <option value="">-- Select a preference --</option>
+                      <option value="morning">Morning (9am–12pm MT)</option>
+                      <option value="afternoon">Afternoon (12pm–4pm MT)</option>
+                      <option value="late-afternoon">Late Afternoon (4pm–6pm MT)</option>
+                      <option value="flexible">Flexible / Any time</option>
+                    </select>
+                  </div>
+                  <span
+                    class="field-error"
+                    id="sched-time-error"
+                    role="alert"
+                    aria-live="assertive"
+                  >
+                    <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false" width="14" height="14">
+                      <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/>
+                      <path d="M8 4.5v4M8 11h.01" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                    Please select a preferred time slot.
+                  </span>
+                </div>
+
+                <!-- 5. Topic -->
+                <div class="field-group">
+                  <label class="field-label" for="sched-topic">
+                    What are you hoping to discuss?
+                    <span class="field-required" aria-hidden="true">*</span>
+                    <span class="sr-only">(required)</span>
+                  </label>
+                  <div class="select-wrapper">
+                    <select
+                      class="field-select"
+                      id="sched-topic"
+                      name="topic"
+                      required
+                      aria-required="true"
+                      aria-describedby="sched-topic-error"
+                    >
+                      <option value="">-- Select a topic --</option>
+                      <option value="wcag">WCAG 2.2 Compliance</option>
+                      <option value="ada-title-ii-iii">ADA Title II / Title III Context</option>
+                      <option value="section-508">Section 508</option>
+                      <option value="utah-sb68">Utah SB 68 / Accessibility Litigation Context</option>
+                      <option value="audit-quote">Accessibility Audit Quote</option>
+                      <option value="monthly-monitoring">Monthly Monitoring</option>
+                      <option value="ongoing-monitoring">Ongoing Monitoring</option>
+                      <option value="general">General Accessibility Questions</option>
+                      <option value="other">Other</option>
+                    </select>
+                  </div>
+                  <span
+                    class="field-error"
+                    id="sched-topic-error"
+                    role="alert"
+                    aria-live="assertive"
+                  >
+                    <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false" width="14" height="14">
+                      <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/>
+                      <path d="M8 4.5v4M8 11h.01" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                    Please select a topic.
+                  </span>
+                </div>
+
+                <!-- 6. Tell us more -->
+                <div class="field-group">
+                  <label class="field-label" for="sched-message">
+                    Tell us more
+                  </label>
+                  <textarea
+                    class="field-textarea"
+                    id="sched-message"
+                    name="message"
+                    rows="4"
+                    aria-describedby="sched-message-hint"
+                    placeholder="Any context about your site, deadline, or budget…"
+                  ></textarea>
+                  <span class="field-hint" id="sched-message-hint">Optional — any context about your site, deadline, or budget helps us prepare.</span>
+                </div>
+
+                <!-- Submit -->
+                <button class="btn-submit" type="submit" id="sched-submit">
+                  Request My Discovery Call
+                </button>
+
+              </form>
+            </div>
+            <!-- /schedule-form-wrapper -->
+
+            <!-- Success state — replaces form on submission -->
+            <div
+              class="form-success"
+              id="schedule-success"
+              aria-live="polite"
+              aria-atomic="true"
+            >
+              <div class="success-icon">
+                <svg viewBox="0 0 32 32" fill="none" aria-hidden="true" focusable="false" width="32" height="32">
+                  <circle cx="16" cy="16" r="14" stroke="var(--color-primary)" stroke-width="2"/>
+                  <path d="M9 16.5l4.5 4.5 9-9" stroke="var(--color-primary)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <h2 class="success-heading" id="success-heading" tabindex="-1">Request received.</h2>
+              <p class="success-body">
+                We've received your consultation request and will follow up within 1 business day. For the fastest booking, you can also pick a live time in the calendar on this page.
+              </p>
+              <a class="btn-cta-lg" href="services.html">View Our Services</a>
+            </div>
+
+          </div>
+          <!-- /form-card -->
+
+          <!-- RIGHT: Zcal Live Booking -->
+          <aside class="zcal-column" aria-label="Live calendar booking">
+            <div class="zcal-card">
+              <h3 class="zcal-heading">Pick a time that works</h3>
+              <p class="zcal-sub">30-minute free discovery call — no obligation.</p>
+              <div class="zcal-embed-wrap">
+                <iframe
+                  src="https://zcal.co/quintinw?embed=1"
+                  title="Schedule a consultation with Quint Williams — QA11Y Labs"
+                  width="100%"
+                  height="620"
+                  frameborder="0"
+                  loading="lazy"
+                  allow="fullscreen"
+                  style="border:0;border-radius:12px;min-height:580px;"
+                ></iframe>
+              </div>
+              <p class="zcal-fallback">
+                Having trouble? <a href="https://zcal.co/quintinw" target="_blank" rel="noopener noreferrer">Open the booking page directly</a>.
+              </p>
+            </div>
+          </aside>
+          <!-- /info-column -->
+
+        </div>
+        <!-- /booking-grid -->
+      </div>
+    </section>
+
+    <!-- ==========================================
+         WHY QA11Y LABS SECTION
+         ========================================== -->
+    <section class="why-section" aria-labelledby="why-heading">
+      <div class="container">
+        <div class="why-header">
+          <span class="section-eyebrow">Why Choose Us</span>
+          <h2 id="why-heading">The difference lived experience makes.</h2>
+        </div>
+
+        <div class="features-rows">
+
+          <!-- Feature 1 -->
+          <div class="feature-row">
+            <div class="feature-icon-wrap">
+              <!-- Screen / headset icon -->
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" width="24" height="24">
+                <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M4 20c0-3.314 3.582-6 8-6s8 2.686 8 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="feature-body">
+              <h3 class="feature-title">Real Screen Reader Users</h3>
+              <p class="feature-desc">Our founder uses JAWS and NVDA every single day. When we test your site, we catch what automated tools and sighted testers miss — because we experience it firsthand.</p>
+            </div>
+          </div>
+
+          <!-- Feature 2 -->
+          <div class="feature-row">
+            <div class="feature-icon-wrap">
+              <!-- Checkmark shield icon -->
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" width="24" height="24">
+                <path d="M12 2L4 5.5v7c0 4.97 3.86 8.62 8 10 4.14-1.38 8-5.03 8-10v-7L12 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                <path d="M8.5 12l2.5 2.5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="feature-body">
+              <h3 class="feature-title">No Checkbox Compliance</h3>
+              <p class="feature-desc">We don't hand you a list of violations and walk away. We explain what each issue means to a real user, prioritize by impact, and support your team through remediation.</p>
+            </div>
+          </div>
+
+          <!-- Feature 3 -->
+          <div class="feature-row">
+            <div class="feature-icon-wrap">
+              <!-- Clock / history icon -->
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" width="24" height="24">
+                <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M12 7v5l3.5 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="feature-body">
+              <h3 class="feature-title">25+ Years of Expertise</h3>
+              <p class="feature-desc">We've been navigating the web with assistive technology since before most accessibility frameworks existed. That institutional knowledge shows in every audit.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         BOTTOM CTA SECTION
+         ========================================== -->
+    <section class="bottom-cta" aria-labelledby="bottom-cta-heading">
+      <div class="container">
+        <div class="bottom-cta-inner">
+          <h2 id="bottom-cta-heading">Not ready to schedule yet?</h2>
+          <p>Start with a free automated scan — it takes 60 seconds and gives you an instant baseline.</p>
+          <div class="cta-buttons">
+            <a class="btn-cta-lg" href="free-scan.html">Run a Free Scan</a>
+            <a class="btn-outline" href="services.html">Browse Our Services</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================
+       FOOTER
+       ============================================ -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a class="logo-link logo-link--image" href="index.html" aria-label="QA11Y Labs — Home">
+        <img class="logo-image" src="assets/brand/qa11ylabs-logo-horizontal-transparent.png" alt="QA11Y Labs" width="160" height="40" decoding="async">
+      </a>
+          <p class="footer-tagline">Building a more inclusive digital world.</p>
+        </div>
+
+        <nav class="footer-nav" aria-label="Footer navigation">
+          <a href="index.html">Home</a>
+          <a href="services.html">Services</a>
+          <a href="about.html">About</a>
+          <a href="case-studies.html">Case Studies</a>
+          <a href="resources.html">Resources</a>
+          <a href="free-scan.html">Free Scan</a>
+          <a href="blog.html">The Log</a>
+          <a href="contact.html">Contact</a>
+          <a href="schedule.html" aria-current="page">Schedule</a>
+          <a href="https://www.linkedin.com/in/quintin-williams-b0195a119" target="_blank" rel="noopener noreferrer" aria-label="Quintin Williams on LinkedIn (opens in new tab)"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg> LinkedIn</a>
+        </nav>
+      </div>
+
+      <div class="footer-bottom">
+        <p class="footer-copyright">&copy; 2026 QA11Y Labs. All rights reserved.</p>
+      </div>
+    </div>
+          <div class="footer-legal">
+          <a href="privacy.html">Privacy Policy</a>
+          <span aria-hidden="true">·</span>
+          <a href="terms.html">Terms of Service</a>
+          <span aria-hidden="true">·</span>
+          <a href="accessibility.html">Accessibility Statement</a>
+        </div>
+  </footer>
+
+  <!-- ============================================
+       JAVASCRIPT — in-memory only, no storage APIs
+       ============================================ -->
+  <script>
+    (function () {
+      'use strict';
+
+      // ============================================
+      // THEME TOGGLE — in-memory, OS default
+      // ============================================
+      var currentTheme = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+
+      function applyTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        currentTheme = theme;
+        var btn = document.getElementById('theme-toggle');
+        if (btn) {
+          btn.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+          btn.setAttribute('aria-pressed', theme === 'light' ? 'true' : 'false');
+        }
+      }
+
+      applyTheme(currentTheme);
+
+      var themeToggle = document.getElementById('theme-toggle');
+      if (themeToggle) {
+        themeToggle.addEventListener('click', function () {
+          applyTheme(currentTheme === 'dark' ? 'light' : 'dark');
+        });
+      }
+
+      // ============================================
+      // SERVICES DROPDOWN — arrow keys, Escape, Tab
+      // ============================================
+      var dropdownToggle = document.getElementById('services-menu-button');
+      var dropdownMenu = document.getElementById('services-menu');
+
+      function openDropdown() {
+        if (!dropdownToggle || !dropdownMenu) return;
+        dropdownToggle.setAttribute('aria-expanded', 'true');
+        dropdownMenu.classList.add('is-open');
+        var firstItem = dropdownMenu.querySelector('[role="menuitem"]');
+        if (firstItem) firstItem.focus();
+      }
+
+      function closeDropdown() {
+        if (!dropdownToggle || !dropdownMenu) return;
+        dropdownToggle.setAttribute('aria-expanded', 'false');
+        dropdownMenu.classList.remove('is-open');
+      }
+
+      if (dropdownToggle) {
+        dropdownToggle.addEventListener('click', function () {
+          var expanded = dropdownToggle.getAttribute('aria-expanded') === 'true';
+          if (expanded) {
+            closeDropdown();
+          } else {
+            openDropdown();
+          }
+        });
+
+        dropdownToggle.addEventListener('keydown', function (e) {
+          if (e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            openDropdown();
+          } else if (e.key === 'Escape') {
+            closeDropdown();
+          }
+        });
+      }
+
+      if (dropdownMenu) {
+        var menuItems = dropdownMenu.querySelectorAll('[role="menuitem"]');
+
+        dropdownMenu.addEventListener('keydown', function (e) {
+          var focusedIndex = Array.prototype.indexOf.call(menuItems, document.activeElement);
+
+          if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            var next = (focusedIndex + 1) % menuItems.length;
+            menuItems[next].focus();
+          } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            var prev = (focusedIndex - 1 + menuItems.length) % menuItems.length;
+            menuItems[prev].focus();
+          } else if (e.key === 'Escape') {
+            closeDropdown();
+            if (dropdownToggle) dropdownToggle.focus();
+          } else if (e.key === 'Tab') {
+            closeDropdown();
+          }
+        });
+      }
+
+      document.addEventListener('click', function (e) {
+        if (dropdownMenu && dropdownToggle) {
+          if (!dropdownMenu.contains(e.target) && !dropdownToggle.contains(e.target)) {
+            closeDropdown();
+          }
+        }
+      });
+
+      // ============================================
+      // MOBILE MENU — aria-expanded, Escape, focus trap
+      // ============================================
+      var hamburger = document.getElementById('nav-hamburger');
+      var mobileNav = document.getElementById('mobile-nav');
+      var mobileNavClose = document.getElementById('mobile-nav-close');
+      var lastFocusedBeforeOpen = null;
+
+      function getFocusableElements(container) {
+        return Array.prototype.slice.call(
+          container.querySelectorAll(
+            'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+          )
+        ).filter(function (el) {
+          return el.offsetParent !== null;
+        });
+      }
+
+      function openMobileNav() {
+        if (!hamburger || !mobileNav) return;
+        lastFocusedBeforeOpen = document.activeElement;
+        hamburger.setAttribute('aria-expanded', 'true');
+        mobileNav.removeAttribute('hidden');
+        mobileNav.classList.add('is-open');
+        var closebtn = document.getElementById('mobile-nav-close');
+        if (closebtn) closebtn.focus();
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeMobileNav() {
+        if (!hamburger || !mobileNav) return;
+        hamburger.setAttribute('aria-expanded', 'false');
+        mobileNav.classList.remove('is-open');
+        mobileNav.setAttribute('hidden', '');
+        document.body.style.overflow = '';
+        if (lastFocusedBeforeOpen) {
+          lastFocusedBeforeOpen.focus();
+          lastFocusedBeforeOpen = null;
+        }
+      }
+
+      // Brand refresh: legacy drawer handlers disabled; unified handler below owns open/close state.
+      if (false && hamburger) {
+        hamburger.addEventListener('click', openMobileNav);
+      }
+
+      if (false && mobileNavClose) {
+        mobileNavClose.addEventListener('click', closeMobileNav);
+      }
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+          if (mobileNav && mobileNav.classList.contains('is-open')) {
+            closeMobileNav();
+          }
+          if (dropdownMenu && dropdownMenu.classList.contains('is-open')) {
+            closeDropdown();
+            if (dropdownToggle) dropdownToggle.focus();
+          }
+        }
+      });
+
+      if (mobileNav) {
+        mobileNav.addEventListener('keydown', function (e) {
+          if (e.key !== 'Tab') return;
+          var focusable = getFocusableElements(mobileNav);
+          if (focusable.length === 0) return;
+          var first = focusable[0];
+          var last = focusable[focusable.length - 1];
+
+          if (e.shiftKey) {
+            if (document.activeElement === first) {
+              e.preventDefault();
+              last.focus();
+            }
+          } else {
+            if (document.activeElement === last) {
+              e.preventDefault();
+              first.focus();
+            }
+          }
+        });
+      }
+
+      // ============================================
+      // SCHEDULE FORM — validation + success state
+      // ============================================
+      var scheduleForm = document.getElementById('schedule-form');
+      var formWrapper = document.getElementById('schedule-form-wrapper');
+      var formSuccess = document.getElementById('schedule-success');
+
+      function setFieldError(inputEl, errorEl, show) {
+        if (show) {
+          inputEl.classList.add('is-invalid');
+          errorEl.classList.add('is-visible');
+          inputEl.setAttribute('aria-invalid', 'true');
+        } else {
+          inputEl.classList.remove('is-invalid');
+          errorEl.classList.remove('is-visible');
+          inputEl.removeAttribute('aria-invalid');
+        }
+      }
+
+      function isValidEmail(val) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
+      }
+
+      function validateScheduleForm() {
+        var isValid = true;
+        var firstInvalidEl = null;
+
+        // Name
+        var nameInput = document.getElementById('sched-name');
+        var nameError = document.getElementById('sched-name-error');
+        var nameInvalid = !nameInput.value.trim();
+        setFieldError(nameInput, nameError, nameInvalid);
+        if (nameInvalid && !firstInvalidEl) firstInvalidEl = nameInput;
+        if (nameInvalid) isValid = false;
+
+        // Email
+        var emailInput = document.getElementById('sched-email');
+        var emailError = document.getElementById('sched-email-error');
+        var emailInvalid = !emailInput.value.trim() || !isValidEmail(emailInput.value.trim());
+        setFieldError(emailInput, emailError, emailInvalid);
+        if (emailInvalid && !firstInvalidEl) firstInvalidEl = emailInput;
+        if (emailInvalid) isValid = false;
+
+        // Time slot (required select)
+        var timeSelect = document.getElementById('sched-time');
+        var timeError = document.getElementById('sched-time-error');
+        var timeInvalid = !timeSelect.value;
+        setFieldError(timeSelect, timeError, timeInvalid);
+        if (timeInvalid && !firstInvalidEl) firstInvalidEl = timeSelect;
+        if (timeInvalid) isValid = false;
+
+        // Topic (required select)
+        var topicSelect = document.getElementById('sched-topic');
+        var topicError = document.getElementById('sched-topic-error');
+        var topicInvalid = !topicSelect.value;
+        setFieldError(topicSelect, topicError, topicInvalid);
+        if (topicInvalid && !firstInvalidEl) firstInvalidEl = topicSelect;
+        if (topicInvalid) isValid = false;
+
+        return { isValid: isValid, firstInvalidEl: firstInvalidEl };
+      }
+
+      function showScheduleSuccess() {
+        if (formWrapper) formWrapper.style.display = 'none';
+        if (formSuccess) {
+          formSuccess.classList.add('is-visible');
+          var successHeading = document.getElementById('success-heading');
+          if (successHeading) {
+            successHeading.focus();
+          }
+        }
+      }
+
+      if (scheduleForm) {
+        // Blur-time validation for required fields
+        var requiredFields = [
+          { id: 'sched-name', errorId: 'sched-name-error', check: function(v) { return !v.trim(); } },
+          { id: 'sched-email', errorId: 'sched-email-error', check: function(v) { return !v.trim() || !isValidEmail(v.trim()); } },
+          { id: 'sched-time', errorId: 'sched-time-error', check: function(v) { return !v; } },
+          { id: 'sched-topic', errorId: 'sched-topic-error', check: function(v) { return !v; } }
+        ];
+
+        requiredFields.forEach(function(field) {
+          var el = document.getElementById(field.id);
+          var err = document.getElementById(field.errorId);
+          if (el && err) {
+            el.addEventListener('blur', function() {
+              setFieldError(el, err, field.check(el.value));
+            });
+            el.addEventListener('input', function() {
+              if (!field.check(el.value)) {
+                setFieldError(el, err, false);
+              }
+            });
+          }
+        });
+
+        scheduleForm.addEventListener('submit', function (e) {
+          e.preventDefault();
+
+          var result = validateScheduleForm();
+
+          if (!result.isValid) {
+            if (result.firstInvalidEl) {
+              result.firstInvalidEl.focus();
+            }
+            return;
+          }
+
+          // Gather form fields
+          const fields = scheduleForm.querySelectorAll('input,select,textarea');
+          const formData = {};
+          fields.forEach(el => { if (el.name) formData[el.name] = el.value; });
+          formData.subject = 'New Consultation Request from qa11ylabs.com/schedule';
+
+          // Show loading state
+          const submitBtn = document.getElementById('sched-submit');
+          if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Sending…'; }
+
+          fetch('/api/contact', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(formData)
+          })
+            .then(function(resp) { return resp.json(); })
+            .then(function(data) {
+              if (data.success) {
+                showScheduleSuccess();
+              } else {
+                if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Request My Discovery Call'; }
+                alert(data.error || 'Something went wrong. Please try again or email quintin@qa11ylabs.com.');
+              }
+            })
+            .catch(function() {
+              if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Request My Discovery Call'; }
+              alert('Network error — please email quintin@qa11ylabs.com directly.');
+            });
+        });
+      }
+
+    })();
+  </script>
+
+<script>
+
+    /* Brand refresh: unified theme, dropdown, and mobile navigation behavior. */
+    (function () {
+      const html = document.documentElement;
+      const toggle = document.querySelector('[data-theme-toggle], .theme-toggle, #theme-toggle');
+      const sunIcon = `<svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"/><path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`;
+      const moonIcon = `<svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+      let theme = html.getAttribute('data-theme') || 'dark';
+      function setTheme(nextTheme) {
+        theme = nextTheme;
+        html.setAttribute('data-theme', theme);
+        if (toggle) {
+          toggle.setAttribute('aria-label', 'Switch to ' + (theme === 'dark' ? 'light' : 'dark') + ' mode');
+          if (!toggle.querySelector('.icon-sun, .icon-moon') || toggle.children.length !== 2) {
+            toggle.innerHTML = theme === 'dark' ? moonIcon : sunIcon;
+          }
+        }
+      }
+      setTheme(theme);
+      if (toggle && !toggle.dataset.brandRefreshBound) {
+        toggle.dataset.brandRefreshBound = 'true';
+        toggle.addEventListener('click', function () { setTheme(theme === 'dark' ? 'light' : 'dark'); });
+      }
+    })();
+
+    (function () {
+      const openBtn = document.getElementById('nav-hamburger') || document.getElementById('mobile-toggle');
+      const nav = document.getElementById('mobile-nav');
+      const closeBtn = document.getElementById('mobile-nav-close');
+      if (!openBtn || !nav || openBtn.dataset.brandRefreshBound) return;
+      openBtn.dataset.brandRefreshBound = 'true';
+      function setOpen(open) {
+        nav.classList.toggle('open', open);
+        nav.classList.toggle('is-open', open);
+        openBtn.setAttribute('aria-expanded', String(open));
+        openBtn.setAttribute('aria-label', open ? 'Close navigation menu' : 'Open navigation menu');
+        document.body.classList.toggle('nav-open', open);
+        if (open) {
+          const first = nav.querySelector('a, button');
+          first && first.focus();
+        }
+      }
+      openBtn.addEventListener('click', function () { setOpen(!(nav.classList.contains('open') || nav.classList.contains('is-open'))); });
+      closeBtn && closeBtn.addEventListener('click', function () { setOpen(false); openBtn.focus(); });
+      nav.addEventListener('click', function (event) {
+        const link = event.target.closest('a');
+        if (link) setOpen(false);
+      });
+      document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape' && (nav.classList.contains('open') || nav.classList.contains('is-open'))) {
+          setOpen(false);
+          openBtn.focus();
+        }
+      });
+    })();
+
+    (function () {
+      document.querySelectorAll('.mobile-nav-disclosure[aria-controls]').forEach(function (button) {
+        if (button.dataset.brandRefreshBound) return;
+        button.dataset.brandRefreshBound = 'true';
+        const submenu = document.getElementById(button.getAttribute('aria-controls'));
+        button.addEventListener('click', function () {
+          const expanded = button.getAttribute('aria-expanded') === 'true';
+          button.setAttribute('aria-expanded', String(!expanded));
+          if (submenu) submenu.hidden = expanded;
+        });
+      });
+    })();
+
+    (function () {
+      document.querySelectorAll('.nav-dropdown-toggle[aria-controls]').forEach(function (button) {
+        if (button.dataset.brandRefreshBound) return;
+        button.dataset.brandRefreshBound = 'true';
+        const menu = document.getElementById(button.getAttribute('aria-controls'));
+        button.addEventListener('click', function () {
+          const expanded = button.getAttribute('aria-expanded') === 'true';
+          button.setAttribute('aria-expanded', String(!expanded));
+          if (menu) menu.classList.toggle('is-open', !expanded);
+        });
+        document.addEventListener('click', function (event) {
+          if (!button.closest('.nav-dropdown, .dropdown')?.contains(event.target)) {
+            button.setAttribute('aria-expanded', 'false');
+            menu && menu.classList.remove('is-open');
+          }
+        });
+      });
+    })();
+  </script>
+
+
+<script id="qa11y-final-drawer-handler">
+  /* QA11Y final drawer handler: capture-phase guard for legacy templates. */
+  (function () {
+    if (window.__qa11yFinalDrawerHandler) return;
+    window.__qa11yFinalDrawerHandler = true;
+    function findButton(target) {
+      return target && target.closest && target.closest('header #nav-hamburger, header #mobile-toggle, header .mobile-menu-btn, #mobile-nav-close');
+    }
+    function getOpenButton() {
+      return document.querySelector('header #nav-hamburger, header #mobile-toggle, header .mobile-menu-btn');
+    }
+    function setOpen(open) {
+      var nav = document.getElementById('mobile-nav');
+      var openBtn = getOpenButton();
+      if (!nav || !openBtn) return;
+      nav.classList.toggle('open', open);
+      nav.classList.toggle('is-open', open);
+      openBtn.setAttribute('aria-expanded', String(open));
+      openBtn.setAttribute('aria-label', open ? 'Close navigation menu' : 'Open navigation menu');
+      document.body.classList.toggle('nav-open', open);
+      document.body.style.overflow = open ? 'hidden' : '';
+      if (open) {
+        window.setTimeout(function () {
+          var first = nav.querySelector('#mobile-nav-close') || nav.querySelector('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])');
+          if (first) first.focus({ preventScroll: true });
+        }, 0);
+      }
+    }
+    document.addEventListener('click', function (event) {
+      var control = findButton(event.target);
+      if (!control) return;
+      var nav = document.getElementById('mobile-nav');
+      if (!nav) return;
+      var isClose = control.id === 'mobile-nav-close';
+      var open = nav.classList.contains('open') || nav.classList.contains('is-open');
+      event.preventDefault();
+      event.stopPropagation();
+      event.stopImmediatePropagation();
+      setOpen(isClose ? false : !open);
+    }, true);
+    document.addEventListener('keydown', function (event) {
+      var nav = document.getElementById('mobile-nav');
+      if (event.key === 'Escape' && nav && (nav.classList.contains('open') || nav.classList.contains('is-open'))) {
+        event.preventDefault();
+        setOpen(false);
+        var openBtn = getOpenButton();
+        if (openBtn) openBtn.focus({ preventScroll: true });
+      }
+    }, true);
+    document.addEventListener('click', function (event) {
+      var nav = document.getElementById('mobile-nav');
+      if (!nav || !(nav.classList.contains('open') || nav.classList.contains('is-open'))) return;
+      if (event.target.closest && event.target.closest('#mobile-nav a')) setOpen(false);
+    }, true);
+  })();
+</script>
+
+
+<script id="qa11y-accessible-nav-handler">
+  /* QA11Y accessible navigation handler: supports click, Space, Enter, Escape, arrows, and outside-click. */
+  (function () {
+    if (window.__qa11yAccessibleNavHandler) return;
+    window.__qa11yAccessibleNavHandler = true;
+
+    function controlledBy(button) {
+      if (!button) return null;
+      var id = button.getAttribute('aria-controls');
+      return id ? document.getElementById(id) : null;
+    }
+
+    function dropdownFor(button) {
+      return button && button.closest ? button.closest('.nav-dropdown, .dropdown') : null;
+    }
+
+    function menuItems(menu) {
+      return menu ? Array.prototype.slice.call(menu.querySelectorAll('a[href], button:not([disabled])')) : [];
+    }
+
+    function setMenuOpen(button, open, options) {
+      var menu = controlledBy(button);
+      if (!button || !menu) return;
+      if (open) closeAllDesktop(button);
+      button.setAttribute('aria-expanded', String(open));
+      menu.hidden = !open;
+      menu.classList.toggle('is-open', open);
+      if (open && options && options.focusFirst) {
+        var first = menuItems(menu)[0];
+        if (first) first.focus({ preventScroll: true });
+      }
+      if (!open && options && options.returnFocus) {
+        button.focus({ preventScroll: true });
+      }
+    }
+
+    function closeAllDesktop(exceptButton) {
+      document.querySelectorAll('.nav-dropdown-toggle[aria-controls]').forEach(function (button) {
+        if (button !== exceptButton) setMenuOpen(button, false);
+      });
+    }
+
+    function toggleDesktop(button, focusFirst) {
+      var expanded = button.getAttribute('aria-expanded') === 'true';
+      setMenuOpen(button, !expanded, { focusFirst: !!focusFirst });
+    }
+
+    function setMobileSubmenuOpen(button, open, options) {
+      var submenu = controlledBy(button);
+      if (!button || !submenu) return;
+      button.setAttribute('aria-expanded', String(open));
+      submenu.hidden = !open;
+      submenu.classList.toggle('is-open', open);
+      if (open && options && options.focusFirst) {
+        var first = menuItems(submenu)[0];
+        if (first) first.focus({ preventScroll: true });
+      }
+    }
+
+    function toggleMobileSubmenu(button, focusFirst) {
+      var expanded = button.getAttribute('aria-expanded') === 'true';
+      setMobileSubmenuOpen(button, !expanded, { focusFirst: !!focusFirst });
+    }
+
+    function moveWithin(items, current, direction) {
+      if (!items.length) return;
+      var index = items.indexOf(current);
+      if (index < 0) index = direction > 0 ? -1 : 0;
+      var next = (index + direction + items.length) % items.length;
+      items[next].focus({ preventScroll: true });
+    }
+
+    document.querySelectorAll('.nav-dropdown-toggle[aria-controls]').forEach(function (button) {
+      var menu = controlledBy(button);
+      if (!menu) return;
+      setMenuOpen(button, button.getAttribute('aria-expanded') === 'true');
+      var wrapper = dropdownFor(button);
+      if (wrapper && !wrapper.dataset.qa11yHoverBound) {
+        wrapper.dataset.qa11yHoverBound = 'true';
+        wrapper.addEventListener('pointerenter', function () { setMenuOpen(button, true); });
+        wrapper.addEventListener('pointerleave', function () {
+          if (!wrapper.contains(document.activeElement)) setMenuOpen(button, false);
+        });
+        wrapper.addEventListener('focusout', function () {
+          window.setTimeout(function () {
+            if (!wrapper.contains(document.activeElement)) setMenuOpen(button, false);
+          }, 0);
+        });
+      }
+    });
+
+    document.querySelectorAll('.mobile-nav-disclosure[aria-controls]').forEach(function (button) {
+      setMobileSubmenuOpen(button, button.getAttribute('aria-expanded') === 'true');
+    });
+
+    document.addEventListener('click', function (event) {
+      var desktopButton = event.target.closest && event.target.closest('.nav-dropdown-toggle[aria-controls]');
+      if (desktopButton) {
+        event.preventDefault();
+        event.stopPropagation();
+        event.stopImmediatePropagation();
+        toggleDesktop(desktopButton, false);
+        return;
+      }
+
+      var mobileButton = event.target.closest && event.target.closest('.mobile-nav-disclosure[aria-controls]');
+      if (mobileButton) {
+        event.preventDefault();
+        event.stopPropagation();
+        event.stopImmediatePropagation();
+        toggleMobileSubmenu(mobileButton, false);
+        return;
+      }
+
+      if (!(event.target.closest && event.target.closest('.nav-dropdown, .dropdown'))) {
+        closeAllDesktop();
+      }
+    }, true);
+
+    document.addEventListener('keydown', function (event) {
+      var desktopButton = event.target.closest && event.target.closest('.nav-dropdown-toggle[aria-controls]');
+      var mobileButton = event.target.closest && event.target.closest('.mobile-nav-disclosure[aria-controls]');
+
+      if (desktopButton && (event.key === ' ' || event.key === 'Enter')) {
+        event.preventDefault();
+        event.stopPropagation();
+        toggleDesktop(desktopButton, false);
+        return;
+      }
+
+      if (desktopButton && event.key === 'ArrowDown') {
+        event.preventDefault();
+        setMenuOpen(desktopButton, true, { focusFirst: true });
+        return;
+      }
+
+      if (mobileButton && (event.key === ' ' || event.key === 'Enter')) {
+        event.preventDefault();
+        event.stopPropagation();
+        toggleMobileSubmenu(mobileButton, false);
+        return;
+      }
+
+      if (mobileButton && event.key === 'ArrowDown') {
+        event.preventDefault();
+        setMobileSubmenuOpen(mobileButton, true, { focusFirst: true });
+        return;
+      }
+
+      var openMenu = event.target.closest && event.target.closest('.nav-dropdown-menu.is-open, .mobile-submenu.is-open');
+      if (openMenu) {
+        var items = menuItems(openMenu);
+        if (event.key === 'ArrowDown') {
+          event.preventDefault();
+          moveWithin(items, event.target, 1);
+          return;
+        }
+        if (event.key === 'ArrowUp') {
+          event.preventDefault();
+          moveWithin(items, event.target, -1);
+          return;
+        }
+        if (event.key === 'Home') {
+          event.preventDefault();
+          if (items[0]) items[0].focus({ preventScroll: true });
+          return;
+        }
+        if (event.key === 'End') {
+          event.preventDefault();
+          if (items[items.length - 1]) items[items.length - 1].focus({ preventScroll: true });
+          return;
+        }
+      }
+
+      if (event.key === 'Escape') {
+        var openDesktop = document.querySelector('.nav-dropdown-toggle[aria-expanded="true"]');
+        if (openDesktop) {
+          event.preventDefault();
+          setMenuOpen(openDesktop, false, { returnFocus: true });
+          return;
+        }
+        var openMobile = document.querySelector('.mobile-nav-disclosure[aria-expanded="true"]');
+        if (openMobile) {
+          event.preventDefault();
+          setMobileSubmenuOpen(openMobile, false);
+          openMobile.focus({ preventScroll: true });
+        }
+      }
+    }, true);
+  })();
+</script>
+
+</body>
+</html>

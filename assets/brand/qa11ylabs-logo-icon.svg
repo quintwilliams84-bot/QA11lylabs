@@ -1,0 +1,33 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">QA11Y Labs shield icon</title>
+  <desc id="desc">A cyan shield check mark with subtle terminal scan lines for QA11Y Labs.</desc>
+  <defs>
+    <linearGradient id="shieldFill" x1="126" y1="56" x2="386" y2="438" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#112827"/>
+      <stop offset="0.52" stop-color="#0B0C10"/>
+      <stop offset="1" stop-color="#151820"/>
+    </linearGradient>
+    <linearGradient id="cyanStroke" x1="120" y1="50" x2="398" y2="440" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#66FCF1"/>
+      <stop offset="1" stop-color="#45A29E"/>
+    </linearGradient>
+    <filter id="glow" x="-25%" y="-25%" width="150%" height="150%" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="10" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="0 0 0 0 0.4 0 0 0 0 0.988 0 0 0 0 0.945 0 0 0 0.35 0" result="glow"/>
+      <feMerge><feMergeNode in="glow"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <pattern id="scanLines" width="14" height="14" patternUnits="userSpaceOnUse">
+      <path d="M0 3H14" stroke="#66FCF1" stroke-opacity="0.22" stroke-width="1.5"/>
+    </pattern>
+  </defs>
+  <rect width="512" height="512" rx="96" fill="#0B0C10"/>
+  <g filter="url(#glow)">
+    <path d="M256 54L74 131V270C74 371 150 445 256 469C362 445 438 371 438 270V131L256 54Z" fill="url(#shieldFill)" stroke="url(#cyanStroke)" stroke-width="14" stroke-linejoin="round"/>
+    <path d="M256 90L113 151V264C113 344.8 171.8 401.8 256 423C340.2 401.8 399 344.8 399 264V151L256 90Z" fill="url(#scanLines)" opacity="0.9"/>
+    <path d="M174 272L231 329L344 211" stroke="#66FCF1" stroke-width="32" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M171 184H225" stroke="#F2A900" stroke-width="11" stroke-linecap="round"/>
+    <path d="M171 222H272" stroke="#45A29E" stroke-width="11" stroke-linecap="round"/>
+    <path d="M176 382H224" stroke="#F2A900" stroke-width="11" stroke-linecap="round" opacity="0.82"/>
+    <path d="M303 382H359" stroke="#45A29E" stroke-width="11" stroke-linecap="round" opacity="0.82"/>
+  </g>
+</svg>

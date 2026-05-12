@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-label="I Got You tire logo">
+  <defs>
+    <radialGradient id="hub" cx="50%" cy="42%" r="60%">
+      <stop offset="0%" stop-color="#FFE36D"/>
+      <stop offset="60%" stop-color="#FFD43B"/>
+      <stop offset="100%" stop-color="#E5B400"/>
+    </radialGradient>
+    <radialGradient id="rubber" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#1A2F50"/>
+      <stop offset="100%" stop-color="#061A38"/>
+    </radialGradient>
+  </defs>
+  <circle cx="60" cy="60" r="56" fill="url(#rubber)"/>
+  <g fill="#FFD43B">
+    <rect x="57" y="3" width="6" height="10" rx="1.5"/>
+    <rect x="57" y="3" width="6" height="10" rx="1.5" transform="rotate(22.5 60 60)"/>
+    <rect x="57" y="3" width="6" height="10" rx="1.5" transform="rotate(45 60 60)"/>
+    <rect x="57" y="3" width="6" height="10" rx="1.5" transform="rotate(67.5 60 60)"/>
+    <rect x="57" y="3" width="6" height="10" rx="1.5" transform="rotate(90 60 60)"/>
+    <rect x="57" y="3" width="6" height="10" rx="1.5" transform="rotate(112.5 60 60)"/>
+    <rect x="57" y="3" width="6" height="10" rx="1.5" transform="rotate(135 60 60)"/>
+    <rect x="57" y="3" width="6" height="10" rx="1.5" transform="rotate(157.5 60 60)"/>
+    <rect x="57" y="3" width="6" height="10" rx="1.5" transform="rotate(180 60 60)"/>
+    <rect x="57" y="3" width="6" height="10" rx="1.5" transform="rotate(202.5 60 60)"/>
+    <rect x="57" y="3" width="6" height="10" rx="1.5" transform="rotate(225 60 60)"/>
+    <rect x="57" y="3" width="6" height="10" rx="1.5" transform="rotate(247.5 60 60)"/>
+    <rect x="57" y="3" width="6" height="10" rx="1.5" transform="rotate(270 60 60)"/>
+    <rect x="57" y="3" width="6" height="10" rx="1.5" transform="rotate(292.5 60 60)"/>
+    <rect x="57" y="3" width="6" height="10" rx="1.5" transform="rotate(315 60 60)"/>
+    <rect x="57" y="3" width="6" height="10" rx="1.5" transform="rotate(337.5 60 60)"/>
+  </g>
+  <circle cx="60" cy="60" r="45" fill="#0B4EA2"/>
+  <circle cx="60" cy="60" r="45" fill="none" stroke="#061A38" stroke-width="1.2" stroke-dasharray="3 4" opacity="0.55"/>
+  <circle cx="60" cy="60" r="32" fill="url(#hub)"/>
+  <circle cx="60" cy="60" r="32" fill="none" stroke="#061A38" stroke-width="2"/>
+  <g fill="#061A38">
+    <circle cx="60" cy="38" r="2.6"/>
+    <circle cx="60" cy="38" r="2.6" transform="rotate(60 60 60)"/>
+    <circle cx="60" cy="38" r="2.6" transform="rotate(120 60 60)"/>
+    <circle cx="60" cy="38" r="2.6" transform="rotate(180 60 60)"/>
+    <circle cx="60" cy="38" r="2.6" transform="rotate(240 60 60)"/>
+    <circle cx="60" cy="38" r="2.6" transform="rotate(300 60 60)"/>
+  </g>
+  <circle cx="60" cy="60" r="7" fill="#0B4EA2"/>
+  <circle cx="60" cy="60" r="3" fill="#FFD43B"/>
+</svg>

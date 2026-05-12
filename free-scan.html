@@ -1,0 +1,3399 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <!-- QA11Y BRAND HEAD START -->
+  <!-- Favicons & app icons -->
+  <link rel="icon" href="assets/brand/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/brand/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/brand/favicon-16.png">
+  <link rel="icon" type="image/svg+xml" href="assets/brand/qa11ylabs-logo-icon.svg">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/brand/apple-touch-icon.png">
+  <link rel="manifest" href="assets/brand/site.webmanifest">
+  <meta name="theme-color" content="#0B0C10">
+
+  <!-- Open Graph -->
+  <meta property="og:site_name" content="QA11Y Labs">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="QA11Y Labs — Architecting a more inclusive digital world">
+  <meta property="og:description" content="Accessibility audits, remediation, monitoring, and consulting from a senior architect with 25+ years of daily screen reader expertise.">
+  <meta property="og:image" content="https://qa11ylabs.com/assets/brand/og-image-primary.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="QA11Y Labs primary logo: cyan shield check mark with QA11Y in cyan and Labs in gold, on a dark terminal-style background.">
+  <meta property="og:url" content="https://qa11ylabs.com/">
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="QA11Y Labs — Architecting a more inclusive digital world">
+  <meta name="twitter:description" content="Accessibility audits, remediation, monitoring, and consulting from a senior architect with 25+ years of daily screen reader expertise.">
+  <meta name="twitter:image" content="https://qa11ylabs.com/assets/brand/og-image-primary.png">
+  <meta name="twitter:image:alt" content="QA11Y Labs primary logo: cyan shield check mark with QA11Y in cyan and Labs in gold.">
+  <!-- QA11Y BRAND HEAD END -->
+<meta name="description" content="Run a free automated accessibility scan on any website. Get an instant report powered by axe-core — no account required, no strings attached." />
+  <title>Free Accessibility Scan | QA11Y Labs</title>
+
+  <!-- Preconnect for fonts -->
+  <link rel="preconnect" href="https://api.fontshare.com" />
+  <link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@500,700&f[]=satoshi@400,500,600,700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================================
+       DESIGN TOKENS
+    ============================================================ */
+    :root {
+      /* Fonts */
+      --font-display: 'Cabinet Grotesk', system-ui, sans-serif;
+      --font-body: 'Satoshi', system-ui, sans-serif;
+
+      /* Type scale */
+      --text-xs:   clamp(0.75rem,  0.7rem  + 0.25vw, 0.875rem);
+      --text-sm:   clamp(0.875rem, 0.8rem  + 0.35vw, 1rem);
+      --text-base: clamp(1rem,     0.95rem + 0.25vw, 1.125rem);
+      --text-lg:   clamp(1.125rem, 1rem    + 0.75vw, 1.5rem);
+      --text-xl:   clamp(1.5rem,   1.2rem  + 1.25vw, 2.25rem);
+      --text-2xl:  clamp(2rem,     1.2rem  + 2.5vw,  3.5rem);
+      --text-3xl:  clamp(2.5rem,   1rem    + 4vw,    5rem);
+
+      /* Spacing */
+      --space-1:  0.25rem; --space-2:  0.5rem;  --space-3:  0.75rem;
+      --space-4:  1rem;    --space-5:  1.25rem; --space-6:  1.5rem;
+      --space-7:  1.75rem; --space-8:  2rem;    --space-10: 2.5rem;
+      --space-12: 3rem;    --space-14: 3.5rem;  --space-16: 4rem;
+      --space-20: 5rem;    --space-24: 6rem;
+
+      /* Radii */
+      --radius-sm:   0.375rem;
+      --radius-md:   0.5rem;
+      --radius-lg:   0.75rem;
+      --radius-xl:   1rem;
+      --radius-full: 9999px;
+
+      /* Transition */
+      --transition: 180ms cubic-bezier(0.16, 1, 0.3, 1);
+
+      /* Layout */
+      --content-default: 1100px;
+    }
+
+    /* Dark theme (default) */
+    [data-theme="dark"], :root {
+      --color-bg:           #0B0C10;
+      --color-surface:      #0f1117;
+      --color-surface-2:    #151820;
+      --color-border:       #1e2330;
+      --color-divider:      #1a1f2e;
+      --color-text:         #C5C6C7;
+      --color-text-muted:   #7a7e8a;
+      --color-text-faint:   #454a57;
+      --color-text-inverse: #0B0C10;
+      --color-primary:      #66FCF1;
+      --color-primary-hover:#45e8dc;
+      --color-primary-dim:  #1a3f3d;
+      --color-cta:          #F2A900;
+      --color-cta-hover:    #e09800;
+      --color-cta-dim:      #3a2a00;
+      --color-teal:         #45A29E;
+      --color-teal-dim:     #112827;
+      --shadow-sm:  0 1px 3px rgba(0,0,0,0.5);
+      --shadow-md:  0 4px 16px rgba(0,0,0,0.6);
+      --shadow-lg:  0 12px 40px rgba(0,0,0,0.7);
+      --glow-cyan:  0 0 40px rgba(102,252,241,0.08);
+    }
+
+    /* Light theme overrides */
+    [data-theme="light"] {
+      --color-bg:           #f4f5f7;
+      --color-surface:      #ffffff;
+      --color-surface-2:    #eef0f4;
+      --color-border:       #d0d4de;
+      --color-divider:      #dde1ea;
+      --color-text:         #1a1d26;
+      --color-text-muted:   #5a5f6e;
+      --color-text-faint:   #9ca3af;
+      --color-text-inverse: #ffffff;
+      --color-primary:      #007a76;
+      --color-primary-hover:#006460;
+      --color-primary-dim:  #e0f5f4;
+      --color-cta:          #c47900;
+      --color-cta-hover:    #a86700;
+      --color-cta-dim:      #fff4d9;
+      --color-teal:         #2e7d79;
+      --color-teal-dim:     #e6f4f3;
+      --shadow-sm:  0 1px 3px rgba(0,0,0,0.08);
+      --shadow-md:  0 4px 16px rgba(0,0,0,0.1);
+      --shadow-lg:  0 12px 40px rgba(0,0,0,0.14);
+      --glow-cyan:  none;
+    }
+
+    /* ============================================================
+       RESET & BASE
+    ============================================================ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    body {
+      background-color: var(--color-bg);
+      color: var(--color-text);
+      font-family: var(--font-body);
+      font-size: var(--text-base);
+      line-height: 1.6;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Screen reader only */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    /* Skip link */
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: var(--space-4);
+      z-index: 9999;
+      background: var(--color-cta);
+      color: var(--color-text-inverse);
+      font-family: var(--font-body);
+      font-size: var(--text-sm);
+      font-weight: 600;
+      padding: var(--space-3) var(--space-5);
+      border-radius: var(--radius-md);
+      text-decoration: none;
+      transition: top var(--transition);
+    }
+    .skip-link:focus {
+      top: var(--space-4);
+      outline: 3px solid var(--color-cta);
+      outline-offset: 3px;
+    }
+
+    /* Focus styles */
+    :focus-visible {
+      outline: 3px solid var(--color-cta);
+      outline-offset: 3px;
+      border-radius: var(--radius-sm);
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    button { cursor: pointer; font-family: inherit; }
+    ul, ol { list-style: none; }
+
+    /* Container */
+    .container {
+      width: 100%;
+      max-width: var(--content-default);
+      margin-inline: auto;
+      padding-inline: var(--space-6);
+    }
+
+    /* ============================================================
+       HEADER
+    ============================================================ */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(11, 12, 16, 0.82);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    [data-theme="light"] .site-header {
+      background: rgba(244, 245, 247, 0.85);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      gap: var(--space-6);
+      height: 64px;
+    }
+
+    /* Logo */
+    .logo-link {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      flex-shrink: 0;
+    }
+    .logo-wordmark {
+      white-space: nowrap;
+      font-family: var(--font-display);
+      font-size: 1.125rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1;
+    }
+    .logo-qa   { color: var(--color-primary); }
+    .logo-11y  { color: var(--color-primary); }
+    .logo-labs { color: var(--color-cta); }
+
+    [data-theme="light"] .logo-qa { color: #1a1d26; }
+
+    /* Primary nav */
+    .primary-nav {
+      display: flex;
+      align-items: center;
+      gap: var(--space-1);
+      margin-inline-start: auto;
+    }
+
+    
+
+    /* Final QA11Y Labs logo image treatment */
+    .logo-link--image {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      color: inherit;
+    }
+    .logo-image {
+      width: clamp(9rem, 14vw, 12rem);
+      height: auto;
+      max-height: 2.75rem;
+      object-fit: contain;
+    }
+    .site-footer .logo-image,
+    .footer-logo-image {
+      width: min(11rem, 100%);
+      max-height: 3rem;
+    }
+    @media (max-width: 420px) {
+      .logo-image { width: 8.75rem; }
+    }
+
+    /* Sitewide nav-list shim — was missing on some pages */
+    .nav-list { list-style: none; margin: 0; padding: 0; display: flex; align-items: center; gap: var(--space-1); flex-wrap: wrap; }
+    .site-header ul, .site-header ol { list-style: none; }
+    .nav-dropdown-menu, .dropdown-menu { list-style: none; padding-left: 0; }
+.nav-link {
+      font-family: var(--font-body);
+      font-size: var(--text-sm);
+      font-weight: 500;
+      color: var(--color-text-muted);
+      padding: var(--space-2) var(--space-3);
+      border-radius: var(--radius-md);
+      transition: color var(--transition), background var(--transition);
+      white-space: nowrap;
+    }
+    .nav-link:hover,
+    .nav-link:focus-visible {
+      color: var(--color-text);
+      background: var(--color-surface-2);
+    }
+    .nav-link[aria-current="page"] {
+      color: var(--color-primary);
+    }
+
+    /* Dropdown */
+    .nav-dropdown {
+      position: relative;
+    }
+    .nav-dropdown-trigger {
+      display: flex;
+      align-items: center;
+      gap: var(--space-1);
+      font-family: var(--font-body);
+      font-size: var(--text-sm);
+      font-weight: 500;
+      color: var(--color-text-muted);
+      background: none;
+      border: none;
+      padding: var(--space-2) var(--space-3);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: color var(--transition), background var(--transition);
+      white-space: nowrap;
+    }
+    .nav-dropdown-trigger:hover,
+    .nav-dropdown-trigger:focus-visible {
+      color: var(--color-text);
+      background: var(--color-surface-2);
+    }
+    .nav-dropdown-trigger svg {
+      transition: transform var(--transition);
+    }
+    .nav-dropdown-trigger[aria-expanded="true"] svg {
+      transform: rotate(180deg);
+    }
+
+    .nav-dropdown-menu {
+      position: absolute;
+      top: calc(100% + var(--space-2));
+      left: 50%;
+      transform: translateX(-50%) translateY(-6px);
+      min-width: 220px;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      padding: var(--space-2);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity var(--transition), transform var(--transition);
+      z-index: 200;
+    }
+    .nav-dropdown-menu.is-open {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(-50%) translateY(0);
+    }
+    .nav-dropdown-menu a {
+      display: block;
+      font-size: var(--text-sm);
+      font-weight: 500;
+      color: var(--color-text-muted);
+      padding: var(--space-2) var(--space-3);
+      border-radius: var(--radius-md);
+      transition: color var(--transition), background var(--transition);
+    }
+    .nav-dropdown-menu a:hover,
+    .nav-dropdown-menu a:focus-visible {
+      color: var(--color-text);
+      background: var(--color-surface-2);
+    }
+
+    /* Header actions */
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      margin-inline-start: var(--space-4);
+    }
+
+    /* CTA button */
+    .btn-cta {
+      font-family: var(--font-body);
+      font-size: var(--text-sm);
+      font-weight: 600;
+      color: var(--color-text-inverse);
+      background: var(--color-cta);
+      border: none;
+      border-radius: var(--radius-full);
+      padding: var(--space-2) var(--space-5);
+      white-space: nowrap;
+      transition: background var(--transition), transform var(--transition);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      min-height: 40px;
+    }
+    .btn-cta:hover {
+      background: var(--color-cta-hover);
+      transform: translateY(-1px);
+    }
+    .btn-cta:active { transform: none; }
+
+    /* Theme toggle */
+    .theme-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--color-border);
+      background: none;
+      color: var(--color-text-muted);
+      transition: color var(--transition), background var(--transition), border-color var(--transition);
+    }
+    .theme-toggle:hover {
+      color: var(--color-text);
+      background: var(--color-surface-2);
+    }
+    .theme-toggle .icon-sun  { display: none; }
+    .theme-toggle .icon-moon { display: block; }
+    [data-theme="light"] .theme-toggle .icon-sun  { display: block; }
+    [data-theme="light"] .theme-toggle .icon-moon { display: none; }
+
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--color-border);
+      background: none;
+      color: var(--color-text-muted);
+      transition: color var(--transition), background var(--transition);
+    }
+    .hamburger:hover { color: var(--color-text); background: var(--color-surface-2); }
+
+
+    /* Header control compatibility: actual markup uses .nav-hamburger */
+    .nav-hamburger {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: var(--radius-sm);
+      color: var(--color-text-muted);
+      transition: color var(--transition), background var(--transition);
+    }
+    .nav-hamburger:hover { color: var(--color-text); background: var(--color-surface-2); }
+    @media (min-width: 900px) { .nav-hamburger { display: none; } }
+
+    .theme-toggle .icon-sun,
+    .theme-toggle .icon-moon { display: none; }
+    [data-theme="dark"] .theme-toggle .icon-moon { display: block; }
+    [data-theme="light"] .theme-toggle .icon-sun { display: block; }
+
+    /* Mobile nav panel */
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 99;
+      background: var(--color-bg);
+      padding: var(--space-20) var(--space-6) var(--space-8);
+      overflow-y: auto;
+      transform: translateX(100%);
+      transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .mobile-nav.is-open {
+      transform: translateX(0);
+    }
+    .mobile-nav-link {
+      display: block;
+      font-family: var(--font-display);
+      font-size: var(--text-lg);
+      font-weight: 600;
+      color: var(--color-text-muted);
+      padding: var(--space-3) 0;
+      border-bottom: 1px solid var(--color-border);
+      transition: color var(--transition);
+    }
+    .mobile-nav-link:hover,
+    .mobile-nav-link[aria-current="page"] {
+      color: var(--color-primary);
+    }
+    .mobile-nav-sub {
+      padding-inline-start: var(--space-5);
+    }
+    .mobile-nav-sub .mobile-nav-link {
+      font-size: var(--text-base);
+      font-weight: 500;
+    }
+    .mobile-cta {
+      margin-top: var(--space-8);
+    }
+
+    /* ============================================================
+       RESPONSIVE: show hamburger, hide primary nav
+    ============================================================ */
+    @media (max-width: 899px) {
+      .primary-nav,
+      .header-actions .btn-cta { display: none; }
+      .hamburger  { display: flex; }
+      .mobile-nav { display: block; }
+    }
+
+    /* ============================================================
+       BUTTONS (global)
+    ============================================================ */
+    .btn-amber {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-family: var(--font-display);
+      font-size: var(--text-sm);
+      font-weight: 700;
+      color: var(--color-text-inverse);
+      background: var(--color-cta);
+      border: none;
+      border-radius: var(--radius-full);
+      padding: var(--space-3) var(--space-7);
+      text-decoration: none;
+      min-height: 44px;
+      transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+      white-space: nowrap;
+    }
+    .btn-amber:hover {
+      background: var(--color-cta-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(242,169,0,0.3);
+    }
+    .btn-amber:active { transform: none; box-shadow: none; }
+
+    .btn-outline-cyan {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-family: var(--font-display);
+      font-size: var(--text-sm);
+      font-weight: 700;
+      color: var(--color-primary);
+      background: transparent;
+      border: 1.5px solid var(--color-primary);
+      border-radius: var(--radius-full);
+      padding: var(--space-3) var(--space-7);
+      text-decoration: none;
+      min-height: 44px;
+      transition: background var(--transition), color var(--transition), transform var(--transition);
+      white-space: nowrap;
+    }
+    .btn-outline-cyan:hover {
+      background: var(--color-primary-dim);
+      transform: translateY(-1px);
+    }
+    .btn-outline-cyan:active { transform: none; }
+
+    /* ============================================================
+       HERO
+    ============================================================ */
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding-block: var(--space-20) var(--space-16);
+    }
+
+    /* Ambient background */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background-image:
+        linear-gradient(rgba(102,252,241,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(102,252,241,0.03) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 0%, transparent 100%);
+      pointer-events: none;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: -120px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      height: 500px;
+      background: radial-gradient(ellipse at center, rgba(102,252,241,0.07) 0%, rgba(69,162,158,0.04) 40%, transparent 70%);
+      filter: blur(1px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      max-width: 720px;
+      margin-inline: auto;
+    }
+
+    .eyebrow-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-family: var(--font-body);
+      font-size: var(--text-xs);
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      background: var(--color-primary-dim);
+      border: 1px solid rgba(102,252,241,0.15);
+      border-radius: var(--radius-full);
+      padding: var(--space-1) var(--space-4);
+      margin-bottom: var(--space-6);
+    }
+    .eyebrow-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--color-primary);
+      animation: pulse-dot 2s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.4; transform: scale(0.75); }
+    }
+
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: var(--text-2xl);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--color-text);
+      margin-bottom: var(--space-6);
+    }
+
+    .hero-sub {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+      line-height: 1.65;
+    }
+
+    /* ============================================================
+       SCAN FORM SECTION
+    ============================================================ */
+    .scan-form-section {
+      position: relative;
+      z-index: 1;
+      padding-block: var(--space-12) var(--space-20);
+    }
+
+    .scan-card {
+      max-width: 640px;
+      margin-inline: auto;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg), var(--glow-cyan);
+      padding: var(--space-10) var(--space-10);
+    }
+
+    @media (max-width: 600px) {
+      .scan-card {
+        padding: var(--space-8) var(--space-6);
+      }
+    }
+
+    .scan-card-label {
+      font-family: var(--font-display);
+      font-size: var(--text-sm);
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      margin-bottom: var(--space-6);
+    }
+
+    .scan-input-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+      margin-bottom: var(--space-5);
+    }
+
+    .scan-input-group label {
+      font-family: var(--font-body);
+      font-size: var(--text-sm);
+      font-weight: 600;
+      color: var(--color-text);
+    }
+
+    .scan-input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .scan-input-icon {
+      position: absolute;
+      left: var(--space-4);
+      color: var(--color-text-faint);
+      pointer-events: none;
+      flex-shrink: 0;
+    }
+
+    #scan-url {
+      width: 100%;
+      font-family: var(--font-body);
+      font-size: var(--text-base);
+      font-weight: 400;
+      color: var(--color-text);
+      background: var(--color-surface-2);
+      border: 1.5px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: var(--space-4) var(--space-4) var(--space-4) calc(var(--space-4) + 24px + var(--space-3));
+      min-height: 52px;
+      transition: border-color var(--transition), box-shadow var(--transition);
+      outline: none;
+    }
+    #scan-url::placeholder {
+      color: var(--color-text-faint);
+    }
+    #scan-url:focus {
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px rgba(102,252,241,0.15);
+    }
+    #scan-url[aria-invalid="true"] {
+      border-color: #e05252;
+      box-shadow: 0 0 0 3px rgba(224,82,82,0.15);
+    }
+
+    .scan-url-hint {
+      font-size: var(--text-xs);
+      color: var(--color-text-muted);
+    }
+
+    .scan-error {
+      display: none;
+      font-size: var(--text-xs);
+      font-weight: 500;
+      color: #e05252;
+      align-items: center;
+      gap: var(--space-1);
+    }
+    .scan-error.is-visible {
+      display: flex;
+    }
+
+    .btn-scan {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-3);
+      width: 100%;
+      font-family: var(--font-display);
+      font-size: var(--text-base);
+      font-weight: 700;
+      color: var(--color-text-inverse);
+      background: var(--color-cta);
+      border: none;
+      border-radius: var(--radius-md);
+      padding: var(--space-4) var(--space-8);
+      min-height: 56px;
+      transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+      margin-bottom: var(--space-4);
+    }
+    .btn-scan:hover:not(:disabled) {
+      background: var(--color-cta-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px rgba(242,169,0,0.35);
+    }
+    .btn-scan:active:not(:disabled) { transform: none; box-shadow: none; }
+    .btn-scan:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+    .btn-scan:focus-visible {
+      outline: 3px solid var(--color-primary);
+      outline-offset: 3px;
+    }
+
+    /* Spinner */
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    .spinner {
+      width: 18px;
+      height: 18px;
+      border: 2.5px solid rgba(11,12,16,0.3);
+      border-top-color: #0B0C10;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      flex-shrink: 0;
+    }
+
+    .scan-note {
+      font-size: var(--text-xs);
+      color: var(--color-text-faint);
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-2);
+    }
+
+    /* ============================================================
+       EMAIL FIELD
+    ============================================================ */
+    #scan-email {
+      width: 100%;
+      font-family: var(--font-body);
+      font-size: var(--text-base);
+      font-weight: 400;
+      color: var(--color-text);
+      background: var(--color-surface-2);
+      border: 1.5px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: var(--space-4) var(--space-4) var(--space-4) calc(var(--space-4) + 24px + var(--space-3));
+      min-height: 52px;
+      transition: border-color var(--transition), box-shadow var(--transition);
+      outline: none;
+    }
+    #scan-email::placeholder {
+      color: var(--color-text-faint);
+    }
+    #scan-email:focus {
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px rgba(102,252,241,0.15);
+    }
+    #scan-email[aria-invalid="true"] {
+      border-color: #e05252;
+      box-shadow: 0 0 0 3px rgba(224,82,82,0.15);
+    }
+
+    /* ============================================================
+       CONFIRMATION PANEL
+    ============================================================ */
+    #scan-confirmation {
+      display: none;
+      max-width: 640px;
+      margin-inline: auto;
+      margin-top: var(--space-8);
+    }
+    #scan-confirmation.is-visible {
+      display: block;
+    }
+
+    .confirmation-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-md), var(--glow-cyan);
+      overflow: hidden;
+      text-align: center;
+      padding: var(--space-12) var(--space-10);
+    }
+
+    @media (max-width: 600px) {
+      .confirmation-card { padding: var(--space-8) var(--space-6); }
+    }
+
+    .confirmation-icon {
+      width: 64px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--color-primary-dim);
+      border: 1.5px solid rgba(102,252,241,0.2);
+      border-radius: 50%;
+      margin-inline: auto;
+      margin-bottom: var(--space-6);
+      color: var(--color-primary);
+    }
+
+    .confirmation-title {
+      font-family: var(--font-display);
+      font-size: var(--text-lg);
+      font-weight: 700;
+      color: var(--color-text);
+      margin-bottom: var(--space-3);
+      letter-spacing: -0.01em;
+    }
+
+    .confirmation-body {
+      font-size: var(--text-base);
+      color: var(--color-text-muted);
+      line-height: 1.65;
+      max-width: 440px;
+      margin-inline: auto;
+      margin-bottom: var(--space-6);
+    }
+
+    .confirmation-email-highlight {
+      color: var(--color-primary);
+      font-weight: 600;
+      word-break: break-all;
+    }
+
+    .confirmation-meta {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-size: var(--text-xs);
+      color: var(--color-text-faint);
+      background: var(--color-surface-2);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-full);
+      padding: var(--space-2) var(--space-4);
+      margin-bottom: var(--space-8);
+    }
+
+    .confirmation-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-3);
+      justify-content: center;
+    }
+
+    .btn-scan-again {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-family: var(--font-display);
+      font-size: var(--text-sm);
+      font-weight: 700;
+      color: var(--color-text-muted);
+      background: transparent;
+      border: 1.5px solid var(--color-border);
+      border-radius: var(--radius-full);
+      padding: var(--space-3) var(--space-6);
+      min-height: 44px;
+      cursor: pointer;
+      transition: color var(--transition), border-color var(--transition), background var(--transition);
+    }
+    .btn-scan-again:hover {
+      color: var(--color-text);
+      border-color: var(--color-text-muted);
+      background: var(--color-surface-2);
+    }
+
+    /* ============================================================
+       PROGRESS PANEL
+    ============================================================ */
+    #scan-progress {
+      display: none;
+      max-width: 640px;
+      margin-inline: auto;
+      margin-top: var(--space-8);
+    }
+    #scan-progress.is-visible {
+      display: block;
+    }
+    .progress-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-md), var(--glow-cyan);
+      overflow: hidden;
+      padding: var(--space-8) var(--space-8);
+    }
+    @media (max-width: 600px) {
+      .progress-card { padding: var(--space-6) var(--space-5); }
+    }
+    .progress-card-label {
+      font-family: var(--font-display);
+      font-size: var(--text-sm);
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      margin-bottom: var(--space-4);
+    }
+    .progress-url-line {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+      margin-bottom: var(--space-5);
+      word-break: break-all;
+    }
+    .progress-track {
+      background: var(--color-surface-2);
+      border-radius: var(--radius-full);
+      height: 8px;
+      overflow: hidden;
+      margin-bottom: var(--space-3);
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+      border-radius: var(--radius-full);
+      width: 0%;
+      transition: width 0.5s ease;
+    }
+    .progress-status {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+      min-height: 1.4em;
+      margin-bottom: var(--space-5);
+    }
+    .progress-stages {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+      margin-bottom: var(--space-6);
+    }
+    .stage-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: var(--text-xs);
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--color-border);
+      background: var(--color-surface-2);
+      color: var(--color-text-faint);
+      transition: color 0.3s, background 0.3s, border-color 0.3s;
+    }
+    .stage-chip.active {
+      color: var(--color-primary);
+      border-color: rgba(102,252,241,0.35);
+      background: var(--color-primary-dim);
+    }
+    .stage-chip.done {
+      color: #45A29E;
+      border-color: rgba(69,162,158,0.3);
+      background: rgba(69,162,158,0.08);
+    }
+    /* Inline results panel */
+    #scan-results-panel {
+      display: none;
+    }
+    #scan-results-panel.is-visible {
+      display: block;
+    }
+    .results-score-row {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+      padding: var(--space-4) var(--space-5);
+      background: var(--color-surface-2);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      margin-bottom: var(--space-5);
+    }
+    .results-score-number {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      font-weight: 700;
+      line-height: 1;
+    }
+    .results-score-number.good  { color: #1e8449; }
+    .results-score-number.warn  { color: var(--color-secondary); }
+    .results-score-number.bad   { color: #c0392b; }
+    .results-score-label {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+      line-height: 1.4;
+    }
+    .results-score-label strong {
+      display: block;
+      font-size: var(--text-base);
+      color: var(--color-text);
+      font-weight: 600;
+    }
+    .results-counts {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-2);
+      margin-bottom: var(--space-5);
+    }
+    @media (max-width: 480px) {
+      .results-counts { grid-template-columns: repeat(2, 1fr); }
+    }
+    .count-tile {
+      text-align: center;
+      padding: var(--space-3) var(--space-2);
+      background: var(--color-surface-2);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+    }
+    .count-tile-num {
+      font-family: var(--font-display);
+      font-size: 1.75rem;
+      font-weight: 700;
+      line-height: 1;
+    }
+    .count-tile-num.critical { color: #c0392b; }
+    .count-tile-num.serious  { color: var(--color-secondary); }
+    .count-tile-num.moderate { color: var(--color-text-muted); }
+    .count-tile-num.minor    { color: var(--color-text-faint); }
+    .count-tile-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--color-text-faint);
+      margin-top: var(--space-1);
+    }
+    .results-top-findings-heading {
+      font-family: var(--font-display);
+      font-size: var(--text-base);
+      font-weight: 700;
+      color: var(--color-text);
+      margin-bottom: var(--space-3);
+    }
+    .finding-item {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-3);
+      padding: var(--space-3) 0;
+      border-bottom: 1px solid var(--color-border);
+    }
+    .finding-item:last-child { border-bottom: none; }
+    .impact-badge {
+      flex-shrink: 0;
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 3px 7px;
+      border-radius: 4px;
+      margin-top: 2px;
+    }
+    .impact-badge.critical { background: #c0392b; color: #fff; }
+    .impact-badge.serious  { background: #c47900; color: #fff; }
+    .impact-badge.moderate { background: #5a5f6e; color: #fff; }
+    .impact-badge.minor    { background: #3a3d4a; color: #C5C6C7; }
+    .finding-desc {
+      flex: 1;
+    }
+    .finding-desc-text {
+      font-size: var(--text-sm);
+      color: var(--color-text);
+      line-height: 1.5;
+    }
+    .finding-meta {
+      font-size: var(--text-xs);
+      color: var(--color-text-faint);
+      margin-top: 3px;
+    }
+    .finding-meta a {
+      color: var(--color-primary);
+      text-decoration: none;
+    }
+    .finding-meta a:hover { text-decoration: underline; }
+    .results-email-notice {
+      margin-top: var(--space-5);
+      padding: var(--space-4) var(--space-5);
+      background: var(--color-primary-dim);
+      border: 1px solid rgba(102,252,241,0.2);
+      border-radius: var(--radius-md);
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+      line-height: 1.6;
+    }
+    .results-email-notice strong { color: var(--color-text); }
+    .results-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-3);
+      margin-top: var(--space-6);
+      justify-content: flex-start;
+    }
+
+    /* ============================================================
+       WHAT WE CHECK SECTION
+    ============================================================ */
+    .checks-section {
+      padding-block: var(--space-20);
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 640px;
+      margin-inline: auto;
+      margin-bottom: var(--space-14);
+    }
+
+    .section-eyebrow {
+      display: inline-block;
+      font-family: var(--font-body);
+      font-size: var(--text-xs);
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      margin-bottom: var(--space-3);
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: var(--text-xl);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--color-text);
+      line-height: 1.2;
+      margin-bottom: var(--space-4);
+    }
+
+    .section-sub {
+      font-size: var(--text-base);
+      color: var(--color-text-muted);
+      line-height: 1.65;
+    }
+
+    .checks-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: var(--space-5);
+    }
+
+    .check-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-7) var(--space-6);
+      transition: border-color var(--transition), box-shadow var(--transition);
+    }
+    .check-card:hover {
+      border-color: rgba(102,252,241,0.25);
+      box-shadow: var(--glow-cyan);
+    }
+
+    .check-icon {
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--color-primary-dim);
+      border-radius: var(--radius-md);
+      color: var(--color-primary);
+      margin-bottom: var(--space-4);
+      flex-shrink: 0;
+    }
+
+    .check-title {
+      font-family: var(--font-display);
+      font-size: var(--text-base);
+      font-weight: 700;
+      color: var(--color-text);
+      margin-bottom: var(--space-2);
+    }
+
+    .check-desc {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+      line-height: 1.6;
+    }
+
+    /* ============================================================
+       LIMITATIONS SECTION
+    ============================================================ */
+    .limitations-section {
+      background: var(--color-surface);
+      border-top: 1px solid var(--color-border);
+      border-bottom: 1px solid var(--color-border);
+      padding-block: var(--space-20);
+    }
+
+    .limitations-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-14);
+      margin-top: var(--space-14);
+    }
+
+    @media (max-width: 700px) {
+      .limitations-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-10);
+      }
+    }
+
+    .limitations-col-heading {
+      font-family: var(--font-display);
+      font-size: var(--text-base);
+      font-weight: 700;
+      color: var(--color-text);
+      margin-bottom: var(--space-5);
+      padding-bottom: var(--space-3);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .limitations-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+    }
+
+    .limitations-item {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-3);
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+      line-height: 1.55;
+    }
+
+    .limitations-item-icon {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      margin-top: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .icon-miss {
+      background: rgba(242,169,0,0.12);
+      color: var(--color-cta);
+    }
+    .icon-add {
+      background: var(--color-primary-dim);
+      color: var(--color-primary);
+    }
+
+    /* ============================================================
+       BOTTOM CTA
+    ============================================================ */
+    .bottom-cta {
+      padding-block: var(--space-20);
+      text-align: center;
+    }
+
+    .bottom-cta-inner {
+      max-width: 600px;
+      margin-inline: auto;
+    }
+
+    .bottom-cta-title {
+      font-family: var(--font-display);
+      font-size: var(--text-xl);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--color-text);
+      margin-bottom: var(--space-4);
+    }
+
+    .bottom-cta-sub {
+      font-size: var(--text-base);
+      color: var(--color-text-muted);
+      margin-bottom: var(--space-8);
+      line-height: 1.65;
+    }
+
+    .bottom-cta-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-4);
+      justify-content: center;
+    }
+
+    /* ============================================================
+       FOOTER
+    ============================================================ */
+    .site-footer {
+      background: var(--color-surface);
+      border-top: 1px solid var(--color-border);
+      padding-block: var(--space-12) var(--space-8);
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: var(--space-10);
+      flex-wrap: wrap;
+      margin-bottom: var(--space-8);
+    }
+
+    .footer-tagline {
+      margin-top: var(--space-3);
+      font-size: var(--text-sm);
+      color: var(--color-text-faint);
+    }
+
+    .footer-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-1);
+      align-items: center;
+      max-width: 600px;
+    }
+
+    .footer-nav-link {
+      font-size: var(--text-sm);
+      font-weight: 500;
+      color: var(--color-text-muted);
+      padding: var(--space-1) var(--space-3);
+      border-radius: var(--radius-md);
+      transition: color var(--transition);
+    }
+    .footer-nav-link:hover {
+      color: var(--color-text);
+    }
+    .footer-nav-link[aria-current="page"] {
+      color: var(--color-primary);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid var(--color-border);
+      padding-top: var(--space-6);
+    }
+
+    .footer-copy {
+      font-size: var(--text-xs);
+      color: var(--color-text-faint);
+    }
+
+    /* ============================================================
+       LIVE REGION (visually hidden, just for AT announcements)
+    ============================================================ */
+    .live-region {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      white-space: nowrap;
+    }
+
+    /* ── Sample Report Preview Section ── */
+    .sample-report-section {
+      padding: var(--space-16) 0;
+      background: var(--surface-2, #0F172A);
+      border-top: 1px solid rgba(6,182,212,0.15);
+      border-bottom: 1px solid rgba(6,182,212,0.15);
+    }
+
+    .sample-report-section h2 {
+      font-family: var(--font-display);
+      font-size: var(--text-xl);
+      font-weight: 700;
+      color: var(--text-primary, #F8FAFC);
+      margin-bottom: var(--space-3);
+      text-align: center;
+    }
+
+    .sample-report-section > .container > p {
+      text-align: center;
+      color: var(--text-secondary, #94A3B8);
+      font-size: var(--text-base);
+      margin-bottom: var(--space-8);
+    }
+
+    .sample-report-preview {
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    .sample-report-link {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      border-radius: 12px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .sample-report-link:hover .sample-report-card,
+    .sample-report-link:focus-visible .sample-report-card {
+      border-color: #06B6D4;
+      box-shadow: 0 0 0 3px rgba(6,182,212,0.25), 0 8px 32px rgba(0,0,0,0.4);
+      transform: translateY(-2px);
+    }
+
+    .sample-report-link:focus-visible {
+      outline: 3px solid #06B6D4;
+      outline-offset: 3px;
+      border-radius: 12px;
+    }
+
+    .sample-report-card {
+      display: flex;
+      align-items: center;
+      gap: var(--space-5);
+      background: #1E293B;
+      border: 1.5px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: var(--space-6) var(--space-8);
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+    }
+
+    .sample-report-icon {
+      font-size: 2.5rem;
+      flex-shrink: 0;
+      line-height: 1;
+    }
+
+    .sample-report-text {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-1);
+      flex: 1;
+    }
+
+    .sample-report-text strong {
+      font-family: var(--font-display);
+      font-size: var(--text-lg);
+      font-weight: 600;
+      color: #F8FAFC;
+    }
+
+    .sample-report-text span {
+      font-size: var(--text-sm);
+      color: #94A3B8;
+    }
+
+    .sample-report-cta {
+      font-family: var(--font-display);
+      font-size: var(--text-sm);
+      font-weight: 600;
+      color: #06B6D4;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 480px) {
+      .sample-report-card {
+        flex-direction: column;
+        text-align: center;
+        gap: var(--space-4);
+      }
+      .sample-report-cta {
+        align-self: center;
+      }
+    }
+  
+    /* Brand refresh: keep persistent header content off the viewport edge. */
+    .site-header .header-inner {
+      padding-inline: var(--space-4, 1rem);
+    }
+    @media (min-width: 768px) {
+      .site-header .header-inner {
+        padding-inline: var(--space-6, 1.5rem);
+      }
+    }
+    
+    /* Brand refresh: shared navigation compatibility and mobile drawer behavior. */
+    .nav-dropdown:hover .nav-dropdown-menu,
+    .dropdown:hover .nav-dropdown-menu,
+    .nav-dropdown:focus-within .nav-dropdown-menu,
+    .dropdown:focus-within .nav-dropdown-menu,
+    .nav-dropdown-menu.is-open {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(0);
+      display: block;
+    }
+    .mobile-nav {
+      display: none;
+      flex-direction: column;
+      gap: var(--space-4, 1rem);
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      overflow-y: auto;
+      padding: var(--space-5, 1.25rem);
+      background: var(--color-bg, #0B0C10);
+      color: var(--color-text, #F7F9FB);
+    }
+    .mobile-nav.open {
+      display: flex;
+    }
+    .mobile-nav-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-4, 1rem);
+      padding-bottom: var(--space-4, 1rem);
+      border-bottom: 1px solid var(--color-border, rgba(102,252,241,.18));
+    }
+    .mobile-nav-close {
+      min-width: 44px;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius-full, 9999px);
+      color: inherit;
+      background: transparent;
+      border: 1px solid var(--color-border, rgba(102,252,241,.18));
+    }
+    .mobile-nav-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2, .5rem);
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+    .mobile-nav-link,
+    .mobile-submenu-link {
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      width: 100%;
+      padding: var(--space-3, .75rem) var(--space-4, 1rem);
+      border-radius: var(--radius-md, .5rem);
+      color: var(--color-text-secondary, var(--color-text-muted, #C5C6C7));
+      text-decoration: none;
+    }
+    .mobile-nav-link:hover,
+    .mobile-nav-link:focus-visible,
+    .mobile-submenu-link:hover,
+    .mobile-submenu-link:focus-visible,
+    .mobile-nav-link[aria-current="page"] {
+      color: var(--color-cyan, var(--color-primary, #66FCF1));
+      background: rgba(102,252,241,.08);
+    }
+    .mobile-cta {
+      margin-top: auto;
+      padding-top: var(--space-4, 1rem);
+      border-top: 1px solid var(--color-border, rgba(102,252,241,.18));
+    }
+    @media (min-width: 900px) {
+      .mobile-nav.open { display: none; }
+    }
+    
+    /* Brand refresh: avoid mid-width nav overflow by using drawer navigation on tablets. */
+    @media (max-width: 1099px) {
+      .primary-nav,
+      .header-actions .btn-cta {
+        display: none !important;
+      }
+      .nav-hamburger,
+      .mobile-menu-btn {
+        display: inline-flex !important;
+      }
+    }
+    @media (min-width: 1100px) {
+      .primary-nav {
+        display: flex !important;
+      }
+      .nav-hamburger,
+      .mobile-menu-btn {
+        display: none !important;
+      }
+    }
+    </style>
+
+
+<style id="qa11y-final-responsive-nav">
+  /* QA11Y final responsive navigation safeguard: drawer owns navigation below tablet/desktop handoff. */
+  @media (max-width: 1100px) {
+    header .desktop-nav,
+    header .nav-list,
+    header nav[aria-label="Primary"] .nav-list {
+      display: none !important;
+    }
+    header .nav-hamburger,
+    header .mobile-menu-btn,
+    header #mobile-toggle {
+      display: inline-flex !important;
+      align-items: center;
+      justify-content: center;
+      min-width: 44px;
+      min-height: 44px;
+    }
+    #mobile-nav.open,
+    #mobile-nav.is-open,
+    .mobile-nav.open,
+    .mobile-nav.is-open {
+      display: flex !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+      pointer-events: auto !important;
+      transform: none !important;
+    }
+  }
+  @media (min-width: 1101px) {
+    header .nav-hamburger,
+    header .mobile-menu-btn,
+    header #mobile-toggle {
+      display: none !important;
+    }
+  }
+</style>
+
+<style id="qa11y-pa11y-aa-contrast">
+  /* QA11Y Labs targeted WCAG AA hardening.
+     Scoped by component background: dark surfaces use light text; light surfaces use dark ink. */
+  :root {
+    --qa11y-aa-bg: #0B0C10;
+    --qa11y-aa-surface: #12151D;
+    --qa11y-aa-text: #F7FAFC;
+    --qa11y-aa-cyan: #8FFDF7;
+    --qa11y-aa-gold: #F7C948;
+    --qa11y-aa-ink: #05070A;
+    --qa11y-aa-body-ink: #1A1D26;
+  }
+
+  .article-hero,
+  .related-posts,
+  .site-footer,
+  footer {
+    background-color: var(--qa11y-aa-bg) !important;
+  }
+
+  .article-hero .article-title,
+  .article-hero .article-eyebrow,
+  .article-hero .article-author-name,
+  .article-hero .article-meta,
+  .article-hero .article-meta span,
+  .article-hero .article-meta time,
+  .article-hero .article-meta-divider,
+  .site-footer h3,
+  .site-footer .footer-tagline,
+  .site-footer .footer-copyright,
+  .site-footer .footer-copy,
+  .site-footer .footer-bottom,
+  .site-footer .footer-bottom p,
+  .site-footer .footer-bottom span,
+  .site-footer .footer-bottom a,
+  .site-footer .footer-nav a,
+  .site-footer .footer-legal a,
+  .site-footer .logo-qa,
+  .site-footer .logo-11y,
+  footer h3,
+  footer .footer-tagline,
+  footer .footer-copyright,
+  footer .footer-copy,
+  footer .footer-bottom,
+  footer .footer-bottom p,
+  footer .footer-bottom span,
+  footer .footer-bottom a,
+  footer .footer-nav a,
+  footer .footer-legal a,
+  footer .logo-qa,
+  footer .logo-11y,
+  footer span[aria-hidden="true"],
+  footer a[href="accessibility.html"] {
+    color: var(--qa11y-aa-text) !important;
+  }
+
+  .site-footer .logo-11y,
+  footer .logo-11y,
+  .site-footer .logo-qa,
+  footer .logo-qa {
+    color: var(--qa11y-aa-cyan) !important;
+  }
+  .logo-labs,
+  .site-footer .logo-labs,
+  footer .logo-labs {
+    color: var(--qa11y-aa-gold) !important;
+  }
+
+  .related-card,
+  .trust-pill,
+  .tag,
+  .badge-category,
+  .badge-featured,
+  .eyebrow-pill,
+  .filter-btn,
+  .trust-pill-check {
+    color: var(--qa11y-aa-text) !important;
+    background-color: var(--qa11y-aa-surface) !important;
+    border-color: rgba(102, 252, 241, 0.45) !important;
+  }
+  .related-posts-heading,
+  .related-card-title,
+  .related-card-time,
+  .related-card-cat,
+  .resource-card .card-source,
+  .stat-card .stat-sub,
+  .case-study-section h3,
+  .case-study-stats h3,
+  .case-study-right h3 {
+    color: var(--qa11y-aa-text) !important;
+  }
+
+  /* Light content surfaces. */
+  .article-body h2,
+  .article-body h3,
+  .article-body strong,
+  .hero-subtext,
+  .section-number,
+  .info-label,
+  .featured-card .post-date,
+  .featured-card .read-time,
+  .featured-card .featured-excerpt,
+  .filter-count,
+  .jump-nav-label,
+  .form-hint,
+  .scan-note,
+  .scan-url-hint,
+  .zcal-fallback,
+  .field-required,
+  .cta-divider,
+  .sample-report-icon,
+  .subsection-heading {
+    color: var(--qa11y-aa-body-ink) !important;
+  }
+
+  .article-body pre,
+  .article-body code,
+  .article-body p code,
+  .article-body li code,
+  .article-body strong code,
+  .article-body h2 code,
+  .article-body h3 code {
+    background-color: #080C10 !important;
+    color: #F7FFFF !important;
+  }
+
+  .btn-cta,
+  .btn-cta-lg,
+  .btn-cta-sm,
+  .btn-submit,
+  .btn-scan {
+    color: var(--qa11y-aa-ink) !important;
+    background-color: #66FCF1 !important;
+    border-color: #66FCF1 !important;
+    text-shadow: none !important;
+  }
+  .btn-scan span,
+  #scan-btn-label {
+    color: var(--qa11y-aa-ink) !important;
+  }
+
+  .btn-amber {
+    color: var(--qa11y-aa-ink) !important;
+    background-color: var(--qa11y-aa-gold) !important;
+    border-color: var(--qa11y-aa-gold) !important;
+    text-shadow: none !important;
+  }
+
+  .btn-outline {
+    color: var(--qa11y-aa-text) !important;
+    background-color: #111722 !important;
+    border-color: rgba(143, 253, 247, 0.55) !important;
+  }
+
+
+  /* Final pa11y pass: exact remaining component contexts. */
+  .post-card .post-date,
+  .post-card .read-time {
+    color: #454A57 !important;
+  }
+  .subsection-heading,
+  .jump-nav-label,
+  .trust-label,
+  .cta-divider {
+    color: var(--qa11y-aa-text) !important;
+  }
+  .sample-report-icon {
+    color: var(--qa11y-aa-ink) !important;
+    background-color: var(--qa11y-aa-text) !important;
+  }
+</style>
+
+
+<style id="qa11y-accessible-nav-fix">
+  /* QA11Y accessible navigation fix: desktop services disclosure + mobile submenu safeguards. */
+  .nav-dropdown {
+    position: relative;
+  }
+
+  .nav-dropdown-toggle,
+  .mobile-nav-disclosure {
+    touch-action: manipulation;
+  }
+
+  .nav-dropdown-toggle[aria-expanded="true"] .chevron,
+  .mobile-nav-disclosure[aria-expanded="true"] .chevron {
+    transform: rotate(180deg);
+  }
+
+  .nav-dropdown-menu[hidden],
+  .mobile-submenu[hidden] {
+    display: none !important;
+  }
+
+  .nav-dropdown-menu.is-open,
+  .nav-dropdown-toggle[aria-expanded="true"] + .nav-dropdown-menu {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    transform: translateX(-50%) translateY(0) !important;
+  }
+
+  .nav-dropdown-menu a,
+  .mobile-submenu a {
+    min-height: 44px;
+  }
+
+  .nav-dropdown-toggle:focus-visible,
+  .mobile-nav-disclosure:focus-visible,
+  .nav-hamburger:focus-visible,
+  .mobile-nav-close:focus-visible {
+    outline: 2px solid var(--color-cyan, var(--color-primary, #66FCF1));
+    outline-offset: 3px;
+  }
+</style>
+
+</head>
+
+<body>
+
+  <!-- Skip link -->
+  <a href="free-scan.html#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Assertive live region for form errors -->
+  <div id="form-error-announce" role="alert" aria-live="assertive" aria-atomic="true" class="live-region"></div>
+
+  <!-- ============================================================
+       HEADER
+  ============================================================ -->
+    <header class="site-header" role="banner">
+    <div class="header-inner">
+
+      <!-- Logo -->
+      <a class="logo-link logo-link--image" href="index.html" aria-label="QA11Y Labs — Home">
+        <img class="logo-image" src="assets/brand/qa11ylabs-logo-horizontal-transparent.png" alt="QA11Y Labs" width="160" height="40" decoding="async">
+      </a>
+
+      <!-- Primary Nav -->
+      <nav class="primary-nav" aria-label="Primary navigation">
+        <ul class="nav-list" role="list">
+          <li><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-dropdown">
+            <button
+              class="nav-link nav-dropdown-toggle"
+              aria-haspopup="true"
+              aria-expanded="false"
+              aria-controls="services-menu"
+              id="services-menu-btn"
+              type="button"
+            >
+              Services
+              <svg class="chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" focusable="false">
+                <path d="M2.5 4.5l3.5 3.5 3.5-3.5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <ul
+              class="nav-dropdown-menu"
+              id="services-menu"
+              role="menu"
+              aria-labelledby="services-menu-btn"
+            >
+              <li role="none"><a href="services.html" role="menuitem" class="dropdown-item">All Services</a></li>
+              <li role="none"><a href="services.html#audits-heading" role="menuitem" class="dropdown-item">WCAG Audits</a></li>
+              <li role="none"><a href="services.html#remediation-heading" role="menuitem" class="dropdown-item">Remediation</a></li>
+              <li role="none"><a href="services.html#retainers-heading" role="menuitem" class="dropdown-item">Monitoring</a></li>
+              <li role="none"><a href="services.html#consulting-heading" role="menuitem" class="dropdown-item">Consulting</a></li>
+            </ul>
+          </li>
+          <li><a class="nav-link" href="case-studies.html">Case Studies</a></li>
+          <li><a class="nav-link" href="blog.html">The Log</a></li>
+          <li><a class="nav-link" aria-current="page" href="free-scan.html">Free Scan</a></li>
+          <li><a class="nav-link" href="resources.html">Resources</a></li>
+          <li><a class="nav-link" href="about.html">About</a></li>
+          <li><a class="nav-link" href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+
+      <!-- Header Actions -->
+      <div class="header-actions">
+        <button
+          class="theme-toggle"
+          id="theme-toggle"
+          aria-label="Toggle light/dark mode"
+          type="button"
+        >
+          <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
+            <circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"/>
+            <path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
+            <path d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <a class="btn-cta" href="schedule.html">Schedule Consultation</a>
+        <button
+          class="nav-hamburger"
+          id="nav-hamburger"
+          aria-label="Open navigation menu"
+          aria-expanded="false"
+          aria-controls="mobile-nav"
+          type="button"
+        >
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true" focusable="false">
+            <path d="M2 5h16M2 10h16M2 15h16" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MOBILE NAV -->
+  <div
+    class="mobile-nav"
+    id="mobile-nav"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Navigation menu"
+  >
+    <div class="mobile-nav-header">
+      <a class="logo-link logo-link--image" href="index.html" aria-label="QA11Y Labs — Home">
+        <img class="logo-image" src="assets/brand/qa11ylabs-logo-horizontal-transparent.png" alt="QA11Y Labs" width="160" height="40" decoding="async">
+      </a>
+      <button
+        class="mobile-nav-close"
+        id="mobile-nav-close"
+        aria-label="Close navigation menu"
+        type="button"
+      >
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true" focusable="false">
+          <path d="M4 4l12 12M16 4L4 16" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+    <nav aria-label="Mobile navigation">
+      <ul class="mobile-nav-list" role="list">
+        <li><a class="mobile-nav-link" href="index.html">Home</a></li>
+        <li>
+          <button
+            class="mobile-nav-link mobile-nav-disclosure"
+            aria-expanded="false"
+            aria-controls="mobile-services-list"
+            type="button"
+          >
+            Services
+            <svg class="chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" focusable="false">
+              <path d="M2.5 4.5l3.5 3.5 3.5-3.5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <ul class="mobile-submenu" id="mobile-services-list" hidden>
+            <li><a class="mobile-submenu-link" href="services.html">All Services</a></li>
+            <li><a class="mobile-submenu-link" href="services.html#audits-heading">WCAG Audits</a></li>
+            <li><a class="mobile-submenu-link" href="services.html#remediation-heading">Remediation</a></li>
+            <li><a class="mobile-submenu-link" href="services.html#retainers-heading">Monitoring</a></li>
+            <li><a class="mobile-submenu-link" href="services.html#consulting-heading">Consulting</a></li>
+          </ul>
+        </li>
+        <li><a class="mobile-nav-link" href="case-studies.html">Case Studies</a></li>
+        <li><a class="mobile-nav-link" href="blog.html">The Log</a></li>
+        <li><a class="mobile-nav-link" aria-current="page" href="free-scan.html">Free Scan</a></li>
+        <li><a class="mobile-nav-link" href="resources.html">Resources</a></li>
+        <li><a class="mobile-nav-link" href="about.html">About</a></li>
+        <li><a class="mobile-nav-link" href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="mobile-cta">
+      <a class="btn-cta" href="schedule.html">Schedule Consultation</a>
+    </div>
+  </div>
+
+
+  <main id="main-content" tabindex="-1">
+
+    <!-- ── Hero ── -->
+    <section class="hero" aria-labelledby="hero-heading">
+      <div class="container">
+        <div class="hero-content">
+          <div class="eyebrow-pill" aria-hidden="true">
+            <span class="eyebrow-dot"></span>
+            Free Accessibility Scan
+          </div>
+          <h1 id="hero-heading">
+            Find out how accessible your site is&nbsp;— in minutes.
+          </h1>
+          <p class="hero-sub">
+            Get an instant automated accessibility report powered by axe-core. No account required, no strings attached.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Scan Form ── -->
+    <section class="scan-form-section" aria-labelledby="scan-form-heading">
+      <div class="container">
+
+        <div class="scan-card">
+          <h2 id="scan-form-heading" class="scan-card-label">Enter your URL to get started</h2>
+
+          <form id="scan-form" action="https://qa11ylabs.com/api/scan" method="post" novalidate>
+
+            <!-- URL field -->
+            <div class="scan-input-group">
+              <label for="scan-url">Website URL</label>
+              <div class="scan-input-wrapper">
+                <svg class="scan-input-icon" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true" focusable="false">
+                  <circle cx="9" cy="9" r="7" stroke="currentColor" stroke-width="1.4"/>
+                  <path d="M9 2c0 0-3 3-3 7s3 7 3 7M9 2c0 0 3 3 3 7s-3 7-3 7M2 9h14" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+                </svg>
+                <input
+                  type="url"
+                  id="scan-url"
+                  name="url"
+                  placeholder="https://yourwebsite.com"
+                  aria-describedby="scan-url-hint scan-url-error"
+                  autocomplete="off"
+                  required
+                />
+              </div>
+              <p id="scan-url-hint" class="scan-url-hint">Enter the full URL including https://</p>
+              <p id="scan-url-error" class="scan-error" aria-live="assertive">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true" focusable="false">
+                  <circle cx="7" cy="7" r="6" stroke="currentColor" stroke-width="1.4"/>
+                  <path d="M7 4v3.5M7 9.5v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+                <span id="scan-url-error-text"></span>
+              </p>
+            </div>
+
+            <!-- Email field -->
+            <div class="scan-input-group">
+              <label for="scan-email">Your email address</label>
+              <div class="scan-input-wrapper">
+                <svg class="scan-input-icon" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true" focusable="false">
+                  <rect x="2" y="4" width="14" height="10" rx="2" stroke="currentColor" stroke-width="1.4"/>
+                  <path d="M2 7l7 4 7-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <input
+                  type="email"
+                  id="scan-email"
+                  name="email"
+                  placeholder="you@yourcompany.com"
+                  aria-describedby="scan-email-hint scan-email-error"
+                  autocomplete="email"
+                  required
+                />
+              </div>
+              <p id="scan-email-hint" class="scan-url-hint">We'll send your accessibility report to this address.</p>
+              <p id="scan-email-error" class="scan-error" aria-live="assertive">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true" focusable="false">
+                  <circle cx="7" cy="7" r="6" stroke="currentColor" stroke-width="1.4"/>
+                  <path d="M7 4v3.5M7 9.5v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+                <span id="scan-email-error-text"></span>
+              </p>
+            </div>
+
+            <!-- Honeypot: hidden from real users, bots fill this in -->
+            <div aria-hidden="true" style="position:absolute;left:-9999px;height:0;overflow:hidden;" tabindex="-1">
+              <label for="hp_check">Leave this blank</label>
+              <input type="text" id="hp_check" name="hp_check" autocomplete="off" tabindex="-1" />
+            </div>
+
+            <button type="submit" id="scan-submit" class="btn-scan">
+              <svg id="scan-btn-icon" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true" focusable="false">
+                <circle cx="8" cy="8" r="5.5" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M12.5 12.5l3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+              </svg>
+              <span id="scan-btn-label">Run Free Scan</span>
+            </button>
+
+            <p class="scan-note">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true" focusable="false">
+                <path d="M7 1.5a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11zM7 6v4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+                <circle cx="7" cy="4.5" r="0.6" fill="currentColor"/>
+              </svg>
+              Powered by axe-core. We do not store or share your URL. Need a policy page too?
+              <a href="/free-accessibility-statement-generator/">Create a free accessibility statement</a>.
+            </p>
+          </form>
+        </div>
+
+        <!-- Confirmation Panel (shown after successful submission) -->
+        <div
+          id="scan-confirmation"
+          role="status"
+          aria-live="polite"
+          aria-atomic="true"
+          aria-label="Submission confirmation"
+        >
+          <div class="confirmation-card">
+            <!-- Checkmark icon -->
+            <div class="confirmation-icon" aria-hidden="true">
+              <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true" focusable="false">
+                <path d="M6 14l6 6 10-10" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+
+            <h2 id="scan-confirmation-heading" class="confirmation-title" tabindex="-1">
+              Your scan is on its way!
+            </h2>
+
+            <p class="confirmation-body">
+              We're running an accessibility scan on
+              <strong id="confirm-url-display"></strong>.
+              Your full report will be emailed to
+              <span class="confirmation-email-highlight" id="confirm-email-display"></span>
+              shortly.
+            </p>
+
+            <div class="confirmation-meta">
+              <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true" focusable="false">
+                <path d="M6.5 1.5a5 5 0 1 1 0 10 5 5 0 0 1 0-10zM6.5 5.5v3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+                <circle cx="6.5" cy="4" r="0.55" fill="currentColor"/>
+              </svg>
+              Powered by axe-core &mdash; results typically arrive within 2&nbsp;minutes
+            </div>
+
+            <div class="confirmation-actions">
+              <a href="services.html#audits-heading" class="btn-amber">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false">
+                  <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Get a Full Audit Report
+              </a>
+              <a href="/free-accessibility-statement-generator/" class="btn-scan-again">
+                Create Accessibility Statement
+              </a>
+              <button type="button" id="scan-again-btn" class="btn-scan-again">
+                <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true" focusable="false">
+                  <path d="M2 7.5A5.5 5.5 0 1 1 7.5 13" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+                  <path d="M2 4v3.5H5.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Scan another URL
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Progress Panel (live SSE stream) -->
+        <div
+          id="scan-progress"
+          role="region"
+          aria-labelledby="scan-progress-heading"
+          aria-live="polite"
+          aria-atomic="false"
+        >
+          <div class="progress-card">
+            <p class="progress-card-label" id="scan-progress-heading" tabindex="-1">Running Accessibility Scan</p>
+            <p class="progress-url-line" id="progress-url-display"></p>
+
+            <!-- Stage chips -->
+            <div class="progress-stages" aria-label="Scan stages">
+              <span class="stage-chip" id="stage-init"    data-stage="init">Initializing</span>
+              <span class="stage-chip" id="stage-lh"      data-stage="lighthouse">Lighthouse</span>
+              <span class="stage-chip" id="stage-axe"     data-stage="axe">axe-core</span>
+              <span class="stage-chip" id="stage-pdf"     data-stage="pdf">PDF Report</span>
+              <span class="stage-chip" id="stage-email"   data-stage="email">Sending Email</span>
+            </div>
+
+            <!-- Progress bar -->
+            <div class="progress-track" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-label="Scan progress" id="progress-track">
+              <div class="progress-fill" id="progress-fill"></div>
+            </div>
+
+            <!-- Status message -->
+            <p class="progress-status" id="progress-status" aria-live="polite" aria-atomic="true"></p>
+
+            <!-- Inline results (revealed on done) -->
+            <div id="scan-results-panel" aria-label="Scan results summary">
+              <!-- Score row -->
+              <div class="results-score-row" id="results-score-row"></div>
+
+              <!-- Violation count tiles -->
+              <div class="results-counts" id="results-counts" aria-label="Violation counts by severity"></div>
+
+              <!-- Top 5 findings -->
+              <div id="results-top-findings-wrap">
+                <p class="results-top-findings-heading">Top Findings</p>
+                <div id="results-top-findings" role="list" aria-label="Top accessibility findings"></div>
+              </div>
+
+              <!-- Email notice -->
+              <div class="results-email-notice" id="results-email-notice"></div>
+
+              <!-- CTA actions -->
+              <div class="results-actions">
+                <a href="services.html#audits-heading" class="btn-amber">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false">
+                    <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  Get a Full Audit
+                </a>
+                <button type="button" id="scan-again-btn-progress" class="btn-scan-again">
+                  <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true" focusable="false">
+                    <path d="M2 7.5A5.5 5.5 0 1 1 7.5 13" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+                    <path d="M2 4v3.5H5.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  Scan another URL
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── What We Check ── -->
+    <section class="checks-section" aria-labelledby="checks-heading">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-eyebrow">What's Included</span>
+          <h2 class="section-title" id="checks-heading">What the free scan checks</h2>
+          <p class="section-sub">Our automated scan tests for the most common and impactful WCAG 2.2 violations.</p>
+        </div>
+
+        <ul class="checks-grid" aria-label="Scan check categories">
+
+          <li class="check-card">
+            <div class="check-icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true" focusable="false">
+                <circle cx="11" cy="11" r="8.5" stroke="currentColor" stroke-width="1.5"/>
+                <circle cx="7.5" cy="11" r="2.5" fill="currentColor" opacity="0.6"/>
+                <circle cx="14.5" cy="11" r="2.5" fill="currentColor"/>
+              </svg>
+            </div>
+            <h3 class="check-title">Color Contrast</h3>
+            <p class="check-desc">Flags text and UI elements that fail WCAG 2.2 AA contrast ratio requirements (4.5:1 for normal text, 3:1 for large text and UI components).</p>
+          </li>
+
+          <li class="check-card">
+            <div class="check-icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true" focusable="false">
+                <rect x="2" y="5" width="18" height="14" rx="2.5" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M7 12.5l3 3 5-5.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M7 3v3M15 3v3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3 class="check-title">Missing Alt Text</h3>
+            <p class="check-desc">Identifies images, icons, and decorative elements that lack appropriate alternative text or aria-label attributes.</p>
+          </li>
+
+          <li class="check-card">
+            <div class="check-icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true" focusable="false">
+                <rect x="3" y="7" width="16" height="10" rx="2" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M7 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M9 12h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3 class="check-title">Form Labels</h3>
+            <p class="check-desc">Detects form inputs, selects, and textareas that are missing associated labels or aria-labelledby associations.</p>
+          </li>
+
+          <li class="check-card">
+            <div class="check-icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true" focusable="false">
+                <path d="M5 6h12M7 11h8M9 16h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3 class="check-title">Heading Structure</h3>
+            <p class="check-desc">Checks for missing H1, skipped heading levels, and heading elements used for visual styling rather than semantic structure.</p>
+          </li>
+
+          <li class="check-card">
+            <div class="check-icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true" focusable="false">
+                <rect x="3" y="3" width="16" height="16" rx="3" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M8 11h6M11 8v6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3 class="check-title">Keyboard Accessibility</h3>
+            <p class="check-desc">Identifies interactive elements that lack focus styles, are not reachable by keyboard, or create focus traps.</p>
+          </li>
+
+          <li class="check-card">
+            <div class="check-icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true" focusable="false">
+                <path d="M6 4h10a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M9 9h.01M13 9h.01M8 13c.667.667 5.333.667 6 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3 class="check-title">ARIA Usage</h3>
+            <p class="check-desc">Flags invalid ARIA roles, missing required ARIA attributes, and deprecated ARIA patterns that can break screen reader navigation.</p>
+          </li>
+
+        </ul>
+      </div>
+    </section>
+
+    <!-- ── Limitations ── -->
+    <section class="limitations-section" aria-labelledby="limitations-heading">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title" id="limitations-heading">What automated scanning can't catch</h2>
+          <p class="section-sub">Automated tools find roughly 30–40% of accessibility issues. The rest require human judgment.</p>
+        </div>
+
+        <div class="limitations-grid">
+
+          <!-- Left: what automated scans miss -->
+          <div>
+            <h3 class="limitations-col-heading">What automated scans miss</h3>
+            <ul class="limitations-list" aria-label="Issues automated scans miss">
+              <li class="limitations-item">
+                <span class="limitations-item-icon icon-miss" aria-hidden="true">✕</span>
+                Screen reader reading order and verbosity issues
+              </li>
+              <li class="limitations-item">
+                <span class="limitations-item-icon icon-miss" aria-hidden="true">✕</span>
+                Cognitive load and plain language failures
+              </li>
+              <li class="limitations-item">
+                <span class="limitations-item-icon icon-miss" aria-hidden="true">✕</span>
+                Context-dependent ARIA patterns
+              </li>
+              <li class="limitations-item">
+                <span class="limitations-item-icon icon-miss" aria-hidden="true">✕</span>
+                Touch target adequacy on mobile devices
+              </li>
+              <li class="limitations-item">
+                <span class="limitations-item-icon icon-miss" aria-hidden="true">✕</span>
+                Video caption accuracy and audio descriptions
+              </li>
+            </ul>
+          </div>
+
+          <!-- Right: what expert testing adds -->
+          <div>
+            <h3 class="limitations-col-heading">What expert manual testing adds</h3>
+            <ul class="limitations-list" aria-label="What expert manual testing adds">
+              <li class="limitations-item">
+                <span class="limitations-item-icon icon-add" aria-hidden="true">✓</span>
+                Real-world JAWS, NVDA, VoiceOver &amp; TalkBack testing
+              </li>
+              <li class="limitations-item">
+                <span class="limitations-item-icon icon-add" aria-hidden="true">✓</span>
+                Keyboard-only navigation walkthroughs
+              </li>
+              <li class="limitations-item">
+                <span class="limitations-item-icon icon-add" aria-hidden="true">✓</span>
+                Cognitive accessibility review
+              </li>
+              <li class="limitations-item">
+                <span class="limitations-item-icon icon-add" aria-hidden="true">✓</span>
+                Legal risk assessment and conformance statement
+              </li>
+              <li class="limitations-item">
+                <span class="limitations-item-icon icon-add" aria-hidden="true">✓</span>
+                Prioritized remediation roadmap
+              </li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Sample Report Preview ── -->
+    <section class="sample-report-section" aria-labelledby="sample-heading">
+      <div class="container">
+        <h2 id="sample-heading">What you'll receive</h2>
+        <p>Every scan delivers a professional PDF report — emailed directly to you. Here's what a real report looks like:</p>
+        <div class="sample-report-preview">
+          <a href="sample-report.pdf" target="_blank" rel="noopener noreferrer" class="sample-report-link" aria-label="View sample accessibility report PDF (opens in new tab)">
+            <div class="sample-report-card">
+              <div class="sample-report-icon" aria-hidden="true">📄</div>
+              <div class="sample-report-text">
+                <strong>Sample Accessibility Report</strong>
+                <span>PDF · axe-core + WCAG 2.2 AA · Emailed instantly</span>
+              </div>
+              <span class="sample-report-cta">View Sample →</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Bottom CTA ── -->
+    <section class="bottom-cta" aria-labelledby="bottom-cta-heading">
+      <div class="container">
+        <div class="bottom-cta-inner">
+          <h2 class="bottom-cta-title" id="bottom-cta-heading">Ready for a complete picture?</h2>
+          <p class="bottom-cta-sub">Our expert audits combine automated scanning with 25+ years of screen reader mastery.</p>
+          <div class="bottom-cta-actions">
+            <a href="services.html#audits-heading" class="btn-amber">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false">
+                <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Book an Accessibility Audit
+            </a>
+            <a href="schedule.html" class="btn-outline-cyan">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false">
+                <rect x="2" y="3" width="12" height="11" rx="2" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M5 1v3M11 1v3M2 7h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+              Schedule a Free Call
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================================
+       FOOTER
+  ============================================================ -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="index.html" class="logo-link" aria-label="QA11Y Labs — home">
+            <svg class="logo-icon" viewBox="0 0 32 32" fill="none" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"><path d="M16 2.4 4.2 7.2v9.4c0 6.7 5.0 11.7 11.8 13.0 6.8-1.3 11.8-6.3 11.8-13.0V7.2L16 2.4Z" fill="var(--color-primary-dim)" stroke="var(--color-primary)" stroke-width="1.6" stroke-linejoin="round"/><path d="M10.6 16.5l3.4 3.5 7.6-8" stroke="var(--color-primary)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M9.5 11.2h3.6" stroke="var(--color-cta)" stroke-width="1.4" stroke-linecap="round" opacity="0.9"/></svg>
+            <span class="logo-wordmark">
+              <span class="logo-qa">QA</span><span class="logo-11y">11Y</span> <span class="logo-labs">Labs</span>
+            </span>
+          </a>
+          <p class="footer-tagline">Architecting a more inclusive digital world.</p>
+        </div>
+
+        <nav class="footer-nav" aria-label="Footer navigation">
+          <a href="index.html" class="footer-nav-link">Home</a>
+          <a href="services.html" class="footer-nav-link">Services</a>
+          <a href="resources.html" class="footer-nav-link">Resources</a>
+          <a href="case-studies.html" class="footer-nav-link">Case Studies</a>
+          <a href="free-scan.html" class="footer-nav-link" aria-current="page">Free Scan</a>
+          <a href="about.html" class="footer-nav-link">About</a>
+          <a href="blog.html" class="footer-nav-link">The Log</a>
+          <a href="contact.html" class="footer-nav-link">Contact</a>
+          <a href="schedule.html" class="footer-nav-link">Schedule</a>
+          <a href="https://www.linkedin.com/in/quintin-williams-b0195a119" target="_blank" rel="noopener noreferrer" aria-label="Quintin Williams on LinkedIn (opens in new tab)"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg> LinkedIn</a>
+        </nav>
+      </div>
+
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2026 QA11Y Labs. All rights reserved.</p>
+      </div>
+    </div>
+          <div class="footer-legal">
+          <a href="privacy.html">Privacy Policy</a>
+          <span aria-hidden="true">·</span>
+          <a href="terms.html">Terms of Service</a>
+          <span aria-hidden="true">·</span>
+          <a href="accessibility.html">Accessibility Statement</a>
+        </div>
+  </footer>
+
+  <!-- ============================================================
+       JAVASCRIPT
+  ============================================================ -->
+  <script>
+    (() => {
+      'use strict';
+
+      /* ── Theme toggle ── */
+      const html        = document.documentElement;
+      const themeToggle = document.getElementById('theme-toggle');
+
+      function getSystemTheme() {
+        return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      }
+
+      function applyTheme(theme) {
+        html.setAttribute('data-theme', theme);
+        const label = theme === 'dark'
+          ? 'Switch to light theme'
+          : 'Switch to dark theme';
+        themeToggle.setAttribute('aria-label', label);
+      }
+
+      // Init with OS preference — NO localStorage
+      applyTheme(getSystemTheme());
+
+      themeToggle.addEventListener('click', () => {
+        const current = html.getAttribute('data-theme');
+        applyTheme(current === 'dark' ? 'light' : 'dark');
+      });
+
+      // Respond to OS preference changes
+      window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', e => {
+        applyTheme(e.matches ? 'light' : 'dark');
+      });
+
+      /* ── Mobile menu ── */
+      const hamburger = document.getElementById('hamburger');
+      const mobileNav = document.getElementById('mobile-nav');
+
+      function openMobileNav() {
+        mobileNav.classList.add('is-open');
+        mobileNav.setAttribute('aria-hidden', 'false');
+        hamburger.setAttribute('aria-expanded', 'true');
+        hamburger.setAttribute('aria-label', 'Close navigation menu');
+        hamburger.innerHTML = `
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true" focusable="false">
+            <path d="M5 5l10 10M15 5L5 15" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>`;
+        document.body.style.overflow = 'hidden';
+        const firstLink = mobileNav.querySelector('a');
+        if (firstLink) firstLink.focus();
+      }
+
+      function closeMobileNav() {
+        mobileNav.classList.remove('is-open');
+        mobileNav.setAttribute('aria-hidden', 'true');
+        hamburger.setAttribute('aria-expanded', 'false');
+        hamburger.setAttribute('aria-label', 'Open navigation menu');
+        hamburger.innerHTML = `
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true" focusable="false">
+            <path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>`;
+        document.body.style.overflow = '';
+      }
+
+      if (hamburger && mobileNav) {
+        hamburger.addEventListener('click', () => {
+          const isOpen = mobileNav.classList.contains('is-open');
+          isOpen ? closeMobileNav() : openMobileNav();
+        });
+
+        document.addEventListener('keydown', e => {
+          if (e.key === 'Escape' && mobileNav.classList.contains('is-open')) {
+            closeMobileNav();
+            hamburger.focus();
+          }
+        });
+      }
+
+      /* ── Services dropdown ── */
+      const dropdownTrigger = document.getElementById('services-dropdown-btn');
+      const dropdownMenu    = document.getElementById('services-dropdown');
+
+      if (dropdownTrigger && dropdownMenu) {
+        const menuItems = () => Array.from(dropdownMenu.querySelectorAll('[role="menuitem"]'));
+
+        function openDropdown() {
+          dropdownMenu.classList.add('is-open');
+          dropdownTrigger.setAttribute('aria-expanded', 'true');
+        }
+
+        function closeDropdown() {
+          dropdownMenu.classList.remove('is-open');
+          dropdownTrigger.setAttribute('aria-expanded', 'false');
+        }
+
+        dropdownTrigger.addEventListener('click', () => {
+          const isOpen = dropdownMenu.classList.contains('is-open');
+          isOpen ? closeDropdown() : openDropdown();
+        });
+
+        dropdownTrigger.addEventListener('keydown', e => {
+          if (e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            openDropdown();
+            const items = menuItems();
+            if (items.length) items[0].focus();
+          }
+          if (e.key === 'Escape') closeDropdown();
+        });
+
+        dropdownMenu.addEventListener('keydown', e => {
+          const items = menuItems();
+          const idx   = items.indexOf(document.activeElement);
+
+          if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            items[(idx + 1) % items.length].focus();
+          }
+          if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            items[(idx - 1 + items.length) % items.length].focus();
+          }
+          if (e.key === 'Escape') {
+            closeDropdown();
+            dropdownTrigger.focus();
+          }
+          if (e.key === 'Tab') closeDropdown();
+          if (e.key === 'Home') { e.preventDefault(); items[0].focus(); }
+          if (e.key === 'End')  { e.preventDefault(); items[items.length - 1].focus(); }
+        });
+
+        document.addEventListener('click', e => {
+          if (!dropdownTrigger.contains(e.target) && !dropdownMenu.contains(e.target)) {
+            closeDropdown();
+          }
+        });
+
+        const dropdownParent = dropdownTrigger.closest('.nav-dropdown');
+        if (dropdownParent) {
+          let leaveTimer;
+          dropdownParent.addEventListener('mouseleave', () => {
+            leaveTimer = setTimeout(closeDropdown, 150);
+          });
+          dropdownParent.addEventListener('mouseenter', () => {
+            clearTimeout(leaveTimer);
+          });
+        }
+      }
+
+      /* ================================================================
+         FREE SCAN — SSE CLIENT v2
+         Form → EventSource('/api/scan-stream') → live progress + inline results
+      ================================================================ */
+      const scanForm          = document.getElementById('scan-form');
+      const scanUrlInput      = document.getElementById('scan-url');
+      const scanEmailInput    = document.getElementById('scan-email');
+      const scanSubmit        = document.getElementById('scan-submit');
+      const scanBtnLabel      = document.getElementById('scan-btn-label');
+      const scanCard          = document.querySelector('.scan-card');
+      const errorAnnounce     = document.getElementById('form-error-announce');
+
+      // Progress panel elements
+      const progressPanel     = document.getElementById('scan-progress');
+      const progressUrlEl     = document.getElementById('progress-url-display');
+      const progressFill      = document.getElementById('progress-fill');
+      const progressTrack     = document.getElementById('progress-track');
+      const progressStatus    = document.getElementById('progress-status');
+      const resultsPanel      = document.getElementById('scan-results-panel');
+      const resultsScoreRow   = document.getElementById('results-score-row');
+      const resultsCounts     = document.getElementById('results-counts');
+      const resultsFindings   = document.getElementById('results-top-findings');
+      const resultsEmailNotice = document.getElementById('results-email-notice');
+      const scanAgainBtnP     = document.getElementById('scan-again-btn-progress');
+
+      // Legacy confirmation panel (kept in DOM but unused in SSE flow)
+      const confirmPanel      = document.getElementById('scan-confirmation');
+      const scanAgainBtn      = document.getElementById('scan-again-btn');
+
+      const STAGE_IDS = {
+        init:       'stage-init',
+        lighthouse: 'stage-lh',
+        axe:        'stage-axe',
+        pdf:        'stage-pdf',
+        email:      'stage-email',
+      };
+      const STAGE_ORDER = ['init', 'lighthouse', 'axe', 'pdf', 'email'];
+
+      // ── Field-level error helpers ────────────────────────────────────
+      function fieldError(input, errorEl, errorTextEl, msg) {
+        input.setAttribute('aria-invalid', 'true');
+        errorTextEl.textContent = msg;
+        errorEl.classList.add('is-visible');
+        errorAnnounce.textContent = '';
+        requestAnimationFrame(() => { errorAnnounce.textContent = msg; });
+      }
+      function clearFieldError(input, errorEl, errorTextEl) {
+        input.removeAttribute('aria-invalid');
+        errorEl.classList.remove('is-visible');
+        errorTextEl.textContent = '';
+      }
+      function isValidUrl(val) {
+        try {
+          const u = new URL(val);
+          return u.protocol === 'http:' || u.protocol === 'https:';
+        } catch (_) { return false; }
+      }
+      function isValidEmail(val) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
+      }
+
+      // ── Loading state on button ──────────────────────────────────────
+      function setLoadingState(label) {
+        scanSubmit.disabled = true;
+        scanBtnLabel.textContent = label || 'Starting scan…';
+        const iconEl = document.getElementById('scan-btn-icon');
+        if (iconEl) {
+          iconEl.outerHTML = '<span id="scan-btn-icon" class="spinner" role="status" aria-label="Scan in progress"></span>';
+        }
+      }
+      function resetLoadingState() {
+        const iconEl = document.getElementById('scan-btn-icon');
+        if (iconEl) {
+          iconEl.outerHTML = `<svg id="scan-btn-icon" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true" focusable="false"><circle cx="8" cy="8" r="5.5" stroke="currentColor" stroke-width="1.5"/><path d="M12.5 12.5l3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>`;
+        }
+        scanSubmit.disabled = false;
+        scanBtnLabel.textContent = 'Run Free Scan';
+      }
+
+      // ── Stage chip helpers ───────────────────────────────────────────
+      function setStage(currentStage) {
+        const idx = STAGE_ORDER.indexOf(currentStage);
+        STAGE_ORDER.forEach((s, i) => {
+          const el = document.getElementById(STAGE_IDS[s]);
+          if (!el) return;
+          el.classList.remove('active', 'done');
+          if (i < idx)  el.classList.add('done');
+          if (i === idx) el.classList.add('active');
+        });
+      }
+      function markAllDone() {
+        STAGE_ORDER.forEach(s => {
+          const el = document.getElementById(STAGE_IDS[s]);
+          if (el) { el.classList.remove('active'); el.classList.add('done'); }
+        });
+      }
+
+      // ── Progress bar ─────────────────────────────────────────────────
+      function setProgress(pct) {
+        const p = Math.min(Math.max(pct, 0), 100);
+        progressFill.style.width = p + '%';
+        progressTrack.setAttribute('aria-valuenow', p);
+      }
+
+      // ── Show / hide panels ───────────────────────────────────────────
+      function showProgressPanel(url) {
+        scanCard.hidden = true;
+        progressPanel.classList.add('is-visible');
+        progressUrlEl.textContent = url;
+        resultsPanel.classList.remove('is-visible');
+        setProgress(0);
+        progressStatus.textContent = 'Connecting…';
+        // Reset chips
+        STAGE_ORDER.forEach(s => {
+          const el = document.getElementById(STAGE_IDS[s]);
+          if (el) el.classList.remove('active', 'done');
+        });
+        // Scroll to progress
+        const headerH = document.querySelector('.site-header')?.offsetHeight ?? 64;
+        const top = progressPanel.getBoundingClientRect().top + window.scrollY - headerH - 24;
+        window.scrollTo({ top, behavior: 'smooth' });
+        // Focus heading for screen reader announcement
+        requestAnimationFrame(() => {
+          document.getElementById('scan-progress-heading')?.focus?.();
+        });
+      }
+
+      function resetAll() {
+        scanCard.hidden = false;
+        progressPanel.classList.remove('is-visible');
+        confirmPanel.classList.remove('is-visible');
+        resultsPanel.classList.remove('is-visible');
+        scanForm.reset();
+        clearFieldError(scanUrlInput,
+          document.getElementById('scan-url-error'),
+          document.getElementById('scan-url-error-text'));
+        clearFieldError(scanEmailInput,
+          document.getElementById('scan-email-error'),
+          document.getElementById('scan-email-error-text'));
+        resetLoadingState();
+        const headerH = document.querySelector('.site-header')?.offsetHeight ?? 64;
+        const top = scanCard.getBoundingClientRect().top + window.scrollY - headerH - 24;
+        window.scrollTo({ top, behavior: 'smooth' });
+        requestAnimationFrame(() => { scanUrlInput.focus(); });
+      }
+
+      // ── Render inline results ─────────────────────────────────────────
+      function renderResults(r, email) {
+        // Score row
+        const scoreClass = r.lighthouseScore === null ? 'warn'
+          : r.lighthouseScore >= 90 ? 'good'
+          : r.lighthouseScore >= 50 ? 'warn' : 'bad';
+        const scoreDisplay = r.lighthouseScore !== null ? r.lighthouseScore : 'N/A';
+        resultsScoreRow.innerHTML = `
+          <div class="results-score-number ${scoreClass}" aria-label="Lighthouse accessibility score: ${scoreDisplay} out of 100">${scoreDisplay}</div>
+          <div class="results-score-label">
+            <strong>Lighthouse Accessibility Score</strong>
+            Automated scan — does not reflect screen reader usability
+          </div>`;
+
+        // Count tiles
+        const tiles = [
+          { label: 'Critical',  num: r.critical,  cls: 'critical' },
+          { label: 'Serious',   num: r.serious,   cls: 'serious'  },
+          { label: 'Moderate',  num: r.moderate,  cls: 'moderate' },
+          { label: 'Minor',     num: r.minor,     cls: 'minor'    },
+        ];
+        resultsCounts.innerHTML = tiles.map(t => `
+          <div class="count-tile">
+            <div class="count-tile-num ${t.cls}" aria-label="${t.num} ${t.label} violations">${t.num}</div>
+            <div class="count-tile-label">${t.label}</div>
+          </div>`).join('');
+
+        // Top findings
+        if (r.topFindings && r.topFindings.length) {
+          resultsFindings.innerHTML = r.topFindings.map(f => `
+            <div class="finding-item" role="listitem">
+              <span class="impact-badge ${f.impact}">${f.impact}</span>
+              <div class="finding-desc">
+                <span class="finding-desc-text">${escHtml(f.description)}</span>
+                <div class="finding-meta">
+                  Rule: ${escHtml(f.id)} &middot; ${escHtml(f.wcag || 'WCAG')} &middot; ${f.nodes} node${f.nodes !== 1 ? 's' : ''}
+                  ${f.helpUrl ? ` &middot; <a href="${escHtml(f.helpUrl)}" target="_blank" rel="noopener noreferrer">Learn more</a>` : ''}
+                </div>
+              </div>
+            </div>`).join('');
+        } else {
+          document.getElementById('results-top-findings-wrap').hidden = true;
+        }
+
+        // Email notice
+        resultsEmailNotice.innerHTML = `<strong>Your full report is on its way.</strong> We sent the complete PDF to <strong>${escHtml(email)}</strong>. It includes every violation with code snippets and remediation guidance.`;
+
+        resultsPanel.classList.add('is-visible');
+        // Scroll to results
+        const headerH = document.querySelector('.site-header')?.offsetHeight ?? 64;
+        const top = resultsPanel.getBoundingClientRect().top + window.scrollY - headerH - 24;
+        window.scrollTo({ top, behavior: 'smooth' });
+        requestAnimationFrame(() => {
+          resultsPanel.querySelector('[aria-label]')?.setAttribute('tabindex', '-1');
+          resultsScoreRow.setAttribute('tabindex', '-1');
+          resultsScoreRow.focus();
+        });
+      }
+
+      function escHtml(str) {
+        return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+      }
+
+      // ── Main SSE scan flow ───────────────────────────────────────────
+      function startSseScan(urlVal, emailVal, hpVal) {
+        const params = new URLSearchParams({ url: urlVal, email: emailVal });
+        // Only include honeypot param if non-empty (bots fill it in)
+        if (hpVal) params.set('hp_check', hpVal);
+        const es = new EventSource(`/api/scan-stream?${params.toString()}`);
+
+        es.onmessage = (e) => {
+          let data;
+          try { data = JSON.parse(e.data); } catch { return; }
+
+          const { stage, message, pct, results } = data;
+
+          // Update status text
+          if (message) progressStatus.textContent = message;
+
+          // Update progress bar
+          if (typeof pct === 'number') setProgress(pct);
+
+          // Update stage chips
+          if (stage && stage !== 'error' && stage !== 'done') setStage(stage);
+
+          if (stage === 'error') {
+            es.close();
+            resetLoadingState();
+            progressStatus.textContent = message || 'Scan failed. Please try again.';
+            // Show scan again button by revealing results panel with just the notice
+            resultsEmailNotice.innerHTML = `<strong>Something went wrong.</strong> ${escHtml(message || 'Please try again or contact quintin@qa11ylabs.com.')} <button type="button" onclick="document.getElementById('scan-again-btn-progress').click()" style="background:none;border:none;color:var(--color-primary);cursor:pointer;font-size:inherit;padding:0;text-decoration:underline;">Try again</button>`;
+            resultsPanel.classList.add('is-visible');
+            // Hide findings wrap on error
+            document.getElementById('results-top-findings-wrap').hidden = true;
+          }
+
+          if (stage === 'done') {
+            es.close();
+            resetLoadingState();
+            markAllDone();
+            setProgress(100);
+            if (results) renderResults(results, emailVal);
+          }
+        };
+
+        es.onerror = () => {
+          es.close();
+          resetLoadingState();
+          progressStatus.textContent = 'Connection lost. Please try again.';
+          resultsEmailNotice.innerHTML = '<strong>Connection lost.</strong> Please try submitting again.';
+          resultsPanel.classList.add('is-visible');
+          document.getElementById('results-top-findings-wrap').hidden = true;
+        };
+      }
+
+      // ── Form submit ──────────────────────────────────────────────────
+      scanForm.addEventListener('submit', e => {
+        e.preventDefault();
+
+        const urlErrorEl      = document.getElementById('scan-url-error');
+        const urlErrorTxtEl   = document.getElementById('scan-url-error-text');
+        const emailErrorEl    = document.getElementById('scan-email-error');
+        const emailErrorTxtEl = document.getElementById('scan-email-error-text');
+
+        clearFieldError(scanUrlInput, urlErrorEl, urlErrorTxtEl);
+        clearFieldError(scanEmailInput, emailErrorEl, emailErrorTxtEl);
+
+        // Validate URL
+        let urlVal = scanUrlInput.value.trim();
+        if (!urlVal) {
+          fieldError(scanUrlInput, urlErrorEl, urlErrorTxtEl, 'Please enter a website URL.');
+          scanUrlInput.focus(); return;
+        }
+        if (!/^https?:\/\//i.test(urlVal)) {
+          urlVal = 'https://' + urlVal;
+          scanUrlInput.value = urlVal;
+        }
+        if (!isValidUrl(urlVal)) {
+          fieldError(scanUrlInput, urlErrorEl, urlErrorTxtEl, 'Please enter a valid URL starting with https://');
+          scanUrlInput.focus(); return;
+        }
+
+        // Validate email
+        const emailVal = scanEmailInput.value.trim();
+        if (!emailVal) {
+          fieldError(scanEmailInput, emailErrorEl, emailErrorTxtEl, 'Please enter your email address.');
+          scanEmailInput.focus(); return;
+        }
+        if (!isValidEmail(emailVal)) {
+          fieldError(scanEmailInput, emailErrorEl, emailErrorTxtEl, 'Please enter a valid email address.');
+          scanEmailInput.focus(); return;
+        }
+
+        // Show progress panel and start SSE
+        // Include honeypot value (will be empty for real users)
+        const hpVal = (document.getElementById('hp_check')?.value || '');
+        setLoadingState('Running scan…');
+        showProgressPanel(urlVal);
+        startSseScan(urlVal, emailVal, hpVal);
+      });
+
+      // Clear field errors on input
+      scanUrlInput.addEventListener('input', () => {
+        if (scanUrlInput.getAttribute('aria-invalid') === 'true') {
+          clearFieldError(scanUrlInput,
+            document.getElementById('scan-url-error'),
+            document.getElementById('scan-url-error-text'));
+        }
+      });
+      scanEmailInput.addEventListener('input', () => {
+        if (scanEmailInput.getAttribute('aria-invalid') === 'true') {
+          clearFieldError(scanEmailInput,
+            document.getElementById('scan-email-error'),
+            document.getElementById('scan-email-error-text'));
+        }
+      });
+
+      // "Scan another URL" buttons reset everything
+      scanAgainBtn.addEventListener('click', resetAll);
+      scanAgainBtnP.addEventListener('click', resetAll);
+
+      /* ── Smooth scroll for anchor links ── */
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', e => {
+          const id = anchor.getAttribute('href').slice(1);
+          const target = document.getElementById(id);
+          if (!target) return;
+          e.preventDefault();
+          const headerH = document.querySelector('.site-header')?.offsetHeight ?? 64;
+          const top = target.getBoundingClientRect().top + window.scrollY - headerH - 16;
+          window.scrollTo({ top, behavior: 'smooth' });
+          target.setAttribute('tabindex', '-1');
+          target.focus({ preventScroll: true });
+        });
+      });
+
+    })();
+  </script>
+
+<script>
+
+    /* Brand refresh: unified theme, dropdown, and mobile navigation behavior. */
+    (function () {
+      const html = document.documentElement;
+      const toggle = document.querySelector('[data-theme-toggle], .theme-toggle, #theme-toggle');
+      const sunIcon = `<svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"/><path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`;
+      const moonIcon = `<svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+      let theme = html.getAttribute('data-theme') || 'dark';
+      function setTheme(nextTheme) {
+        theme = nextTheme;
+        html.setAttribute('data-theme', theme);
+        if (toggle) {
+          toggle.setAttribute('aria-label', 'Switch to ' + (theme === 'dark' ? 'light' : 'dark') + ' mode');
+          if (!toggle.querySelector('.icon-sun, .icon-moon') || toggle.children.length !== 2) {
+            toggle.innerHTML = theme === 'dark' ? moonIcon : sunIcon;
+          }
+        }
+      }
+      setTheme(theme);
+      if (toggle && !toggle.dataset.brandRefreshBound) {
+        toggle.dataset.brandRefreshBound = 'true';
+        toggle.addEventListener('click', function () { setTheme(theme === 'dark' ? 'light' : 'dark'); });
+      }
+    })();
+
+    (function () {
+      const openBtn = document.getElementById('nav-hamburger') || document.getElementById('mobile-toggle');
+      const nav = document.getElementById('mobile-nav');
+      const closeBtn = document.getElementById('mobile-nav-close');
+      if (!openBtn || !nav || openBtn.dataset.brandRefreshBound) return;
+      openBtn.dataset.brandRefreshBound = 'true';
+      function setOpen(open) {
+        nav.classList.toggle('open', open);
+        nav.classList.toggle('is-open', open);
+        openBtn.setAttribute('aria-expanded', String(open));
+        openBtn.setAttribute('aria-label', open ? 'Close navigation menu' : 'Open navigation menu');
+        document.body.classList.toggle('nav-open', open);
+        if (open) {
+          const first = nav.querySelector('a, button');
+          first && first.focus();
+        }
+      }
+      openBtn.addEventListener('click', function () { setOpen(!(nav.classList.contains('open') || nav.classList.contains('is-open'))); });
+      closeBtn && closeBtn.addEventListener('click', function () { setOpen(false); openBtn.focus(); });
+      nav.addEventListener('click', function (event) {
+        const link = event.target.closest('a');
+        if (link) setOpen(false);
+      });
+      document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape' && (nav.classList.contains('open') || nav.classList.contains('is-open'))) {
+          setOpen(false);
+          openBtn.focus();
+        }
+      });
+    })();
+
+    (function () {
+      document.querySelectorAll('.mobile-nav-disclosure[aria-controls]').forEach(function (button) {
+        if (button.dataset.brandRefreshBound) return;
+        button.dataset.brandRefreshBound = 'true';
+        const submenu = document.getElementById(button.getAttribute('aria-controls'));
+        button.addEventListener('click', function () {
+          const expanded = button.getAttribute('aria-expanded') === 'true';
+          button.setAttribute('aria-expanded', String(!expanded));
+          if (submenu) submenu.hidden = expanded;
+        });
+      });
+    })();
+
+    (function () {
+      document.querySelectorAll('.nav-dropdown-toggle[aria-controls]').forEach(function (button) {
+        if (button.dataset.brandRefreshBound) return;
+        button.dataset.brandRefreshBound = 'true';
+        const menu = document.getElementById(button.getAttribute('aria-controls'));
+        button.addEventListener('click', function () {
+          const expanded = button.getAttribute('aria-expanded') === 'true';
+          button.setAttribute('aria-expanded', String(!expanded));
+          if (menu) menu.classList.toggle('is-open', !expanded);
+        });
+        document.addEventListener('click', function (event) {
+          if (!button.closest('.nav-dropdown, .dropdown')?.contains(event.target)) {
+            button.setAttribute('aria-expanded', 'false');
+            menu && menu.classList.remove('is-open');
+          }
+        });
+      });
+    })();
+  </script>
+
+
+<script id="qa11y-final-drawer-handler">
+  /* QA11Y final drawer handler: capture-phase guard for legacy templates. */
+  (function () {
+    if (window.__qa11yFinalDrawerHandler) return;
+    window.__qa11yFinalDrawerHandler = true;
+    function findButton(target) {
+      return target && target.closest && target.closest('header #nav-hamburger, header #mobile-toggle, header .mobile-menu-btn, #mobile-nav-close');
+    }
+    function getOpenButton() {
+      return document.querySelector('header #nav-hamburger, header #mobile-toggle, header .mobile-menu-btn');
+    }
+    function setOpen(open) {
+      var nav = document.getElementById('mobile-nav');
+      var openBtn = getOpenButton();
+      if (!nav || !openBtn) return;
+      nav.classList.toggle('open', open);
+      nav.classList.toggle('is-open', open);
+      openBtn.setAttribute('aria-expanded', String(open));
+      openBtn.setAttribute('aria-label', open ? 'Close navigation menu' : 'Open navigation menu');
+      document.body.classList.toggle('nav-open', open);
+      document.body.style.overflow = open ? 'hidden' : '';
+      if (open) {
+        window.setTimeout(function () {
+          var first = nav.querySelector('#mobile-nav-close') || nav.querySelector('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])');
+          if (first) first.focus({ preventScroll: true });
+        }, 0);
+      }
+    }
+    document.addEventListener('click', function (event) {
+      var control = findButton(event.target);
+      if (!control) return;
+      var nav = document.getElementById('mobile-nav');
+      if (!nav) return;
+      var isClose = control.id === 'mobile-nav-close';
+      var open = nav.classList.contains('open') || nav.classList.contains('is-open');
+      event.preventDefault();
+      event.stopPropagation();
+      event.stopImmediatePropagation();
+      setOpen(isClose ? false : !open);
+    }, true);
+    document.addEventListener('keydown', function (event) {
+      var nav = document.getElementById('mobile-nav');
+      if (event.key === 'Escape' && nav && (nav.classList.contains('open') || nav.classList.contains('is-open'))) {
+        event.preventDefault();
+        setOpen(false);
+        var openBtn = getOpenButton();
+        if (openBtn) openBtn.focus({ preventScroll: true });
+      }
+    }, true);
+    document.addEventListener('click', function (event) {
+      var nav = document.getElementById('mobile-nav');
+      if (!nav || !(nav.classList.contains('open') || nav.classList.contains('is-open'))) return;
+      if (event.target.closest && event.target.closest('#mobile-nav a')) setOpen(false);
+    }, true);
+  })();
+</script>
+
+
+<script id="qa11y-accessible-nav-handler">
+  /* QA11Y accessible navigation handler: supports click, Space, Enter, Escape, arrows, and outside-click. */
+  (function () {
+    if (window.__qa11yAccessibleNavHandler) return;
+    window.__qa11yAccessibleNavHandler = true;
+
+    function controlledBy(button) {
+      if (!button) return null;
+      var id = button.getAttribute('aria-controls');
+      return id ? document.getElementById(id) : null;
+    }
+
+    function dropdownFor(button) {
+      return button && button.closest ? button.closest('.nav-dropdown, .dropdown') : null;
+    }
+
+    function menuItems(menu) {
+      return menu ? Array.prototype.slice.call(menu.querySelectorAll('a[href], button:not([disabled])')) : [];
+    }
+
+    function setMenuOpen(button, open, options) {
+      var menu = controlledBy(button);
+      if (!button || !menu) return;
+      if (open) closeAllDesktop(button);
+      button.setAttribute('aria-expanded', String(open));
+      menu.hidden = !open;
+      menu.classList.toggle('is-open', open);
+      if (open && options && options.focusFirst) {
+        var first = menuItems(menu)[0];
+        if (first) first.focus({ preventScroll: true });
+      }
+      if (!open && options && options.returnFocus) {
+        button.focus({ preventScroll: true });
+      }
+    }
+
+    function closeAllDesktop(exceptButton) {
+      document.querySelectorAll('.nav-dropdown-toggle[aria-controls]').forEach(function (button) {
+        if (button !== exceptButton) setMenuOpen(button, false);
+      });
+    }
+
+    function toggleDesktop(button, focusFirst) {
+      var expanded = button.getAttribute('aria-expanded') === 'true';
+      setMenuOpen(button, !expanded, { focusFirst: !!focusFirst });
+    }
+
+    function setMobileSubmenuOpen(button, open, options) {
+      var submenu = controlledBy(button);
+      if (!button || !submenu) return;
+      button.setAttribute('aria-expanded', String(open));
+      submenu.hidden = !open;
+      submenu.classList.toggle('is-open', open);
+      if (open && options && options.focusFirst) {
+        var first = menuItems(submenu)[0];
+        if (first) first.focus({ preventScroll: true });
+      }
+    }
+
+    function toggleMobileSubmenu(button, focusFirst) {
+      var expanded = button.getAttribute('aria-expanded') === 'true';
+      setMobileSubmenuOpen(button, !expanded, { focusFirst: !!focusFirst });
+    }
+
+    function moveWithin(items, current, direction) {
+      if (!items.length) return;
+      var index = items.indexOf(current);
+      if (index < 0) index = direction > 0 ? -1 : 0;
+      var next = (index + direction + items.length) % items.length;
+      items[next].focus({ preventScroll: true });
+    }
+
+    document.querySelectorAll('.nav-dropdown-toggle[aria-controls]').forEach(function (button) {
+      var menu = controlledBy(button);
+      if (!menu) return;
+      setMenuOpen(button, button.getAttribute('aria-expanded') === 'true');
+      var wrapper = dropdownFor(button);
+      if (wrapper && !wrapper.dataset.qa11yHoverBound) {
+        wrapper.dataset.qa11yHoverBound = 'true';
+        wrapper.addEventListener('pointerenter', function () { setMenuOpen(button, true); });
+        wrapper.addEventListener('pointerleave', function () {
+          if (!wrapper.contains(document.activeElement)) setMenuOpen(button, false);
+        });
+        wrapper.addEventListener('focusout', function () {
+          window.setTimeout(function () {
+            if (!wrapper.contains(document.activeElement)) setMenuOpen(button, false);
+          }, 0);
+        });
+      }
+    });
+
+    document.querySelectorAll('.mobile-nav-disclosure[aria-controls]').forEach(function (button) {
+      setMobileSubmenuOpen(button, button.getAttribute('aria-expanded') === 'true');
+    });
+
+    document.addEventListener('click', function (event) {
+      var desktopButton = event.target.closest && event.target.closest('.nav-dropdown-toggle[aria-controls]');
+      if (desktopButton) {
+        event.preventDefault();
+        event.stopPropagation();
+        event.stopImmediatePropagation();
+        toggleDesktop(desktopButton, false);
+        return;
+      }
+
+      var mobileButton = event.target.closest && event.target.closest('.mobile-nav-disclosure[aria-controls]');
+      if (mobileButton) {
+        event.preventDefault();
+        event.stopPropagation();
+        event.stopImmediatePropagation();
+        toggleMobileSubmenu(mobileButton, false);
+        return;
+      }
+
+      if (!(event.target.closest && event.target.closest('.nav-dropdown, .dropdown'))) {
+        closeAllDesktop();
+      }
+    }, true);
+
+    document.addEventListener('keydown', function (event) {
+      var desktopButton = event.target.closest && event.target.closest('.nav-dropdown-toggle[aria-controls]');
+      var mobileButton = event.target.closest && event.target.closest('.mobile-nav-disclosure[aria-controls]');
+
+      if (desktopButton && (event.key === ' ' || event.key === 'Enter')) {
+        event.preventDefault();
+        event.stopPropagation();
+        toggleDesktop(desktopButton, false);
+        return;
+      }
+
+      if (desktopButton && event.key === 'ArrowDown') {
+        event.preventDefault();
+        setMenuOpen(desktopButton, true, { focusFirst: true });
+        return;
+      }
+
+      if (mobileButton && (event.key === ' ' || event.key === 'Enter')) {
+        event.preventDefault();
+        event.stopPropagation();
+        toggleMobileSubmenu(mobileButton, false);
+        return;
+      }
+
+      if (mobileButton && event.key === 'ArrowDown') {
+        event.preventDefault();
+        setMobileSubmenuOpen(mobileButton, true, { focusFirst: true });
+        return;
+      }
+
+      var openMenu = event.target.closest && event.target.closest('.nav-dropdown-menu.is-open, .mobile-submenu.is-open');
+      if (openMenu) {
+        var items = menuItems(openMenu);
+        if (event.key === 'ArrowDown') {
+          event.preventDefault();
+          moveWithin(items, event.target, 1);
+          return;
+        }
+        if (event.key === 'ArrowUp') {
+          event.preventDefault();
+          moveWithin(items, event.target, -1);
+          return;
+        }
+        if (event.key === 'Home') {
+          event.preventDefault();
+          if (items[0]) items[0].focus({ preventScroll: true });
+          return;
+        }
+        if (event.key === 'End') {
+          event.preventDefault();
+          if (items[items.length - 1]) items[items.length - 1].focus({ preventScroll: true });
+          return;
+        }
+      }
+
+      if (event.key === 'Escape') {
+        var openDesktop = document.querySelector('.nav-dropdown-toggle[aria-expanded="true"]');
+        if (openDesktop) {
+          event.preventDefault();
+          setMenuOpen(openDesktop, false, { returnFocus: true });
+          return;
+        }
+        var openMobile = document.querySelector('.mobile-nav-disclosure[aria-expanded="true"]');
+        if (openMobile) {
+          event.preventDefault();
+          setMobileSubmenuOpen(openMobile, false);
+          openMobile.focus({ preventScroll: true });
+        }
+      }
+    }, true);
+  })();
+</script>
+
+</body>
+</html>

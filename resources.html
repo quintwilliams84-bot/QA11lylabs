@@ -1,0 +1,2622 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- QA11Y BRAND HEAD START -->
+  <!-- Favicons & app icons -->
+  <link rel="icon" href="assets/brand/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/brand/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/brand/favicon-16.png">
+  <link rel="icon" type="image/svg+xml" href="assets/brand/qa11ylabs-logo-icon.svg">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/brand/apple-touch-icon.png">
+  <link rel="manifest" href="assets/brand/site.webmanifest">
+  <meta name="theme-color" content="#0B0C10">
+
+  <!-- Open Graph -->
+  <meta property="og:site_name" content="QA11Y Labs">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="QA11Y Labs — Architecting a more inclusive digital world">
+  <meta property="og:description" content="Accessibility audits, remediation, monitoring, and consulting from a senior architect with 25+ years of daily screen reader expertise.">
+  <meta property="og:image" content="https://qa11ylabs.com/assets/brand/og-image-primary.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="QA11Y Labs primary logo: cyan shield check mark with QA11Y in cyan and Labs in gold, on a dark terminal-style background.">
+  <meta property="og:url" content="https://qa11ylabs.com/">
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="QA11Y Labs — Architecting a more inclusive digital world">
+  <meta name="twitter:description" content="Accessibility audits, remediation, monitoring, and consulting from a senior architect with 25+ years of daily screen reader expertise.">
+  <meta name="twitter:image" content="https://qa11ylabs.com/assets/brand/og-image-primary.png">
+  <meta name="twitter:image:alt" content="QA11Y Labs primary logo: cyan shield check mark with QA11Y in cyan and Labs in gold.">
+  <!-- QA11Y BRAND HEAD END -->
+<title>Accessibility Resources | QA11Y Labs — Screen Readers, Testing Tools, Standards & More</title>
+  <meta name="description" content="A curated accessibility resource hub for business owners and developers. Screen readers, testing tools, WCAG standards, legal compliance, training, and newsletters — curated by Quintin Williams with 25+ years of lived JAWS expertise.">
+  <!-- Fonts: Cabinet Grotesk (display) + Satoshi (body) -->
+  <link rel="preconnect" href="https://api.fontshare.com">
+  <link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@500,700&f[]=satoshi@400,500,600,700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ─── Design Tokens ─────────────────────────────────────────── */
+    :root {
+      --font-display: 'Cabinet Grotesk', system-ui, sans-serif;
+      --font-body: 'Satoshi', system-ui, sans-serif;
+
+      --text-xs:   clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+      --text-sm:   clamp(0.875rem, 0.8rem + 0.35vw, 1rem);
+      --text-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+      --text-lg:   clamp(1.125rem, 1rem + 0.75vw, 1.5rem);
+      --text-xl:   clamp(1.5rem, 1.2rem + 1.25vw, 2.25rem);
+      --text-2xl:  clamp(2rem, 1.2rem + 2.5vw, 3.5rem);
+
+      --space-1: 0.25rem;
+      --space-2: 0.5rem;
+      --space-3: 0.75rem;
+      --space-4: 1rem;
+      --space-5: 1.25rem;
+      --space-6: 1.5rem;
+      --space-8: 2rem;
+      --space-10: 2.5rem;
+      --space-12: 3rem;
+      --space-16: 4rem;
+      --space-20: 5rem;
+      --space-24: 6rem;
+
+      --radius-sm: 0.375rem;
+      --radius-md: 0.5rem;
+      --radius-lg: 0.75rem;
+      --radius-full: 9999px;
+
+      --transition: 180ms cubic-bezier(0.16, 1, 0.3, 1);
+      --content-default: 1100px;
+    }
+
+    /* ─── QA11Y Brand Palette — Dark ────────────────────────────── */
+    [data-theme="dark"], :root {
+      --color-bg:          #0B0C10;
+      --color-surface:     #0f1117;
+      --color-surface-2:   #151820;
+      --color-border:      #1e2330;
+      --color-divider:     #1a1f2e;
+      --color-text:        #C5C6C7;
+      --color-text-muted:  #7a7e8a;
+      --color-text-faint:  #454a57;
+      --color-text-inverse:#0B0C10;
+      --color-primary:        #66FCF1;
+      --color-primary-hover:  #45e8dc;
+      --color-primary-dim:    #1a3f3d;
+      --color-cta:            #F2A900;
+      --color-cta-hover:      #e09800;
+      --color-cta-dim:        #3a2a00;
+      --color-teal:           #45A29E;
+      --color-teal-dim:       #112827;
+      --color-blue:           #5b9bd5;
+      --color-blue-dim:       #0f1e36;
+      --color-red:            #ef4444;
+      --color-red-dim:        #2a1010;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.5);
+      --shadow-md: 0 4px 16px rgba(0,0,0,0.6);
+      --shadow-lg: 0 12px 40px rgba(0,0,0,0.7);
+      --glow-cyan: 0 0 40px rgba(102, 252, 241, 0.08);
+    }
+
+    [data-theme="light"] {
+      --color-bg:          #f4f5f7;
+      --color-surface:     #ffffff;
+      --color-surface-2:   #eef0f4;
+      --color-border:      #d0d4de;
+      --color-divider:     #e2e5ec;
+      --color-text:        #1a1d26;
+      --color-text-muted:  #5a5f6e;
+      --color-text-faint:  #9aa0b0;
+      --color-text-inverse:#ffffff;
+      --color-primary:        #007a76;
+      --color-primary-hover:  #005d5a;
+      --color-primary-dim:    #e0f5f4;
+      --color-cta:            #c47900;
+      --color-cta-hover:      #a36500;
+      --color-cta-dim:        #fff3cc;
+      --color-teal:           #2a7a75;
+      --color-teal-dim:       #e0f0ee;
+      --color-blue:           #2563eb;
+      --color-blue-dim:       #dbeafe;
+      --color-red:            #dc2626;
+      --color-red-dim:        #fee2e2;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+      --shadow-md: 0 4px 16px rgba(0,0,0,0.10);
+      --shadow-lg: 0 12px 40px rgba(0,0,0,0.12);
+      --glow-cyan: none;
+    }
+
+    /* ─── Base Reset ─────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      scroll-behavior: smooth;
+      scroll-padding-top: 5rem;
+      text-rendering: optimizeLegibility;
+    }
+
+    body {
+      min-height: 100dvh;
+      font-family: var(--font-body);
+      font-size: var(--text-base);
+      line-height: 1.65;
+      color: var(--color-text);
+      background-color: var(--color-bg);
+    }
+
+    img, svg { display: block; max-width: 100%; height: auto; }
+
+    h1, h2, h3, h4 {
+      font-family: var(--font-display);
+      line-height: 1.1;
+      text-wrap: balance;
+    }
+
+    p, li { text-wrap: pretty; max-width: 68ch; }
+
+    a { color: inherit; text-decoration: none; transition: color var(--transition), opacity var(--transition); }
+    button { cursor: pointer; background: none; border: none; font: inherit; color: inherit; }
+
+    :focus-visible {
+      outline: 3px solid var(--color-cta);
+      outline-offset: 3px;
+      border-radius: var(--radius-sm);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    .sr-only {
+      position: absolute; width: 1px; height: 1px; padding: 0;
+      margin: -1px; overflow: hidden; clip: rect(0,0,0,0);
+      white-space: nowrap; border-width: 0;
+    }
+
+    .container {
+      width: 100%;
+      max-width: var(--content-default);
+      margin-inline: auto;
+      padding-inline: var(--space-6);
+    }
+    @media (min-width: 768px) { .container { padding-inline: var(--space-10); } }
+
+    /* ─── Skip Link ──────────────────────────────────────────────── */
+    .skip-link {
+      position: absolute; top: -60px; left: var(--space-4);
+      background: var(--color-cta); color: var(--color-text-inverse);
+      font-family: var(--font-display); font-weight: 700;
+      padding: var(--space-3) var(--space-6);
+      border-radius: var(--radius-md); z-index: 9999; transition: top 0.2s;
+    }
+    .skip-link:focus { top: var(--space-4); }
+
+    /* ─── Header / Nav ───────────────────────────────────────────── */
+    .site-header {
+      position: sticky; top: 0; z-index: 100;
+      background: color-mix(in srgb, var(--color-bg) 90%, transparent);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--color-border);
+    }
+    .header-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: var(--space-6); height: 4rem;
+    }
+    .site-logo {
+      display: flex; align-items: center; gap: var(--space-2);
+      font-family: var(--font-display); font-size: var(--text-lg);
+      font-weight: 700; letter-spacing: -0.02em; text-decoration: none; flex-shrink: 0;
+    }
+    .logo-qa { color: var(--color-primary); }
+    .logo-11y { color: var(--color-primary); }
+    .logo-labs { color: var(--color-cta); margin-left: 0.15em; }
+    .logo-icon { width: 32px; height: 32px; flex-shrink: 0; }
+
+    .primary-nav { display: none; align-items: center; gap: var(--space-1); }
+    
+
+    /* Final QA11Y Labs logo image treatment */
+    .logo-link--image {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      color: inherit;
+    }
+    .logo-image {
+      width: clamp(9rem, 14vw, 12rem);
+      height: auto;
+      max-height: 2.75rem;
+      object-fit: contain;
+    }
+    .site-footer .logo-image,
+    .footer-logo-image {
+      width: min(11rem, 100%);
+      max-height: 3rem;
+    }
+    @media (max-width: 420px) {
+      .logo-image { width: 8.75rem; }
+    }
+
+    /* Sitewide nav-list shim — was missing on some pages */
+    .nav-list { list-style: none; margin: 0; padding: 0; display: flex; align-items: center; gap: var(--space-1); flex-wrap: wrap; }
+    .site-header ul, .site-header ol { list-style: none; }
+    .nav-dropdown-menu, .dropdown-menu { list-style: none; padding-left: 0; }
+@media (min-width: 900px) { .primary-nav { display: flex; } }
+
+    .nav-link {
+      font-size: var(--text-sm); font-weight: 500;
+      padding: var(--space-2) var(--space-3);
+      border-radius: var(--radius-sm); color: var(--color-text-muted);
+      transition: color var(--transition), background var(--transition); white-space: nowrap;
+    }
+    .nav-link:hover { color: var(--color-text); background: var(--color-surface-2); }
+    .nav-link[aria-current="page"] { color: var(--color-primary); background: color-mix(in srgb, var(--color-primary) 10%, transparent); }
+
+    .dropdown { position: relative; }
+    .dropdown-btn {
+      display: flex; align-items: center; gap: var(--space-1);
+      font-size: var(--text-sm); font-weight: 500;
+      padding: var(--space-2) var(--space-3);
+      border-radius: var(--radius-sm); color: var(--color-text-muted);
+      transition: color var(--transition), background var(--transition);
+    }
+    .dropdown-btn:hover, .dropdown:focus-within .dropdown-btn {
+      color: var(--color-text); background: var(--color-surface-2);
+    }
+    .dropdown-menu {
+      display: none; position: absolute; top: calc(100% + 0.5rem); left: 0;
+      background: var(--color-surface); border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg); box-shadow: var(--shadow-lg);
+      min-width: 200px; padding: var(--space-2); z-index: 200;
+    }
+    .nav-dropdown:focus-within .dropdown-menu,
+    .dropdown:focus-within .dropdown-menu, .nav-dropdown:hover .dropdown-menu,
+    .dropdown:hover .dropdown-menu { display: block; }
+    .dropdown-menu a {
+      display: block; font-size: var(--text-sm);
+      padding: var(--space-2) var(--space-3);
+      border-radius: var(--radius-sm); color: var(--color-text-muted);
+      transition: color var(--transition), background var(--transition);
+    }
+    .dropdown-menu a:hover { color: var(--color-primary); background: var(--color-surface-2); }
+
+    .header-actions { display: flex; align-items: center; gap: var(--space-3); flex-shrink: 0; }
+    .theme-toggle {
+      width: 2rem; height: 2rem; display: flex; align-items: center; justify-content: center;
+      border-radius: var(--radius-sm); color: var(--color-text-muted);
+      transition: color var(--transition), background var(--transition);
+    }
+    .theme-toggle:hover { color: var(--color-text); background: var(--color-surface-2); }
+    .btn-nav-cta {
+      display: none; align-items: center;
+      font-size: var(--text-sm); font-weight: 700; font-family: var(--font-display);
+      padding: var(--space-2) var(--space-5);
+      background: var(--color-cta); color: var(--color-text-inverse);
+      border-radius: var(--radius-sm); transition: background var(--transition);
+    }
+    .btn-nav-cta:hover { background: var(--color-cta-hover); }
+    @media (min-width: 900px) { .btn-nav-cta { display: flex; } }
+    .btn-cta {
+      display: inline-flex; align-items: center;
+      font-family: var(--font-display); font-size: var(--text-sm); font-weight: 700;
+      padding: var(--space-2) var(--space-5);
+      background: var(--color-cta); color: var(--color-text-inverse);
+      border-radius: var(--radius-sm); transition: background var(--transition), transform var(--transition);
+    }
+    .btn-cta:hover { background: var(--color-cta-hover); transform: translateY(-1px); }
+    .mobile-menu-btn {
+      display: flex; align-items: center; justify-content: center;
+      width: 2.5rem; height: 2.5rem; border-radius: var(--radius-sm);
+      color: var(--color-text-muted);
+      transition: color var(--transition), background var(--transition);
+    }
+    .mobile-menu-btn:hover { color: var(--color-text); background: var(--color-surface-2); }
+
+    /* Header control compatibility: actual markup uses .nav-hamburger */
+    .nav-hamburger {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: var(--radius-sm);
+      color: var(--color-text-muted);
+      transition: color var(--transition), background var(--transition);
+    }
+    .nav-hamburger:hover { color: var(--color-text); background: var(--color-surface-2); }
+    @media (min-width: 900px) { .nav-hamburger { display: none; } }
+
+    .theme-toggle .icon-sun,
+    .theme-toggle .icon-moon { display: none; }
+    [data-theme="dark"] .theme-toggle .icon-moon { display: block; }
+    [data-theme="light"] .theme-toggle .icon-sun { display: block; }
+
+    @media (min-width: 900px) { .mobile-menu-btn { display: none; } }
+    .mobile-nav {
+      display: none; flex-direction: column; gap: var(--space-1);
+      padding: var(--space-4); border-top: 1px solid var(--color-border);
+      background: var(--color-surface);
+    }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a {
+      font-size: var(--text-base); font-weight: 500;
+      padding: var(--space-3) var(--space-4); border-radius: var(--radius-sm);
+      color: var(--color-text-muted);
+      transition: color var(--transition), background var(--transition);
+    }
+    .mobile-nav a:hover, .mobile-nav a[aria-current] { color: var(--color-primary); background: var(--color-surface-2); }
+
+    /* ─── Page Hero ──────────────────────────────────────────────── */
+    .page-hero {
+      position: relative; overflow: hidden;
+      padding-block: clamp(var(--space-16), 8vw, var(--space-24));
+      border-bottom: 1px solid var(--color-border);
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(102, 252, 241, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(102, 252, 241, 0.03) 1px, transparent 1px);
+      background-size: 64px 64px;
+      mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 30%, transparent 100%);
+      pointer-events: none;
+    }
+    .page-hero::after {
+      content: '';
+      position: absolute; top: -30%; left: 50%; transform: translateX(-50%);
+      width: 700px; height: 400px;
+      background: radial-gradient(ellipse, rgba(102, 252, 241, 0.05) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .page-hero-inner { position: relative; z-index: 1; }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      font-size: var(--text-xs); font-weight: 600; font-family: var(--font-display);
+      letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-primary);
+      border: 1px solid color-mix(in srgb, var(--color-primary) 30%, transparent);
+      background: color-mix(in srgb, var(--color-primary) 6%, transparent);
+      padding: var(--space-1) var(--space-3); border-radius: var(--radius-full);
+      margin-bottom: var(--space-6);
+    }
+    .eyebrow-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--color-primary); animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
+    .page-hero h1 {
+      font-size: var(--text-2xl); font-weight: 700; letter-spacing: -0.03em;
+      color: var(--color-text); margin-bottom: var(--space-6); max-width: 22ch;
+    }
+    .page-hero h1 em { font-style: normal; color: var(--color-primary); }
+    .page-hero-lead {
+      font-size: var(--text-lg); color: var(--color-text-muted);
+      line-height: 1.65; max-width: 60ch; margin-bottom: var(--space-6);
+    }
+    .curator-note {
+      display: inline-flex; align-items: center; gap: var(--space-3);
+      font-size: var(--text-sm); color: var(--color-text-muted);
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-full);
+      padding: var(--space-2) var(--space-5);
+    }
+    .curator-note-icon {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: color-mix(in srgb, var(--color-primary) 12%, transparent);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--color-primary); flex-shrink: 0;
+    }
+
+    /* ─── Jump Nav ───────────────────────────────────────────────── */
+    .jump-nav-wrapper {
+      background: var(--color-surface);
+      border-bottom: 1px solid var(--color-border);
+      position: sticky; top: 4rem; z-index: 90;
+    }
+    .jump-nav {
+      display: flex; align-items: center; gap: var(--space-1);
+      overflow-x: auto; padding-block: var(--space-3);
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+    }
+    .jump-nav::-webkit-scrollbar { display: none; }
+    .jump-nav-label {
+      font-size: var(--text-xs); font-weight: 700; font-family: var(--font-display);
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--color-text-faint); white-space: nowrap;
+      padding-right: var(--space-4);
+      border-right: 1px solid var(--color-border);
+      margin-right: var(--space-2);
+    }
+    .jump-link {
+      display: inline-flex; align-items: center; gap: var(--space-1);
+      font-size: var(--text-xs); font-weight: 600; font-family: var(--font-display);
+      white-space: nowrap; padding: var(--space-2) var(--space-3);
+      border-radius: var(--radius-sm); color: var(--color-text-muted);
+      transition: color var(--transition), background var(--transition);
+    }
+    .jump-link:hover { color: var(--color-primary); background: color-mix(in srgb, var(--color-primary) 8%, transparent); }
+
+    /* ─── Main Content Layout ────────────────────────────────────── */
+    .resources-main {
+      padding-block: clamp(var(--space-12), 5vw, var(--space-20));
+    }
+
+    .resource-section {
+      margin-bottom: clamp(var(--space-16), 6vw, var(--space-24));
+    }
+    .resource-section:last-of-type { margin-bottom: 0; }
+
+    .section-header {
+      display: flex; align-items: flex-start; gap: var(--space-4);
+      margin-bottom: var(--space-8);
+      padding-bottom: var(--space-6);
+      border-bottom: 1px solid var(--color-divider);
+    }
+    .section-icon {
+      width: 44px; height: 44px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      background: color-mix(in srgb, var(--color-primary) 8%, transparent);
+      border: 1px solid color-mix(in srgb, var(--color-primary) 20%, transparent);
+      border-radius: var(--radius-md); color: var(--color-primary);
+      margin-top: 2px;
+    }
+    .section-header-text {}
+    .section-heading {
+      font-size: var(--text-xl); font-weight: 700; letter-spacing: -0.02em;
+      color: var(--color-text); margin-bottom: var(--space-2);
+    }
+    .section-desc {
+      font-size: var(--text-sm); color: var(--color-text-muted);
+      max-width: 64ch; line-height: 1.6;
+    }
+
+    /* ─── Resource Cards ─────────────────────────────────────────── */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-4);
+    }
+    @media (min-width: 640px) { .cards-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 960px) { .cards-grid { grid-template-columns: repeat(3, 1fr); } }
+
+    .resource-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-6);
+      display: flex; flex-direction: column; gap: var(--space-3);
+      transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition);
+    }
+    .resource-card:hover {
+      border-color: color-mix(in srgb, var(--color-primary) 25%, transparent);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-1px);
+    }
+
+    .card-top {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      gap: var(--space-3);
+    }
+    .card-source {
+      font-size: var(--text-xs); font-weight: 600; font-family: var(--font-display);
+      letter-spacing: 0.06em; text-transform: uppercase;
+      color: var(--color-text-faint);
+    }
+
+    .resource-name {
+      font-size: var(--text-base); font-weight: 700;
+      font-family: var(--font-display); letter-spacing: -0.01em;
+      color: var(--color-primary);
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      transition: color var(--transition);
+    }
+    .resource-name:hover { color: var(--color-primary-hover); }
+    .resource-name svg { flex-shrink: 0; opacity: 0.6; }
+
+    .resource-desc {
+      font-size: var(--text-sm); color: var(--color-text-muted);
+      line-height: 1.65; flex: 1;
+    }
+
+    /* ─── Resource Tags ──────────────────────────────────────────── */
+    .tag {
+      display: inline-flex; align-items: center;
+      font-size: calc(var(--text-xs) * 0.95); font-weight: 700;
+      font-family: var(--font-display); letter-spacing: 0.05em; text-transform: uppercase;
+      padding: calc(var(--space-1) * 0.75) var(--space-2);
+      border-radius: var(--radius-full);
+      border: 1px solid; white-space: nowrap;
+    }
+    .tag-free {
+      color: var(--color-primary);
+      background: color-mix(in srgb, var(--color-primary) 8%, transparent);
+      border-color: color-mix(in srgb, var(--color-primary) 22%, transparent);
+    }
+    .tag-paid {
+      color: var(--color-cta);
+      background: color-mix(in srgb, var(--color-cta) 8%, transparent);
+      border-color: color-mix(in srgb, var(--color-cta) 22%, transparent);
+    }
+    .tag-standard {
+      color: var(--color-blue);
+      background: color-mix(in srgb, var(--color-blue) 8%, var(--color-bg));
+      border-color: color-mix(in srgb, var(--color-blue) 22%, transparent);
+    }
+    .tag-legal {
+      color: var(--color-red);
+      background: color-mix(in srgb, var(--color-red) 8%, var(--color-bg));
+      border-color: color-mix(in srgb, var(--color-red) 22%, transparent);
+    }
+    .tag-tool {
+      color: var(--color-teal);
+      background: color-mix(in srgb, var(--color-teal) 8%, transparent);
+      border-color: color-mix(in srgb, var(--color-teal) 22%, transparent);
+    }
+
+    /* ─── Subsection headings ────────────────────────────────────── */
+    .subsection-heading {
+      font-size: var(--text-sm); font-weight: 700; font-family: var(--font-display);
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--color-text-faint);
+      margin-top: var(--space-10); margin-bottom: var(--space-6);
+      padding-bottom: var(--space-3);
+      border-bottom: 1px solid var(--color-divider);
+    }
+    .subsection-heading:first-of-type { margin-top: 0; }
+
+    /* ─── ADA Title II Callout Box ───────────────────────────────────────── */
+    .sb62-callout {
+      margin-top: var(--space-8);
+      background: color-mix(in srgb, var(--color-cta) 5%, var(--color-surface));
+      border: 2px solid color-mix(in srgb, var(--color-cta) 35%, transparent);
+      border-radius: var(--radius-lg);
+      padding: var(--space-6) var(--space-8);
+    }
+    .sb62-callout-header {
+      display: flex; align-items: center; gap: var(--space-3);
+      margin-bottom: var(--space-4);
+    }
+    .sb62-icon {
+      width: 40px; height: 40px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      background: color-mix(in srgb, var(--color-cta) 15%, transparent);
+      border-radius: var(--radius-sm); color: var(--color-cta);
+    }
+    .sb62-callout-header h3 {
+      font-size: var(--text-base); font-weight: 700;
+      color: var(--color-cta); font-family: var(--font-display);
+      letter-spacing: -0.01em;
+    }
+    .sb62-callout p {
+      font-size: var(--text-sm); color: var(--color-text);
+      line-height: 1.7; max-width: 72ch;
+    }
+    .sb62-callout p + p { margin-top: var(--space-3); }
+    .sb62-cta-link {
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      margin-top: var(--space-5);
+      font-size: var(--text-sm); font-weight: 700; font-family: var(--font-display);
+      color: var(--color-cta);
+      transition: color var(--transition);
+    }
+    .sb62-cta-link:hover { color: var(--color-cta-hover); }
+
+    /* ─── CTA Section ────────────────────────────────────────────── */
+    .cta-section {
+      background: var(--color-surface);
+      border-top: 1px solid var(--color-border);
+      padding-block: clamp(var(--space-16), 6vw, var(--space-20));
+    }
+    .cta-banner {
+      max-width: 680px; margin-inline: auto;
+      text-align: center; display: flex; flex-direction: column; align-items: center;
+    }
+    .cta-eyebrow {
+      font-size: var(--text-xs); font-weight: 700; font-family: var(--font-display);
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--color-primary); margin-bottom: var(--space-4);
+    }
+    .cta-banner h2 {
+      font-size: var(--text-xl); font-weight: 700; letter-spacing: -0.02em;
+      color: var(--color-text); margin-bottom: var(--space-4); max-width: 24ch;
+    }
+    .cta-banner p {
+      font-size: var(--text-base); color: var(--color-text-muted);
+      margin-bottom: var(--space-8); max-width: 52ch;
+    }
+    .cta-actions {
+      display: flex; flex-wrap: wrap; gap: var(--space-4);
+      justify-content: center;
+    }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      font-size: var(--text-sm); font-weight: 700; font-family: var(--font-display);
+      padding: var(--space-4) var(--space-8);
+      background: var(--color-cta); color: var(--color-text-inverse);
+      border-radius: var(--radius-sm);
+      transition: background var(--transition), transform var(--transition);
+    }
+    .btn-primary:hover { background: var(--color-cta-hover); transform: translateY(-1px); }
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      font-size: var(--text-sm); font-weight: 600; font-family: var(--font-display);
+      padding: var(--space-4) var(--space-8);
+      border: 1px solid var(--color-border); color: var(--color-text);
+      border-radius: var(--radius-sm);
+      transition: border-color var(--transition), color var(--transition), background var(--transition);
+    }
+    .btn-secondary:hover { border-color: var(--color-primary); color: var(--color-primary); background: color-mix(in srgb, var(--color-primary) 5%, transparent); }
+
+    /* ─── Footer ─────────────────────────────────────────────────── */
+    .site-footer {
+      background: var(--color-surface);
+      border-top: 1px solid var(--color-border);
+      padding-block: var(--space-16) var(--space-8);
+    }
+    .footer-inner {
+      display: grid; grid-template-columns: 1fr; gap: var(--space-10);
+    }
+    @media (min-width: 640px) { .footer-inner { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 900px) { .footer-inner { grid-template-columns: 2fr 1fr 1fr 1fr; } }
+    .footer-brand p {
+      font-size: var(--text-sm); color: var(--color-text-muted);
+      margin-top: var(--space-4); max-width: 32ch; line-height: 1.65;
+    }
+    .footer-col h3 {
+      font-size: var(--text-xs); font-weight: 700; font-family: var(--font-display);
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--color-text-faint); margin-bottom: var(--space-4);
+    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: var(--space-3); }
+    .footer-col ul a {
+      font-size: var(--text-sm); color: var(--color-text-muted);
+      transition: color var(--transition);
+    }
+    .footer-col ul a:hover { color: var(--color-primary); }
+    .footer-bottom {
+      display: flex; flex-wrap: wrap; align-items: center;
+      justify-content: space-between; gap: var(--space-4);
+      padding-top: var(--space-8); margin-top: var(--space-8);
+      border-top: 1px solid var(--color-divider);
+      font-size: var(--text-sm); color: var(--color-text-muted);
+    }
+    .footer-badges { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+    .badge {
+      font-size: var(--text-xs); font-weight: 700; font-family: var(--font-display);
+      letter-spacing: 0.06em; text-transform: uppercase;
+      padding: var(--space-1) var(--space-3); border-radius: var(--radius-full);
+    }
+    .badge-cyan { background: color-mix(in srgb, var(--color-primary) 10%, transparent); color: var(--color-primary); border: 1px solid color-mix(in srgb, var(--color-primary) 25%, transparent); }
+    .badge-amber { background: color-mix(in srgb, var(--color-cta) 10%, transparent); color: var(--color-cta); border: 1px solid color-mix(in srgb, var(--color-cta) 25%, transparent); }
+    .footer-legal {
+      display: flex; gap: var(--space-4); padding-top: var(--space-4);
+      font-size: var(--text-sm); color: var(--color-text-muted);
+    }
+    .footer-legal a:hover { color: var(--color-primary); }
+
+    /* ─── Divider ────────────────────────────────────────────────── */
+    .section-divider {
+      border: none; border-top: 1px solid var(--color-divider);
+      margin-block: clamp(var(--space-12), 4vw, var(--space-16));
+    }
+  
+    /* Brand refresh: keep persistent header content off the viewport edge. */
+    .site-header .header-inner {
+      padding-inline: var(--space-4, 1rem);
+    }
+    @media (min-width: 768px) {
+      .site-header .header-inner {
+        padding-inline: var(--space-6, 1.5rem);
+      }
+    }
+    
+    /* Brand refresh: shared navigation compatibility and mobile drawer behavior. */
+    .nav-dropdown:hover .nav-dropdown-menu,
+    .dropdown:hover .nav-dropdown-menu,
+    .nav-dropdown:focus-within .nav-dropdown-menu,
+    .dropdown:focus-within .nav-dropdown-menu,
+    .nav-dropdown-menu.is-open {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(0);
+      display: block;
+    }
+    .mobile-nav {
+      display: none;
+      flex-direction: column;
+      gap: var(--space-4, 1rem);
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      overflow-y: auto;
+      padding: var(--space-5, 1.25rem);
+      background: var(--color-bg, #0B0C10);
+      color: var(--color-text, #F7F9FB);
+    }
+    .mobile-nav.open {
+      display: flex;
+    }
+    .mobile-nav-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-4, 1rem);
+      padding-bottom: var(--space-4, 1rem);
+      border-bottom: 1px solid var(--color-border, rgba(102,252,241,.18));
+    }
+    .mobile-nav-close {
+      min-width: 44px;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius-full, 9999px);
+      color: inherit;
+      background: transparent;
+      border: 1px solid var(--color-border, rgba(102,252,241,.18));
+    }
+    .mobile-nav-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2, .5rem);
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+    .mobile-nav-link,
+    .mobile-submenu-link {
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      width: 100%;
+      padding: var(--space-3, .75rem) var(--space-4, 1rem);
+      border-radius: var(--radius-md, .5rem);
+      color: var(--color-text-secondary, var(--color-text-muted, #C5C6C7));
+      text-decoration: none;
+    }
+    .mobile-nav-link:hover,
+    .mobile-nav-link:focus-visible,
+    .mobile-submenu-link:hover,
+    .mobile-submenu-link:focus-visible,
+    .mobile-nav-link[aria-current="page"] {
+      color: var(--color-cyan, var(--color-primary, #66FCF1));
+      background: rgba(102,252,241,.08);
+    }
+    .mobile-cta {
+      margin-top: auto;
+      padding-top: var(--space-4, 1rem);
+      border-top: 1px solid var(--color-border, rgba(102,252,241,.18));
+    }
+    @media (min-width: 900px) {
+      .mobile-nav.open { display: none; }
+    }
+    
+    /* Brand refresh: avoid mid-width nav overflow by using drawer navigation on tablets. */
+    @media (max-width: 1099px) {
+      .primary-nav,
+      .header-actions .btn-cta {
+        display: none !important;
+      }
+      .nav-hamburger,
+      .mobile-menu-btn {
+        display: inline-flex !important;
+      }
+    }
+    @media (min-width: 1100px) {
+      .primary-nav {
+        display: flex !important;
+      }
+      .nav-hamburger,
+      .mobile-menu-btn {
+        display: none !important;
+      }
+    }
+    </style>
+
+
+<style id="qa11y-final-responsive-nav">
+  /* QA11Y final responsive navigation safeguard: drawer owns navigation below tablet/desktop handoff. */
+  @media (max-width: 1100px) {
+    header .desktop-nav,
+    header .nav-list,
+    header nav[aria-label="Primary"] .nav-list {
+      display: none !important;
+    }
+    header .nav-hamburger,
+    header .mobile-menu-btn,
+    header #mobile-toggle {
+      display: inline-flex !important;
+      align-items: center;
+      justify-content: center;
+      min-width: 44px;
+      min-height: 44px;
+    }
+    #mobile-nav.open,
+    #mobile-nav.is-open,
+    .mobile-nav.open,
+    .mobile-nav.is-open {
+      display: flex !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+      pointer-events: auto !important;
+      transform: none !important;
+    }
+  }
+  @media (min-width: 1101px) {
+    header .nav-hamburger,
+    header .mobile-menu-btn,
+    header #mobile-toggle {
+      display: none !important;
+    }
+  }
+</style>
+
+<style id="qa11y-pa11y-aa-contrast">
+  /* QA11Y Labs targeted WCAG AA hardening.
+     Scoped by component background: dark surfaces use light text; light surfaces use dark ink. */
+  :root {
+    --qa11y-aa-bg: #0B0C10;
+    --qa11y-aa-surface: #12151D;
+    --qa11y-aa-text: #F7FAFC;
+    --qa11y-aa-cyan: #8FFDF7;
+    --qa11y-aa-gold: #F7C948;
+    --qa11y-aa-ink: #05070A;
+    --qa11y-aa-body-ink: #1A1D26;
+  }
+
+  .article-hero,
+  .related-posts,
+  .site-footer,
+  footer {
+    background-color: var(--qa11y-aa-bg) !important;
+  }
+
+  .article-hero .article-title,
+  .article-hero .article-eyebrow,
+  .article-hero .article-author-name,
+  .article-hero .article-meta,
+  .article-hero .article-meta span,
+  .article-hero .article-meta time,
+  .article-hero .article-meta-divider,
+  .site-footer h3,
+  .site-footer .footer-tagline,
+  .site-footer .footer-copyright,
+  .site-footer .footer-copy,
+  .site-footer .footer-bottom,
+  .site-footer .footer-bottom p,
+  .site-footer .footer-bottom span,
+  .site-footer .footer-bottom a,
+  .site-footer .footer-nav a,
+  .site-footer .footer-legal a,
+  .site-footer .logo-qa,
+  .site-footer .logo-11y,
+  footer h3,
+  footer .footer-tagline,
+  footer .footer-copyright,
+  footer .footer-copy,
+  footer .footer-bottom,
+  footer .footer-bottom p,
+  footer .footer-bottom span,
+  footer .footer-bottom a,
+  footer .footer-nav a,
+  footer .footer-legal a,
+  footer .logo-qa,
+  footer .logo-11y,
+  footer span[aria-hidden="true"],
+  footer a[href="accessibility.html"] {
+    color: var(--qa11y-aa-text) !important;
+  }
+
+  .site-footer .logo-11y,
+  footer .logo-11y,
+  .site-footer .logo-qa,
+  footer .logo-qa {
+    color: var(--qa11y-aa-cyan) !important;
+  }
+  .logo-labs,
+  .site-footer .logo-labs,
+  footer .logo-labs {
+    color: var(--qa11y-aa-gold) !important;
+  }
+
+  .related-card,
+  .trust-pill,
+  .tag,
+  .badge-category,
+  .badge-featured,
+  .eyebrow-pill,
+  .filter-btn,
+  .trust-pill-check {
+    color: var(--qa11y-aa-text) !important;
+    background-color: var(--qa11y-aa-surface) !important;
+    border-color: rgba(102, 252, 241, 0.45) !important;
+  }
+  .related-posts-heading,
+  .related-card-title,
+  .related-card-time,
+  .related-card-cat,
+  .resource-card .card-source,
+  .stat-card .stat-sub,
+  .case-study-section h3,
+  .case-study-stats h3,
+  .case-study-right h3 {
+    color: var(--qa11y-aa-text) !important;
+  }
+
+  /* Light content surfaces. */
+  .article-body h2,
+  .article-body h3,
+  .article-body strong,
+  .hero-subtext,
+  .section-number,
+  .info-label,
+  .featured-card .post-date,
+  .featured-card .read-time,
+  .featured-card .featured-excerpt,
+  .filter-count,
+  .jump-nav-label,
+  .form-hint,
+  .scan-note,
+  .scan-url-hint,
+  .zcal-fallback,
+  .field-required,
+  .cta-divider,
+  .sample-report-icon,
+  .subsection-heading {
+    color: var(--qa11y-aa-body-ink) !important;
+  }
+
+  .article-body pre,
+  .article-body code,
+  .article-body p code,
+  .article-body li code,
+  .article-body strong code,
+  .article-body h2 code,
+  .article-body h3 code {
+    background-color: #080C10 !important;
+    color: #F7FFFF !important;
+  }
+
+  .btn-cta,
+  .btn-cta-lg,
+  .btn-cta-sm,
+  .btn-submit,
+  .btn-scan {
+    color: var(--qa11y-aa-ink) !important;
+    background-color: #66FCF1 !important;
+    border-color: #66FCF1 !important;
+    text-shadow: none !important;
+  }
+  .btn-scan span,
+  #scan-btn-label {
+    color: var(--qa11y-aa-ink) !important;
+  }
+
+  .btn-amber {
+    color: var(--qa11y-aa-ink) !important;
+    background-color: var(--qa11y-aa-gold) !important;
+    border-color: var(--qa11y-aa-gold) !important;
+    text-shadow: none !important;
+  }
+
+  .btn-outline {
+    color: var(--qa11y-aa-text) !important;
+    background-color: #111722 !important;
+    border-color: rgba(143, 253, 247, 0.55) !important;
+  }
+
+
+  /* Final pa11y pass: exact remaining component contexts. */
+  .post-card .post-date,
+  .post-card .read-time {
+    color: #454A57 !important;
+  }
+  .subsection-heading,
+  .jump-nav-label,
+  .trust-label,
+  .cta-divider {
+    color: var(--qa11y-aa-text) !important;
+  }
+  .sample-report-icon {
+    color: var(--qa11y-aa-ink) !important;
+    background-color: var(--qa11y-aa-text) !important;
+  }
+</style>
+
+
+<style id="qa11y-accessible-nav-fix">
+  /* QA11Y accessible navigation fix: desktop services disclosure + mobile submenu safeguards. */
+  .nav-dropdown {
+    position: relative;
+  }
+
+  .nav-dropdown-toggle,
+  .mobile-nav-disclosure {
+    touch-action: manipulation;
+  }
+
+  .nav-dropdown-toggle[aria-expanded="true"] .chevron,
+  .mobile-nav-disclosure[aria-expanded="true"] .chevron {
+    transform: rotate(180deg);
+  }
+
+  .nav-dropdown-menu[hidden],
+  .mobile-submenu[hidden] {
+    display: none !important;
+  }
+
+  .nav-dropdown-menu.is-open,
+  .nav-dropdown-toggle[aria-expanded="true"] + .nav-dropdown-menu {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    transform: translateX(-50%) translateY(0) !important;
+  }
+
+  .nav-dropdown-menu a,
+  .mobile-submenu a {
+    min-height: 44px;
+  }
+
+  .nav-dropdown-toggle:focus-visible,
+  .mobile-nav-disclosure:focus-visible,
+  .nav-hamburger:focus-visible,
+  .mobile-nav-close:focus-visible {
+    outline: 2px solid var(--color-cyan, var(--color-primary, #66FCF1));
+    outline-offset: 3px;
+  }
+</style>
+
+</head>
+
+<body>
+  <!-- Skip to main content -->
+  <a href="resources.html#main-content" class="skip-link">Skip to Main Content</a>
+
+  <!-- ── HEADER ─────────────────────────────────────────────────── -->
+  <header class="site-header" role="banner">
+    <div class="header-inner">
+
+      <!-- Logo -->
+      <a class="logo-link logo-link--image" href="index.html" aria-label="QA11Y Labs — Home">
+        <img class="logo-image" src="assets/brand/qa11ylabs-logo-horizontal-transparent.png" alt="QA11Y Labs" width="160" height="40" decoding="async">
+      </a>
+
+      <!-- Primary Nav -->
+      <nav class="primary-nav" aria-label="Primary navigation">
+        <ul class="nav-list" role="list">
+          <li><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-dropdown">
+            <button
+              class="nav-link nav-dropdown-toggle"
+              aria-haspopup="true"
+              aria-expanded="false"
+              aria-controls="services-menu"
+              id="services-menu-btn"
+              type="button"
+            >
+              Services
+              <svg class="chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" focusable="false">
+                <path d="M2.5 4.5l3.5 3.5 3.5-3.5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <ul
+              class="nav-dropdown-menu"
+              id="services-menu"
+              role="menu"
+              aria-labelledby="services-menu-btn"
+            >
+              <li role="none"><a href="services.html" role="menuitem" class="dropdown-item">All Services</a></li>
+              <li role="none"><a href="services.html#audits-heading" role="menuitem" class="dropdown-item">WCAG Audits</a></li>
+              <li role="none"><a href="services.html#remediation-heading" role="menuitem" class="dropdown-item">Remediation</a></li>
+              <li role="none"><a href="services.html#retainers-heading" role="menuitem" class="dropdown-item">Monitoring</a></li>
+              <li role="none"><a href="services.html#consulting-heading" role="menuitem" class="dropdown-item">Consulting</a></li>
+            </ul>
+          </li>
+          <li><a class="nav-link" href="case-studies.html">Case Studies</a></li>
+          <li><a class="nav-link" href="blog.html">The Log</a></li>
+          <li><a class="nav-link" aria-current="page" href="resources.html">Resources</a></li>
+          <li><a class="nav-link" href="about.html">About</a></li>
+          <li><a class="nav-link" href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+
+      <!-- Header Actions -->
+      <div class="header-actions">
+        <button
+          class="theme-toggle"
+          id="theme-toggle"
+          aria-label="Toggle light/dark mode"
+          type="button"
+        >
+          <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
+            <circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"/>
+            <path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
+            <path d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <a class="btn-cta" href="schedule.html">Schedule Consultation</a>
+        <button
+          class="nav-hamburger"
+          id="nav-hamburger"
+          aria-label="Open navigation menu"
+          aria-expanded="false"
+          aria-controls="mobile-nav"
+          type="button"
+        >
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true" focusable="false">
+            <path d="M2 5h16M2 10h16M2 15h16" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+
+  <!-- MOBILE NAV -->
+  <div
+    class="mobile-nav"
+    id="mobile-nav"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Navigation menu"
+  >
+    <div class="mobile-nav-header">
+      <a class="logo-link logo-link--image" href="index.html" aria-label="QA11Y Labs — Home">
+        <img class="logo-image" src="assets/brand/qa11ylabs-logo-horizontal-transparent.png" alt="QA11Y Labs" width="160" height="40" decoding="async">
+      </a>
+      <button
+        class="mobile-nav-close"
+        id="mobile-nav-close"
+        aria-label="Close navigation menu"
+        type="button"
+      >
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true" focusable="false">
+          <path d="M4 4l12 12M16 4L4 16" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+    <nav aria-label="Mobile navigation">
+      <ul class="mobile-nav-list" role="list">
+        <li><a class="mobile-nav-link" href="index.html">Home</a></li>
+        <li>
+          <button
+            class="mobile-nav-link mobile-nav-disclosure"
+            aria-expanded="false"
+            aria-controls="mobile-services-list"
+            type="button"
+          >
+            Services
+            <svg class="chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" focusable="false">
+              <path d="M2.5 4.5l3.5 3.5 3.5-3.5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <ul class="mobile-submenu" id="mobile-services-list" hidden>
+            <li><a class="mobile-submenu-link" href="services.html">All Services</a></li>
+            <li><a class="mobile-submenu-link" href="services.html#audits-heading">WCAG Audits</a></li>
+            <li><a class="mobile-submenu-link" href="services.html#remediation-heading">Remediation</a></li>
+            <li><a class="mobile-submenu-link" href="services.html#retainers-heading">Monitoring</a></li>
+            <li><a class="mobile-submenu-link" href="services.html#consulting-heading">Consulting</a></li>
+          </ul>
+        </li>
+        <li><a class="mobile-nav-link" href="case-studies.html">Case Studies</a></li>
+        <li><a class="mobile-nav-link" href="blog.html">The Log</a></li>
+        <li><a class="mobile-nav-link" aria-current="page" href="resources.html">Resources</a></li>
+        <li><a class="mobile-nav-link" href="about.html">About</a></li>
+        <li><a class="mobile-nav-link" href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="mobile-cta">
+      <a class="btn-cta" href="schedule.html">Schedule Consultation</a>
+    </div>
+  </div>
+
+  <!-- ── MAIN ───────────────────────────────────────────────────── -->
+  <main id="main-content">
+
+    <!-- ── HERO ─────────────────────────────────────────────────── -->
+    <section class="page-hero" aria-labelledby="resources-headline">
+      <div class="container">
+        <div class="page-hero-inner">
+          <div class="hero-eyebrow" aria-hidden="true">
+            <span class="eyebrow-dot"></span>
+            Accessibility Resources
+          </div>
+          <h1 id="resources-headline">
+            Accessibility <em>Resources</em>
+          </h1>
+          <p class="page-hero-lead">
+            Hand-picked tools, guidelines, and organizations that Quintin actually trusts and uses. No filler — just what's genuinely worth your time.
+          </p>
+          <div class="curator-note" role="note" aria-label="Curator information">
+            <span class="curator-note-icon" aria-hidden="true">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+            </span>
+            <span>Curated by Quintin Williams — 25+ years of lived JAWS screen reader experience</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── JUMP NAV ──────────────────────────────────────────────── -->
+    <div class="jump-nav-wrapper">
+      <div class="container">
+        <nav class="jump-nav" aria-label="Jump to section">
+          <span class="jump-nav-label" aria-hidden="true">Jump to</span>
+          <a href="resources.html#screen-readers" class="jump-link">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+            Screen Readers
+          </a>
+          <a href="resources.html#testing-tools" class="jump-link">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+            Testing Tools
+          </a>
+          <a href="resources.html#education" class="jump-link">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+            Education
+          </a>
+          <a href="resources.html#standards" class="jump-link">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            Standards &amp; Legal
+          </a>
+          <a href="resources.html#organizations" class="jump-link">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            Organizations
+          </a>
+          <a href="resources.html#newsletters" class="jump-link">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            Newsletters
+          </a>
+          <a href="resources.html#documents" class="jump-link">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg>
+            Documents
+          </a>
+          <a href="/free-accessibility-statement-generator/" class="jump-link">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M9 15h6M9 18h6M9 12h3"/></svg>
+            Free Statement Generator
+          </a>
+        </nav>
+      </div>
+    </div>
+
+    <!-- ── RESOURCE SECTIONS ─────────────────────────────────────── -->
+    <div class="resources-main">
+      <div class="container">
+
+        <!-- ── 1. SCREEN READERS & ASSISTIVE TECHNOLOGY ──────────── -->
+        <section class="resource-section" id="screen-readers" aria-labelledby="sr-heading">
+          <div class="section-header">
+            <div class="section-icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+            </div>
+            <div class="section-header-text">
+              <h2 class="section-heading" id="sr-heading">Screen Readers &amp; Assistive Technology</h2>
+              <p class="section-desc">The software that blind and low-vision users rely on daily. Testing with real screen readers — not simulations — is non-negotiable for genuine accessibility.</p>
+            </div>
+          </div>
+
+          <div class="cards-grid" role="list">
+
+            <article class="resource-card" role="listitem">
+              <div class="card-top">
+                <span class="card-source">Freedom Scientific</span>
+                <span class="tag tag-paid">Paid</span>
+              </div>
+              <a href="https://www.freedomscientific.com/products/software/jaws/"
+                 class="resource-name"
+                 target="_blank" rel="noopener noreferrer"
+                 aria-label="JAWS for Windows — opens in new tab">
+                JAWS for Windows
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
+              <p class="resource-desc">The industry-leading screen reader for Windows. Used by Quintin for 25+ years. If your site breaks in JAWS, it fails the most widely-used assistive technology in the enterprise.</p>
+            </article>
+
+            <article class="resource-card" role="listitem">
+              <div class="card-top">
+                <span class="card-source">NV Access</span>
+                <span class="tag tag-free">Free</span>
+              </div>
+              <a href="https://www.nvaccess.org/download/"
+                 class="resource-name"
+                 target="_blank" rel="noopener noreferrer"
+                 aria-label="NVDA — opens in new tab">
+                NVDA (NonVisual Desktop Access)
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
+              <p class="resource-desc">Free, open-source screen reader for Windows. Essential for testing. If you can only test with one free tool, NVDA is it.</p>
+            </article>
+
+            <article class="resource-card" role="listitem">
+              <div class="card-top">
+                <span class="card-source">Apple</span>
+                <span class="tag tag-free">Free</span>
+              </div>
+              <a href="https://www.apple.com/accessibility/vision/"
+                 class="resource-name"
+                 target="_blank" rel="noopener noreferrer"
+                 aria-label="VoiceOver — opens in new tab">
+                VoiceOver
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
+              <p class="resource-desc">Built into every Apple device. Apple set the bar for native OS accessibility. Critical for testing on Mac, iPhone, and iPad.</p>
+            </article>
+
+            <article class="resource-card" role="listitem">
+              <div class="card-top">
+                <span class="card-source">Google / Android</span>
+                <span class="tag tag-free">Free</span>
+              </div>
+              <a href="https://support.google.com/accessibility/android/answer/6283677"
+                 class="resource-name"
+                 target="_blank" rel="noopener noreferrer"
+                 aria-label="TalkBack — opens in new tab">
+                TalkBack
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
+              <p class="resource-desc">Android's built-in screen reader. Critical for mobile accessibility testing. Essential if any of your users access your product on Android devices.</p>
+            </article>
+
+            <article class="resource-card" role="listitem">
+              <div class="card-top">
+                <span class="card-source">Freedom Scientific</span>
+                <span class="tag tag-tool">Tool</span>
+              </div>
+              <a href="https://www.freedomscientific.com/products/software/jawsinspect/"
+                 class="resource-name"
+                 target="_blank" rel="noopener noreferrer"
+                 aria-label="JAWS Inspect — opens in new tab">
+                JAWS Inspect
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
+              <p class="resource-desc">Inspect accessibility properties of any element without needing a full JAWS license. Useful for developers who need to see what JAWS reads without a paid subscription.</p>
+            </article>
+
+            <article class="resource-card" role="listitem">
+              <div class="card-top">
+                <span class="card-source">Freedom Scientific</span>
+                <span class="tag tag-tool">Tool</span>
+              </div>
+              <a href="https://www.freedomscientific.com/products/software/fscompanion/"
+                 class="resource-name"
+                 target="_blank" rel="noopener noreferrer"
+                 aria-label="FSCompanion — opens in new tab">
+                FSCompanion
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
+              <p class="resource-desc">AI-powered tool for JAWS + Microsoft Word. Helps with document accessibility workflows. Relevant for organizations producing large volumes of Word documents.</p>
+            </article>
+
+          </div>
+        </section>
+
+        <hr class="section-divider" aria-hidden="true">
+
+        <!-- ── 2. TESTING TOOLS ───────────────────────────────────── -->
+        <section class="resource-section" id="testing-tools" aria-labelledby="tools-heading">
+          <div class="section-header">
+            <div class="section-icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+            </div>
+            <div class="section-header-text">
+              <h2 class="section-heading" id="tools-heading">Testing Tools</h2>
+              <p class="section-desc">Automated tools catch roughly 30–40% of accessibility issues. They're a first pass — not a substitute for screen reader testing. Use them to catch the obvious before a human evaluates the rest.</p>
+            </div>
+          </div>
+
+          <div class="cards-grid" role="list">
+
+            <article class="resource-card" role="listitem">
+              <div class="card-top">
+                <span class="card-source">QA11Y Labs</span>
+                <span class="tag tag-free">Free</span>
+              </div>
+              <a href="/free-accessibility-statement-generator/"
+                 class="resource-name"
+                 aria-label="Free WCAG accessibility statement generator">
+                Free WCAG Accessibility Statement Generator
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+              <p class="resource-desc">Create a plain-language digital accessibility policy that references WCAG 2.2, ADA compliance context, and Section 508 awareness. A statement is not an audit, but it gives users a clear feedback path while your team works toward real remediation.</p>
+            </article>
+
+            <article class="resource-card" role="listitem">
+              <div class="card-top">
+                <span class="card-source">Deque Systems</span>
+                <span class="tag tag-free">Free / Paid</span>
+              </div>
+              <a href="https://www.deque.com/axe/"
+                 class="resource-name"
+                 target="_blank" rel="noopener noreferrer"
+                 aria-label="axe DevTools — opens in new tab">
+                axe DevTools
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
+              <p class="resource-desc">Zero false positives. The gold standard for automated accessibility testing. Integrates with browser devtools, CI/CD pipelines, and virtually every major framework.</p>
+            </article>
+
+            <article class="resource-card" role="listitem">
+              <div class="card-top">
+                <span class="card-source">Open Source</span>
+                <span class="tag tag-free">Free</span>
+              </div>
+              <a href="https://pa11y.org/"
+                 class="resource-name"
+                 target="_blank" rel="noopener noreferrer"
+                 aria-label="Pa11y — opens in new tab">
+                Pa11y
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
+              <p class="resource-desc">CLI accessibility testing tool. Great for CI/CD pipelines. Run automated checks against any URL and integrate results into your deployment workflow.</p>
+            </article>
+
+            <article class="resource-card" role="listitem">
+              <div class="card-top">
+                <span class="card-source">Google</span>
+                <span class="tag tag-free">Free</span>
+              </div>
+              <a href="https://developer.chrome.com/docs/lighthouse/accessibility/"
+                 class="resource-name"
+                 target="_blank" rel="noopener noreferrer"
+                 aria-label="Lighthouse — opens in new tab">
+                Lighthouse
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
+              <p class="resource-desc">Built into Chrome DevTools. Quick accessibility audits alongside performance and SEO. A 100 score does not mean fully accessible — it means passing automated checks.</p>
+            </article>
+
+            <article class="resource-card" role="listitem">
+              <div class="card-top">
+                <span class="card-source">WebAIM</span>
+                <span class="tag tag-free">Free</span>
+              </div>
+              <a href="https://wave.webaim.org/"
+                 class="resource-name"
+                 target="_blank" rel="noopener noreferrer"
+                 aria-label="WAVE — opens in new tab">
+                WAVE
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
+              <p class="resource-desc">Visual accessibility evaluation tool. Overlays error icons directly on the page, making it easy to see exactly where problems are. Great for quick page checks.</p>
+            </article>
+
+            <article class="resource-card" role="listitem">
+              <div class="card-top">
+                <span class="card-source">IBM</span>
+                <span class="tag tag-free">Free</span>
+              </div>
+              <a href="https://www.ibm.com/able/toolkit/tools/"
+                 class="resource-name"
+                 target="_blank" rel="noopener noreferrer"
+                 aria-label="IBM Equal Access Checker — opens in new tab">
+                IBM Equal Access Checker
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
+              <p class="resource-desc">Checks against WCAG and IBM accessibility standards. Useful for organizations with government or enterprise clients who require IBM compliance documentation.</p>
+            </article>
+
+            <article class="resource-card" role="listitem">
+              <div class="card-top">
+                <span class="card-source">TPGi</span>
+                <span class="tag tag-free">Free</span>
+              </div>
+              <a href="https://www.tpgi.com/color-contrast-checker/"
+                 class="resource-name"
+                 target="_blank" rel="noopener noreferrer"
+                 aria-label="Colour Contrast Analyser — opens in new tab">
+                Colour Contrast Analyser
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
+              <p class="resource-desc">Desktop app for checking color contrast ratios. Use it on any pixel on screen — useful for checking PDFs, images, and other content outside the browser.</p>
+            </article>
+
+            <article class="resource-card" role="listitem">
+              <div class="card-top">
+                <span class="card-source">W3C</span>
+                <span class="tag tag-free">Free</span>
+              </div>
+              <a href="https://validator.w3.org/nu/"
+                 class="resource-name"
+                 target="_blank" rel="noopener noreferrer"
+                 aria-label="Nu HTML Checker — opens in new tab">
+                Nu HTML Checker (vnu)
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
+              <p class="resource-desc">Validates HTML for structural errors that affect accessibility. Invalid markup often causes screen reader confusion. Run this before manual testing.</p>
+            </article>
+
+            <article class="resource-card" role="listitem">
+              <div class="card-top">
+                <span class="card-source">Grackle</span>
+                <span class="tag tag-paid">Paid</span>
+              </div>
+              <a href="https://www.grackledocs.com/"
+                 class="resource-name"
+                 target="_blank" rel="noopener noreferrer"
+                 aria-label="Grackle — opens in new tab">
+                Grackle
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
+              <p class="resource-desc">Accessibility checker for Google Docs and Slides. Great for document compliance. If your organization runs on Google Workspace, this is essential.</p>
+            </article>
+
+            <article class="resource-card" role="listitem">
+              <div class="card-top">
+                <span class="card-source">Microsoft</span>
+                <span class="tag tag-free">Free</span>
+              </div>
+              <a href="https://accessibilityinsights.io/"
+                 class="resource-name"
+                 target="_blank" rel="noopener noreferrer"
+                 aria-label="Microsoft Accessibility Insights — opens in new tab">
+                Accessibility Insights
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
+              <p class="resource-desc">Fast Pass and Assessment modes for thorough accessibility testing. Microsoft's free contribution to the field. Well-structured for developers new to accessibility testing.</p>
+            </article>
+
+          </div>
+        </section>
+
+        <hr class="section-divider" aria-hidden="true">
+
+        <!-- ── 3. EDUCATION & TRAINING ────────────────────────────── -->
+        <section class="resource-section" id="education" aria-labelledby="edu-heading">
+          <div class="section-header">
+            <div class="section-icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            </div>
+            <div class="section-header-text">
+              <h2 class="section-heading" id="edu-heading">Learning &amp; Education</h2>
+              <p class="section-desc">Whether you're just starting out or deepening your knowledge, these are worth your time.</p>
+            </div>
+          </div>
+
+          <div class="cards-grid" role="list">
+
+            <article class="resource-card" role="listitem">
+              <div class="card-top">
+                <span class="card-source">Deque Systems</span>
+                <span class="tag tag-paid">Paid</span>
+              </div>
+              <a href="https://dequeuniversity.com/"
+                 class="resource-name"
+                 target="_blank" rel="noopener noreferrer"
+                 aria-label="Deque University — opens in new tab">
+                Deque University
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
+              <p class="resource-desc">The most thorough paid accessibility training Quintin recommends. Courses for developers, designers, QA, and managers. Certifiable and genuinely well-built.</p>
+            </article>
+
+            <article class="resource-card" role="listitem">
+              <div class="card-top">
+                <span class="card-source">Web Accessibility In Mind</span>
+                <span class="tag tag-free">Free</span>
+              </div>
+              <a href="https://webaim.org/"
+                 class="resource-name"
+                 target="_blank" rel="noopener noreferrer"
+                 aria-label="WebAIM — opens in new tab">
+                WebAIM
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
+              <p class="resource-desc">Free articles, tutorials, and research on web accessibility. Essential reading. The WebAIM Million annual report is the most-cited audit of accessibility on the web.</p>
+            </article>
+
+            <article class="resource-card" role="listitem">
+              <div class="card-top">
+                <span class="card-source">W3C</span>
+                <span class="tag tag-free">Free</span>
+              </div>
+              <a href="https://www.w3.org/WAI/"
+                 class="resource-name"
+                 target="_blank" rel="noopener noreferrer"
+                 aria-label="W3C Web Accessibility Initiative — opens in new tab">
+                W3C Web Accessibility Initiative
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
+              <p class="resource-desc">The authoritative source for accessibility guidelines and techniques. WCAG comes from here. When you need the definitive answer, this is where to look.</p>
+            </article>
+
+            <article class="resource-card" role="listitem">
+              <div class="card-top">
+                <span class="card-source">Community-Driven</span>
+                <span class="tag tag-free">Free</span>
+              </div>
+              <a href="https://www.a11yproject.com/"
+                 class="resource-name"
+                 target="_blank" rel="noopener noreferrer"
+                 aria-label="The A11y Project — opens in new tab">
+                The A11y Project
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
+              <p class="resource-desc">Community-driven resource with checklists, patterns, and plain-language guides. Designed to make accessibility less intimidating. Good starting point for non-technical stakeholders.</p>
+            </article>
+
+          </div>
+        </section>
+
+        <hr class="section-divider" aria-hidden="true">
+
+        <!-- ── 4. STANDARDS & LEGAL COMPLIANCE ───────────────────── -->
+        <section class="resource-section" id="standards" aria-labelledby="standards-heading">
+          <div class="section-header">
+            <div class="section-icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <div class="section-header-text">
+              <h2 class="section-heading" id="standards-heading">Standards &amp; Legal Compliance</h2>
+              <p class="section-desc">The rules your digital properties must follow — and what happens when they don't. Legal exposure is real and growing. Know the landscape.</p>
+            </div>
+          </div>
+
+          <!-- WCAG -->
+          <h3 class="subsection-heading" id="wcag-subsection">WCAG — Web Content Accessibility Guidelines</h3>
+          <div class="cards-grid" role="list" aria-labelledby="wcag-subsection">
+
+            <article class="resource-card" role="listitem">
+              <div class="card-top">
+                <span class="card-source">W3C</span>
+                <span class="tag tag-standard">Standard</span>
+              </div>
+              <a href="https://www.w3.org/TR/WCAG22/"
+                 class="resource-name"
+                 target="_blank" rel="noopener noreferrer"
+                 aria-label="WCAG 2.2 AA — opens in new tab">
+                WCAG 2.2 AA
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
+              <p class="resource-desc">The current standard. All new web content should meet WCAG 2.2 Level AA. This is what legal compliance is measured against in most ADA and Section 508 contexts.</p>
+            </article>
+
+            <article class="resource-card" role="listitem">
+              <div class="card-top">
+                <span class="card-source">W3C</span>
+                <span class="tag tag-free">Free</span>
+              </div>
+              <a href="https://www.w3.org/WAI/WCAG22/quickref/"
+                 class="resource-name"
+                 target="_blank" rel="noopener noreferrer"
+                 aria-label="WCAG 2.2 Quick Reference — opens in new tab">
+                WCAG 2.2 Quick Reference
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
+              <p class="resource-desc">Filter and search WCAG success criteria. Bookmark this. The fastest way to look up a specific criterion, understand its level, and find how to meet it.</p>
+            </article>
+
+            <article class="resource-card" role="listitem">
+              <div class="card-top">
+                <span class="card-source">W3C</span>
+                <span class="tag tag-free">Free</span>
+              </div>
+              <a href="https://www.w3.org/WAI/WCAG22/Understanding/"
+                 class="resource-name"
+                 target="_blank" rel="noopener noreferrer"
+                 aria-label="Understanding WCAG 2.2 — opens in new tab">
+                Understanding WCAG 2.2
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
+              <p class="resource-desc">Plain-language explanations of every success criterion. When the spec language isn't clear, this is where you find practical guidance and real-world examples.</p>
+            </article>
+
+          </div>
+
+          <!-- ADA & Legal -->
+          <h3 class="subsection-heading" id="ada-subsection">ADA &amp; Legal Requirements</h3>
+          <div class="cards-grid" role="list" aria-labelledby="ada-subsection">
+
+            <article class="resource-card" role="listitem">
+              <div class="card-top">
+                <span class="card-source">U.S. DOJ</span>
+                <span class="tag tag-legal">Legal</span>
+              </div>
+              <a href="https://www.ada.gov/resources/2024-03-08-web-rule/"
+                 class="resource-name"
+                 target="_blank" rel="noopener noreferrer"
+                 aria-label="ADA Title II Updates 2024 — opens in new tab">
+                ADA Title II Updates (2024)
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
+              <p class="resource-desc">DOJ's final rule requiring state/local government websites to meet WCAG 2.1 AA. Deadlines vary by entity size — smaller entities have more time but the requirement is the same.</p>
+            </article>
+
+            <article class="resource-card" role="listitem">
+              <div class="card-top">
+                <span class="card-source">U.S. DOJ</span>
+                <span class="tag tag-legal">Legal</span>
+              </div>
+              <a href="https://www.ada.gov/topics/web-access/"
+                 class="resource-name"
+                 target="_blank" rel="noopener noreferrer"
+                 aria-label="ADA Title III and Private Businesses — opens in new tab">
+                ADA Title III &amp; Private Businesses
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
+              <p class="resource-desc">Guidance on how ADA applies to private business websites and apps. Businesses serving the public have legal exposure — this explains the DOJ's position and what courts have decided.</p>
+            </article>
+
+          </div>
+
+          <!-- ADA Title II Callout -->
+          <div class="sb62-callout" role="note" aria-label="State Digital Accessibility Laws — Action Required">
+            <div class="sb62-callout-header">
+              <div class="sb62-icon" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              </div>
+              <h3>State Digital Accessibility Laws — Act Now</h3>
+            </div>
+            <p>Many states are passing their own digital accessibility laws beyond federal ADA requirements. ADA Title II compliance deadlines are approaching — entities need to act now, not at the last minute.</p>
+            <p>State laws often carry their own enforcement mechanisms, timelines, and technical standards. An organization that meets federal minimums may still be non-compliant under applicable state law. The window to remediate proactively is closing.</p>
+            <a href="contact.html" class="sb62-cta-link" aria-label="Contact QA11Y Labs for a compliance timeline specific to your organization">
+              Contact QA11Y Labs for a compliance timeline specific to your organization
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+
+          <!-- Section 508 -->
+          <h3 class="subsection-heading" id="508-subsection" style="margin-top: var(--space-10);">Section 508 — Federal Requirements</h3>
+          <div class="cards-grid" role="list" aria-labelledby="508-subsection">
+
+            <article class="resource-card" role="listitem">
+              <div class="card-top">
+                <span class="card-source">U.S. Access Board</span>
+                <span class="tag tag-standard">Standard</span>
+              </div>
+              <a href="https://www.section508.gov/"
+                 class="resource-name"
+                 target="_blank" rel="noopener noreferrer"
+                 aria-label="Section 508 Standards — opens in new tab">
+                Section 508 Standards
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
+              <p class="resource-desc">Federal accessibility requirements for ICT. Applies to federal agencies and contractors. If you sell software or digital services to the government, Section 508 compliance is mandatory.</p>
+            </article>
+
+            <article class="resource-card" role="listitem">
+              <div class="card-top">
+                <span class="card-source">U.S. Access Board</span>
+                <span class="tag tag-standard">Standard</span>
+              </div>
+              <a href="https://ictbaseline.access-board.gov/"
+                 class="resource-name"
+                 target="_blank" rel="noopener noreferrer"
+                 aria-label="Section 508 ICT Testing Baseline — opens in new tab">
+                Section 508 ICT Testing Baseline
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
+              <p class="resource-desc">The baseline test procedures for Section 508 conformance. The official methodology for determining compliance. Required reading for anyone preparing ACR/VPATs.</p>
+            </article>
+
+          </div>
+        </section>
+
+        <hr class="section-divider" aria-hidden="true">
+
+        <!-- ── 5. ORGANIZATIONS & ADVOCACY ───────────────────────── -->
+        <section class="resource-section" id="organizations" aria-labelledby="orgs-heading">
+          <div class="section-header">
+            <div class="section-icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <div class="section-header-text">
+              <h2 class="section-heading" id="orgs-heading">Organizations &amp; Advocacy</h2>
+              <p class="section-desc">The companies, nonprofits, and advocacy groups advancing accessibility standards, publishing research, and holding the industry accountable.</p>
+            </div>
+          </div>
+
+          <div class="cards-grid" role="list">
+
+            <article class="resource-card" role="listitem">
+              <div class="card-top">
+                <span class="card-source">Accessibility Company</span>
+                <span class="tag tag-tool">Consulting</span>
+              </div>
+              <a href="https://www.deque.com/"
+                 class="resource-name"
+                 target="_blank" rel="noopener noreferrer"
+                 aria-label="Deque Systems — opens in new tab">
+                Deque Systems
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
+              <p class="resource-desc">Leading accessibility company. Makers of axe. Major contributor to WCAG standards. One of the most influential voices shaping how the industry approaches testing and conformance.</p>
+            </article>
+
+            <article class="resource-card" role="listitem">
+              <div class="card-top">
+                <span class="card-source">Enterprise Solutions</span>
+                <span class="tag tag-tool">Consulting</span>
+              </div>
+              <a href="https://www.levelaccess.com/"
+                 class="resource-name"
+                 target="_blank" rel="noopener noreferrer"
+                 aria-label="Level Access — opens in new tab">
+                Level Access
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
+              <p class="resource-desc">A well-resourced accessibility firm with a strong track record at large organizations. Known for regulated industries and multi-property digital environments.</p>
+            </article>
+
+            <article class="resource-card" role="listitem">
+              <div class="card-top">
+                <span class="card-source">Research &amp; Tools</span>
+                <span class="tag tag-tool">Consulting</span>
+              </div>
+              <a href="https://www.tpgi.com/"
+                 class="resource-name"
+                 target="_blank" rel="noopener noreferrer"
+                 aria-label="TPGi — opens in new tab">
+                TPGi (The Paciello Group)
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
+              <p class="resource-desc">Accessibility consulting, tools, and research firm. Makers of the Colour Contrast Analyser. TPGi publishes deeply technical research that advances the field.</p>
+            </article>
+
+            <article class="resource-card" role="listitem">
+              <div class="card-top">
+                <span class="card-source">Nonprofit — Utah State</span>
+                <span class="tag tag-free">Nonprofit</span>
+              </div>
+              <a href="https://webaim.org/about/"
+                 class="resource-name"
+                 target="_blank" rel="noopener noreferrer"
+                 aria-label="WebAIM About — opens in new tab">
+                WebAIM
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
+              <p class="resource-desc">Nonprofit based at Utah State University. Produces the annual WebAIM Million report — the most widely referenced audit of web accessibility, tracking real-world progress year over year.</p>
+            </article>
+
+            <article class="resource-card" role="listitem">
+              <div class="card-top">
+                <span class="card-source">Disability Advocacy</span>
+                <span class="tag tag-free">Nonprofit</span>
+              </div>
+              <a href="https://www.viscardicenter.org/"
+                 class="resource-name"
+                 target="_blank" rel="noopener noreferrer"
+                 aria-label="The Viscardi Center — opens in new tab">
+                The Viscardi Center
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
+              <p class="resource-desc">Educates, employs, and advocates for people with disabilities. Key advocate for inclusive workplaces and digital access. Relevant for organizations building inclusive employment practices alongside accessible products.</p>
+            </article>
+
+            <article class="resource-card" role="listitem">
+              <div class="card-top">
+                <span class="card-source">Education Sector</span>
+                <span class="tag tag-free">Nonprofit</span>
+              </div>
+              <a href="https://aem.cast.org/"
+                 class="resource-name"
+                 target="_blank" rel="noopener noreferrer"
+                 aria-label="AEM Center — opens in new tab">
+                AEM Center (CAST)
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
+              <p class="resource-desc">National Center on Accessible Educational Materials. Specializes in accessible learning materials. Essential resource for K-12, higher education, and ed-tech clients.</p>
+            </article>
+
+            <article class="resource-card" role="listitem">
+              <div class="card-top">
+                <span class="card-source">Blind Advocacy</span>
+                <span class="tag tag-free">Nonprofit</span>
+              </div>
+              <a href="https://nfb.org/"
+                 class="resource-name"
+                 target="_blank" rel="noopener noreferrer"
+                 aria-label="National Federation of the Blind — opens in new tab">
+                National Federation of the Blind
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
+              <p class="resource-desc">Largest organization of blind Americans. Advocacy, training, and resources. The NFB has been involved in landmark accessibility lawsuits and sets the benchmark for what blind users expect from digital products.</p>
+            </article>
+
+            <article class="resource-card" role="listitem">
+              <div class="card-top">
+                <span class="card-source">Universal Design</span>
+                <span class="tag tag-free">Nonprofit</span>
+              </div>
+              <a href="https://www.cast.org/"
+                 class="resource-name"
+                 target="_blank" rel="noopener noreferrer"
+                 aria-label="CAST — opens in new tab">
+                CAST (Universal Design for Learning)
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
+              <p class="resource-desc">Pioneers of the Universal Design for Learning framework. Important for education accessibility. UDL principles apply broadly to any product designed for diverse user populations.</p>
+            </article>
+
+          </div>
+        </section>
+
+        <hr class="section-divider" aria-hidden="true">
+
+        <!-- ── 6. NEWSLETTERS & STAYING CURRENT ──────────────────── -->
+        <section class="resource-section" id="newsletters" aria-labelledby="newsletters-heading">
+          <div class="section-header">
+            <div class="section-icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <div class="section-header-text">
+              <h2 class="section-heading" id="newsletters-heading">Newsletters &amp; Staying Current</h2>
+              <p class="section-desc">Accessibility law, standards, and best practices evolve constantly. These publications keep you informed without requiring you to follow dozens of sources yourself.</p>
+            </div>
+          </div>
+
+          <div class="cards-grid" role="list">
+
+            <article class="resource-card" role="listitem">
+              <div class="card-top">
+                <span class="card-source">Jack McLellan</span>
+                <span class="tag tag-free">Free</span>
+              </div>
+              <a href="https://www.accessibilityinthenews.com/"
+                 class="resource-name"
+                 target="_blank" rel="noopener noreferrer"
+                 aria-label="Accessibility in the News — opens in new tab">
+                Accessibility in the News
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
+              <p class="resource-desc">Weekly roundup of accessibility news, lawsuits, and industry updates. Essential reading. If you only subscribe to one accessibility newsletter, make it this one.</p>
+            </article>
+
+            <article class="resource-card" role="listitem">
+              <div class="card-top">
+                <span class="card-source">WebAIM</span>
+                <span class="tag tag-free">Free</span>
+              </div>
+              <a href="https://webaim.org/newsletter/"
+                 class="resource-name"
+                 target="_blank" rel="noopener noreferrer"
+                 aria-label="WebAIM Newsletter — opens in new tab">
+                WebAIM Newsletter
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
+              <p class="resource-desc">Regular updates from one of the most trusted voices in accessibility. Combines research findings, practical guidance, and industry news from the team behind the WebAIM Million report.</p>
+            </article>
+
+            <article class="resource-card" role="listitem">
+              <div class="card-top">
+                <span class="card-source">Community Curated</span>
+                <span class="tag tag-free">Free</span>
+              </div>
+              <a href="https://a11yweekly.com/"
+                 class="resource-name"
+                 target="_blank" rel="noopener noreferrer"
+                 aria-label="A11y Weekly — opens in new tab">
+                A11y Weekly
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
+              <p class="resource-desc">Weekly newsletter curating the best accessibility articles and resources. Broad coverage across development, design, legal, and user experience perspectives.</p>
+            </article>
+
+            <article class="resource-card" role="listitem">
+              <div class="card-top">
+                <span class="card-source">Deque Systems</span>
+                <span class="tag tag-free">Free</span>
+              </div>
+              <a href="https://www.deque.com/blog/"
+                 class="resource-name"
+                 target="_blank" rel="noopener noreferrer"
+                 aria-label="Deque Blog — opens in new tab">
+                Deque Blog
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
+              <p class="resource-desc">In-depth technical articles on accessibility implementation. Particularly strong on ARIA patterns, screen reader testing, and WCAG interpretation. Written by practitioners, not marketers.</p>
+            </article>
+
+            <article class="resource-card" role="listitem">
+              <div class="card-top">
+                <span class="card-source">TPGi</span>
+                <span class="tag tag-free">Free</span>
+              </div>
+              <a href="https://www.tpgi.com/blog/"
+                 class="resource-name"
+                 target="_blank" rel="noopener noreferrer"
+                 aria-label="TPGi Blog — opens in new tab">
+                TPGi Blog
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
+              <p class="resource-desc">Research, tools, and industry insights from accessibility experts. TPGi's blog regularly publishes findings that influence how screen readers and browsers handle accessibility APIs.</p>
+            </article>
+
+          </div>
+        </section>
+
+        <hr class="section-divider" aria-hidden="true">
+
+        <!-- ── 7. DOCUMENT ACCESSIBILITY ─────────────────────────── -->
+        <section class="resource-section" id="documents" aria-labelledby="docs-heading">
+          <div class="section-header">
+            <div class="section-icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg>
+            </div>
+            <div class="section-header-text">
+              <h2 class="section-heading" id="docs-heading">Document Accessibility</h2>
+              <p class="section-desc">Websites aren't the only thing that needs to be accessible. PDFs, Word files, and presentation decks have their own compliance requirements — and their own failure modes.</p>
+            </div>
+          </div>
+
+          <div class="cards-grid" role="list">
+
+            <article class="resource-card" role="listitem">
+              <div class="card-top">
+                <span class="card-source">Grackle</span>
+                <span class="tag tag-paid">Paid</span>
+              </div>
+              <a href="https://www.grackledocs.com/"
+                 class="resource-name"
+                 target="_blank" rel="noopener noreferrer"
+                 aria-label="Grackle Docs — opens in new tab">
+                Grackle Docs
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
+              <p class="resource-desc">Accessibility checker for Google Docs and Slides. If your organization creates large volumes of Google Workspace documents, Grackle closes a gap that no free tool covers well.</p>
+            </article>
+
+            <article class="resource-card" role="listitem">
+              <div class="card-top">
+                <span class="card-source">Adobe</span>
+                <span class="tag tag-tool">Guide</span>
+              </div>
+              <a href="https://helpx.adobe.com/acrobat/using/create-verify-pdf-accessibility.html"
+                 class="resource-name"
+                 target="_blank" rel="noopener noreferrer"
+                 aria-label="Adobe Acrobat Accessibility — opens in new tab">
+                Adobe Acrobat Accessibility
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
+              <p class="resource-desc">Guide to creating accessible PDFs in Acrobat. Most PDFs published online fail basic accessibility checks. This guide covers tagging, reading order, and the built-in accessibility checker.</p>
+            </article>
+
+            <article class="resource-card" role="listitem">
+              <div class="card-top">
+                <span class="card-source">Microsoft</span>
+                <span class="tag tag-free">Free</span>
+              </div>
+              <a href="https://support.microsoft.com/en-us/office/improve-accessibility-with-the-accessibility-checker-a16f6de0-2f39-4a2b-8bd8-5ad801426c7f"
+                 class="resource-name"
+                 target="_blank" rel="noopener noreferrer"
+                 aria-label="Microsoft Office Accessibility Checker — opens in new tab">
+                Microsoft Office Accessibility
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
+              <p class="resource-desc">Built-in accessibility checker in Word, PowerPoint, and Excel. Most organizations already have this and don't use it. It surfaces issues like missing alt text, poor heading structure, and low contrast.</p>
+            </article>
+
+            <article class="resource-card" role="listitem">
+              <div class="card-top">
+                <span class="card-source">PDF Association</span>
+                <span class="tag tag-standard">Standard</span>
+              </div>
+              <a href="https://www.pdfa.org/resource/pdfua-in-a-nutshell/"
+                 class="resource-name"
+                 target="_blank" rel="noopener noreferrer"
+                 aria-label="PDF UA Standard — opens in new tab">
+                PDF/UA Standard
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
+              <p class="resource-desc">The ISO standard for universally accessible PDF files. If you need to understand what a "compliant PDF" actually means technically, this is the primer. Required reading for document remediation work.</p>
+            </article>
+
+          </div>
+        </section>
+
+      </div>
+    </div>
+
+    <!-- ── CTA SECTION ───────────────────────────────────────────── -->
+    <section class="cta-section" aria-labelledby="cta-heading">
+      <div class="container">
+        <div class="cta-banner">
+          <p class="cta-eyebrow">Get started</p>
+          <h2 id="cta-heading">Not sure where to start?</h2>
+          <p>We'll tell you exactly where you stand — no jargon, no guesswork — and what it takes to get compliant and stay there.</p>
+          <div class="cta-actions">
+            <a href="schedule.html" class="btn-primary">
+              Schedule a Free Consultation
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            <a href="free-scan.html" class="btn-secondary">
+              Run a Free Scan
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ── FOOTER ─────────────────────────────────────────────────── -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-inner">
+
+        <div class="footer-brand">
+          <a href="index.html" class="site-logo logo-link--image" aria-label="QA11Y Labs Home" style="text-decoration:none;">
+            <img class="logo-image footer-logo-image" src="assets/brand/qa11ylabs-logo-horizontal-transparent.png" alt="QA11Y Labs" width="160" height="40" decoding="async">
+          </a>
+          <p>Architecting a more inclusive digital world — through lived expertise and code-level precision.</p>
+          <div class="footer-social" style="margin-top:var(--space-4,1rem);">
+            <a href="https://www.linkedin.com/in/quintin-williams-b0195a119" target="_blank" rel="noopener noreferrer" class="footer-social-link" aria-label="Connect with Quintin Williams on LinkedIn (opens in new tab)" style="display:inline-flex;align-items:center;gap:0.4em;color:var(--color-cyan,#66FCF1);font-size:0.875rem;text-decoration:none;opacity:0.85;transition:opacity 0.2s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.85">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+              LinkedIn
+            </a>
+          </div>
+        </div>
+
+        <nav class="footer-col" aria-label="Services navigation">
+          <h3>Services</h3>
+          <ul role="list">
+            <li><a href="services.html#audits">WCAG Audits</a></li>
+            <li><a href="services.html#remediation">Remediation</a></li>
+            <li><a href="services.html#monitoring">Monitoring</a></li>
+            <li><a href="services.html#consulting">Consulting</a></li>
+          </ul>
+        </nav>
+
+        <nav class="footer-col" aria-label="Company navigation">
+          <h3>Company</h3>
+          <ul role="list">
+            <li><a href="about.html">About</a></li>
+            <li><a href="case-studies.html">Case Studies</a></li>
+            <li><a href="blog.html">The Log</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </nav>
+
+        <nav class="footer-col" aria-label="Resources navigation">
+          <h3>Resources</h3>
+          <ul role="list">
+            <li><a href="free-scan.html">Free Scan</a></li>
+            <li><a href="resources.html" aria-current="page">Resources Hub</a></li>
+            <li><a href="schedule.html">Schedule Consult</a></li>
+            <li><a href="https://www.w3.org/WAI/WCAG22/quickref/" target="_blank" rel="noopener noreferrer">WCAG 2.2 Quick Ref</a></li>
+          </ul>
+        </nav>
+
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 QA11Y Labs. All rights reserved. Built accessible by design.</p>
+        <div class="footer-badges" aria-label="Standards compliance badges">
+          <span class="badge badge-cyan">WCAG 2.2 AA</span>
+          <span class="badge badge-amber">ADA Title II</span>
+          <span class="badge badge-cyan">Section 508</span>
+        </div>
+      </div>
+      <div class="footer-legal">
+        <a href="privacy.html">Privacy Policy</a>
+        <span aria-hidden="true">·</span>
+        <a href="terms.html">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ── SCRIPTS ─────────────────────────────────────────────────── -->
+  <script>
+    // Theme toggle
+    (function () {
+      const toggle = document.querySelector('[data-theme-toggle]');
+      const html = document.documentElement;
+      let theme = html.getAttribute('data-theme') || 'dark';
+      const sunIcon = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>`;
+      const moonIcon = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>`;
+      function setTheme(t) {
+        theme = t;
+        html.setAttribute('data-theme', theme);
+        if (toggle) {
+          toggle.setAttribute('aria-label', 'Switch to ' + (theme === 'dark' ? 'light' : 'dark') + ' mode');
+          toggle.innerHTML = theme === 'dark' ? moonIcon : sunIcon;
+        }
+      }
+      setTheme(theme);
+      if (toggle) toggle.addEventListener('click', () => setTheme(theme === 'dark' ? 'light' : 'dark'));
+    })();
+
+    // Mobile nav toggle
+    (function () {
+      const hamburger = document.getElementById('nav-hamburger');
+      const closeBtn  = document.getElementById('mobile-nav-close');
+      const mobileNav = document.getElementById('mobile-nav');
+      if (!hamburger || !mobileNav) return;
+
+      function openMenu() {
+        mobileNav.classList.add('open');
+        hamburger.setAttribute('aria-expanded', 'true');
+        hamburger.setAttribute('aria-label', 'Close navigation menu');
+        document.body.style.overflow = 'hidden';
+        if (closeBtn) closeBtn.focus();
+      }
+
+      function closeMenu() {
+        mobileNav.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', 'false');
+        hamburger.setAttribute('aria-label', 'Open navigation menu');
+        document.body.style.overflow = '';
+        hamburger.focus();
+      }
+
+      hamburger.addEventListener('click', openMenu);
+      if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+    })();
+
+    // Services dropdown keyboard support
+    (function () {
+      const btn = document.getElementById('services-menu-btn');
+      if (!btn) return;
+      btn.addEventListener('click', function () {
+        const expanded = this.getAttribute('aria-expanded') === 'true';
+        this.setAttribute('aria-expanded', String(!expanded));
+      });
+      btn.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+          this.setAttribute('aria-expanded', 'false');
+          this.focus();
+        }
+      });
+    })();
+  </script>
+
+<script>
+
+    /* Brand refresh: unified theme, dropdown, and mobile navigation behavior. */
+    (function () {
+      const html = document.documentElement;
+      const toggle = document.querySelector('[data-theme-toggle], .theme-toggle, #theme-toggle');
+      const sunIcon = `<svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"/><path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`;
+      const moonIcon = `<svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+      let theme = html.getAttribute('data-theme') || 'dark';
+      function setTheme(nextTheme) {
+        theme = nextTheme;
+        html.setAttribute('data-theme', theme);
+        if (toggle) {
+          toggle.setAttribute('aria-label', 'Switch to ' + (theme === 'dark' ? 'light' : 'dark') + ' mode');
+          if (!toggle.querySelector('.icon-sun, .icon-moon') || toggle.children.length !== 2) {
+            toggle.innerHTML = theme === 'dark' ? moonIcon : sunIcon;
+          }
+        }
+      }
+      setTheme(theme);
+      if (toggle && !toggle.dataset.brandRefreshBound) {
+        toggle.dataset.brandRefreshBound = 'true';
+        toggle.addEventListener('click', function () { setTheme(theme === 'dark' ? 'light' : 'dark'); });
+      }
+    })();
+
+    (function () {
+      const openBtn = document.getElementById('nav-hamburger') || document.getElementById('mobile-toggle');
+      const nav = document.getElementById('mobile-nav');
+      const closeBtn = document.getElementById('mobile-nav-close');
+      if (!openBtn || !nav || openBtn.dataset.brandRefreshBound) return;
+      openBtn.dataset.brandRefreshBound = 'true';
+      function setOpen(open) {
+        nav.classList.toggle('open', open);
+        nav.classList.toggle('is-open', open);
+        openBtn.setAttribute('aria-expanded', String(open));
+        openBtn.setAttribute('aria-label', open ? 'Close navigation menu' : 'Open navigation menu');
+        document.body.classList.toggle('nav-open', open);
+        if (open) {
+          const first = nav.querySelector('a, button');
+          first && first.focus();
+        }
+      }
+      openBtn.addEventListener('click', function () { setOpen(!(nav.classList.contains('open') || nav.classList.contains('is-open'))); });
+      closeBtn && closeBtn.addEventListener('click', function () { setOpen(false); openBtn.focus(); });
+      nav.addEventListener('click', function (event) {
+        const link = event.target.closest('a');
+        if (link) setOpen(false);
+      });
+      document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape' && (nav.classList.contains('open') || nav.classList.contains('is-open'))) {
+          setOpen(false);
+          openBtn.focus();
+        }
+      });
+    })();
+
+    (function () {
+      document.querySelectorAll('.mobile-nav-disclosure[aria-controls]').forEach(function (button) {
+        if (button.dataset.brandRefreshBound) return;
+        button.dataset.brandRefreshBound = 'true';
+        const submenu = document.getElementById(button.getAttribute('aria-controls'));
+        button.addEventListener('click', function () {
+          const expanded = button.getAttribute('aria-expanded') === 'true';
+          button.setAttribute('aria-expanded', String(!expanded));
+          if (submenu) submenu.hidden = expanded;
+        });
+      });
+    })();
+
+    (function () {
+      document.querySelectorAll('.nav-dropdown-toggle[aria-controls]').forEach(function (button) {
+        if (button.dataset.brandRefreshBound) return;
+        button.dataset.brandRefreshBound = 'true';
+        const menu = document.getElementById(button.getAttribute('aria-controls'));
+        button.addEventListener('click', function () {
+          const expanded = button.getAttribute('aria-expanded') === 'true';
+          button.setAttribute('aria-expanded', String(!expanded));
+          if (menu) menu.classList.toggle('is-open', !expanded);
+        });
+        document.addEventListener('click', function (event) {
+          if (!button.closest('.nav-dropdown, .dropdown')?.contains(event.target)) {
+            button.setAttribute('aria-expanded', 'false');
+            menu && menu.classList.remove('is-open');
+          }
+        });
+      });
+    })();
+  </script>
+
+
+<script id="qa11y-final-drawer-handler">
+  /* QA11Y final drawer handler: capture-phase guard for legacy templates. */
+  (function () {
+    if (window.__qa11yFinalDrawerHandler) return;
+    window.__qa11yFinalDrawerHandler = true;
+    function findButton(target) {
+      return target && target.closest && target.closest('header #nav-hamburger, header #mobile-toggle, header .mobile-menu-btn, #mobile-nav-close');
+    }
+    function getOpenButton() {
+      return document.querySelector('header #nav-hamburger, header #mobile-toggle, header .mobile-menu-btn');
+    }
+    function setOpen(open) {
+      var nav = document.getElementById('mobile-nav');
+      var openBtn = getOpenButton();
+      if (!nav || !openBtn) return;
+      nav.classList.toggle('open', open);
+      nav.classList.toggle('is-open', open);
+      openBtn.setAttribute('aria-expanded', String(open));
+      openBtn.setAttribute('aria-label', open ? 'Close navigation menu' : 'Open navigation menu');
+      document.body.classList.toggle('nav-open', open);
+      document.body.style.overflow = open ? 'hidden' : '';
+      if (open) {
+        var first = nav.querySelector('a, button');
+        if (first) first.focus({ preventScroll: true });
+      }
+    }
+    document.addEventListener('click', function (event) {
+      var control = findButton(event.target);
+      if (!control) return;
+      var nav = document.getElementById('mobile-nav');
+      if (!nav) return;
+      var isClose = control.id === 'mobile-nav-close';
+      var open = nav.classList.contains('open') || nav.classList.contains('is-open');
+      event.preventDefault();
+      event.stopPropagation();
+      event.stopImmediatePropagation();
+      setOpen(isClose ? false : !open);
+    }, true);
+    document.addEventListener('keydown', function (event) {
+      var nav = document.getElementById('mobile-nav');
+      if (event.key === 'Escape' && nav && (nav.classList.contains('open') || nav.classList.contains('is-open'))) {
+        event.preventDefault();
+        setOpen(false);
+        var openBtn = getOpenButton();
+        if (openBtn) openBtn.focus({ preventScroll: true });
+      }
+    }, true);
+    document.addEventListener('click', function (event) {
+      var nav = document.getElementById('mobile-nav');
+      if (!nav || !(nav.classList.contains('open') || nav.classList.contains('is-open'))) return;
+      if (event.target.closest && event.target.closest('#mobile-nav a')) setOpen(false);
+    }, true);
+  })();
+</script>
+
+
+<script id="qa11y-accessible-nav-handler">
+  /* QA11Y accessible navigation handler: supports click, Space, Enter, Escape, arrows, and outside-click. */
+  (function () {
+    if (window.__qa11yAccessibleNavHandler) return;
+    window.__qa11yAccessibleNavHandler = true;
+
+    function controlledBy(button) {
+      if (!button) return null;
+      var id = button.getAttribute('aria-controls');
+      return id ? document.getElementById(id) : null;
+    }
+
+    function dropdownFor(button) {
+      return button && button.closest ? button.closest('.nav-dropdown, .dropdown') : null;
+    }
+
+    function menuItems(menu) {
+      return menu ? Array.prototype.slice.call(menu.querySelectorAll('a[href], button:not([disabled])')) : [];
+    }
+
+    function setMenuOpen(button, open, options) {
+      var menu = controlledBy(button);
+      if (!button || !menu) return;
+      if (open) closeAllDesktop(button);
+      button.setAttribute('aria-expanded', String(open));
+      menu.hidden = !open;
+      menu.classList.toggle('is-open', open);
+      if (open && options && options.focusFirst) {
+        var first = menuItems(menu)[0];
+        if (first) first.focus({ preventScroll: true });
+      }
+      if (!open && options && options.returnFocus) {
+        button.focus({ preventScroll: true });
+      }
+    }
+
+    function closeAllDesktop(exceptButton) {
+      document.querySelectorAll('.nav-dropdown-toggle[aria-controls]').forEach(function (button) {
+        if (button !== exceptButton) setMenuOpen(button, false);
+      });
+    }
+
+    function toggleDesktop(button, focusFirst) {
+      var expanded = button.getAttribute('aria-expanded') === 'true';
+      setMenuOpen(button, !expanded, { focusFirst: !!focusFirst });
+    }
+
+    function setMobileSubmenuOpen(button, open, options) {
+      var submenu = controlledBy(button);
+      if (!button || !submenu) return;
+      button.setAttribute('aria-expanded', String(open));
+      submenu.hidden = !open;
+      submenu.classList.toggle('is-open', open);
+      if (open && options && options.focusFirst) {
+        var first = menuItems(submenu)[0];
+        if (first) first.focus({ preventScroll: true });
+      }
+    }
+
+    function toggleMobileSubmenu(button, focusFirst) {
+      var expanded = button.getAttribute('aria-expanded') === 'true';
+      setMobileSubmenuOpen(button, !expanded, { focusFirst: !!focusFirst });
+    }
+
+    function moveWithin(items, current, direction) {
+      if (!items.length) return;
+      var index = items.indexOf(current);
+      if (index < 0) index = direction > 0 ? -1 : 0;
+      var next = (index + direction + items.length) % items.length;
+      items[next].focus({ preventScroll: true });
+    }
+
+    document.querySelectorAll('.nav-dropdown-toggle[aria-controls]').forEach(function (button) {
+      var menu = controlledBy(button);
+      if (!menu) return;
+      setMenuOpen(button, button.getAttribute('aria-expanded') === 'true');
+      var wrapper = dropdownFor(button);
+      if (wrapper && !wrapper.dataset.qa11yHoverBound) {
+        wrapper.dataset.qa11yHoverBound = 'true';
+        wrapper.addEventListener('pointerenter', function () { setMenuOpen(button, true); });
+        wrapper.addEventListener('pointerleave', function () {
+          if (!wrapper.contains(document.activeElement)) setMenuOpen(button, false);
+        });
+        wrapper.addEventListener('focusout', function () {
+          window.setTimeout(function () {
+            if (!wrapper.contains(document.activeElement)) setMenuOpen(button, false);
+          }, 0);
+        });
+      }
+    });
+
+    document.querySelectorAll('.mobile-nav-disclosure[aria-controls]').forEach(function (button) {
+      setMobileSubmenuOpen(button, button.getAttribute('aria-expanded') === 'true');
+    });
+
+    document.addEventListener('click', function (event) {
+      var desktopButton = event.target.closest && event.target.closest('.nav-dropdown-toggle[aria-controls]');
+      if (desktopButton) {
+        event.preventDefault();
+        event.stopPropagation();
+        event.stopImmediatePropagation();
+        toggleDesktop(desktopButton, false);
+        return;
+      }
+
+      var mobileButton = event.target.closest && event.target.closest('.mobile-nav-disclosure[aria-controls]');
+      if (mobileButton) {
+        event.preventDefault();
+        event.stopPropagation();
+        event.stopImmediatePropagation();
+        toggleMobileSubmenu(mobileButton, false);
+        return;
+      }
+
+      if (!(event.target.closest && event.target.closest('.nav-dropdown, .dropdown'))) {
+        closeAllDesktop();
+      }
+    }, true);
+
+    document.addEventListener('keydown', function (event) {
+      var desktopButton = event.target.closest && event.target.closest('.nav-dropdown-toggle[aria-controls]');
+      var mobileButton = event.target.closest && event.target.closest('.mobile-nav-disclosure[aria-controls]');
+
+      if (desktopButton && (event.key === ' ' || event.key === 'Enter')) {
+        event.preventDefault();
+        event.stopPropagation();
+        toggleDesktop(desktopButton, false);
+        return;
+      }
+
+      if (desktopButton && event.key === 'ArrowDown') {
+        event.preventDefault();
+        setMenuOpen(desktopButton, true, { focusFirst: true });
+        return;
+      }
+
+      if (mobileButton && (event.key === ' ' || event.key === 'Enter')) {
+        event.preventDefault();
+        event.stopPropagation();
+        toggleMobileSubmenu(mobileButton, false);
+        return;
+      }
+
+      if (mobileButton && event.key === 'ArrowDown') {
+        event.preventDefault();
+        setMobileSubmenuOpen(mobileButton, true, { focusFirst: true });
+        return;
+      }
+
+      var openMenu = event.target.closest && event.target.closest('.nav-dropdown-menu.is-open, .mobile-submenu.is-open');
+      if (openMenu) {
+        var items = menuItems(openMenu);
+        if (event.key === 'ArrowDown') {
+          event.preventDefault();
+          moveWithin(items, event.target, 1);
+          return;
+        }
+        if (event.key === 'ArrowUp') {
+          event.preventDefault();
+          moveWithin(items, event.target, -1);
+          return;
+        }
+        if (event.key === 'Home') {
+          event.preventDefault();
+          if (items[0]) items[0].focus({ preventScroll: true });
+          return;
+        }
+        if (event.key === 'End') {
+          event.preventDefault();
+          if (items[items.length - 1]) items[items.length - 1].focus({ preventScroll: true });
+          return;
+        }
+      }
+
+      if (event.key === 'Escape') {
+        var openDesktop = document.querySelector('.nav-dropdown-toggle[aria-expanded="true"]');
+        if (openDesktop) {
+          event.preventDefault();
+          setMenuOpen(openDesktop, false, { returnFocus: true });
+          return;
+        }
+        var openMobile = document.querySelector('.mobile-nav-disclosure[aria-expanded="true"]');
+        if (openMobile) {
+          event.preventDefault();
+          setMobileSubmenuOpen(openMobile, false);
+          openMobile.focus({ preventScroll: true });
+        }
+      }
+    }, true);
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,22 @@
+{
+  "defaults": {
+    "standard": "WCAG2AA",
+    "timeout": 60000,
+    "wait": 1000,
+    "chromeLaunchConfig": {
+      "executablePath": "/root/.cache/ms-playwright/chromium-1217/chrome-linux64/chrome",
+      "args": [
+        "--no-sandbox",
+        "--disable-setuid-sandbox",
+        "--disable-dev-shm-usage"
+      ]
+    }
+  },
+  "urls": [
+    "https://qa11ylabs.com/",
+    "https://qa11ylabs.com/about.html",
+    "https://qa11ylabs.com/services.html",
+    "https://qa11ylabs.com/free-scan.html",
+    "https://qa11ylabs.com/contact.html"
+  ]
+}

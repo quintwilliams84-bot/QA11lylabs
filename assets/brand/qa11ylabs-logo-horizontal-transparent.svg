@@ -1,0 +1,45 @@
+<svg width="1280" height="320" viewBox="0 0 1280 320" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">QA11Y Labs horizontal transparent logo</title>
+  <desc id="desc">Transparent-background QA11Y Labs horizontal logo with shield check mark and cyan/gold wordmark.</desc>
+  <defs>
+    <linearGradient id="shieldFill" x1="67" y1="36" x2="242" y2="258" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#112827"/>
+      <stop offset="0.55" stop-color="#0B0C10"/>
+      <stop offset="1" stop-color="#151820"/>
+    </linearGradient>
+    <linearGradient id="cyanStroke" x1="63" y1="34" x2="252" y2="258" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#66FCF1"/>
+      <stop offset="1" stop-color="#45A29E"/>
+    </linearGradient>
+    <linearGradient id="wordmarkCyan" x1="292" y1="87" x2="682" y2="183" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#CFFFFB"/>
+      <stop offset="0.35" stop-color="#66FCF1"/>
+      <stop offset="1" stop-color="#45A29E"/>
+    </linearGradient>
+    <linearGradient id="labsGold" x1="657" y1="84" x2="893" y2="180" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFE7A3"/>
+      <stop offset="0.5" stop-color="#F2A900"/>
+      <stop offset="1" stop-color="#C47900"/>
+    </linearGradient>
+    <filter id="softGlow" x="-20%" y="-30%" width="140%" height="160%" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="0 0 0 0 0.4 0 0 0 0 0.988 0 0 0 0 0.945 0 0 0 0.22 0" result="glow"/>
+      <feMerge><feMergeNode in="glow"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <pattern id="scanLines" width="8" height="8" patternUnits="userSpaceOnUse">
+      <path d="M0 2H8" stroke="#66FCF1" stroke-opacity="0.2" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <g>
+    <path d="M154 39L57 80V154C57 208 97.5 247.4 154 260C210.5 247.4 251 208 251 154V80L154 39Z" fill="#112827" stroke="#66FCF1" stroke-width="7" stroke-linejoin="round"/>
+    <path d="M154 61L79 93V152C79 194.3 110.8 224.6 154 236C197.2 224.6 229 194.3 229 152V93L154 61Z" fill="url(#scanLines)" opacity="0.9"/>
+    <path d="M109 154L140 185L199 123" stroke="#66FCF1" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M105 111H134" stroke="#F2A900" stroke-width="5" stroke-linecap="round"/>
+    <path d="M105 129H159" stroke="#45A29E" stroke-width="5" stroke-linecap="round"/>
+  </g>
+  <text x="296" y="177" fill="#66FCF1" font-family="Arial, Noto Sans, DejaVu Sans, sans-serif" font-size="104" font-weight="800" letter-spacing="-4" direction="ltr" unicode-bidi="bidi-override" text-anchor="start">QA11Y</text>
+  <text x="642" y="177" fill="#F2A900" font-family="Arial, Noto Sans, DejaVu Sans, sans-serif" font-size="104" font-weight="800" letter-spacing="-4" direction="ltr" unicode-bidi="bidi-override" text-anchor="start">Labs</text>
+  <path d="M298 207H878" stroke="#1E2330" stroke-width="3" stroke-linecap="round"/>
+  <path d="M298 207H562" stroke="#66FCF1" stroke-width="3" stroke-linecap="round"/>
+  <path d="M831 207H878" stroke="#F2A900" stroke-width="3" stroke-linecap="round"/>
+</svg>

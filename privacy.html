@@ -1,0 +1,1932 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <!-- QA11Y BRAND HEAD START -->
+  <!-- Favicons & app icons -->
+  <link rel="icon" href="assets/brand/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/brand/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/brand/favicon-16.png">
+  <link rel="icon" type="image/svg+xml" href="assets/brand/qa11ylabs-logo-icon.svg">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/brand/apple-touch-icon.png">
+  <link rel="manifest" href="assets/brand/site.webmanifest">
+  <meta name="theme-color" content="#0B0C10">
+
+  <!-- Open Graph -->
+  <meta property="og:site_name" content="QA11Y Labs">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="QA11Y Labs — Architecting a more inclusive digital world">
+  <meta property="og:description" content="Accessibility audits, remediation, monitoring, and consulting from a senior architect with 25+ years of daily screen reader expertise.">
+  <meta property="og:image" content="https://qa11ylabs.com/assets/brand/og-image-primary.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="QA11Y Labs primary logo: cyan shield check mark with QA11Y in cyan and Labs in gold, on a dark terminal-style background.">
+  <meta property="og:url" content="https://qa11ylabs.com/">
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="QA11Y Labs — Architecting a more inclusive digital world">
+  <meta name="twitter:description" content="Accessibility audits, remediation, monitoring, and consulting from a senior architect with 25+ years of daily screen reader expertise.">
+  <meta name="twitter:image" content="https://qa11ylabs.com/assets/brand/og-image-primary.png">
+  <meta name="twitter:image:alt" content="QA11Y Labs primary logo: cyan shield check mark with QA11Y in cyan and Labs in gold.">
+  <!-- QA11Y BRAND HEAD END -->
+<title>Privacy Policy | QA11Y Labs</title>
+  <meta name="description" content="QA11Y Labs Privacy Policy — how we collect, use, and protect your data when you use our web accessibility auditing services." />
+  <link rel="preconnect" href="https://api.fontshare.com" />
+  <link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@500,700&f[]=satoshi@400,500,600,700&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Design tokens ── */
+    :root {
+      --color-bg:          #0B0C10;
+      --color-surface:     #1F2124;
+      --color-surface-alt: #16181C;
+      --color-border:      rgba(197,198,199,0.12);
+      --color-primary:     #66FCF1;
+      --color-primary-dim: rgba(102,252,241,0.12);
+      --color-text:        #C5C6C7;
+      --color-text-strong: #E8E9EA;
+      --color-text-muted:  #8B8D8F;
+      --font-sans:         'Satoshi', system-ui, -apple-system, sans-serif;
+      --radius-sm:         4px;
+      --radius-md:         8px;
+      --radius-lg:         12px;
+    }
+
+    /* ── Reset & base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--color-bg);
+      color: var(--color-text);
+      font-family: var(--font-sans);
+      font-size: 1rem;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: var(--color-primary);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    a:hover { opacity: 0.85; }
+    a:focus-visible {
+      outline: 2px solid var(--color-primary);
+      outline-offset: 3px;
+      border-radius: var(--radius-sm);
+    }
+
+    /* ── Skip link ── */
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: 1rem;
+      background: var(--color-primary);
+      color: #0B0C10;
+      font-weight: 700;
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-sm);
+      z-index: 9999;
+      text-decoration: none;
+      transition: top 0.15s;
+    }
+    .skip-link:focus { top: 1rem; }
+
+    /* ── Header / Nav ── */
+    .site-header {
+      background: var(--color-surface-alt);
+      border-bottom: 1px solid var(--color-border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-inner {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.625rem;
+      text-decoration: none;
+      color: var(--color-text-strong);
+      font-weight: 700;
+      font-size: 1.125rem;
+      letter-spacing: -0.01em;
+      flex-shrink: 0;
+    }
+
+    .nav-logo:focus-visible {
+      outline: 2px solid var(--color-primary);
+      outline-offset: 3px;
+      border-radius: var(--radius-sm);
+    }
+
+    .nav-logo svg { flex-shrink: 0; }
+
+    .nav-logo-text { color: var(--color-text-strong); }
+    .nav-logo-accent { color: var(--color-primary); }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--color-text);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      padding: 0.375rem 0.625rem;
+      border-radius: var(--radius-sm);
+      transition: color 0.15s, background 0.15s;
+    }
+
+    .nav-links a:hover {
+      color: var(--color-primary);
+      background: var(--color-primary-dim);
+    }
+
+    .nav-links a:focus-visible {
+      outline: 2px solid var(--color-primary);
+      outline-offset: 2px;
+    }
+
+    .nav-cta {
+      background: var(--color-primary) !important;
+      color: #0B0C10 !important;
+      font-weight: 700 !important;
+      padding: 0.4rem 0.875rem !important;
+      border-radius: var(--radius-sm) !important;
+    }
+    .nav-cta:hover { opacity: 0.88; background: var(--color-primary) !important; }
+
+
+    .nav-hamburger {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: var(--radius-sm);
+      color: var(--color-text-muted);
+      background: none;
+      border: 0;
+      cursor: pointer;
+    }
+    .nav-hamburger:hover { color: var(--color-text-strong); background: var(--color-primary-dim); }
+    @media (min-width: 900px) { .nav-hamburger { display: none; } }
+
+    /* Mobile nav toggle */
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: 1px solid var(--color-border);
+      color: var(--color-text);
+      padding: 0.375rem 0.625rem;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-size: 1.125rem;
+      line-height: 1;
+    }
+
+    .nav-toggle:focus-visible {
+      outline: 2px solid var(--color-primary);
+      outline-offset: 2px;
+    }
+
+    @media (max-width: 900px) {
+      .nav-toggle { display: block; }
+
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        gap: 0;
+        position: absolute;
+        top: 64px;
+        left: 0;
+        right: 0;
+        background: var(--color-surface-alt);
+        border-bottom: 1px solid var(--color-border);
+        padding: 0.75rem 1rem 1rem;
+      }
+
+      .nav-links.is-open { display: flex; }
+
+      .nav-links a {
+        display: block;
+        padding: 0.5rem 0.75rem;
+        width: 100%;
+      }
+    }
+
+    /* ── Page hero ── */
+    .page-hero {
+      background: var(--color-surface-alt);
+      border-bottom: 1px solid var(--color-border);
+      padding: 3rem 1.5rem 2.5rem;
+      text-align: left;
+    }
+
+    .page-hero-inner {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .page-eyebrow {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      margin-bottom: 0.75rem;
+    }
+
+    .page-hero h1 {
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 700;
+      color: var(--color-text-strong);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.75rem;
+    }
+
+    .page-hero .effective-date {
+      font-size: 0.875rem;
+      color: var(--color-text-muted);
+    }
+
+    /* ── Layout ── */
+    .content-wrapper {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 5rem;
+    }
+
+    /* ── Prose styles ── */
+    .prose h2 {
+      font-size: 1.375rem;
+      font-weight: 700;
+      color: var(--color-text-strong);
+      letter-spacing: -0.015em;
+      margin-top: 2.75rem;
+      margin-bottom: 0.75rem;
+      padding-top: 0.5rem;
+      border-top: 1px solid var(--color-border);
+    }
+
+    .prose h2:first-child { margin-top: 0; border-top: none; padding-top: 0; }
+
+    .prose h3 {
+      font-size: 1.0625rem;
+      font-weight: 600;
+      color: var(--color-text-strong);
+      margin-top: 1.75rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .prose p {
+      color: var(--color-text);
+      margin-bottom: 1rem;
+    }
+
+    .prose p:last-child { margin-bottom: 0; }
+
+    .prose ul,
+    .prose ol {
+      padding-left: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--color-text);
+    }
+
+    .prose li { margin-bottom: 0.375rem; }
+
+    .prose strong { color: var(--color-text-strong); font-weight: 600; }
+
+    .prose a { color: var(--color-primary); }
+
+    /* ── Callout box ── */
+    .callout {
+      background: var(--color-primary-dim);
+      border: 1px solid rgba(102,252,241,0.25);
+      border-radius: var(--radius-md);
+      padding: 1.25rem 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .callout p {
+      color: var(--color-text-strong);
+      margin-bottom: 0;
+      font-size: 0.9375rem;
+    }
+
+    /* ── TOC ── */
+    .toc {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .toc-title {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      margin-bottom: 0.75rem;
+    }
+
+    .toc ol {
+      padding-left: 1.25rem;
+      margin: 0;
+      color: var(--color-text);
+    }
+
+    .toc li { margin-bottom: 0.25rem; }
+
+    .toc a {
+      color: var(--color-text);
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+
+    .toc a:hover { color: var(--color-primary); }
+
+    /* ── Footer ── */
+    .site-footer {
+      background: var(--color-surface-alt);
+      border-top: 1px solid var(--color-border);
+      padding: 3rem 1.5rem 2rem;
+    }
+
+    .footer-inner {
+      max-width: 1160px;
+      margin: 0 auto;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 2rem;
+      margin-bottom: 2.5rem;
+    }
+
+    @media (max-width: 768px) {
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 480px) {
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+
+    .footer-brand p {
+      color: var(--color-text-muted);
+      font-size: 0.875rem;
+      line-height: 1.6;
+      margin-top: 0.75rem;
+      max-width: 260px;
+    }
+
+    .footer-col h3 {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      margin-bottom: 0.875rem;
+    }
+
+    .footer-col ul {
+      list-style: none;
+    }
+
+    .footer-col li { margin-bottom: 0.375rem; }
+
+    .footer-col a {
+      color: var(--color-text);
+      text-decoration: none;
+      font-size: 0.875rem;
+      transition: color 0.15s;
+    }
+
+    .footer-col a:hover { color: var(--color-primary); }
+
+    .footer-col a:focus-visible {
+      outline: 2px solid var(--color-primary);
+      outline-offset: 2px;
+      border-radius: var(--radius-sm);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid var(--color-border);
+      padding-top: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .footer-bottom p {
+      color: var(--color-text-muted);
+      font-size: 0.8125rem;
+    }
+
+    .footer-legal-links {
+      display: flex;
+      gap: 1.25rem;
+    }
+
+    .footer-legal-links a {
+      color: var(--color-text-muted);
+      text-decoration: none;
+      font-size: 0.8125rem;
+      transition: color 0.15s;
+    }
+
+    .footer-legal-links a:hover { color: var(--color-primary); }
+
+    .footer-legal-links a[aria-current="page"] {
+      color: var(--color-primary);
+      font-weight: 600;
+    }
+
+    /* ── Reduced motion ── */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition: none !important; animation: none !important; }
+    }
+
+    /* ── Services Dropdown ───────────────────────────────────────── */
+    .nav-dropdown { position: relative; }
+
+    .nav-dropdown-toggle {
+      background: none;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font: inherit;
+      color: inherit;
+    }
+    .nav-dropdown-toggle .chevron {
+      transition: transform .2s ease;
+    }
+    .nav-dropdown-toggle[aria-expanded="true"] .chevron {
+      transform: rotate(180deg);
+    }
+
+    .nav-dropdown-menu {
+      position: absolute;
+      top: calc(100% + 10px);
+      left: 50%;
+      transform: translateX(-50%);
+      min-width: 200px;
+      background: var(--color-surface, #13151a);
+      border: 1px solid rgba(102,252,241,.18);
+      border-radius: 10px;
+      padding: 6px;
+      list-style: none;
+      margin: 0;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateX(-50%) translateY(-6px);
+      transition: opacity .18s ease, transform .18s ease, visibility .18s;
+      z-index: 200;
+      box-shadow: 0 8px 32px rgba(0,0,0,.45);
+    }
+    .nav-dropdown-menu.is-open {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(0);
+    }
+    .dropdown-item {
+      display: block;
+      padding: 9px 14px;
+      border-radius: 7px;
+      font-size: .875rem;
+      font-weight: 500;
+      color: var(--color-text-secondary, #C5C6C7);
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background .15s, color .15s;
+    }
+    .dropdown-item:hover,
+    .dropdown-item:focus {
+      background: rgba(102,252,241,.08);
+      color: var(--color-cyan, #66FCF1);
+      outline: none;
+    }
+    .dropdown-item:focus-visible {
+      outline: 2px solid var(--color-cyan, #66FCF1);
+      outline-offset: 1px;
+    }
+
+    /* ── Mobile disclosure submenu ──────────────────────────────── */
+    .mobile-nav-disclosure {
+      width: 100%;
+      background: none;
+      border: none;
+      text-align: left;
+      cursor: pointer;
+      font: inherit;
+      color: inherit;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0;
+    }
+    .mobile-nav-disclosure .chevron {
+      transition: transform .2s ease;
+    }
+    .mobile-nav-disclosure[aria-expanded="true"] .chevron {
+      transform: rotate(180deg);
+    }
+    .mobile-submenu {
+      list-style: none;
+      margin: 4px 0 8px 16px;
+      padding: 0;
+      border-left: 2px solid rgba(102,252,241,.2);
+      padding-left: 14px;
+    }
+    .mobile-submenu li + li { margin-top: 2px; }
+    .mobile-submenu-link {
+      display: block;
+      padding: 8px 0;
+      font-size: .9rem;
+      color: var(--color-text-secondary, #C5C6C7);
+      text-decoration: none;
+      transition: color .15s;
+    }
+    .mobile-submenu-link:hover,
+    .mobile-submenu-link:focus {
+      color: var(--color-cyan, #66FCF1);
+      outline: none;
+    }
+    .mobile-submenu-link:focus-visible {
+      outline: 2px solid var(--color-cyan, #66FCF1);
+      outline-offset: 2px;
+    }
+
+  
+        /* QA11Y wordmark, logo sizing & header brand block — matches new horizontal logo */
+    .logo-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: var(--font-display, 'Cabinet Grotesk', system-ui, sans-serif);
+      font-size: var(--text-lg, 1.125rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      text-decoration: none;
+      flex-shrink: 0;
+      color: inherit;
+    }
+    .logo-icon { width: 32px; height: 32px; flex-shrink: 0; }
+    .logo-wordmark { display: inline-flex; align-items: baseline; white-space: nowrap; }
+    .logo-wordmark .logo-qa   { color: var(--color-primary); }
+    .logo-wordmark .logo-11y  { color: var(--color-primary); }
+    .logo-wordmark .logo-labs { color: var(--color-cta); margin-left: 0.15em; }
+    [data-theme="light"] .logo-wordmark .logo-qa { color: #1a1d26; }
+
+  
+
+    /* Final QA11Y Labs logo image treatment */
+    .logo-link--image {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      color: inherit;
+    }
+    .logo-image {
+      width: clamp(9rem, 14vw, 12rem);
+      height: auto;
+      max-height: 2.75rem;
+      object-fit: contain;
+    }
+    .site-footer .logo-image,
+    .footer-logo-image {
+      width: min(11rem, 100%);
+      max-height: 3rem;
+    }
+    @media (max-width: 420px) {
+      .logo-image { width: 8.75rem; }
+    }
+
+    /* Sitewide nav-list shim — was missing on some pages */
+    .nav-list { list-style: none; margin: 0; padding: 0; display: flex; align-items: center; gap: var(--space-1); flex-wrap: wrap; }
+    .site-header ul, .site-header ol { list-style: none; }
+    .nav-dropdown-menu, .dropdown-menu { list-style: none; padding-left: 0; }
+
+  
+    /* Brand refresh: keep persistent header content off the viewport edge. */
+    .site-header .header-inner {
+      padding-inline: var(--space-4, 1rem);
+    }
+    @media (min-width: 768px) {
+      .site-header .header-inner {
+        padding-inline: var(--space-6, 1.5rem);
+      }
+    }
+    
+    /* Brand refresh: shared navigation compatibility and mobile drawer behavior. */
+    .nav-dropdown:hover .nav-dropdown-menu,
+    .dropdown:hover .nav-dropdown-menu,
+    .nav-dropdown:focus-within .nav-dropdown-menu,
+    .dropdown:focus-within .nav-dropdown-menu,
+    .nav-dropdown-menu.is-open {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(0);
+      display: block;
+    }
+    .mobile-nav {
+      display: none;
+      flex-direction: column;
+      gap: var(--space-4, 1rem);
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      overflow-y: auto;
+      padding: var(--space-5, 1.25rem);
+      background: var(--color-bg, #0B0C10);
+      color: var(--color-text, #F7F9FB);
+    }
+    .mobile-nav.open {
+      display: flex;
+    }
+    .mobile-nav-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-4, 1rem);
+      padding-bottom: var(--space-4, 1rem);
+      border-bottom: 1px solid var(--color-border, rgba(102,252,241,.18));
+    }
+    .mobile-nav-close {
+      min-width: 44px;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius-full, 9999px);
+      color: inherit;
+      background: transparent;
+      border: 1px solid var(--color-border, rgba(102,252,241,.18));
+    }
+    .mobile-nav-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2, .5rem);
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+    .mobile-nav-link,
+    .mobile-submenu-link {
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      width: 100%;
+      padding: var(--space-3, .75rem) var(--space-4, 1rem);
+      border-radius: var(--radius-md, .5rem);
+      color: var(--color-text-secondary, var(--color-text-muted, #C5C6C7));
+      text-decoration: none;
+    }
+    .mobile-nav-link:hover,
+    .mobile-nav-link:focus-visible,
+    .mobile-submenu-link:hover,
+    .mobile-submenu-link:focus-visible,
+    .mobile-nav-link[aria-current="page"] {
+      color: var(--color-cyan, var(--color-primary, #66FCF1));
+      background: rgba(102,252,241,.08);
+    }
+    .mobile-cta {
+      margin-top: auto;
+      padding-top: var(--space-4, 1rem);
+      border-top: 1px solid var(--color-border, rgba(102,252,241,.18));
+    }
+    @media (min-width: 900px) {
+      .mobile-nav.open { display: none; }
+    }
+
+    /* Brand refresh: modern header layout for legal pages. */
+    .site-header {
+      min-height: var(--header-height, 72px);
+      display: flex;
+      align-items: center;
+      background: rgba(11, 12, 16, 0.9);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    [data-theme="light"] .site-header {
+      background: rgba(244, 245, 247, 0.9);
+    }
+    .site-header .header-inner {
+      max-width: min(1280px, 100%);
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: var(--space-4, 1rem);
+    }
+    .logo-link--image {
+      display: inline-flex;
+      align-items: center;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .logo-image {
+      display: block;
+      width: 160px;
+      max-width: 42vw;
+      height: auto;
+    }
+    .primary-nav {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 0;
+    }
+    .nav-list {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .nav-link,
+    .nav-dropdown-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-1, .25rem);
+      padding: var(--space-2, .5rem) .625rem;
+      font-family: var(--font-display, inherit);
+      font-size: var(--text-sm, .875rem);
+      font-weight: 500;
+      color: var(--color-text-muted, #C5C6C7);
+      text-decoration: none;
+      border-radius: var(--radius-md, .5rem);
+      background: transparent;
+      border: 0;
+      white-space: nowrap;
+    }
+    .nav-link:hover,
+    .nav-dropdown-toggle:hover {
+      color: var(--color-text, #F7F9FB);
+      background: var(--color-surface-2, rgba(102,252,241,.08));
+    }
+    .nav-dropdown {
+      position: relative;
+    }
+    .nav-dropdown-menu {
+      display: none;
+    }
+    .nav-dropdown:hover .nav-dropdown-menu,
+    .nav-dropdown:focus-within .nav-dropdown-menu,
+    .nav-dropdown-menu.is-open {
+      display: block;
+    }
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2, .5rem);
+      flex-shrink: 0;
+      margin-left: auto;
+    }
+    .theme-toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 38px;
+      height: 38px;
+      border: 1px solid var(--color-border, rgba(102,252,241,.18));
+      border-radius: var(--radius-md, .5rem);
+      color: var(--color-text-muted, #C5C6C7);
+      background: transparent;
+    }
+    .theme-toggle .icon-sun,
+    .theme-toggle .icon-moon {
+      display: none;
+    }
+    [data-theme="dark"] .theme-toggle .icon-moon {
+      display: block;
+    }
+    [data-theme="light"] .theme-toggle .icon-sun {
+      display: block;
+    }
+    .btn-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-2, .5rem) var(--space-5, 1.25rem);
+      font-family: var(--font-display, inherit);
+      font-size: var(--text-sm, .875rem);
+      font-weight: 600;
+      color: var(--color-bg, #0B0C10);
+      background: var(--color-cta, #FFB000);
+      border: 2px solid var(--color-cta, #FFB000);
+      border-radius: var(--radius-md, .5rem);
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .nav-hamburger {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      width: 38px;
+      height: 38px;
+      border: 1px solid var(--color-border, rgba(102,252,241,.18));
+      border-radius: var(--radius-md, .5rem);
+      color: var(--color-text-muted, #C5C6C7);
+      background: transparent;
+    }
+    @media (max-width: 899px) {
+      .primary-nav,
+      .header-actions .btn-cta {
+        display: none;
+      }
+      .nav-hamburger {
+        display: inline-flex;
+      }
+    }
+    
+    /* Brand refresh: avoid mid-width nav overflow by using drawer navigation on tablets. */
+    @media (max-width: 1099px) {
+      .primary-nav,
+      .header-actions .btn-cta {
+        display: none !important;
+      }
+      .nav-hamburger,
+      .mobile-menu-btn {
+        display: inline-flex !important;
+      }
+    }
+    @media (min-width: 1100px) {
+      .primary-nav {
+        display: flex !important;
+      }
+      .nav-hamburger,
+      .mobile-menu-btn {
+        display: none !important;
+      }
+    }
+    </style>
+
+
+<style id="qa11y-final-responsive-nav">
+  /* QA11Y final responsive navigation safeguard: drawer owns navigation below tablet/desktop handoff. */
+  @media (max-width: 1100px) {
+    header .desktop-nav,
+    header .nav-list,
+    header nav[aria-label="Primary"] .nav-list {
+      display: none !important;
+    }
+    header .nav-hamburger,
+    header .mobile-menu-btn,
+    header #mobile-toggle {
+      display: inline-flex !important;
+      align-items: center;
+      justify-content: center;
+      min-width: 44px;
+      min-height: 44px;
+    }
+    #mobile-nav.open,
+    #mobile-nav.is-open,
+    .mobile-nav.open,
+    .mobile-nav.is-open {
+      display: flex !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+      pointer-events: auto !important;
+      transform: none !important;
+    }
+  }
+  @media (min-width: 1101px) {
+    header .nav-hamburger,
+    header .mobile-menu-btn,
+    header #mobile-toggle {
+      display: none !important;
+    }
+  }
+</style>
+
+<style id="qa11y-pa11y-aa-contrast">
+  /* QA11Y Labs targeted WCAG AA hardening.
+     Scoped by component background: dark surfaces use light text; light surfaces use dark ink. */
+  :root {
+    --qa11y-aa-bg: #0B0C10;
+    --qa11y-aa-surface: #12151D;
+    --qa11y-aa-text: #F7FAFC;
+    --qa11y-aa-cyan: #8FFDF7;
+    --qa11y-aa-gold: #F7C948;
+    --qa11y-aa-ink: #05070A;
+    --qa11y-aa-body-ink: #1A1D26;
+  }
+
+  .article-hero,
+  .related-posts,
+  .site-footer,
+  footer {
+    background-color: var(--qa11y-aa-bg) !important;
+  }
+
+  .article-hero .article-title,
+  .article-hero .article-eyebrow,
+  .article-hero .article-author-name,
+  .article-hero .article-meta,
+  .article-hero .article-meta span,
+  .article-hero .article-meta time,
+  .article-hero .article-meta-divider,
+  .site-footer h3,
+  .site-footer .footer-tagline,
+  .site-footer .footer-copyright,
+  .site-footer .footer-copy,
+  .site-footer .footer-bottom,
+  .site-footer .footer-bottom p,
+  .site-footer .footer-bottom span,
+  .site-footer .footer-bottom a,
+  .site-footer .footer-nav a,
+  .site-footer .footer-legal a,
+  .site-footer .logo-qa,
+  .site-footer .logo-11y,
+  footer h3,
+  footer .footer-tagline,
+  footer .footer-copyright,
+  footer .footer-copy,
+  footer .footer-bottom,
+  footer .footer-bottom p,
+  footer .footer-bottom span,
+  footer .footer-bottom a,
+  footer .footer-nav a,
+  footer .footer-legal a,
+  footer .logo-qa,
+  footer .logo-11y,
+  footer span[aria-hidden="true"],
+  footer a[href="accessibility.html"] {
+    color: var(--qa11y-aa-text) !important;
+  }
+
+  .site-footer .logo-11y,
+  footer .logo-11y,
+  .site-footer .logo-qa,
+  footer .logo-qa {
+    color: var(--qa11y-aa-cyan) !important;
+  }
+  .logo-labs,
+  .site-footer .logo-labs,
+  footer .logo-labs {
+    color: var(--qa11y-aa-gold) !important;
+  }
+
+  .related-card,
+  .trust-pill,
+  .tag,
+  .badge-category,
+  .badge-featured,
+  .eyebrow-pill,
+  .filter-btn,
+  .trust-pill-check {
+    color: var(--qa11y-aa-text) !important;
+    background-color: var(--qa11y-aa-surface) !important;
+    border-color: rgba(102, 252, 241, 0.45) !important;
+  }
+  .related-posts-heading,
+  .related-card-title,
+  .related-card-time,
+  .related-card-cat,
+  .resource-card .card-source,
+  .stat-card .stat-sub,
+  .case-study-section h3,
+  .case-study-stats h3,
+  .case-study-right h3 {
+    color: var(--qa11y-aa-text) !important;
+  }
+
+  /* Light content surfaces. */
+  .article-body h2,
+  .article-body h3,
+  .article-body strong,
+  .hero-subtext,
+  .section-number,
+  .info-label,
+  .featured-card .post-date,
+  .featured-card .read-time,
+  .featured-card .featured-excerpt,
+  .filter-count,
+  .jump-nav-label,
+  .form-hint,
+  .scan-note,
+  .scan-url-hint,
+  .zcal-fallback,
+  .field-required,
+  .cta-divider,
+  .sample-report-icon,
+  .subsection-heading {
+    color: var(--qa11y-aa-body-ink) !important;
+  }
+
+  .article-body pre,
+  .article-body code,
+  .article-body p code,
+  .article-body li code,
+  .article-body strong code,
+  .article-body h2 code,
+  .article-body h3 code {
+    background-color: #080C10 !important;
+    color: #F7FFFF !important;
+  }
+
+  .btn-cta,
+  .btn-cta-lg,
+  .btn-cta-sm,
+  .btn-submit,
+  .btn-scan {
+    color: var(--qa11y-aa-ink) !important;
+    background-color: #66FCF1 !important;
+    border-color: #66FCF1 !important;
+    text-shadow: none !important;
+  }
+  .btn-scan span,
+  #scan-btn-label {
+    color: var(--qa11y-aa-ink) !important;
+  }
+
+  .btn-amber {
+    color: var(--qa11y-aa-ink) !important;
+    background-color: var(--qa11y-aa-gold) !important;
+    border-color: var(--qa11y-aa-gold) !important;
+    text-shadow: none !important;
+  }
+
+  .btn-outline {
+    color: var(--qa11y-aa-text) !important;
+    background-color: #111722 !important;
+    border-color: rgba(143, 253, 247, 0.55) !important;
+  }
+
+
+  /* Final pa11y pass: exact remaining component contexts. */
+  .post-card .post-date,
+  .post-card .read-time {
+    color: #454A57 !important;
+  }
+  .subsection-heading,
+  .jump-nav-label,
+  .trust-label,
+  .cta-divider {
+    color: var(--qa11y-aa-text) !important;
+  }
+  .sample-report-icon {
+    color: var(--qa11y-aa-ink) !important;
+    background-color: var(--qa11y-aa-text) !important;
+  }
+</style>
+
+
+<style id="qa11y-accessible-nav-fix">
+  /* QA11Y accessible navigation fix: desktop services disclosure + mobile submenu safeguards. */
+  .nav-dropdown {
+    position: relative;
+  }
+
+  .nav-dropdown-toggle,
+  .mobile-nav-disclosure {
+    touch-action: manipulation;
+  }
+
+  .nav-dropdown-toggle[aria-expanded="true"] .chevron,
+  .mobile-nav-disclosure[aria-expanded="true"] .chevron {
+    transform: rotate(180deg);
+  }
+
+  .nav-dropdown-menu[hidden],
+  .mobile-submenu[hidden] {
+    display: none !important;
+  }
+
+  .nav-dropdown-menu.is-open,
+  .nav-dropdown-toggle[aria-expanded="true"] + .nav-dropdown-menu {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    transform: translateX(-50%) translateY(0) !important;
+  }
+
+  .nav-dropdown-menu a,
+  .mobile-submenu a {
+    min-height: 44px;
+  }
+
+  .nav-dropdown-toggle:focus-visible,
+  .mobile-nav-disclosure:focus-visible,
+  .nav-hamburger:focus-visible,
+  .mobile-nav-close:focus-visible {
+    outline: 2px solid var(--color-cyan, var(--color-primary, #66FCF1));
+    outline-offset: 3px;
+  }
+</style>
+
+</head>
+<body>
+
+  <!-- Skip navigation -->
+  <a class="skip-link" href="privacy.html#main-content">Skip to main content</a>
+
+  <!-- Site header -->
+    <header class="site-header" role="banner">
+    <div class="header-inner">
+
+      <!-- Logo -->
+      <a class="logo-link logo-link--image" href="index.html" aria-label="QA11Y Labs — Home">
+        <img class="logo-image" src="assets/brand/qa11ylabs-logo-horizontal-transparent.png" alt="QA11Y Labs" width="160" height="40" decoding="async">
+      </a>
+
+      <!-- Primary Nav -->
+      <nav class="primary-nav" aria-label="Primary navigation">
+        <ul class="nav-list" role="list">
+          <li><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-dropdown">
+            <button
+              class="nav-link nav-dropdown-toggle"
+              aria-haspopup="true"
+              aria-expanded="false"
+              aria-controls="services-menu"
+              id="services-menu-btn"
+              type="button"
+            >
+              Services
+              <svg class="chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" focusable="false">
+                <path d="M2.5 4.5l3.5 3.5 3.5-3.5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <ul
+              class="nav-dropdown-menu"
+              id="services-menu"
+              role="menu"
+              aria-labelledby="services-menu-btn"
+            >
+              <li role="none"><a href="services.html" role="menuitem" class="dropdown-item">All Services</a></li>
+              <li role="none"><a href="services.html#audits-heading" role="menuitem" class="dropdown-item">WCAG Audits</a></li>
+              <li role="none"><a href="services.html#remediation-heading" role="menuitem" class="dropdown-item">Remediation</a></li>
+              <li role="none"><a href="services.html#retainers-heading" role="menuitem" class="dropdown-item">Monitoring</a></li>
+              <li role="none"><a href="services.html#consulting-heading" role="menuitem" class="dropdown-item">Consulting</a></li>
+            </ul>
+          </li>
+          <li><a class="nav-link" href="case-studies.html">Case Studies</a></li>
+          <li><a class="nav-link" href="blog.html">The Log</a></li>
+          <li><a class="nav-link" href="resources.html">Resources</a></li>
+          <li><a class="nav-link" href="about.html">About</a></li>
+          <li><a class="nav-link" href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+
+      <!-- Header Actions -->
+      <div class="header-actions">
+        <button
+          class="theme-toggle"
+          id="theme-toggle"
+          aria-label="Toggle light/dark mode"
+          type="button"
+        >
+          <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
+            <circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"/>
+            <path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
+            <path d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <a class="btn-cta" href="schedule.html">Schedule Consultation</a>
+        <button
+          class="nav-hamburger"
+          id="nav-hamburger"
+          aria-label="Open navigation menu"
+          aria-expanded="false"
+          aria-controls="mobile-nav"
+          type="button"
+        >
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true" focusable="false">
+            <path d="M2 5h16M2 10h16M2 15h16" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MOBILE NAV -->
+  <div
+    class="mobile-nav"
+    id="mobile-nav"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Navigation menu"
+  >
+    <div class="mobile-nav-header">
+      <a class="logo-link logo-link--image" href="index.html" aria-label="QA11Y Labs — Home">
+        <img class="logo-image" src="assets/brand/qa11ylabs-logo-horizontal-transparent.png" alt="QA11Y Labs" width="160" height="40" decoding="async">
+      </a>
+      <button
+        class="mobile-nav-close"
+        id="mobile-nav-close"
+        aria-label="Close navigation menu"
+        type="button"
+      >
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true" focusable="false">
+          <path d="M4 4l12 12M16 4L4 16" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+    <nav aria-label="Mobile navigation">
+      <ul class="mobile-nav-list" role="list">
+        <li><a class="mobile-nav-link" href="index.html">Home</a></li>
+        <li>
+          <button
+            class="mobile-nav-link mobile-nav-disclosure"
+            aria-expanded="false"
+            aria-controls="mobile-services-list"
+            type="button"
+          >
+            Services
+            <svg class="chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" focusable="false">
+              <path d="M2.5 4.5l3.5 3.5 3.5-3.5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <ul class="mobile-submenu" id="mobile-services-list" hidden>
+            <li><a class="mobile-submenu-link" href="services.html">All Services</a></li>
+            <li><a class="mobile-submenu-link" href="services.html#audits-heading">WCAG Audits</a></li>
+            <li><a class="mobile-submenu-link" href="services.html#remediation-heading">Remediation</a></li>
+            <li><a class="mobile-submenu-link" href="services.html#retainers-heading">Monitoring</a></li>
+            <li><a class="mobile-submenu-link" href="services.html#consulting-heading">Consulting</a></li>
+          </ul>
+        </li>
+        <li><a class="mobile-nav-link" href="case-studies.html">Case Studies</a></li>
+        <li><a class="mobile-nav-link" href="blog.html">The Log</a></li>
+        <li><a class="mobile-nav-link" href="resources.html">Resources</a></li>
+        <li><a class="mobile-nav-link" href="about.html">About</a></li>
+        <li><a class="mobile-nav-link" href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="mobile-cta">
+      <a class="btn-cta" href="schedule.html">Schedule Consultation</a>
+    </div>
+  </div>
+
+
+  <main id="main-content" tabindex="-1">
+
+    <section class="page-hero" aria-labelledby="page-title">
+      <div class="page-hero-inner">
+        <p class="page-eyebrow">Legal & Privacy</p>
+        <h1 id="page-title">Privacy Policy</h1>
+        <p class="effective-date">Effective date: April 21, 2026</p>
+        <p>This policy explains how QA11Y Labs collects, uses, and protects information submitted through our website, scan tools, and accessibility consulting services.</p>
+      </div>
+    </section>
+    <div class="content-wrapper">
+
+      <!-- Table of contents -->
+      <nav class="toc" aria-label="Privacy policy table of contents">
+        <p class="toc-title">Contents</p>
+        <ol>
+          <li><a href="privacy.html#who-we-are">Who We Are</a></li>
+          <li><a href="privacy.html#data-collected">Data We Collect</a></li>
+          <li><a href="privacy.html#how-we-use">How We Use Your Data</a></li>
+          <li><a href="privacy.html#data-storage">Data Storage and Security</a></li>
+          <li><a href="privacy.html#data-retention">Data Retention</a></li>
+          <li><a href="privacy.html#third-parties">Third-Party Services</a></li>
+          <li><a href="privacy.html#your-rights">Your Rights</a></li>
+          <li><a href="privacy.html#gdpr">GDPR — Rights for EU/EEA Residents</a></li>
+          <li><a href="privacy.html#ccpa">CCPA/CPRA — Rights for California Residents</a></li>
+          <li><a href="privacy.html#cookies">Cookies and Tracking</a></li>
+          <li><a href="privacy.html#children">Children's Privacy</a></li>
+          <li><a href="privacy.html#changes">Changes to This Policy</a></li>
+          <li><a href="privacy.html#contact-privacy">Contact Us</a></li>
+        </ol>
+      </nav>
+
+      <div class="prose">
+
+        <div class="callout" role="note">
+          <p>This Privacy Policy explains how QA11Y Labs ("we," "us," or "our") collects, uses, and protects information when you use our website and web accessibility auditing services. We are committed to protecting your privacy and handling your data with transparency.</p>
+        </div>
+
+        <!-- 1. Who We Are -->
+        <section id="who-we-are" aria-labelledby="who-we-are-heading">
+          <h2 id="who-we-are-heading">1. Who We Are</h2>
+          <p>QA11Y Labs is a web accessibility auditing company. We provide automated WCAG 2.2 AA scanning, manual accessibility audits, and accessibility consulting services. Our website is located at <a href="index.html">qa11ylabs.com</a>.</p>
+          <p>For questions about this policy, contact us at <a href="contact.html">qa11ylabs.com/contact.html</a>.</p>
+        </section>
+
+        <!-- 2. Data We Collect -->
+        <section id="data-collected" aria-labelledby="data-collected-heading">
+          <h2 id="data-collected-heading">2. Data We Collect</h2>
+          <p>We collect only the minimum data necessary to provide our services. The types of data we collect include:</p>
+
+          <h3>Data you provide directly</h3>
+          <ul>
+            <li><strong>Email address</strong> — when you use our free scan tool or contact us. Used to deliver your scan report and to respond to inquiries.</li>
+            <li><strong>URLs submitted for scanning</strong> — the web addresses you submit to our free or paid scanning tools.</li>
+            <li><strong>Client audit data</strong> — for paid audit engagements, this may include your organization's website content, accessibility issue logs, remediation notes, and deliverable documents shared as part of the engagement.</li>
+            <li><strong>Contact form information</strong> — your name, email, and message when you reach out via our contact form.</li>
+          </ul>
+
+          <h3>Data collected automatically</h3>
+          <ul>
+            <li><strong>Usage data</strong> — pages visited, time on page, and general navigation patterns via our analytics tooling.</li>
+            <li><strong>Technical data</strong> — browser type, operating system, referring URL, and IP address (used for security and abuse prevention, not for profiling).</li>
+          </ul>
+
+          <p>We do not collect payment card information directly. Any payment processing is handled by our third-party payment processor (see Section 6).</p>
+        </section>
+
+        <!-- 3. How We Use Your Data -->
+        <section id="how-we-use" aria-labelledby="how-we-use-heading">
+          <h2 id="how-we-use-heading">3. How We Use Your Data</h2>
+          <p>We use the data we collect for the following purposes:</p>
+          <ul>
+            <li><strong>To deliver services</strong> — processing your free scan and emailing you the scan report, fulfilling paid audit engagements, and responding to consulting inquiries.</li>
+            <li><strong>To communicate with you</strong> — sending scan reports, deliverables, and service-related updates via email (delivered through AgentMail).</li>
+            <li><strong>To improve our services</strong> — understanding which features are used, identifying bugs, and improving accuracy of our accessibility checks.</li>
+            <li><strong>Security and fraud prevention</strong> — detecting and preventing abuse of our scanning tool or contact form.</li>
+            <li><strong>Legal compliance</strong> — meeting our obligations under applicable law.</li>
+          </ul>
+          <p>We will not use your data for any purpose materially different from those described above without first obtaining your consent.</p>
+        </section>
+
+        <!-- 4. Data Storage and Security -->
+        <section id="data-storage" aria-labelledby="data-storage-heading">
+          <h2 id="data-storage-heading">4. Data Storage and Security</h2>
+          <p>Client audit data is stored on our own virtual private server (VPS) infrastructure. All client data is stored <strong>encrypted at rest</strong>. Access is restricted to QA11Y Labs staff directly involved in your engagement.</p>
+          <p>We implement appropriate technical and organizational security measures, including:</p>
+          <ul>
+            <li>Encryption at rest for all stored client and scan data.</li>
+            <li>Encrypted transit (TLS/HTTPS) for all data transmitted to and from our services.</li>
+            <li>Access controls and authentication requirements for staff accessing client data.</li>
+            <li>Regular review of access logs and security posture.</li>
+          </ul>
+          <p>No method of electronic storage or transmission is 100% secure. While we strive to protect your data, we cannot guarantee absolute security. In the event of a data breach that is likely to result in risk to your rights and freedoms, we will notify you and relevant authorities as required by law.</p>
+          <p><strong>We do not sell, rent, or trade your personal data to any third party, ever.</strong></p>
+        </section>
+
+        <!-- 5. Data Retention -->
+        <section id="data-retention" aria-labelledby="data-retention-heading">
+          <h2 id="data-retention-heading">5. Data Retention</h2>
+          <p>We retain your data only for as long as necessary to fulfill the purposes for which it was collected:</p>
+          <ul>
+            <li><strong>Free scan data</strong> (email address and submitted URL) — retained for <strong>90 days</strong> from the date of submission, then permanently deleted from our systems.</li>
+            <li><strong>Scan reports</strong> — deleted after 90 days unless the client has requested longer retention as part of a paid engagement.</li>
+            <li><strong>Client audit data</strong> — retained for the duration of the engagement and for a reasonable period thereafter (typically up to 12 months) to allow for follow-up questions, unless the client requests earlier deletion or continued retention. Specific retention terms for paid clients are outlined in the engagement agreement.</li>
+            <li><strong>Contact form submissions</strong> — retained for up to 12 months, then deleted unless an ongoing engagement is in place.</li>
+          </ul>
+          <p>You may request deletion of your data at any time (see Section 7). Upon a verified deletion request, we will delete your data within 30 days, except where retention is required by law.</p>
+        </section>
+
+        <!-- 6. Third-Party Services -->
+        <section id="third-parties" aria-labelledby="third-parties-heading">
+          <h2 id="third-parties-heading">6. Third-Party Services</h2>
+          <p>We use a limited number of third-party services to operate our business. These parties have access to only the minimum data necessary to perform their functions and are prohibited from using it for other purposes:</p>
+          <ul>
+            <li><strong>AgentMail</strong> — we use AgentMail to deliver scan reports and service-related emails to you. Your email address and scan report contents are transmitted to AgentMail for delivery purposes.</li>
+            <li><strong>Payment processing</strong> — if you purchase a paid service, payment card data is handled directly by our payment processor. We do not store card numbers on our systems.</li>
+            <li><strong>Analytics</strong> — we may use privacy-respecting analytics to understand site traffic. Analytics data is aggregated and does not identify individual users.</li>
+          </ul>
+          <p>We do not use advertising networks, data brokers, or behavioral tracking services. We do not share your data with any third party for marketing purposes.</p>
+        </section>
+
+        <!-- 7. Your Rights -->
+        <section id="your-rights" aria-labelledby="your-rights-heading">
+          <h2 id="your-rights-heading">7. Your Rights</h2>
+          <p>Regardless of where you are located, you have the following rights with respect to your personal data:</p>
+          <ul>
+            <li><strong>Access</strong> — request a copy of the personal data we hold about you.</li>
+            <li><strong>Correction</strong> — request that we correct inaccurate or incomplete data.</li>
+            <li><strong>Deletion</strong> — request that we delete your personal data ("right to be forgotten").</li>
+            <li><strong>Restriction</strong> — request that we restrict processing of your data in certain circumstances.</li>
+            <li><strong>Portability</strong> — request your data in a structured, commonly used, machine-readable format.</li>
+            <li><strong>Objection</strong> — object to processing based on our legitimate interests.</li>
+          </ul>
+          <p>To exercise any of these rights, please contact us using the contact form at <a href="contact.html">qa11ylabs.com/contact.html</a>. We will respond to verified requests within 30 days. We may need to verify your identity before processing your request.</p>
+        </section>
+
+        <!-- 8. GDPR -->
+        <section id="gdpr" aria-labelledby="gdpr-heading">
+          <h2 id="gdpr-heading">8. GDPR — Rights for EU/EEA Residents</h2>
+          <p>If you are located in the European Union or European Economic Area, the General Data Protection Regulation (GDPR) grants you additional rights and requires us to be transparent about our legal basis for processing your data.</p>
+
+          <h3>Legal basis for processing</h3>
+          <ul>
+            <li><strong>Contract performance</strong> — processing your email and submitted URL to deliver the free scan service you requested.</li>
+            <li><strong>Legitimate interests</strong> — security monitoring, fraud prevention, and service improvement, balanced against your privacy interests.</li>
+            <li><strong>Legal obligation</strong> — where processing is required to comply with applicable law.</li>
+            <li><strong>Consent</strong> — where we have obtained your specific, informed consent (e.g., for any optional communications).</li>
+          </ul>
+
+          <h3>Data transfers</h3>
+          <p>Our VPS infrastructure is located within the United States. If you are an EU/EEA resident, your data may be transferred to and processed in the United States. Where we transfer data internationally, we rely on appropriate safeguards such as Standard Contractual Clauses (SCCs) or other lawful transfer mechanisms.</p>
+
+          <h3>Right to lodge a complaint</h3>
+          <p>You have the right to lodge a complaint with your local data protection supervisory authority if you believe your data is being processed in violation of the GDPR.</p>
+        </section>
+
+        <!-- 9. CCPA/CPRA -->
+        <section id="ccpa" aria-labelledby="ccpa-heading">
+          <h2 id="ccpa-heading">9. CCPA/CPRA — Rights for California Residents</h2>
+          <p>If you are a California resident, the California Consumer Privacy Act (CCPA) as amended by the California Privacy Rights Act (CPRA) provides you the following rights:</p>
+          <ul>
+            <li><strong>Know</strong> — the right to know what personal information we collect, use, disclose, and sell about you.</li>
+            <li><strong>Delete</strong> — the right to request deletion of personal information we have collected from you.</li>
+            <li><strong>Correct</strong> — the right to correct inaccurate personal information.</li>
+            <li><strong>Opt-out of sale/sharing</strong> — the right to opt out of the sale or sharing of your personal information. <strong>QA11Y Labs does not sell or share personal information.</strong></li>
+            <li><strong>Limit use of sensitive personal information</strong> — the right to limit the use and disclosure of sensitive personal information.</li>
+            <li><strong>Non-discrimination</strong> — the right not to be discriminated against for exercising your CCPA rights.</li>
+          </ul>
+          <p>To submit a CCPA request, contact us at <a href="contact.html">qa11ylabs.com/contact.html</a>. We will verify your identity and respond within 45 days (extendable by an additional 45 days when reasonably necessary).</p>
+          <p>In the preceding 12 months, we have not sold or shared personal information, and we have not used personal information for purposes beyond those described in this policy.</p>
+        </section>
+
+        <!-- 10. Cookies -->
+        <section id="cookies" aria-labelledby="cookies-heading">
+          <h2 id="cookies-heading">10. Cookies and Tracking</h2>
+          <p>Our website uses a minimal number of cookies necessary for site operation. We do not use advertising cookies or cross-site tracking cookies.</p>
+          <ul>
+            <li><strong>Essential cookies</strong> — necessary for the website to function (e.g., session management). These cannot be disabled without impairing site functionality.</li>
+            <li><strong>Analytics cookies</strong> — if used, these collect aggregated, anonymized data about site usage. You may opt out via your browser settings or a global privacy control (GPC) signal, which we honor.</li>
+          </ul>
+          <p>You can control cookies through your browser settings. Disabling all cookies may affect site functionality.</p>
+        </section>
+
+        <!-- 11. Children's Privacy -->
+        <section id="children" aria-labelledby="children-heading">
+          <h2 id="children-heading">11. Children's Privacy</h2>
+          <p>Our services are intended for business and professional use and are not directed at children under the age of 13 (or 16 in the EU/EEA). We do not knowingly collect personal data from children. If you believe we have inadvertently collected data from a child, please contact us immediately and we will delete it promptly.</p>
+        </section>
+
+        <!-- 12. Changes -->
+        <section id="changes" aria-labelledby="changes-heading">
+          <h2 id="changes-heading">12. Changes to This Policy</h2>
+          <p>We may update this Privacy Policy from time to time to reflect changes in our practices, technology, legal requirements, or other factors. When we make material changes, we will update the "Effective Date" at the top of this page and, where appropriate, notify you by email or by a notice on our website.</p>
+          <p>We encourage you to review this policy periodically. Continued use of our services after changes have been posted constitutes your acceptance of the revised policy.</p>
+        </section>
+
+        <!-- 13. Contact -->
+        <section id="contact-privacy" aria-labelledby="contact-privacy-heading">
+          <h2 id="contact-privacy-heading">13. Contact Us</h2>
+          <p>For any privacy-related questions, requests, or concerns — including requests to access, correct, or delete your data — please reach out through our contact form:</p>
+          <div class="callout">
+            <p><strong>QA11Y Labs — Privacy Requests</strong><br />
+            Contact form: <a href="contact.html">qa11ylabs.com/contact.html</a><br />
+            Please include "Privacy Request" in your message subject and describe the nature of your request.</p>
+          </div>
+          <p>We aim to respond to all privacy-related inquiries within 5 business days, and to complete verified requests within 30 days.</p>
+        </section>
+
+      </div><!-- /.prose -->
+    </div><!-- /.content-wrapper -->
+  </main>
+
+  <!-- Site footer -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+      <div class="footer-grid">
+
+        <div class="footer-brand">
+          <a href="index.html" class="nav-logo logo-link--image" aria-label="QA11Y Labs — home">
+            <img class="logo-image" src="assets/brand/qa11ylabs-logo-horizontal-transparent.png" alt="QA11Y Labs" width="160" height="40" decoding="async">
+          </a>
+          <p>Web accessibility auditing, WCAG 2.2 AA compliance consulting, and monthly monitoring for organizations that serve everyone.</p>
+          <div class="footer-social" style="margin-top:var(--space-4,1rem);">
+            <a href="https://www.linkedin.com/in/quintin-williams-b0195a119" target="_blank" rel="noopener noreferrer" class="footer-social-link" aria-label="Connect with Quintin Williams on LinkedIn (opens in new tab)" style="display:inline-flex;align-items:center;gap:0.4em;color:var(--color-cyan,#66FCF1);font-size:0.875rem;text-decoration:none;opacity:0.85;transition:opacity 0.2s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.85">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+              LinkedIn
+            </a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h3>Services</h3>
+          <ul>
+            <li><a href="free-scan.html">Free Scan</a></li>
+            <li><a href="services.html">Paid Audits</a></li>
+            <li><a href="services.html">Consulting</a></li>
+            <li><a href="schedule.html">Book a Call</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h3>Company</h3>
+          <ul>
+            <li><a href="about.html">About</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="case-studies.html">Case Studies</a></li>
+            <li><a href="resources.html">Resources</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h3>Legal</h3>
+          <ul>
+            <li><a href="privacy.html" aria-current="page">Privacy Policy</a></li>
+            <li><a href="terms.html">Terms of Service</a></li>
+            <li><a href="accessibility.html">Accessibility Statement</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 QA11Y Labs. All rights reserved.</p>
+        <nav class="footer-legal-links" aria-label="Legal pages">
+          <a href="privacy.html" aria-current="page">Privacy Policy</a>
+          <a href="terms.html">Terms of Service</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile nav toggle
+    (function () {
+      var toggle = document.querySelector('.nav-toggle');
+      var menu = document.getElementById('nav-menu');
+      if (!toggle || !menu) return;
+
+      toggle.addEventListener('click', function () {
+        var expanded = toggle.getAttribute('aria-expanded') === 'true';
+        toggle.setAttribute('aria-expanded', String(!expanded));
+        menu.classList.toggle('is-open', !expanded);
+      });
+
+      // Close menu on Escape
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && menu.classList.contains('is-open')) {
+          menu.classList.remove('is-open');
+          toggle.setAttribute('aria-expanded', 'false');
+          toggle.focus();
+        }
+      });
+    }());
+  </script>
+
+<script>
+
+    /* Brand refresh: unified theme, dropdown, and mobile navigation behavior. */
+    (function () {
+      const html = document.documentElement;
+      const toggle = document.querySelector('[data-theme-toggle], .theme-toggle, #theme-toggle');
+      const sunIcon = `<svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"/><path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`;
+      const moonIcon = `<svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+      let theme = html.getAttribute('data-theme') || 'dark';
+      function setTheme(nextTheme) {
+        theme = nextTheme;
+        html.setAttribute('data-theme', theme);
+        if (toggle) {
+          toggle.setAttribute('aria-label', 'Switch to ' + (theme === 'dark' ? 'light' : 'dark') + ' mode');
+          if (!toggle.querySelector('.icon-sun, .icon-moon') || toggle.children.length !== 2) {
+            toggle.innerHTML = theme === 'dark' ? moonIcon : sunIcon;
+          }
+        }
+      }
+      setTheme(theme);
+      if (toggle && !toggle.dataset.brandRefreshBound) {
+        toggle.dataset.brandRefreshBound = 'true';
+        toggle.addEventListener('click', function () { setTheme(theme === 'dark' ? 'light' : 'dark'); });
+      }
+    })();
+
+    (function () {
+      const openBtn = document.getElementById('nav-hamburger') || document.getElementById('mobile-toggle');
+      const nav = document.getElementById('mobile-nav');
+      const closeBtn = document.getElementById('mobile-nav-close');
+      if (!openBtn || !nav || openBtn.dataset.brandRefreshBound) return;
+      openBtn.dataset.brandRefreshBound = 'true';
+      function setOpen(open) {
+        nav.classList.toggle('open', open);
+        nav.classList.toggle('is-open', open);
+        openBtn.setAttribute('aria-expanded', String(open));
+        openBtn.setAttribute('aria-label', open ? 'Close navigation menu' : 'Open navigation menu');
+        document.body.classList.toggle('nav-open', open);
+        if (open) {
+          const first = nav.querySelector('a, button');
+          first && first.focus();
+        }
+      }
+      openBtn.addEventListener('click', function () { setOpen(!(nav.classList.contains('open') || nav.classList.contains('is-open'))); });
+      closeBtn && closeBtn.addEventListener('click', function () { setOpen(false); openBtn.focus(); });
+      nav.addEventListener('click', function (event) {
+        const link = event.target.closest('a');
+        if (link) setOpen(false);
+      });
+      document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape' && (nav.classList.contains('open') || nav.classList.contains('is-open'))) {
+          setOpen(false);
+          openBtn.focus();
+        }
+      });
+    })();
+
+    (function () {
+      document.querySelectorAll('.mobile-nav-disclosure[aria-controls]').forEach(function (button) {
+        if (button.dataset.brandRefreshBound) return;
+        button.dataset.brandRefreshBound = 'true';
+        const submenu = document.getElementById(button.getAttribute('aria-controls'));
+        button.addEventListener('click', function () {
+          const expanded = button.getAttribute('aria-expanded') === 'true';
+          button.setAttribute('aria-expanded', String(!expanded));
+          if (submenu) submenu.hidden = expanded;
+        });
+      });
+    })();
+
+    (function () {
+      document.querySelectorAll('.nav-dropdown-toggle[aria-controls]').forEach(function (button) {
+        if (button.dataset.brandRefreshBound) return;
+        button.dataset.brandRefreshBound = 'true';
+        const menu = document.getElementById(button.getAttribute('aria-controls'));
+        button.addEventListener('click', function () {
+          const expanded = button.getAttribute('aria-expanded') === 'true';
+          button.setAttribute('aria-expanded', String(!expanded));
+          if (menu) menu.classList.toggle('is-open', !expanded);
+        });
+        document.addEventListener('click', function (event) {
+          if (!button.closest('.nav-dropdown, .dropdown')?.contains(event.target)) {
+            button.setAttribute('aria-expanded', 'false');
+            menu && menu.classList.remove('is-open');
+          }
+        });
+      });
+    })();
+  </script>
+
+
+<script id="qa11y-final-drawer-handler">
+  /* QA11Y final drawer handler: capture-phase guard for legacy templates. */
+  (function () {
+    if (window.__qa11yFinalDrawerHandler) return;
+    window.__qa11yFinalDrawerHandler = true;
+    function findButton(target) {
+      return target && target.closest && target.closest('header #nav-hamburger, header #mobile-toggle, header .mobile-menu-btn, #mobile-nav-close');
+    }
+    function getOpenButton() {
+      return document.querySelector('header #nav-hamburger, header #mobile-toggle, header .mobile-menu-btn');
+    }
+    function setOpen(open) {
+      var nav = document.getElementById('mobile-nav');
+      var openBtn = getOpenButton();
+      if (!nav || !openBtn) return;
+      nav.classList.toggle('open', open);
+      nav.classList.toggle('is-open', open);
+      openBtn.setAttribute('aria-expanded', String(open));
+      openBtn.setAttribute('aria-label', open ? 'Close navigation menu' : 'Open navigation menu');
+      document.body.classList.toggle('nav-open', open);
+      document.body.style.overflow = open ? 'hidden' : '';
+      if (open) {
+        var first = nav.querySelector('a, button');
+        if (first) first.focus({ preventScroll: true });
+      }
+    }
+    document.addEventListener('click', function (event) {
+      var control = findButton(event.target);
+      if (!control) return;
+      var nav = document.getElementById('mobile-nav');
+      if (!nav) return;
+      var isClose = control.id === 'mobile-nav-close';
+      var open = nav.classList.contains('open') || nav.classList.contains('is-open');
+      event.preventDefault();
+      event.stopPropagation();
+      event.stopImmediatePropagation();
+      setOpen(isClose ? false : !open);
+    }, true);
+    document.addEventListener('keydown', function (event) {
+      var nav = document.getElementById('mobile-nav');
+      if (event.key === 'Escape' && nav && (nav.classList.contains('open') || nav.classList.contains('is-open'))) {
+        event.preventDefault();
+        setOpen(false);
+        var openBtn = getOpenButton();
+        if (openBtn) openBtn.focus({ preventScroll: true });
+      }
+    }, true);
+    document.addEventListener('click', function (event) {
+      var nav = document.getElementById('mobile-nav');
+      if (!nav || !(nav.classList.contains('open') || nav.classList.contains('is-open'))) return;
+      if (event.target.closest && event.target.closest('#mobile-nav a')) setOpen(false);
+    }, true);
+  })();
+</script>
+
+
+<script id="qa11y-accessible-nav-handler">
+  /* QA11Y accessible navigation handler: supports click, Space, Enter, Escape, arrows, and outside-click. */
+  (function () {
+    if (window.__qa11yAccessibleNavHandler) return;
+    window.__qa11yAccessibleNavHandler = true;
+
+    function controlledBy(button) {
+      if (!button) return null;
+      var id = button.getAttribute('aria-controls');
+      return id ? document.getElementById(id) : null;
+    }
+
+    function dropdownFor(button) {
+      return button && button.closest ? button.closest('.nav-dropdown, .dropdown') : null;
+    }
+
+    function menuItems(menu) {
+      return menu ? Array.prototype.slice.call(menu.querySelectorAll('a[href], button:not([disabled])')) : [];
+    }
+
+    function setMenuOpen(button, open, options) {
+      var menu = controlledBy(button);
+      if (!button || !menu) return;
+      if (open) closeAllDesktop(button);
+      button.setAttribute('aria-expanded', String(open));
+      menu.hidden = !open;
+      menu.classList.toggle('is-open', open);
+      if (open && options && options.focusFirst) {
+        var first = menuItems(menu)[0];
+        if (first) first.focus({ preventScroll: true });
+      }
+      if (!open && options && options.returnFocus) {
+        button.focus({ preventScroll: true });
+      }
+    }
+
+    function closeAllDesktop(exceptButton) {
+      document.querySelectorAll('.nav-dropdown-toggle[aria-controls]').forEach(function (button) {
+        if (button !== exceptButton) setMenuOpen(button, false);
+      });
+    }
+
+    function toggleDesktop(button, focusFirst) {
+      var expanded = button.getAttribute('aria-expanded') === 'true';
+      setMenuOpen(button, !expanded, { focusFirst: !!focusFirst });
+    }
+
+    function setMobileSubmenuOpen(button, open, options) {
+      var submenu = controlledBy(button);
+      if (!button || !submenu) return;
+      button.setAttribute('aria-expanded', String(open));
+      submenu.hidden = !open;
+      submenu.classList.toggle('is-open', open);
+      if (open && options && options.focusFirst) {
+        var first = menuItems(submenu)[0];
+        if (first) first.focus({ preventScroll: true });
+      }
+    }
+
+    function toggleMobileSubmenu(button, focusFirst) {
+      var expanded = button.getAttribute('aria-expanded') === 'true';
+      setMobileSubmenuOpen(button, !expanded, { focusFirst: !!focusFirst });
+    }
+
+    function moveWithin(items, current, direction) {
+      if (!items.length) return;
+      var index = items.indexOf(current);
+      if (index < 0) index = direction > 0 ? -1 : 0;
+      var next = (index + direction + items.length) % items.length;
+      items[next].focus({ preventScroll: true });
+    }
+
+    document.querySelectorAll('.nav-dropdown-toggle[aria-controls]').forEach(function (button) {
+      var menu = controlledBy(button);
+      if (!menu) return;
+      setMenuOpen(button, button.getAttribute('aria-expanded') === 'true');
+      var wrapper = dropdownFor(button);
+      if (wrapper && !wrapper.dataset.qa11yHoverBound) {
+        wrapper.dataset.qa11yHoverBound = 'true';
+        wrapper.addEventListener('pointerenter', function () { setMenuOpen(button, true); });
+        wrapper.addEventListener('pointerleave', function () {
+          if (!wrapper.contains(document.activeElement)) setMenuOpen(button, false);
+        });
+        wrapper.addEventListener('focusout', function () {
+          window.setTimeout(function () {
+            if (!wrapper.contains(document.activeElement)) setMenuOpen(button, false);
+          }, 0);
+        });
+      }
+    });
+
+    document.querySelectorAll('.mobile-nav-disclosure[aria-controls]').forEach(function (button) {
+      setMobileSubmenuOpen(button, button.getAttribute('aria-expanded') === 'true');
+    });
+
+    document.addEventListener('click', function (event) {
+      var desktopButton = event.target.closest && event.target.closest('.nav-dropdown-toggle[aria-controls]');
+      if (desktopButton) {
+        event.preventDefault();
+        event.stopPropagation();
+        event.stopImmediatePropagation();
+        toggleDesktop(desktopButton, false);
+        return;
+      }
+
+      var mobileButton = event.target.closest && event.target.closest('.mobile-nav-disclosure[aria-controls]');
+      if (mobileButton) {
+        event.preventDefault();
+        event.stopPropagation();
+        event.stopImmediatePropagation();
+        toggleMobileSubmenu(mobileButton, false);
+        return;
+      }
+
+      if (!(event.target.closest && event.target.closest('.nav-dropdown, .dropdown'))) {
+        closeAllDesktop();
+      }
+    }, true);
+
+    document.addEventListener('keydown', function (event) {
+      var desktopButton = event.target.closest && event.target.closest('.nav-dropdown-toggle[aria-controls]');
+      var mobileButton = event.target.closest && event.target.closest('.mobile-nav-disclosure[aria-controls]');
+
+      if (desktopButton && (event.key === ' ' || event.key === 'Enter')) {
+        event.preventDefault();
+        event.stopPropagation();
+        toggleDesktop(desktopButton, false);
+        return;
+      }
+
+      if (desktopButton && event.key === 'ArrowDown') {
+        event.preventDefault();
+        setMenuOpen(desktopButton, true, { focusFirst: true });
+        return;
+      }
+
+      if (mobileButton && (event.key === ' ' || event.key === 'Enter')) {
+        event.preventDefault();
+        event.stopPropagation();
+        toggleMobileSubmenu(mobileButton, false);
+        return;
+      }
+
+      if (mobileButton && event.key === 'ArrowDown') {
+        event.preventDefault();
+        setMobileSubmenuOpen(mobileButton, true, { focusFirst: true });
+        return;
+      }
+
+      var openMenu = event.target.closest && event.target.closest('.nav-dropdown-menu.is-open, .mobile-submenu.is-open');
+      if (openMenu) {
+        var items = menuItems(openMenu);
+        if (event.key === 'ArrowDown') {
+          event.preventDefault();
+          moveWithin(items, event.target, 1);
+          return;
+        }
+        if (event.key === 'ArrowUp') {
+          event.preventDefault();
+          moveWithin(items, event.target, -1);
+          return;
+        }
+        if (event.key === 'Home') {
+          event.preventDefault();
+          if (items[0]) items[0].focus({ preventScroll: true });
+          return;
+        }
+        if (event.key === 'End') {
+          event.preventDefault();
+          if (items[items.length - 1]) items[items.length - 1].focus({ preventScroll: true });
+          return;
+        }
+      }
+
+      if (event.key === 'Escape') {
+        var openDesktop = document.querySelector('.nav-dropdown-toggle[aria-expanded="true"]');
+        if (openDesktop) {
+          event.preventDefault();
+          setMenuOpen(openDesktop, false, { returnFocus: true });
+          return;
+        }
+        var openMobile = document.querySelector('.mobile-nav-disclosure[aria-expanded="true"]');
+        if (openMobile) {
+          event.preventDefault();
+          setMobileSubmenuOpen(openMobile, false);
+          openMobile.focus({ preventScroll: true });
+        }
+      }
+    }, true);
+  })();
+</script>
+
+</body>
+</html>

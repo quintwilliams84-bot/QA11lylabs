@@ -1,0 +1,3121 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- QA11Y BRAND HEAD START -->
+  <!-- Favicons & app icons -->
+  <link rel="icon" href="assets/brand/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/brand/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/brand/favicon-16.png">
+  <link rel="icon" type="image/svg+xml" href="assets/brand/qa11ylabs-logo-icon.svg">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/brand/apple-touch-icon.png">
+  <link rel="manifest" href="assets/brand/site.webmanifest">
+  <meta name="theme-color" content="#0B0C10">
+
+  <!-- Open Graph -->
+  <meta property="og:site_name" content="QA11Y Labs">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="QA11Y Labs — Architecting a more inclusive digital world">
+  <meta property="og:description" content="Accessibility audits, remediation, monitoring, and consulting from a senior architect with 25+ years of daily screen reader expertise.">
+  <meta property="og:image" content="https://qa11ylabs.com/assets/brand/og-image-primary.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="QA11Y Labs primary logo: cyan shield check mark with QA11Y in cyan and Labs in gold, on a dark terminal-style background.">
+  <meta property="og:url" content="https://qa11ylabs.com/">
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="QA11Y Labs — Architecting a more inclusive digital world">
+  <meta name="twitter:description" content="Accessibility audits, remediation, monitoring, and consulting from a senior architect with 25+ years of daily screen reader expertise.">
+  <meta name="twitter:image" content="https://qa11ylabs.com/assets/brand/og-image-primary.png">
+  <meta name="twitter:image:alt" content="QA11Y Labs primary logo: cyan shield check mark with QA11Y in cyan and Labs in gold.">
+  <!-- QA11Y BRAND HEAD END -->
+<title>QA11Y Labs | Enterprise Accessibility Consulting</title>
+  <meta name="description" content="We architect accessible, semantic digital experiences utilizing WCAG 2.2 and ADA Title II standards. Authentic user testing driven by 25+ years of screen reader mastery.">
+  <!-- Fonts: Cabinet Grotesk (display) + Satoshi (body) -->
+  <link rel="preconnect" href="https://api.fontshare.com">
+  <link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@500,700&f[]=satoshi@400,500,600,700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ─── Design Tokens ─────────────────────────────────────────── */
+    :root {
+      --font-display: 'Cabinet Grotesk', system-ui, sans-serif;
+      --font-body: 'Satoshi', system-ui, sans-serif;
+
+      --text-xs:   clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+      --text-sm:   clamp(0.875rem, 0.8rem + 0.35vw, 1rem);
+      --text-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+      --text-lg:   clamp(1.125rem, 1rem + 0.75vw, 1.5rem);
+      --text-xl:   clamp(1.5rem, 1.2rem + 1.25vw, 2.25rem);
+      --text-2xl:  clamp(2rem, 1.2rem + 2.5vw, 3.5rem);
+      --text-3xl:  clamp(2.5rem, 1rem + 4vw, 5rem);
+
+      --space-1: 0.25rem;
+      --space-2: 0.5rem;
+      --space-3: 0.75rem;
+      --space-4: 1rem;
+      --space-5: 1.25rem;
+      --space-6: 1.5rem;
+      --space-8: 2rem;
+      --space-10: 2.5rem;
+      --space-12: 3rem;
+      --space-16: 4rem;
+      --space-20: 5rem;
+      --space-24: 6rem;
+
+      --radius-sm: 0.375rem;
+      --radius-md: 0.5rem;
+      --radius-lg: 0.75rem;
+      --radius-full: 9999px;
+
+      --transition: 180ms cubic-bezier(0.16, 1, 0.3, 1);
+
+      --content-default: 1100px;
+    }
+
+    /* ─── QA11Y Brand Palette — Dark (Primary) ──────────────────── */
+    [data-theme="dark"],
+    :root {
+      --color-bg:          #0B0C10;
+      --color-surface:     #0f1117;
+      --color-surface-2:   #151820;
+      --color-border:      #1e2330;
+      --color-divider:     #1a1f2e;
+
+      --color-text:        #C5C6C7;
+      --color-text-muted:  #7a7e8a;
+      --color-text-faint:  #454a57;
+      --color-text-inverse:#0B0C10;
+
+      /* Cyan — primary brand accent */
+      --color-primary:        #66FCF1;
+      --color-primary-hover:  #45e8dc;
+      --color-primary-dim:    #1a3f3d;
+
+      /* Amber — CTA accent */
+      --color-cta:            #F2A900;
+      --color-cta-hover:      #e09800;
+      --color-cta-dim:        #3a2a00;
+
+      /* Teal — secondary accent */
+      --color-teal:           #45A29E;
+      --color-teal-dim:       #112827;
+
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.5);
+      --shadow-md: 0 4px 16px rgba(0,0,0,0.6);
+      --shadow-lg: 0 12px 40px rgba(0,0,0,0.7);
+      --glow-cyan: 0 0 40px rgba(102, 252, 241, 0.08);
+    }
+
+    /* ─── Light Mode ────────────────────────────────────────────── */
+    [data-theme="light"] {
+      --color-bg:          #f4f5f7;
+      --color-surface:     #ffffff;
+      --color-surface-2:   #eef0f4;
+      --color-border:      #d0d4de;
+      --color-divider:     #e2e5ec;
+
+      --color-text:        #1a1d26;
+      --color-text-muted:  #5a5f6e;
+      --color-text-faint:  #9aa0b0;
+      --color-text-inverse:#ffffff;
+
+      --color-primary:        #007a76;
+      --color-primary-hover:  #005d5a;
+      --color-primary-dim:    #e0f5f4;
+
+      --color-cta:            #c47900;
+      --color-cta-hover:      #a36500;
+      --color-cta-dim:        #fff3cc;
+
+      --color-teal:           #2a7a75;
+      --color-teal-dim:       #e0f0ee;
+
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+      --shadow-md: 0 4px 16px rgba(0,0,0,0.10);
+      --shadow-lg: 0 12px 40px rgba(0,0,0,0.12);
+      --glow-cyan: none;
+    }
+
+    /* ─── Base Reset ─────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      scroll-behavior: smooth;
+      scroll-padding-top: var(--space-16);
+      text-rendering: optimizeLegibility;
+    }
+
+    body {
+      min-height: 100dvh;
+      font-family: var(--font-body);
+      font-size: var(--text-base);
+      line-height: 1.65;
+      color: var(--color-text);
+      background-color: var(--color-bg);
+    }
+
+    img, svg { display: block; max-width: 100%; height: auto; }
+
+    h1, h2, h3, h4 {
+      font-family: var(--font-display);
+      line-height: 1.1;
+      text-wrap: balance;
+    }
+
+    p, li { text-wrap: pretty; max-width: 68ch; }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      transition: color var(--transition), opacity var(--transition);
+    }
+
+    button { cursor: pointer; background: none; border: none; font: inherit; color: inherit; }
+
+    :focus-visible {
+      outline: 3px solid var(--color-cta);
+      outline-offset: 3px;
+      border-radius: var(--radius-sm);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    .sr-only {
+      position: absolute; width: 1px; height: 1px; padding: 0;
+      margin: -1px; overflow: hidden; clip: rect(0,0,0,0);
+      white-space: nowrap; border-width: 0;
+    }
+
+    /* ─── Layout Utilities ────────────────────────────────────────── */
+    .container {
+      width: 100%;
+      max-width: var(--content-default);
+      margin-inline: auto;
+      padding-inline: var(--space-6);
+    }
+
+    @media (min-width: 768px) {
+      .container { padding-inline: var(--space-10); }
+    }
+
+    /* ─── Skip Link ───────────────────────────────────────────────── */
+    .skip-link {
+      position: absolute;
+      top: -60px;
+      left: var(--space-4);
+      background: var(--color-cta);
+      color: var(--color-text-inverse);
+      font-family: var(--font-display);
+      font-weight: 700;
+      padding: var(--space-3) var(--space-6);
+      border-radius: var(--radius-md);
+      z-index: 9999;
+      transition: top 0.2s;
+    }
+    .skip-link:focus { top: var(--space-4); }
+
+    /* ─── Header / Nav ────────────────────────────────────────────── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: color-mix(in srgb, var(--color-bg) 90%, transparent);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-6);
+      height: 4rem;
+    }
+
+    /* Logo */
+    .site-logo {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-family: var(--font-display);
+      font-size: var(--text-lg);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+
+    .logo-qa { color: var(--color-primary); }
+    .logo-11y { color: var(--color-primary); }
+    .logo-labs { color: var(--color-cta); margin-left: 0.15em; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      flex-shrink: 0;
+    }
+
+    /* Primary Nav */
+    .primary-nav {
+      display: none;
+      align-items: center;
+      gap: var(--space-1);
+    }
+
+    
+
+    /* Final QA11Y Labs logo image treatment */
+    .logo-link--image {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      color: inherit;
+    }
+    .logo-image {
+      width: clamp(9rem, 14vw, 12rem);
+      height: auto;
+      max-height: 2.75rem;
+      object-fit: contain;
+    }
+    .site-footer .logo-image,
+    .footer-logo-image {
+      width: min(11rem, 100%);
+      max-height: 3rem;
+    }
+    @media (max-width: 420px) {
+      .logo-image { width: 8.75rem; }
+    }
+
+    /* Sitewide nav-list shim — was missing on some pages */
+    .nav-list { list-style: none; margin: 0; padding: 0; display: flex; align-items: center; gap: var(--space-1); flex-wrap: wrap; }
+    .site-header ul, .site-header ol { list-style: none; }
+    .nav-dropdown-menu, .dropdown-menu { list-style: none; padding-left: 0; }
+@media (min-width: 900px) {
+      .primary-nav { display: flex; }
+    }
+
+    .nav-link {
+      font-size: var(--text-sm);
+      font-weight: 500;
+      padding: var(--space-2) var(--space-3);
+      border-radius: var(--radius-sm);
+      color: var(--color-text-muted);
+      transition: color var(--transition), background var(--transition);
+      white-space: nowrap;
+    }
+    .nav-link:hover { color: var(--color-text); background: var(--color-surface-2); }
+    .nav-link[aria-current="page"] { color: var(--color-primary); background: color-mix(in srgb, var(--color-primary) 10%, transparent); }
+
+    /* Services Dropdown */
+    .dropdown { position: relative; }
+
+    .dropdown-btn {
+      display: flex;
+      align-items: center;
+      gap: var(--space-1);
+      font-size: var(--text-sm);
+      font-weight: 500;
+      padding: var(--space-2) var(--space-3);
+      border-radius: var(--radius-sm);
+      color: var(--color-text-muted);
+      transition: color var(--transition), background var(--transition);
+    }
+    .dropdown-btn:hover, .dropdown:focus-within .dropdown-btn {
+      color: var(--color-text);
+      background: var(--color-surface-2);
+    }
+
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: calc(100% + 0.5rem);
+      left: 0;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      min-width: 200px;
+      padding: var(--space-2);
+      z-index: 200;
+    }
+    .nav-dropdown:focus-within .dropdown-menu,
+    .dropdown:focus-within .dropdown-menu,
+    .nav-dropdown:hover .dropdown-menu,
+    .dropdown:hover .dropdown-menu { display: block; }
+
+    .dropdown-menu a {
+      display: block;
+      font-size: var(--text-sm);
+      padding: var(--space-2) var(--space-3);
+      border-radius: var(--radius-sm);
+      color: var(--color-text-muted);
+      transition: color var(--transition), background var(--transition);
+    }
+    .dropdown-menu a:hover { color: var(--color-primary); background: var(--color-surface-2); }
+
+    /* Header actions */
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      flex-shrink: 0;
+    }
+
+    .theme-toggle {
+      width: 2rem;
+      height: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius-sm);
+      color: var(--color-text-muted);
+      transition: color var(--transition), background var(--transition);
+    }
+    .theme-toggle:hover { color: var(--color-text); background: var(--color-surface-2); }
+
+    .btn-nav-cta {
+      display: none;
+      align-items: center;
+      font-size: var(--text-sm);
+      font-weight: 700;
+      font-family: var(--font-display);
+      padding: var(--space-2) var(--space-5);
+      background: var(--color-cta);
+      color: var(--color-text-inverse);
+      border-radius: var(--radius-sm);
+      transition: background var(--transition);
+    }
+    .btn-nav-cta:hover { background: var(--color-cta-hover); }
+
+    @media (min-width: 900px) { .btn-nav-cta { display: flex; } }
+
+    /* Mobile menu toggle */
+    .mobile-menu-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: var(--radius-sm);
+      color: var(--color-text-muted);
+      transition: color var(--transition), background var(--transition);
+    }
+    .mobile-menu-btn:hover { color: var(--color-text); background: var(--color-surface-2); }
+
+    /* Header control compatibility: actual markup uses .nav-hamburger */
+    .nav-hamburger {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: var(--radius-sm);
+      color: var(--color-text-muted);
+      transition: color var(--transition), background var(--transition);
+    }
+    .nav-hamburger:hover { color: var(--color-text); background: var(--color-surface-2); }
+    @media (min-width: 900px) { .nav-hamburger { display: none; } }
+
+    .theme-toggle .icon-sun,
+    .theme-toggle .icon-moon { display: none; }
+    [data-theme="dark"] .theme-toggle .icon-moon { display: block; }
+    [data-theme="light"] .theme-toggle .icon-sun { display: block; }
+
+    @media (min-width: 900px) { .mobile-menu-btn { display: none; } }
+
+    /* Mobile nav panel */
+    .mobile-nav {
+      display: none;
+      flex-direction: column;
+      gap: var(--space-1);
+      padding: var(--space-4);
+      border-top: 1px solid var(--color-border);
+      background: var(--color-surface);
+    }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a {
+      font-size: var(--text-base);
+      font-weight: 500;
+      padding: var(--space-3) var(--space-4);
+      border-radius: var(--radius-sm);
+      color: var(--color-text-muted);
+      transition: color var(--transition), background var(--transition);
+    }
+    .mobile-nav a:hover, .mobile-nav a[aria-current] { color: var(--color-primary); background: var(--color-surface-2); }
+
+    /* ─── Hero Section ────────────────────────────────────────────── */
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding-block: clamp(var(--space-16), 10vw, var(--space-24));
+    }
+
+    /* Ambient grid */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(102, 252, 241, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(102, 252, 241, 0.03) 1px, transparent 1px);
+      background-size: 64px 64px;
+      mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 30%, transparent 100%);
+      pointer-events: none;
+    }
+
+    /* Glow orb */
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: -30%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 700px;
+      height: 500px;
+      background: radial-gradient(ellipse, rgba(102, 252, 241, 0.06) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-10);
+      align-items: center;
+    }
+
+    @media (min-width: 860px) {
+      .hero-inner { grid-template-columns: 1fr 1fr; gap: var(--space-16); }
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-size: var(--text-xs);
+      font-weight: 600;
+      font-family: var(--font-display);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      border: 1px solid color-mix(in srgb, var(--color-primary) 30%, transparent);
+      background: color-mix(in srgb, var(--color-primary) 6%, transparent);
+      padding: var(--space-1) var(--space-3);
+      border-radius: var(--radius-full);
+      margin-bottom: var(--space-6);
+    }
+
+    .eyebrow-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--color-primary);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
+
+    .hero-headline {
+      font-size: var(--text-3xl);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      color: var(--color-text);
+      margin-bottom: var(--space-6);
+    }
+
+    .hero-headline em {
+      font-style: normal;
+      color: var(--color-primary);
+      position: relative;
+    }
+
+    .hero-sub {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+      line-height: 1.65;
+      margin-bottom: var(--space-10);
+      max-width: 52ch;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-4);
+      align-items: center;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-size: var(--text-sm);
+      font-weight: 700;
+      font-family: var(--font-display);
+      padding: var(--space-4) var(--space-8);
+      background: var(--color-cta);
+      color: #0B0C10;
+      border-radius: var(--radius-sm);
+      transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+    }
+    .btn-primary:hover {
+      background: var(--color-cta-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px rgba(242, 169, 0, 0.3);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-size: var(--text-sm);
+      font-weight: 700;
+      font-family: var(--font-display);
+      padding: var(--space-4) var(--space-8);
+      border: 1.5px solid var(--color-primary);
+      color: var(--color-primary);
+      border-radius: var(--radius-sm);
+      transition: background var(--transition), transform var(--transition);
+    }
+    .btn-secondary:hover {
+      background: color-mix(in srgb, var(--color-primary) 10%, transparent);
+      transform: translateY(-1px);
+    }
+
+    /* Hero stat cards */
+    .hero-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-4);
+    }
+
+    .stat-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-5) var(--space-6);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--color-primary), var(--color-teal));
+    }
+
+    .stat-card.amber::before {
+      background: linear-gradient(90deg, var(--color-cta), #f2750a);
+    }
+
+    .stat-number {
+      font-family: var(--font-display);
+      font-size: var(--text-2xl);
+      font-weight: 700;
+      color: var(--color-primary);
+      line-height: 1;
+      margin-bottom: var(--space-1);
+    }
+
+    .stat-card.amber .stat-number { color: var(--color-cta); }
+
+    .stat-label {
+      font-size: var(--text-xs);
+      color: var(--color-text-muted);
+      font-weight: 500;
+      letter-spacing: 0.02em;
+    }
+
+    /* Terminal-style screen reader preview */
+    .sr-preview {
+      grid-column: 1 / -1;
+      background: #080a0d;
+      border: 1px solid color-mix(in srgb, var(--color-primary) 20%, transparent);
+      border-radius: var(--radius-lg);
+      padding: var(--space-5) var(--space-6);
+      font-family: 'Courier New', monospace;
+      font-size: var(--text-xs);
+      color: var(--color-primary);
+      overflow: hidden;
+    }
+
+    [data-theme="light"] .sr-preview {
+      background: #1a1d26;
+    }
+
+    .sr-preview-header {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      margin-bottom: var(--space-3);
+      padding-bottom: var(--space-3);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .sr-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .sr-dot.red { background: #ff5f57; }
+    .sr-dot.yellow { background: #febc2e; }
+    .sr-dot.green { background: #28c840; }
+    .sr-preview-title { font-size: var(--text-xs); color: var(--color-text-faint); margin-left: var(--space-2); }
+
+    .sr-line { line-height: 1.8; }
+    .sr-announce { color: #7fffd4; }
+    .sr-cursor { display: inline-block; width: 8px; height: 1.2em; background: var(--color-primary); animation: blink 1s step-end infinite; vertical-align: text-bottom; }
+
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+    /* ─── Marquee / Trust strip ───────────────────────────────────── */
+    .trust-strip {
+      border-top: 1px solid var(--color-border);
+      border-bottom: 1px solid var(--color-border);
+      padding-block: var(--space-4);
+      overflow: hidden;
+      background: var(--color-surface);
+    }
+
+    .trust-label {
+      font-size: var(--text-xs);
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-text-faint);
+      text-align: center;
+      margin-bottom: var(--space-4);
+    }
+
+    .trust-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-3);
+      justify-content: center;
+    }
+
+    .trust-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-size: var(--text-xs);
+      font-weight: 600;
+      font-family: var(--font-display);
+      padding: var(--space-2) var(--space-4);
+      background: var(--color-surface-2);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-full);
+      color: var(--color-text-muted);
+      white-space: nowrap;
+    }
+
+    .pill-check { color: var(--color-primary); font-size: 0.85em; }
+
+    /* ─── Services Section ────────────────────────────────────────── */
+    .section {
+      padding-block: clamp(var(--space-16), 8vw, var(--space-24));
+    }
+
+    .section-header {
+      margin-bottom: var(--space-12);
+    }
+
+    .section-eyebrow {
+      font-size: var(--text-xs);
+      font-weight: 600;
+      font-family: var(--font-display);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      margin-bottom: var(--space-3);
+    }
+
+    .section-title {
+      font-size: var(--text-2xl);
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      color: var(--color-text);
+      margin-bottom: var(--space-4);
+    }
+
+    .section-sub {
+      font-size: var(--text-base);
+      color: var(--color-text-muted);
+      max-width: 58ch;
+    }
+
+    /* Service cards grid */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: var(--space-6);
+    }
+
+    .service-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-8);
+      transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition);
+    }
+
+    .service-card:hover {
+      border-color: color-mix(in srgb, var(--color-primary) 35%, transparent);
+      box-shadow: var(--glow-cyan), var(--shadow-md);
+      transform: translateY(-2px);
+    }
+
+    .service-icon {
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: color-mix(in srgb, var(--color-primary) 10%, transparent);
+      border: 1px solid color-mix(in srgb, var(--color-primary) 20%, transparent);
+      border-radius: var(--radius-md);
+      color: var(--color-primary);
+      margin-bottom: var(--space-5);
+    }
+
+    .service-card.amber .service-icon {
+      background: color-mix(in srgb, var(--color-cta) 10%, transparent);
+      border-color: color-mix(in srgb, var(--color-cta) 20%, transparent);
+      color: var(--color-cta);
+    }
+
+    .service-title {
+      font-size: var(--text-lg);
+      font-weight: 700;
+      color: var(--color-text);
+      margin-bottom: var(--space-3);
+    }
+
+    .service-desc {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+      line-height: 1.65;
+      margin-bottom: var(--space-5);
+    }
+
+    .service-link {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-size: var(--text-sm);
+      font-weight: 600;
+      font-family: var(--font-display);
+      color: var(--color-primary);
+      transition: gap var(--transition);
+    }
+    .service-link:hover { gap: var(--space-3); }
+
+    .service-card.amber .service-link { color: var(--color-cta); }
+
+    /* ─── Why QA11Y Section ───────────────────────────────────────── */
+    .why-section {
+      background: var(--color-surface);
+      border-top: 1px solid var(--color-border);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .why-inner {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-12);
+      align-items: center;
+    }
+
+    @media (min-width: 860px) {
+      .why-inner { grid-template-columns: 1fr 1fr; gap: var(--space-16); }
+    }
+
+    .why-label {
+      display: inline-block;
+      font-size: var(--text-xs);
+      font-weight: 700;
+      font-family: var(--font-display);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-cta);
+      margin-bottom: var(--space-4);
+    }
+
+    .why-title {
+      font-size: var(--text-xl);
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      color: var(--color-text);
+      margin-bottom: var(--space-6);
+    }
+
+    .why-body {
+      font-size: var(--text-base);
+      color: var(--color-text-muted);
+      line-height: 1.75;
+      margin-bottom: var(--space-4);
+    }
+
+    .proof-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+    }
+
+    .proof-item {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-4);
+    }
+
+    .proof-icon {
+      width: 40px;
+      height: 40px;
+      flex-shrink: 0;
+      border-radius: var(--radius-sm);
+      background: color-mix(in srgb, var(--color-primary) 8%, transparent);
+      border: 1px solid color-mix(in srgb, var(--color-primary) 15%, transparent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-primary);
+      margin-top: 2px;
+    }
+
+    .proof-text strong {
+      display: block;
+      font-family: var(--font-display);
+      font-weight: 600;
+      color: var(--color-text);
+      margin-bottom: var(--space-1);
+      font-size: var(--text-base);
+    }
+
+    .proof-text span {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    /* ─── Client Testimonial ──────────────────────────────────────── */
+    .testimonial-section {
+      padding-top: 0;
+    }
+
+    .testimonial-card {
+      background: linear-gradient(135deg, color-mix(in srgb, var(--color-primary) 10%, transparent), color-mix(in srgb, var(--color-cta) 6%, transparent));
+      border: 1px solid color-mix(in srgb, var(--color-primary) 22%, transparent);
+      border-radius: var(--radius-lg);
+      padding: clamp(var(--space-8), 5vw, var(--space-14));
+      position: relative;
+      overflow: hidden;
+    }
+
+    .testimonial-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top right, color-mix(in srgb, var(--color-primary) 10%, transparent), transparent 45%);
+      pointer-events: none;
+    }
+
+    .testimonial-content {
+      position: relative;
+      max-width: 68rem;
+      margin: 0 auto;
+    }
+
+    .testimonial-eyebrow {
+      font-size: var(--text-xs);
+      font-weight: 700;
+      font-family: var(--font-display);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      margin-bottom: var(--space-4);
+    }
+
+    .testimonial-quote {
+      font-size: clamp(var(--text-lg), 2.4vw, var(--text-xl));
+      line-height: 1.55;
+      letter-spacing: -0.015em;
+      color: var(--color-text);
+      margin: 0 0 var(--space-6);
+      font-family: var(--font-display);
+      font-weight: 600;
+    }
+
+    .testimonial-attribution {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-1);
+      color: var(--color-text-muted);
+      font-size: var(--text-sm);
+      font-style: normal;
+    }
+
+    .testimonial-attribution strong {
+      color: var(--color-text);
+      font-size: var(--text-base);
+      font-family: var(--font-display);
+    }
+
+    /* ─── Free Scan CTA Banner ────────────────────────────────────── */
+    .cta-banner {
+      background: linear-gradient(135deg, #0f1a19 0%, #111822 100%);
+      border: 1px solid color-mix(in srgb, var(--color-primary) 20%, transparent);
+      border-radius: var(--radius-lg);
+      padding: clamp(var(--space-10), 6vw, var(--space-20));
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    [data-theme="light"] .cta-banner {
+      background: linear-gradient(135deg, #e0f5f4 0%, #eef0f4 100%);
+      border-color: color-mix(in srgb, var(--color-primary) 30%, transparent);
+    }
+
+    .cta-banner::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px;
+      height: 300px;
+      background: radial-gradient(ellipse, rgba(102, 252, 241, 0.05) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .cta-banner-eyebrow {
+      font-size: var(--text-xs);
+      font-weight: 700;
+      font-family: var(--font-display);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      margin-bottom: var(--space-4);
+    }
+
+    .cta-banner-title {
+      font-size: var(--text-2xl);
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      color: var(--color-text);
+      margin-bottom: var(--space-4);
+      position: relative;
+    }
+
+    [data-theme="light"] .cta-banner-title { color: #1a1d26; }
+
+    .cta-banner-sub {
+      font-size: var(--text-base);
+      color: var(--color-text-muted);
+      margin-bottom: var(--space-8);
+      max-width: 54ch;
+      margin-inline: auto;
+    }
+
+    .cta-banner-actions {
+      display: flex;
+      gap: var(--space-4);
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* ─── Footer ──────────────────────────────────────────────────── */
+    .site-footer {
+      border-top: 1px solid var(--color-border);
+      padding-block: var(--space-12);
+      margin-top: var(--space-20);
+    }
+
+    .footer-inner {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-10);
+    }
+
+    @media (min-width: 640px) {
+      .footer-inner { grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: var(--space-8); }
+    }
+
+    .footer-brand p {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+      line-height: 1.65;
+      margin-top: var(--space-4);
+      max-width: 30ch;
+    }
+
+    .footer-col h3 {
+      font-family: var(--font-display);
+      font-size: var(--text-xs);
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-text-faint);
+      margin-bottom: var(--space-4);
+    }
+
+    .footer-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+
+    .footer-col a {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+      transition: color var(--transition);
+    }
+    .footer-col a:hover { color: var(--color-primary); }
+
+    .footer-bottom {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-4);
+      justify-content: space-between;
+      align-items: center;
+      margin-top: var(--space-10);
+      padding-top: var(--space-6);
+      border-top: 1px solid var(--color-divider);
+    }
+
+    .footer-bottom p {
+      font-size: var(--text-xs);
+      color: var(--color-text-faint);
+      max-width: none;
+    }
+
+    .footer-badges {
+      display: flex;
+      gap: var(--space-3);
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      font-size: var(--text-xs);
+      font-weight: 700;
+      font-family: var(--font-display);
+      padding: var(--space-1) var(--space-3);
+      border-radius: var(--radius-full);
+      border: 1px solid;
+    }
+
+    .badge-cyan {
+      color: var(--color-primary);
+      border-color: color-mix(in srgb, var(--color-primary) 30%, transparent);
+      background: color-mix(in srgb, var(--color-primary) 6%, transparent);
+    }
+
+    .badge-amber {
+      color: var(--color-cta);
+      border-color: color-mix(in srgb, var(--color-cta) 30%, transparent);
+      background: color-mix(in srgb, var(--color-cta) 6%, transparent);
+    }
+
+    /* ── Hero Illustration ── */
+    .hero-illustration-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      max-width: 560px;
+      margin: 0 auto;
+    }
+    .hero-illustration-wrap svg {
+      width: 100%;
+      height: auto;
+      max-height: 680px;
+    }
+    @media (max-width: 768px) {
+      .hero-illustration-wrap {
+        max-width: 420px;
+        margin-top: var(--space-8);
+      }
+    }
+
+    /* ── Services Dropdown ───────────────────────────────────────── */
+    .nav-dropdown { position: relative; }
+
+    .nav-dropdown-toggle {
+      background: none;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font: inherit;
+      color: inherit;
+    }
+    .nav-dropdown-toggle .chevron {
+      transition: transform .2s ease;
+    }
+    .nav-dropdown-toggle[aria-expanded="true"] .chevron {
+      transform: rotate(180deg);
+    }
+
+    .nav-dropdown-menu {
+      position: absolute;
+      top: calc(100% + 10px);
+      left: 50%;
+      transform: translateX(-50%);
+      min-width: 200px;
+      background: var(--color-surface, #13151a);
+      border: 1px solid rgba(102,252,241,.18);
+      border-radius: 10px;
+      padding: 6px;
+      list-style: none;
+      margin: 0;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateX(-50%) translateY(-6px);
+      transition: opacity .18s ease, transform .18s ease, visibility .18s;
+      z-index: 200;
+      box-shadow: 0 8px 32px rgba(0,0,0,.45);
+    }
+    .nav-dropdown-menu.is-open {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(0);
+    }
+    .dropdown-item {
+      display: block;
+      padding: 9px 14px;
+      border-radius: 7px;
+      font-size: .875rem;
+      font-weight: 500;
+      color: var(--color-text-secondary, #C5C6C7);
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background .15s, color .15s;
+    }
+    .dropdown-item:hover,
+    .dropdown-item:focus {
+      background: rgba(102,252,241,.08);
+      color: var(--color-cyan, #66FCF1);
+      outline: none;
+    }
+    .dropdown-item:focus-visible {
+      outline: 2px solid var(--color-cyan, #66FCF1);
+      outline-offset: 1px;
+    }
+
+    /* ── Mobile disclosure submenu ──────────────────────────────── */
+    .mobile-nav-disclosure {
+      width: 100%;
+      background: none;
+      border: none;
+      text-align: left;
+      cursor: pointer;
+      font: inherit;
+      color: inherit;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0;
+    }
+    .mobile-nav-disclosure .chevron {
+      transition: transform .2s ease;
+    }
+    .mobile-nav-disclosure[aria-expanded="true"] .chevron {
+      transform: rotate(180deg);
+    }
+    .mobile-submenu {
+      list-style: none;
+      margin: 4px 0 8px 16px;
+      padding: 0;
+      border-left: 2px solid rgba(102,252,241,.2);
+      padding-left: 14px;
+    }
+    .mobile-submenu li + li { margin-top: 2px; }
+    .mobile-submenu-link {
+      display: block;
+      padding: 8px 0;
+      font-size: .9rem;
+      color: var(--color-text-secondary, #C5C6C7);
+      text-decoration: none;
+      transition: color .15s;
+    }
+    .mobile-submenu-link:hover,
+    .mobile-submenu-link:focus {
+      color: var(--color-cyan, #66FCF1);
+      outline: none;
+    }
+    .mobile-submenu-link:focus-visible {
+      outline: 2px solid var(--color-cyan, #66FCF1);
+      outline-offset: 2px;
+    }
+
+  
+    /* Brand refresh: keep persistent header content off the viewport edge. */
+    .site-header .header-inner {
+      padding-inline: var(--space-4, 1rem);
+    }
+    @media (min-width: 768px) {
+      .site-header .header-inner {
+        padding-inline: var(--space-6, 1.5rem);
+      }
+    }
+    
+    /* Brand refresh: shared navigation compatibility and mobile drawer behavior. */
+    .nav-dropdown:hover .nav-dropdown-menu,
+    .dropdown:hover .nav-dropdown-menu,
+    .nav-dropdown:focus-within .nav-dropdown-menu,
+    .dropdown:focus-within .nav-dropdown-menu,
+    .nav-dropdown-menu.is-open {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(0);
+      display: block;
+    }
+    .mobile-nav {
+      display: none;
+      flex-direction: column;
+      gap: var(--space-4, 1rem);
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      overflow-y: auto;
+      padding: var(--space-5, 1.25rem);
+      background: var(--color-bg, #0B0C10);
+      color: var(--color-text, #F7F9FB);
+    }
+    .mobile-nav.open {
+      display: flex;
+    }
+    .mobile-nav-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-4, 1rem);
+      padding-bottom: var(--space-4, 1rem);
+      border-bottom: 1px solid var(--color-border, rgba(102,252,241,.18));
+    }
+    .mobile-nav-close {
+      min-width: 44px;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius-full, 9999px);
+      color: inherit;
+      background: transparent;
+      border: 1px solid var(--color-border, rgba(102,252,241,.18));
+    }
+    .mobile-nav-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2, .5rem);
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+    .mobile-nav-link,
+    .mobile-submenu-link {
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      width: 100%;
+      padding: var(--space-3, .75rem) var(--space-4, 1rem);
+      border-radius: var(--radius-md, .5rem);
+      color: var(--color-text-secondary, var(--color-text-muted, #C5C6C7));
+      text-decoration: none;
+    }
+    .mobile-nav-link:hover,
+    .mobile-nav-link:focus-visible,
+    .mobile-submenu-link:hover,
+    .mobile-submenu-link:focus-visible,
+    .mobile-nav-link[aria-current="page"] {
+      color: var(--color-cyan, var(--color-primary, #66FCF1));
+      background: rgba(102,252,241,.08);
+    }
+    .mobile-cta {
+      margin-top: auto;
+      padding-top: var(--space-4, 1rem);
+      border-top: 1px solid var(--color-border, rgba(102,252,241,.18));
+    }
+    @media (min-width: 900px) {
+      .mobile-nav.open { display: none; }
+    }
+    
+    /* Brand refresh: avoid mid-width nav overflow by using drawer navigation on tablets. */
+    @media (max-width: 1099px) {
+      .primary-nav,
+      .header-actions .btn-cta {
+        display: none !important;
+      }
+      .nav-hamburger,
+      .mobile-menu-btn {
+        display: inline-flex !important;
+      }
+    }
+    @media (min-width: 1100px) {
+      .primary-nav {
+        display: flex !important;
+      }
+      .nav-hamburger,
+      .mobile-menu-btn {
+        display: none !important;
+      }
+    }
+    </style>
+
+
+<style id="qa11y-final-responsive-nav">
+  /* QA11Y final responsive navigation safeguard: drawer owns navigation below tablet/desktop handoff. */
+  @media (max-width: 1100px) {
+    header .desktop-nav,
+    header .nav-list,
+    header nav[aria-label="Primary"] .nav-list {
+      display: none !important;
+    }
+    header .nav-hamburger,
+    header .mobile-menu-btn,
+    header #mobile-toggle {
+      display: inline-flex !important;
+      align-items: center;
+      justify-content: center;
+      min-width: 44px;
+      min-height: 44px;
+    }
+    #mobile-nav.open,
+    #mobile-nav.is-open,
+    .mobile-nav.open,
+    .mobile-nav.is-open {
+      display: flex !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+      pointer-events: auto !important;
+      transform: none !important;
+    }
+  }
+  @media (min-width: 1101px) {
+    header .nav-hamburger,
+    header .mobile-menu-btn,
+    header #mobile-toggle {
+      display: none !important;
+    }
+  }
+</style>
+
+<style id="qa11y-pa11y-aa-contrast">
+  /* QA11Y Labs targeted WCAG AA hardening.
+     Scoped by component background: dark surfaces use light text; light surfaces use dark ink. */
+  :root {
+    --qa11y-aa-bg: #0B0C10;
+    --qa11y-aa-surface: #12151D;
+    --qa11y-aa-text: #F7FAFC;
+    --qa11y-aa-cyan: #8FFDF7;
+    --qa11y-aa-gold: #F7C948;
+    --qa11y-aa-ink: #05070A;
+    --qa11y-aa-body-ink: #1A1D26;
+  }
+
+  .article-hero,
+  .related-posts,
+  .site-footer,
+  footer {
+    background-color: var(--qa11y-aa-bg) !important;
+  }
+
+  .article-hero .article-title,
+  .article-hero .article-eyebrow,
+  .article-hero .article-author-name,
+  .article-hero .article-meta,
+  .article-hero .article-meta span,
+  .article-hero .article-meta time,
+  .article-hero .article-meta-divider,
+  .site-footer h3,
+  .site-footer .footer-tagline,
+  .site-footer .footer-copyright,
+  .site-footer .footer-copy,
+  .site-footer .footer-bottom,
+  .site-footer .footer-bottom p,
+  .site-footer .footer-bottom span,
+  .site-footer .footer-bottom a,
+  .site-footer .footer-nav a,
+  .site-footer .footer-legal a,
+  .site-footer .logo-qa,
+  .site-footer .logo-11y,
+  footer h3,
+  footer .footer-tagline,
+  footer .footer-copyright,
+  footer .footer-copy,
+  footer .footer-bottom,
+  footer .footer-bottom p,
+  footer .footer-bottom span,
+  footer .footer-bottom a,
+  footer .footer-nav a,
+  footer .footer-legal a,
+  footer .logo-qa,
+  footer .logo-11y,
+  footer span[aria-hidden="true"],
+  footer a[href="accessibility.html"] {
+    color: var(--qa11y-aa-text) !important;
+  }
+
+  .site-footer .logo-11y,
+  footer .logo-11y,
+  .site-footer .logo-qa,
+  footer .logo-qa {
+    color: var(--qa11y-aa-cyan) !important;
+  }
+  .logo-labs,
+  .site-footer .logo-labs,
+  footer .logo-labs {
+    color: var(--qa11y-aa-gold) !important;
+  }
+
+  .related-card,
+  .trust-pill,
+  .tag,
+  .badge-category,
+  .badge-featured,
+  .eyebrow-pill,
+  .filter-btn,
+  .trust-pill-check {
+    color: var(--qa11y-aa-text) !important;
+    background-color: var(--qa11y-aa-surface) !important;
+    border-color: rgba(102, 252, 241, 0.45) !important;
+  }
+  .related-posts-heading,
+  .related-card-title,
+  .related-card-time,
+  .related-card-cat,
+  .resource-card .card-source,
+  .stat-card .stat-sub,
+  .case-study-section h3,
+  .case-study-stats h3,
+  .case-study-right h3 {
+    color: var(--qa11y-aa-text) !important;
+  }
+
+  /* Light content surfaces. */
+  .article-body h2,
+  .article-body h3,
+  .article-body strong,
+  .hero-subtext,
+  .section-number,
+  .info-label,
+  .featured-card .post-date,
+  .featured-card .read-time,
+  .featured-card .featured-excerpt,
+  .filter-count,
+  .jump-nav-label,
+  .form-hint,
+  .scan-note,
+  .scan-url-hint,
+  .zcal-fallback,
+  .field-required,
+  .cta-divider,
+  .sample-report-icon,
+  .subsection-heading {
+    color: var(--qa11y-aa-body-ink) !important;
+  }
+
+  .article-body pre,
+  .article-body code,
+  .article-body p code,
+  .article-body li code,
+  .article-body strong code,
+  .article-body h2 code,
+  .article-body h3 code {
+    background-color: #080C10 !important;
+    color: #F7FFFF !important;
+  }
+
+  .btn-cta,
+  .btn-cta-lg,
+  .btn-cta-sm,
+  .btn-submit,
+  .btn-scan {
+    color: var(--qa11y-aa-ink) !important;
+    background-color: #66FCF1 !important;
+    border-color: #66FCF1 !important;
+    text-shadow: none !important;
+  }
+  .btn-scan span,
+  #scan-btn-label {
+    color: var(--qa11y-aa-ink) !important;
+  }
+
+  .btn-amber {
+    color: var(--qa11y-aa-ink) !important;
+    background-color: var(--qa11y-aa-gold) !important;
+    border-color: var(--qa11y-aa-gold) !important;
+    text-shadow: none !important;
+  }
+
+  .btn-outline {
+    color: var(--qa11y-aa-text) !important;
+    background-color: #111722 !important;
+    border-color: rgba(143, 253, 247, 0.55) !important;
+  }
+
+
+  /* Final pa11y pass: exact remaining component contexts. */
+  .post-card .post-date,
+  .post-card .read-time {
+    color: #454A57 !important;
+  }
+  .subsection-heading,
+  .jump-nav-label,
+  .trust-label,
+  .cta-divider {
+    color: var(--qa11y-aa-text) !important;
+  }
+  .sample-report-icon {
+    color: var(--qa11y-aa-ink) !important;
+    background-color: var(--qa11y-aa-text) !important;
+  }
+</style>
+
+
+<style id="qa11y-accessible-nav-fix">
+  /* QA11Y accessible navigation fix: desktop services disclosure + mobile submenu safeguards. */
+  #qa11y-hero {
+    width: 100%;
+    height: 100%;
+  }
+
+  .footer-logo-link {
+    text-decoration: none;
+  }
+
+  .footer-social {
+    margin-top: var(--space-4, 1rem);
+  }
+
+  .footer-social-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+    color: var(--color-cyan, #66FCF1);
+    font-size: 0.875rem;
+    text-decoration: none;
+    opacity: 0.85;
+    transition: opacity 0.2s;
+  }
+
+  .footer-social-link:hover,
+  .footer-social-link:focus-visible {
+    opacity: 1;
+  }
+
+  .footer-accessibility-link {
+    color: var(--color-cyan);
+    font-size: 0.8rem;
+  }
+
+  .nav-dropdown {
+    position: relative;
+  }
+
+  .nav-dropdown-toggle,
+  .mobile-nav-disclosure {
+    touch-action: manipulation;
+  }
+
+  .nav-dropdown-toggle[aria-expanded="true"] .chevron,
+  .mobile-nav-disclosure[aria-expanded="true"] .chevron {
+    transform: rotate(180deg);
+  }
+
+  .nav-dropdown-menu[hidden],
+  .mobile-submenu[hidden] {
+    display: none !important;
+  }
+
+  .nav-dropdown-menu.is-open,
+  .nav-dropdown-toggle[aria-expanded="true"] + .nav-dropdown-menu {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    transform: translateX(-50%) translateY(0) !important;
+  }
+
+  .nav-dropdown-menu a,
+  .mobile-submenu a {
+    min-height: 44px;
+  }
+
+  .nav-dropdown-toggle:focus-visible,
+  .mobile-nav-disclosure:focus-visible,
+  .nav-hamburger:focus-visible,
+  .mobile-nav-close:focus-visible {
+    outline: 2px solid var(--color-cyan, var(--color-primary, #66FCF1));
+    outline-offset: 3px;
+  }
+</style>
+
+</head>
+<body>
+
+  <!-- ── HEADER ─────────────────────────────────────────────────── -->
+    <header class="site-header">
+    <!-- Skip to main content -->
+    <a href="index.html#main-content" class="skip-link">Skip to Main Content</a>
+    <div class="header-inner">
+
+      <!-- Logo -->
+      <a class="logo-link logo-link--image" href="index.html" aria-label="QA11Y Labs — Home">
+        <img class="logo-image" src="assets/brand/qa11ylabs-logo-horizontal-transparent.png" alt="QA11Y Labs" width="160" height="40" decoding="async">
+      </a>
+
+      <!-- Primary Nav -->
+      <nav class="primary-nav" aria-label="Primary navigation">
+        <ul class="nav-list">
+          <li><a class="nav-link" aria-current="page" href="index.html">Home</a></li>
+          <li class="nav-dropdown">
+            <button
+              class="nav-link nav-dropdown-toggle"
+              aria-haspopup="true"
+              aria-expanded="false"
+              aria-controls="services-menu"
+              id="services-menu-btn"
+              type="button"
+            >
+              Services
+              <svg class="chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" focusable="false">
+                <path d="M2.5 4.5l3.5 3.5 3.5-3.5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <ul
+              class="nav-dropdown-menu"
+              id="services-menu"
+              role="menu"
+              aria-labelledby="services-menu-btn"
+            >
+              <li role="none"><a href="services.html" role="menuitem" class="dropdown-item">All Services</a></li>
+              <li role="none"><a href="services.html#audits-heading" role="menuitem" class="dropdown-item">WCAG Audits</a></li>
+              <li role="none"><a href="services.html#remediation-heading" role="menuitem" class="dropdown-item">Remediation</a></li>
+              <li role="none"><a href="services.html#retainers-heading" role="menuitem" class="dropdown-item">Monitoring</a></li>
+              <li role="none"><a href="services.html#consulting-heading" role="menuitem" class="dropdown-item">Consulting</a></li>
+            </ul>
+          </li>
+          <li><a class="nav-link" href="case-studies.html">Case Studies</a></li>
+          <li><a class="nav-link" href="blog.html">The Log</a></li>
+          <li><a class="nav-link" href="free-scan.html">Free Scan</a></li>
+          <li><a class="nav-link" href="resources.html">Resources</a></li>
+          <li><a class="nav-link" href="about.html">About</a></li>
+          <li><a class="nav-link" href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+
+      <!-- Header Actions -->
+      <div class="header-actions">
+        <button
+          class="theme-toggle"
+          id="theme-toggle"
+          aria-label="Toggle light/dark mode"
+          type="button"
+        >
+          <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
+            <circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"/>
+            <path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
+            <path d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <a class="btn-cta" href="schedule.html">Schedule Consultation</a>
+        <button
+          class="nav-hamburger"
+          id="nav-hamburger"
+          aria-label="Open navigation menu"
+          aria-expanded="false"
+          aria-controls="mobile-nav"
+          type="button"
+        >
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true" focusable="false">
+            <path d="M2 5h16M2 10h16M2 15h16" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MOBILE NAV -->
+  <div
+    class="mobile-nav"
+    id="mobile-nav"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Navigation menu"
+  >
+    <div class="mobile-nav-header">
+      <a class="logo-link logo-link--image" href="index.html" aria-label="QA11Y Labs — Home">
+        <img class="logo-image" src="assets/brand/qa11ylabs-logo-horizontal-transparent.png" alt="QA11Y Labs" width="160" height="40" decoding="async">
+      </a>
+      <button
+        class="mobile-nav-close"
+        id="mobile-nav-close"
+        aria-label="Close navigation menu"
+        type="button"
+      >
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true" focusable="false">
+          <path d="M4 4l12 12M16 4L4 16" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+    <nav aria-label="Mobile navigation">
+      <ul class="mobile-nav-list">
+        <li><a class="mobile-nav-link" aria-current="page" href="index.html">Home</a></li>
+        <li>
+          <button
+            class="mobile-nav-link mobile-nav-disclosure"
+            aria-expanded="false"
+            aria-controls="mobile-services-list"
+            type="button"
+          >
+            Services
+            <svg class="chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" focusable="false">
+              <path d="M2.5 4.5l3.5 3.5 3.5-3.5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <ul class="mobile-submenu" id="mobile-services-list" hidden>
+            <li><a class="mobile-submenu-link" href="services.html">All Services</a></li>
+            <li><a class="mobile-submenu-link" href="services.html#audits-heading">WCAG Audits</a></li>
+            <li><a class="mobile-submenu-link" href="services.html#remediation-heading">Remediation</a></li>
+            <li><a class="mobile-submenu-link" href="services.html#retainers-heading">Monitoring</a></li>
+            <li><a class="mobile-submenu-link" href="services.html#consulting-heading">Consulting</a></li>
+          </ul>
+        </li>
+        <li><a class="mobile-nav-link" href="case-studies.html">Case Studies</a></li>
+        <li><a class="mobile-nav-link" href="blog.html">The Log</a></li>
+        <li><a class="mobile-nav-link" href="free-scan.html">Free Scan</a></li>
+        <li><a class="mobile-nav-link" href="resources.html">Resources</a></li>
+        <li><a class="mobile-nav-link" href="about.html">About</a></li>
+        <li><a class="mobile-nav-link" href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="mobile-cta">
+      <a class="btn-cta" href="schedule.html">Schedule Consultation</a>
+    </div>
+  </div>
+
+
+  <main id="main-content">
+
+    <!-- HERO -->
+    <section class="hero" aria-labelledby="hero-headline">
+      <div class="container">
+        <div class="hero-inner">
+
+          <!-- Left: copy -->
+          <div class="hero-copy">
+            <div class="hero-eyebrow" aria-hidden="true">
+              <span class="eyebrow-dot"></span>
+              WCAG 2.2 · ADA context · Section 508
+            </div>
+
+            <h1 class="hero-headline" id="hero-headline" aria-label="Architecting a more inclusive digital world.">
+              <span aria-hidden="true">Architecting a more<br>
+              <em>inclusive</em> digital world.</span>
+            </h1>
+
+            <p class="hero-sub">
+              Expert accessibility auditing, remediation, and monitoring —
+              grounded in WCAG 2.2, ADA risk context, and Section 508 awareness, validated through
+              25+ years of authentic screen reader mastery.
+            </p>
+
+            <div class="hero-actions">
+              <a href="services.html" class="btn-primary">
+                View Audits &amp; Services
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+              <a href="/free-accessibility-statement-generator/" class="btn-secondary">
+                Create Free Statement
+              </a>
+              <a href="schedule.html" class="btn-secondary">
+                Schedule Consultation
+              </a>
+            </div>
+          </div>
+
+          <!-- Right: hero illustration -->
+          <div class="hero-illustration-wrap" aria-hidden="true">
+<svg
+  id="qa11y-hero"
+  viewBox="0 60 640 710"
+  xmlns="http://www.w3.org/2000/svg"
+  role="img"
+  aria-label="QA11Y Labs brand illustration: a crumbling brick wall with an embedded monitor showing a screen reader encountering an unlabeled button, code and Braille orbiting the screen, and a shattered keyboard on the ground below."
+>
+  <defs>
+
+    <!-- Brick texture pattern -->
+    <pattern id="bricks" x="0" y="0" width="80" height="36" patternUnits="userSpaceOnUse">
+      <!-- Row 1 bricks -->
+      <rect x="1" y="1" width="76" height="16" rx="1" fill="#1a1412" stroke="#2d1f1a" stroke-width="1"/>
+      <!-- Row 2 offset -->
+      <rect x="-38" y="19" width="76" height="16" rx="1" fill="#1c1513" stroke="#2d1f1a" stroke-width="1"/>
+      <rect x="41" y="19" width="76" height="16" rx="1" fill="#1a1412" stroke="#2d1f1a" stroke-width="1"/>
+      <!-- Mortar color between -->
+      <rect x="0" y="17" width="80" height="2" fill="#110e0d"/>
+    </pattern>
+
+    <!-- Brick highlight/shadow for depth -->
+    <linearGradient id="wallShade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2a1c18" stop-opacity="0.4"/>
+      <stop offset="40%" stop-color="transparent"/>
+      <stop offset="100%" stop-color="#000" stop-opacity="0.7"/>
+    </linearGradient>
+
+    <!-- Screen glow -->
+    <radialGradient id="screenGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#66FCF1" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#66FCF1" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- CRT scanlines -->
+    <pattern id="scanlines" x="0" y="0" width="1" height="4" patternUnits="userSpaceOnUse">
+      <rect x="0" y="0" width="1" height="2" fill="rgba(0,0,0,0.25)"/>
+    </pattern>
+
+    <!-- Screen inner gradient -->
+    <linearGradient id="screenBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#050d10"/>
+      <stop offset="100%" stop-color="#020608"/>
+    </linearGradient>
+
+    <!-- Keyboard key gradient -->
+    <linearGradient id="keyGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2a2a2a"/>
+      <stop offset="100%" stop-color="#111"/>
+    </linearGradient>
+
+    <!-- Crack line filter -->
+    <filter id="roughen">
+      <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.5" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+
+    <!-- Glow filter for JAWS text -->
+    <filter id="cyanGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Amber glow -->
+    <filter id="amberGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Orbit path -->
+    <path id="orbitPath" d="M 320 320 m -115 0 a 115 40 0 1 1 230 0 a 115 40 0 1 1 -230 0" fill="none"/>
+
+    <!-- Crack mask for crumbling wall -->
+    <clipPath id="wallClip">
+      <rect x="0" y="0" width="640" height="680"/>
+    </clipPath>
+
+  </defs>
+
+  <!-- ═══════════════════════════════════════════════
+       BACKGROUND — deep space dark
+  ═══════════════════════════════════════════════ -->
+  <rect width="640" height="720" fill="#0B0C10"/>
+
+  <!-- Subtle ambient gradient -->
+  <ellipse cx="320" cy="280" rx="380" ry="280"
+    fill="none"
+    stroke="#66FCF1"
+    stroke-width="0"
+    opacity="0.04"
+  />
+  <radialGradient id="ambientBg" cx="50%" cy="40%" r="60%">
+    <stop offset="0%" stop-color="#0d1f20" stop-opacity="0.6"/>
+    <stop offset="100%" stop-color="#0B0C10" stop-opacity="0"/>
+  </radialGradient>
+  <rect width="640" height="720" fill="url(#ambientBg)"/>
+
+  <!-- ═══════════════════════════════════════════════
+       BRICK WALL — main body
+  ═══════════════════════════════════════════════ -->
+  <g clip-path="url(#wallClip)">
+    <rect x="40" y="80" width="560" height="560" fill="url(#bricks)" rx="2"/>
+    <rect x="40" y="80" width="560" height="560" fill="url(#wallShade)" rx="2"/>
+  </g>
+
+  <!-- Wall edge / border -->
+  <rect x="40" y="80" width="560" height="560" fill="none" stroke="#2d1f1a" stroke-width="3" rx="2"/>
+
+  <!-- Mortar highlights (worn edges) -->
+  <line x1="40" y1="80" x2="600" y2="80" stroke="#3d2820" stroke-width="2"/>
+  <line x1="40" y1="80" x2="40" y2="640" stroke="#3d2820" stroke-width="2"/>
+
+  <!-- ═══════════════════════════════════════════════
+       CRACKS in the wall — accessibility is broken
+  ═══════════════════════════════════════════════ -->
+  <!-- Top left crack cluster -->
+  <g opacity="0.7" filter="url(#roughen)">
+    <path d="M 90 120 L 115 145 L 108 160 L 125 175" stroke="#0B0C10" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <path d="M 115 145 L 135 148 L 140 158" stroke="#0B0C10" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    <path d="M 80 155 L 95 168 L 88 182" stroke="#0B0C10" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  </g>
+  <!-- Right side cracks -->
+  <g opacity="0.6" filter="url(#roughen)">
+    <path d="M 540 180 L 560 205 L 555 220 L 570 240" stroke="#0B0C10" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <path d="M 560 205 L 578 210" stroke="#0B0C10" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  </g>
+  <!-- Bottom cracks (impact from keyboard smash) -->
+  <g opacity="0.8">
+    <path d="M 220 590 L 200 610 L 195 630 L 180 645" stroke="#0B0C10" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <path d="M 200 610 L 185 605 L 175 615" stroke="#0B0C10" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <path d="M 380 595 L 400 615 L 408 632 L 420 648" stroke="#0B0C10" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <path d="M 400 615 L 418 612 L 425 620" stroke="#0B0C10" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <path d="M 300 580 L 295 600 L 288 615" stroke="#0B0C10" stroke-width="2" fill="none" stroke-linecap="round"/>
+  </g>
+  <!-- Fallen brick chunks -->
+  <rect x="165" y="632" width="22" height="12" rx="1" fill="#1a1412" stroke="#2d1f1a" stroke-width="1" transform="rotate(-18 176 638)"/>
+  <rect x="415" y="636" width="18" height="10" rx="1" fill="#1c1513" stroke="#2d1f1a" stroke-width="1" transform="rotate(12 424 641)"/>
+  <rect x="295" y="640" width="14" height="8" rx="1" fill="#1a1412" stroke="#2d1f1a" stroke-width="1" transform="rotate(-8 302 644)"/>
+
+  <!-- ═══════════════════════════════════════════════
+       TITLE — QA11YLabs at the top
+  ═══════════════════════════════════════════════ -->
+  <!-- Title backdrop — chiseled into wall -->
+  <rect x="100" y="90" width="440" height="58" rx="4" fill="#0d0a09" opacity="0.7"/>
+  <rect x="100" y="90" width="440" height="58" rx="4" fill="none" stroke="#3d2820" stroke-width="1"/>
+
+  <!-- QA11Y in cyan -->
+  <text
+    x="320" y="133"
+    text-anchor="middle"
+    font-family="'Courier New', monospace"
+    font-size="38"
+    font-weight="900"
+    letter-spacing="6"
+    fill="#66FCF1"
+    filter="url(#cyanGlow)"
+  >QA11Y<tspan fill="#F2A900" filter="url(#amberGlow)">Labs</tspan></text>
+
+  <!-- Subtle underline -->
+  <line x1="130" y1="148" x2="510" y2="148" stroke="#66FCF1" stroke-width="0.5" opacity="0.3"/>
+
+  <!-- ═══════════════════════════════════════════════
+       MONITOR — embedded in wall
+  ═══════════════════════════════════════════════ -->
+  <!-- Monitor bezel recess — cut into brick -->
+  <rect x="110" y="165" width="420" height="300" rx="6" fill="#080808" stroke="#1a1412" stroke-width="8"/>
+
+  <!-- Monitor outer bezel -->
+  <rect x="118" y="173" width="404" height="284" rx="4" fill="#111" stroke="#222" stroke-width="2"/>
+
+  <!-- Screen area -->
+  <rect x="130" y="183" width="380" height="260" rx="2" fill="url(#screenBg)"/>
+
+  <!-- Screen glow ambient -->
+  <rect x="130" y="183" width="380" height="260" rx="2" fill="url(#screenGlow)"/>
+
+  <!-- CRT scanlines overlay -->
+  <rect x="130" y="183" width="380" height="260" rx="2" fill="url(#scanlines)" opacity="0.5"/>
+
+  <!-- Screen border glow -->
+  <rect x="130" y="183" width="380" height="260" rx="2" fill="none" stroke="#66FCF1" stroke-width="1" opacity="0.2"/>
+
+  <!-- Monitor stand neck -->
+  <rect x="298" y="455" width="44" height="20" rx="2" fill="#0f0f0f" stroke="#1a1a1a" stroke-width="1"/>
+  <!-- Stand base -->
+  <rect x="270" y="474" width="100" height="12" rx="4" fill="#111" stroke="#1a1a1a" stroke-width="1"/>
+  <!-- Stand shadow -->
+  <ellipse cx="320" cy="490" rx="55" ry="6" fill="#000" opacity="0.5"/>
+
+  <!-- ═══════════════════════════════════════════════
+       SCREEN CONTENT — JAWS encounter
+  ═══════════════════════════════════════════════ -->
+
+  <!-- Screen top bar (browser chrome) -->
+  <rect x="130" y="183" width="380" height="22" rx="2" fill="#0d1a1b"/>
+  <!-- Browser dots -->
+  <circle cx="146" cy="194" r="4" fill="#ff5f57"/>
+  <circle cx="160" cy="194" r="4" fill="#febc2e"/>
+  <circle cx="174" cy="194" r="4" fill="#28c840"/>
+  <!-- URL bar -->
+  <rect x="188" y="188" width="180" height="12" rx="6" fill="#0a1415" stroke="#1a3435" stroke-width="1"/>
+  <text x="278" y="198" text-anchor="middle" font-family="monospace" font-size="7" fill="#4a7a7a">shop.example.com/checkout</text>
+
+  <!-- Page content lines (simulated webpage) -->
+  <!-- "Page" heading -->
+  <rect x="148" y="220" width="120" height="8" rx="2" fill="#1a2e2e" opacity="0.8"/>
+  <!-- Body text lines -->
+  <rect x="148" y="234" width="200" height="5" rx="1" fill="#0f2020" opacity="0.6"/>
+  <rect x="148" y="244" width="170" height="5" rx="1" fill="#0f2020" opacity="0.6"/>
+  <rect x="148" y="254" width="190" height="5" rx="1" fill="#0f2020" opacity="0.5"/>
+
+  <!-- THE BROKEN BUTTON — center stage -->
+  <!-- Button body -->
+  <rect x="148" y="275" width="160" height="36" rx="4"
+    fill="#0d1a1b"
+    stroke="#1a3a3a"
+    stroke-width="1.5"
+  />
+  <!-- "???" inside button — no label -->
+  <text x="228" y="298"
+    text-anchor="middle"
+    font-family="monospace"
+    font-size="13"
+    fill="#1f4040"
+    letter-spacing="4"
+  >???</text>
+  <!-- Red violation indicator -->
+  <rect x="148" y="275" width="160" height="36" rx="4" fill="none" stroke="#C0392B" stroke-width="2" stroke-dasharray="4 3" opacity="0.8"/>
+  <!-- Warning triangle on button -->
+  <text x="396" y="297" font-family="monospace" font-size="16" fill="#C0392B" opacity="0.9">⚠</text>
+
+  <!-- axe-core violation badge -->
+  <rect x="322" y="274" width="80" height="18" rx="3" fill="#1a0808" stroke="#C0392B" stroke-width="1"/>
+  <text x="362" y="286" text-anchor="middle" font-family="monospace" font-size="7" fill="#ff6b6b">button-name: FAIL</text>
+
+  <!-- More page content below button -->
+  <rect x="148" y="322" width="150" height="5" rx="1" fill="#0f2020" opacity="0.5"/>
+  <rect x="148" y="332" width="110" height="5" rx="1" fill="#0f2020" opacity="0.4"/>
+
+  <!-- JAWS indicator — cursor/focus ring around broken button -->
+  <rect x="143" y="270" width="170" height="46" rx="6"
+    fill="none"
+    stroke="#66FCF1"
+    stroke-width="2"
+    stroke-dasharray="6 3"
+    opacity="0.9"
+  >
+    <animate attributeName="stroke-dashoffset" from="0" to="-18" dur="1.2s" repeatCount="indefinite"/>
+  </rect>
+
+  <!-- JAWS label -->
+  <text x="148" y="265"
+    font-family="monospace"
+    font-size="8"
+    fill="#66FCF1"
+    opacity="0.8"
+    filter="url(#cyanGlow)"
+  >JAWS focus</text>
+
+  <!-- ═══════════════════════════════════════════════
+       SPEECH BUBBLE — empty, blank, nothing
+  ═══════════════════════════════════════════════ -->
+  <!-- Bubble tail pointing to JAWS focus area -->
+  <path d="M 390 275 L 375 290 L 368 278 Z" fill="#1a1a1a" stroke="#333" stroke-width="1"/>
+  <!-- Bubble body -->
+  <rect x="385" y="230" width="115" height="62" rx="12"
+    fill="#1a1a1a"
+    stroke="#333"
+    stroke-width="1.5"
+  />
+
+  <!-- "Silence" — empty bubble with just an ellipsis of nothingness -->
+  <!-- Three silent dots -->
+  <circle cx="416" cy="261" r="4" fill="#2a2a2a"/>
+  <circle cx="432" cy="261" r="4" fill="#2a2a2a"/>
+  <circle cx="448" cy="261" r="4" fill="#2a2a2a"/>
+
+  <!-- Small label under bubble -->
+  <text x="442" y="304"
+    text-anchor="middle"
+    font-family="monospace"
+    font-size="7"
+    fill="#444"
+    font-style="italic"
+  >...silence.</text>
+
+  <!-- JAWS "Says:" label above bubble -->
+  <text x="442" y="228"
+    text-anchor="middle"
+    font-family="monospace"
+    font-size="8"
+    fill="#66FCF1"
+    opacity="0.6"
+  >JAWS says:</text>
+
+  <!-- Screen bottom status bar -->
+  <rect x="130" y="427" width="380" height="16" rx="0" fill="#040d0e" opacity="0.9"/>
+  <text x="142" y="438" font-family="monospace" font-size="7" fill="#1a4a4a">NVDA · JAWS · VoiceOver · TalkBack</text>
+  <circle cx="492" cy="435" r="3" fill="#C0392B">
+    <animate attributeName="opacity" values="1;0.3;1" dur="1.5s" repeatCount="indefinite"/>
+  </circle>
+  <text x="498" y="438" font-family="monospace" font-size="7" fill="#C0392B">VIOLATION</text>
+
+  <!-- orbit placeholder — moved to front of SVG -->
+
+  <!-- ═══════════════════════════════════════════════
+       TAGLINE — bottom of screen area
+  ═══════════════════════════════════════════════ -->
+  <rect x="80" y="506" width="480" height="42" rx="4" fill="#050d0e" stroke="#0d2020" stroke-width="1"/>
+  <text
+    x="320" y="533"
+    text-anchor="middle"
+    font-family="'Courier New', monospace"
+    font-size="14"
+    font-weight="600"
+    letter-spacing="1.5"
+    fill="#66FCF1"
+    opacity="0.9"
+    filter="url(#cyanGlow)"
+  >Architecting a more inclusive digital world.</text>
+
+  <!-- ═══════════════════════════════════════════════
+       SHATTERED KEYBOARD — bottom of wall / ground
+  ═══════════════════════════════════════════════ -->
+  <g id="keyboard" transform="translate(155 565)">
+
+    <!-- Keyboard base — cracked -->
+    <rect x="0" y="0" width="330" height="95" rx="8"
+      fill="#111"
+      stroke="#222"
+      stroke-width="2"
+      transform="rotate(-3 165 47)"
+    />
+
+    <!-- Main crack across keyboard body -->
+    <path d="M 60 10 L 120 35 L 115 55 L 160 80"
+      stroke="#0B0C10" stroke-width="3" fill="none" stroke-linecap="round"
+      transform="rotate(-3 165 47)"
+      opacity="0.9"
+    />
+    <path d="M 120 35 L 145 30 L 150 42"
+      stroke="#0B0C10" stroke-width="2" fill="none" stroke-linecap="round"
+      transform="rotate(-3 165 47)"
+      opacity="0.7"
+    />
+    <path d="M 200 20 L 240 45 L 245 65 L 270 75"
+      stroke="#0B0C10" stroke-width="2.5" fill="none" stroke-linecap="round"
+      transform="rotate(-3 165 47)"
+      opacity="0.8"
+    />
+
+    <!-- Row 1 keys — some flying off -->
+    <g transform="rotate(-3 165 47)">
+      <!-- Normal keys row 1 -->
+      <rect x="8" y="8" width="22" height="18" rx="3" fill="url(#keyGrad)" stroke="#333" stroke-width="1"/>
+      <text x="19" y="20" text-anchor="middle" font-family="monospace" font-size="7" fill="#555">Tab</text>
+
+      <rect x="34" y="8" width="18" height="18" rx="3" fill="url(#keyGrad)" stroke="#333" stroke-width="1"/>
+      <text x="43" y="20" text-anchor="middle" font-family="monospace" font-size="8" fill="#555">Q</text>
+
+      <rect x="56" y="8" width="18" height="18" rx="3" fill="url(#keyGrad)" stroke="#333" stroke-width="1"/>
+      <text x="65" y="20" text-anchor="middle" font-family="monospace" font-size="8" fill="#555">W</text>
+
+      <!-- Keys popping off — cracked area -->
+      <rect x="78" y="5" width="18" height="18" rx="3" fill="url(#keyGrad)" stroke="#C0392B" stroke-width="1" transform="rotate(15 87 14)"/>
+      <text x="87" y="20" text-anchor="middle" font-family="monospace" font-size="8" fill="#C0392B" transform="rotate(15 87 14)">E</text>
+
+      <rect x="100" y="3" width="18" height="18" rx="3" fill="url(#keyGrad)" stroke="#444" stroke-width="1" transform="rotate(-8 109 12)"/>
+      <text x="109" y="15" text-anchor="middle" font-family="monospace" font-size="8" fill="#555" transform="rotate(-8 109 12)">R</text>
+
+      <rect x="122" y="7" width="18" height="18" rx="3" fill="url(#keyGrad)" stroke="#333" stroke-width="1"/>
+      <text x="131" y="19" text-anchor="middle" font-family="monospace" font-size="8" fill="#555">T</text>
+
+      <rect x="144" y="6" width="18" height="18" rx="3" fill="url(#keyGrad)" stroke="#333" stroke-width="1" transform="rotate(5 153 15)"/>
+      <text x="153" y="18" text-anchor="middle" font-family="monospace" font-size="8" fill="#555" transform="rotate(5 153 15)">Y</text>
+
+      <rect x="166" y="8" width="18" height="18" rx="3" fill="url(#keyGrad)" stroke="#333" stroke-width="1"/>
+      <text x="175" y="20" text-anchor="middle" font-family="monospace" font-size="8" fill="#555">U</text>
+
+      <rect x="188" y="7" width="18" height="18" rx="3" fill="url(#keyGrad)" stroke="#444" stroke-width="1" transform="rotate(-6 197 16)"/>
+      <text x="197" y="19" text-anchor="middle" font-family="monospace" font-size="8" fill="#555" transform="rotate(-6 197 16)">I</text>
+
+      <!-- Enter key — cracked and big -->
+      <rect x="278" y="8" width="44" height="38" rx="3" fill="#0d0d0d" stroke="#C0392B" stroke-width="1.5"/>
+      <text x="300" y="31" text-anchor="middle" font-family="monospace" font-size="7" fill="#C0392B">Enter</text>
+      <!-- Crack on enter -->
+      <path d="M 285 12 L 310 30 L 308 42" stroke="#0B0C10" stroke-width="2" fill="none"/>
+    </g>
+
+    <!-- Row 2 keys -->
+    <g transform="rotate(-3 165 47)">
+      <rect x="8" y="30" width="27" height="18" rx="3" fill="url(#keyGrad)" stroke="#333" stroke-width="1"/>
+      <text x="21" y="42" text-anchor="middle" font-family="monospace" font-size="7" fill="#555">Caps</text>
+
+      <rect x="39" y="30" width="18" height="18" rx="3" fill="url(#keyGrad)" stroke="#333" stroke-width="1"/>
+      <text x="48" y="42" text-anchor="middle" font-family="monospace" font-size="8" fill="#555">A</text>
+
+      <rect x="61" y="30" width="18" height="18" rx="3" fill="url(#keyGrad)" stroke="#333" stroke-width="1" transform="rotate(8 70 39)"/>
+      <text x="70" y="42" text-anchor="middle" font-family="monospace" font-size="8" fill="#C0392B" transform="rotate(8 70 39)">S</text>
+
+      <rect x="83" y="32" width="18" height="18" rx="3" fill="url(#keyGrad)" stroke="#333" stroke-width="1" transform="rotate(-5 92 41)"/>
+      <text x="92" y="44" text-anchor="middle" font-family="monospace" font-size="8" fill="#555" transform="rotate(-5 92 41)">D</text>
+
+      <rect x="105" y="30" width="18" height="18" rx="3" fill="url(#keyGrad)" stroke="#333" stroke-width="1"/>
+      <text x="114" y="42" text-anchor="middle" font-family="monospace" font-size="8" fill="#555">F</text>
+
+      <rect x="127" y="31" width="18" height="18" rx="3" fill="url(#keyGrad)" stroke="#333" stroke-width="1"/>
+      <text x="136" y="43" text-anchor="middle" font-family="monospace" font-size="8" fill="#555">G</text>
+
+      <rect x="149" y="30" width="18" height="18" rx="3" fill="url(#keyGrad)" stroke="#333" stroke-width="1" transform="rotate(4 158 39)"/>
+      <text x="158" y="42" text-anchor="middle" font-family="monospace" font-size="8" fill="#555" transform="rotate(4 158 39)">H</text>
+
+      <rect x="171" y="29" width="18" height="18" rx="3" fill="url(#keyGrad)" stroke="#444" stroke-width="1" transform="rotate(-10 180 38)"/>
+      <text x="180" y="41" text-anchor="middle" font-family="monospace" font-size="8" fill="#555" transform="rotate(-10 180 38)">J</text>
+    </g>
+
+    <!-- Row 3 — spacebar row, most destroyed -->
+    <g transform="rotate(-3 165 47)">
+      <rect x="8" y="52" width="32" height="18" rx="3" fill="url(#keyGrad)" stroke="#333" stroke-width="1"/>
+      <text x="24" y="64" text-anchor="middle" font-family="monospace" font-size="7" fill="#555">Shift</text>
+
+      <!-- Space bar — cracked right down the middle -->
+      <rect x="65" y="70" width="190" height="18" rx="4" fill="#0d0d0d" stroke="#444" stroke-width="1.5"/>
+      <path d="M 120 70 L 150 88" stroke="#0B0C10" stroke-width="3" fill="none"/>
+      <path d="M 150 70 L 170 88" stroke="#0B0C10" stroke-width="2" fill="none"/>
+      <text x="160" y="82" text-anchor="middle" font-family="monospace" font-size="7" fill="#333">space</text>
+    </g>
+
+    <!-- Flying keys — ejected from the explosion -->
+    <rect x="-20" y="-15" width="18" height="18" rx="3" fill="url(#keyGrad)" stroke="#555" stroke-width="1" transform="rotate(35 -11 -6)"/>
+    <text x="-11" y="-3" text-anchor="middle" font-family="monospace" font-size="8" fill="#666" transform="rotate(35 -11 -6)">F5</text>
+
+    <rect x="335" y="-25" width="18" height="18" rx="3" fill="url(#keyGrad)" stroke="#C0392B" stroke-width="1" transform="rotate(-28 344 -16)"/>
+    <text x="344" y="-13" text-anchor="middle" font-family="monospace" font-size="8" fill="#C0392B" transform="rotate(-28 344 -16)">Esc</text>
+
+    <rect x="315" y="55" width="18" height="18" rx="3" fill="url(#keyGrad)" stroke="#555" stroke-width="1" transform="rotate(20 324 64)"/>
+    <text x="324" y="67" text-anchor="middle" font-family="monospace" font-size="8" fill="#555" transform="rotate(20 324 64)">↵</text>
+
+    <rect x="-30" y="55" width="18" height="18" rx="3" fill="url(#keyGrad)" stroke="#444" stroke-width="1" transform="rotate(-25 -21 64)"/>
+    <text x="-21" y="67" text-anchor="middle" font-family="monospace" font-size="8" fill="#444" transform="rotate(-25 -21 64)">⌘</text>
+
+  </g>
+
+  <!-- Ground shadow under keyboard -->
+  <ellipse cx="320" cy="668" rx="175" ry="10" fill="#000" opacity="0.6"/>
+
+  <!-- ═══════════════════════════════════════════════
+       AMBIENT PARTICLES — code dust
+  ═══════════════════════════════════════════════ -->
+  <g opacity="0.4">
+    <circle cx="85" cy="520" r="2" fill="#66FCF1">
+      <animate attributeName="opacity" values="0.4;0;0.4" dur="3s" begin="0s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="555" cy="490" r="1.5" fill="#F2A900">
+      <animate attributeName="opacity" values="0.4;0;0.4" dur="2.5s" begin="0.8s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="72" cy="440" r="1" fill="#66FCF1">
+      <animate attributeName="opacity" values="0.3;0;0.3" dur="4s" begin="1.2s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="568" cy="560" r="2" fill="#66FCF1">
+      <animate attributeName="opacity" values="0.5;0;0.5" dur="3.5s" begin="0.4s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="120" cy="560" r="1.5" fill="#F2A900">
+      <animate attributeName="opacity" values="0.3;0;0.3" dur="2.8s" begin="1.8s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+
+  <!-- ═══════════════════════════════════════════════
+       GUTTER SPARKS — electrical short from the broken element
+  ═══════════════════════════════════════════════ -->
+  <g filter="url(#cyanGlow)">
+    <line x1="148" y1="292" x2="138" y2="282" stroke="#66FCF1" stroke-width="1.5" opacity="0.6">
+      <animate attributeName="opacity" values="0.6;0;0.6;0;0.6" dur="0.8s" repeatCount="indefinite"/>
+    </line>
+    <line x1="148" y1="292" x2="136" y2="295" stroke="#66FCF1" stroke-width="1" opacity="0.5">
+      <animate attributeName="opacity" values="0.5;0;0;0.5;0" dur="0.8s" repeatCount="indefinite"/>
+    </line>
+    <line x1="308" y1="280" x2="320" y2="270" stroke="#C0392B" stroke-width="1.5" opacity="0.7">
+      <animate attributeName="opacity" values="0.7;0;0.7;0" dur="0.6s" repeatCount="indefinite"/>
+    </line>
+  </g>
+
+  <!-- ═══════════════════════════════════════════════
+       ORBIT RING — JS-animated, text stays upright (rendered last)
+  ═══════════════════════════════════════════════ -->
+
+  <!-- Orbit track ellipses (purely decorative) -->
+  <ellipse id="orbitTrack1" cx="320" cy="305" rx="225" ry="62"
+    fill="none" stroke="#66FCF1" stroke-width="0.5" stroke-dasharray="3 6" opacity="0.15"/>
+  <ellipse id="orbitTrack2" cx="320" cy="305" rx="200" ry="50"
+    fill="none" stroke="#F2A900" stroke-width="0.5" stroke-dasharray="2 8" opacity="0.12"/>
+
+  <!-- JS-animated orbit tokens (placeholders — JS moves them) -->
+  <!-- Code token groups — 4 tokens -->
+  <g id="tok0">
+    <rect rx="4" fill="#071a1c" stroke="#1a5050" stroke-width="1.5" opacity="0.95"/>
+    <text text-anchor="middle" font-family="'Courier New',monospace" font-size="9" fill="#66FCF1">alt=""</text>
+  </g>
+  <g id="tok1">
+    <rect rx="4" fill="#1a1200" stroke="#5a3a00" stroke-width="1.5" opacity="0.95"/>
+    <text text-anchor="middle" font-family="'Courier New',monospace" font-size="9" fill="#F2A900">aria-label=""</text>
+  </g>
+  <g id="tok2">
+    <rect rx="4" fill="#071a1c" stroke="#1a5050" stroke-width="1.5" opacity="0.95"/>
+    <text text-anchor="middle" font-family="'Courier New',monospace" font-size="9" fill="#66FCF1">role="button"</text>
+  </g>
+  <g id="tok3">
+    <rect rx="4" fill="#051212" stroke="#1a3a3a" stroke-width="1.5" opacity="0.95"/>
+    <text text-anchor="middle" font-family="'Courier New',monospace" font-size="9" fill="#45A29E">tabindex="0"</text>
+  </g>
+
+  <!-- Braille dot groups (JS moves them) -->
+  <g id="brl0" opacity="0.75">
+    <circle r="3" fill="#F2A900"/><circle r="3" fill="#F2A900" opacity="0.25"/>
+    <circle r="3" fill="#F2A900" opacity="0.25"/><circle r="3" fill="#F2A900" opacity="0.25"/>
+    <circle r="3" fill="#F2A900"/><circle r="3" fill="#F2A900"/>
+    <circle r="3" fill="#F2A900" opacity="0.25"/><circle r="3" fill="#F2A900"/>
+    <circle r="3" fill="#F2A900"/><circle r="3" fill="#F2A900"/>
+    <circle r="3" fill="#F2A900"/><circle r="3" fill="#F2A900"/>
+  </g>
+  <g id="brl1" opacity="0.75">
+    <circle r="3" fill="#F2A900"/><circle r="3" fill="#F2A900"/>
+    <circle r="3" fill="#F2A900"/><circle r="3" fill="#F2A900" opacity="0.25"/>
+    <circle r="3" fill="#F2A900"/><circle r="3" fill="#F2A900" opacity="0.25"/>
+    <circle r="3" fill="#F2A900" opacity="0.25"/><circle r="3" fill="#F2A900" opacity="0.25"/>
+    <circle r="3" fill="#F2A900"/><circle r="3" fill="#F2A900"/>
+    <circle r="3" fill="#F2A900"/><circle r="3" fill="#F2A900"/>
+  </g>
+
+</svg>
+
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- TRUST STRIP -->
+    <section class="trust-strip" aria-labelledby="trust-strip-heading">
+      <div class="container">
+        <h2 class="trust-label" id="trust-strip-heading">Auditing against</h2>
+        <ul class="trust-pills">
+          <li><span class="trust-pill"><span class="pill-check" aria-hidden="true">✓</span> WCAG 2.2 Level AA</span></li>
+          <li><span class="trust-pill"><span class="pill-check" aria-hidden="true">✓</span> ADA Title II</span></li>
+          <li><span class="trust-pill"><span class="pill-check" aria-hidden="true">✓</span> Section 508</span></li>
+          <li><span class="trust-pill"><span class="pill-check" aria-hidden="true">✓</span> EN 301 549</span></li>
+          <li><span class="trust-pill"><span class="pill-check" aria-hidden="true">✓</span> POUR Framework</span></li>
+          <li><span class="trust-pill"><span class="pill-check" aria-hidden="true">✓</span> axe-core · Lighthouse · NVDA</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="section" aria-labelledby="services-heading">
+      <div class="container">
+        <header class="section-header">
+          <p class="section-eyebrow">What We Do</p>
+          <h2 class="section-title" id="services-heading">Full-service accessibility, start to finish.</h2>
+          <p class="section-sub">From rapid audits to full remediation support — every engagement is grounded in real assistive technology testing.</p>
+        </header>
+
+        <div class="services-grid">
+
+          <article class="service-card">
+            <div class="service-icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/><circle cx="11" cy="11" r="3"/></svg>
+            </div>
+            <h3 class="service-title">WCAG 2.2 Audits</h3>
+            <p class="service-desc">POUR-framework audits combining axe-core, Lighthouse, Playwright accessibility tree inspection, and live NVDA/JAWS testing. Every violation documented with WCAG criterion, severity, and a code-level fix.</p>
+            <a href="services.html#audits" class="service-link">
+              View audit packages
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </article>
+
+          <article class="service-card amber">
+            <div class="service-icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            </div>
+            <h3 class="service-title">Remediation</h3>
+            <p class="service-desc">We write and review semantic HTML, ARIA patterns, keyboard navigation, and focus management — building the fix directly into your codebase, not just a report alongside it.</p>
+            <a href="services.html#remediation" class="service-link">
+              View remediation
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </article>
+
+          <article class="service-card">
+            <div class="service-icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            </div>
+            <h3 class="service-title">Ongoing Monitoring</h3>
+            <p class="service-desc">Scheduled automated scans with regression alerts — so new deployments don't reintroduce violations. We monitor against your agreed baseline and flag changes before users encounter them.</p>
+            <a href="services.html#monitoring" class="service-link">
+              Monitoring plans
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </article>
+
+          <article class="service-card amber">
+            <div class="service-icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <h3 class="service-title">Consulting</h3>
+            <p class="service-desc">Expert consulting on ARIA patterns, keyboard navigation, screen reader testing methodology, and WCAG 2.2 conformance. We work directly with your team to identify and solve complex accessibility problems.</p>
+            <a href="contact.html" class="service-link">
+              Talk to us
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- WHY QA11Y -->
+    <section class="section why-section" aria-labelledby="why-heading">
+      <div class="container">
+        <div class="why-inner">
+
+          <div>
+            <span class="why-label">Why QA11Y Labs</span>
+            <h2 class="why-title" id="why-heading">We don't test accessibility.<br>We live it.</h2>
+            <p class="why-body">
+              Most accessibility consultants run automated tools and hand you a spreadsheet.
+              We bring something no tool can replicate — 25+ years as a daily screen reader
+              user. We experience the web the way your disabled users do, which means we
+              find barriers that automated scanners miss entirely.
+            </p>
+            <p class="why-body">
+              Lighthouse scored the module we audited for SSLC at 100/100 for accessibility.
+              Our manual tree inspection found 69 critical violations that Lighthouse never touched.
+            </p>
+          </div>
+
+            <ul class="proof-list">
+            <li class="proof-item">
+              <div class="proof-icon" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              </div>
+              <div class="proof-text">
+                <strong>Real screen reader testing</strong>
+                <span>NVDA, JAWS, VoiceOver — validated on actual assistive technology, not simulations.</span>
+              </div>
+            </li>
+            <li class="proof-item">
+              <div class="proof-icon" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+              </div>
+              <div class="proof-text">
+                <strong>Automated + manual, combined</strong>
+                <span>axe-core, Playwright accessibility tree, and Lighthouse — then we go further by hand.</span>
+              </div>
+            </li>
+            <li class="proof-item">
+              <div class="proof-icon" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+              </div>
+              <div class="proof-text">
+                <strong>Code-level remediation reports</strong>
+                <span>Every finding comes with the exact HTML/ARIA fix — not just a reference to the WCAG criterion.</span>
+              </div>
+            </li>
+            <li class="proof-item">
+              <div class="proof-icon" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              </div>
+              <div class="proof-text">
+                <strong>Legal defensibility</strong>
+                <span>Structured VPAT-ready documentation that holds up under ADA Title II and Section 508 scrutiny.</span>
+              </div>
+            </li>
+          </ul>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- CLIENT TESTIMONIAL -->
+    <section class="section testimonial-section" aria-labelledby="testimonial-heading">
+      <div class="container">
+        <figure class="testimonial-card">
+          <div class="testimonial-content">
+            <p class="testimonial-eyebrow">Client testimonial</p>
+            <blockquote class="testimonial-quote" id="testimonial-heading">
+              &ldquo;Quintin and Lewis's audit went far beyond standards compliance and surfaced real-world friction points that no automated tool would have caught. His partnership has reshaped how our team approaches accessibility, and we cannot recommend QA11Y Labs highly enough to anyone serious about building genuinely usable digital experiences.&rdquo;
+            </blockquote>
+            <figcaption class="testimonial-attribution">
+              <strong>Claudia Morales</strong>
+              <span>Senior Manager, Stark Science Learning Center</span>
+              <span>University of Utah Department of Biochemistry</span>
+            </figcaption>
+          </div>
+        </figure>
+      </div>
+    </section>
+
+    <!-- FREE SCAN CTA -->
+    <section class="section" aria-labelledby="scan-cta-heading">
+      <div class="container">
+        <div class="cta-banner">
+          <p class="cta-banner-eyebrow">Free Offer</p>
+          <h2 class="cta-banner-title" id="scan-cta-heading">Get a free accessibility scan on your URL.</h2>
+          <p class="cta-banner-sub">
+            We run axe-core + Lighthouse against any public URL and send you a
+            summary report — no strings, no sales call required.
+          </p>
+          <div class="cta-banner-actions">
+            <a href="free-scan.html" class="btn-primary">
+              Run Free Scan
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            <a href="/free-accessibility-statement-generator/" class="btn-secondary">
+              Create Accessibility Statement
+            </a>
+            <a href="schedule.html" class="btn-secondary">
+              Schedule Full Audit
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ── FOOTER ─────────────────────────────────────────────────── -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-inner">
+
+        <div class="footer-brand">
+          <a href="index.html" class="site-logo logo-link--image footer-logo-link" aria-label="QA11Y Labs Home">
+            <img class="logo-image footer-logo-image" src="assets/brand/qa11ylabs-logo-horizontal-transparent.png" alt="QA11Y Labs" width="160" height="40" decoding="async">
+          </a>
+          <p>Architecting a more inclusive digital world — through lived expertise and code-level precision.</p>
+          <div class="footer-social">
+            <a href="https://www.linkedin.com/in/quintin-williams-b0195a119" target="_blank" rel="noopener noreferrer" class="footer-social-link" aria-label="Connect with Quintin Williams on LinkedIn (opens in new tab)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+              LinkedIn
+            </a>
+          </div>
+        </div>
+
+        <nav class="footer-col" aria-label="Services navigation">
+          <h3>Services</h3>
+          <ul>
+            <li><a href="services.html#audits">WCAG Audits</a></li>
+            <li><a href="services.html#remediation">Remediation</a></li>
+            <li><a href="services.html#monitoring">Monitoring</a></li>
+            <li><a href="services.html">All Services</a></li>
+          </ul>
+        </nav>
+
+        <nav class="footer-col" aria-label="Company navigation">
+          <h3>Company</h3>
+          <ul>
+            <li><a href="about.html">About</a></li>
+            <li><a href="case-studies.html">Case Studies</a></li>
+            <li><a href="blog.html">The Log</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </nav>
+
+        <nav class="footer-col" aria-label="Resources navigation">
+          <h3>Resources</h3>
+          <ul>
+            <li><a href="free-scan.html">Free Scan</a></li>
+            <li><a href="/free-accessibility-statement-generator/">Statement Generator</a></li>
+            <li><a href="resources.html">Resources Hub</a></li>
+            <li><a href="schedule.html">Schedule Consult</a></li>
+            <li><a href="https://www.w3.org/WAI/WCAG22/quickref/" rel="noreferrer">WCAG 2.2 Quick Ref</a></li>
+          </ul>
+        </nav>
+
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 QA11Y Labs. All rights reserved. Built accessible by design. &nbsp;<a href="accessibility.html" class="footer-accessibility-link">Accessibility Statement</a></p>
+        <div class="footer-badges" role="group" aria-label="Standards compliance badges">
+          <span class="badge badge-cyan">WCAG 2.2 AA</span>
+          <span class="badge badge-amber">ADA Title II</span>
+          <span class="badge badge-cyan">Section 508</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ── SCRIPTS ─────────────────────────────────────────────────── -->
+  <script>
+    // ── Theme Toggle ───────────────────────────────────────────────
+    (function () {
+      const toggle = document.querySelector('[data-theme-toggle]');
+      const html = document.documentElement;
+      let theme = html.getAttribute('data-theme') || 'dark';
+
+      const sunIcon = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>`;
+      const moonIcon = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>`;
+
+      function setTheme(t) {
+        theme = t;
+        html.setAttribute('data-theme', theme);
+        if (toggle) {
+          toggle.setAttribute('aria-label', 'Switch to ' + (theme === 'dark' ? 'light' : 'dark') + ' mode');
+          toggle.innerHTML = theme === 'dark' ? moonIcon : sunIcon;
+        }
+      }
+
+      setTheme(theme);
+      if (toggle) toggle.addEventListener('click', () => setTheme(theme === 'dark' ? 'light' : 'dark'));
+    })();
+
+    // ── Mobile Menu ────────────────────────────────────────────────
+    (function () {
+      const btn = document.getElementById('mobile-toggle');
+      const nav = document.getElementById('mobile-nav');
+      if (!btn || !nav) return;
+
+      const openIcon = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>`;
+      const closeIcon = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>`;
+
+      let open = false;
+      btn.addEventListener('click', () => {
+        open = !open;
+        nav.classList.toggle('open', open);
+        btn.setAttribute('aria-expanded', String(open));
+        btn.setAttribute('aria-label', open ? 'Close navigation menu' : 'Open navigation menu');
+        btn.innerHTML = open ? closeIcon : openIcon;
+      });
+    })();
+
+    // ── Services Dropdown ARIA ─────────────────────────────────────
+    (function () {
+      const btn = document.getElementById('services-btn');
+      if (!btn) return;
+      const menu = btn.nextElementSibling;
+
+      btn.addEventListener('click', () => {
+        const expanded = btn.getAttribute('aria-expanded') === 'true';
+        btn.setAttribute('aria-expanded', String(!expanded));
+      });
+
+      document.addEventListener('click', (e) => {
+        if (!btn.closest('.nav-dropdown, .dropdown').contains(e.target)) {
+          btn.setAttribute('aria-expanded', 'false');
+        }
+      });
+    })();
+  
+  // ── Hero illustration orbit animation ──────────────────────────────
+  (function() {
+    const CX = 320, CY = 305;
+    const RX_CODE = 225, RY_CODE = 62;
+    const RX_BRL  = 200, RY_BRL  = 50;
+
+    const tokens = [
+      { id:'tok0', w:76,  h:20, a:0   },
+      { id:'tok1', w:112, h:20, a:90  },
+      { id:'tok2', w:120, h:20, a:180 },
+      { id:'tok3', w:120, h:20, a:270 },
+    ];
+
+    tokens.forEach(t => {
+      const g = document.getElementById(t.id);
+      if (!g) return;
+      const rect = g.querySelector('rect');
+      const txt  = g.querySelector('text');
+      if (rect) { rect.setAttribute('width', t.w); rect.setAttribute('height', t.h); rect.setAttribute('x', -t.w/2); rect.setAttribute('y', -t.h/2); }
+      if (txt)  { txt.setAttribute('x', 0); txt.setAttribute('y', 5); }
+    });
+
+    const brlOffsets = [
+      [-12,-5],[-12,5],[-4,-5],[-4,5],[4,-5],[4,5],
+      [12,-5],[12,5],[20,-5],[20,5],[28,-5],[28,5]
+    ];
+    [0,1].forEach(i => {
+      const g = document.getElementById('brl' + i);
+      if (!g) return;
+      g.querySelectorAll('circle').forEach((c, j) => {
+        if (brlOffsets[j]) { c.setAttribute('cx', brlOffsets[j][0]); c.setAttribute('cy', brlOffsets[j][1]); }
+      });
+    });
+
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced) {
+      document.querySelectorAll('#qa11y-hero animate, #qa11y-hero animateTransform').forEach(el => {
+        el.setAttribute('repeatCount', '1'); el.setAttribute('dur', '0.01s');
+      });
+      return;
+    }
+
+    const CODE_PERIOD = 18000, BRL_PERIOD = 22000;
+    const start = performance.now();
+    function orbit(ts) {
+      const el = ts - start;
+      tokens.forEach(t => {
+        const g = document.getElementById(t.id);
+        if (!g) return;
+        const angle = ((t.a / 360) + el / CODE_PERIOD) % 1 * 2 * Math.PI;
+        g.setAttribute('transform', `translate(${(CX + RX_CODE * Math.cos(angle)).toFixed(2)},${(CY + RY_CODE * Math.sin(angle)).toFixed(2)})`);
+      });
+      [0,1].forEach(i => {
+        const g = document.getElementById('brl' + i);
+        if (!g) return;
+        const phase = (i === 0 ? 0 : Math.PI) - (el / BRL_PERIOD) * 2 * Math.PI;
+        g.setAttribute('transform', `translate(${(CX + RX_BRL * Math.cos(phase)).toFixed(2)},${(CY + RY_BRL * Math.sin(phase)).toFixed(2)})`);
+      });
+      requestAnimationFrame(orbit);
+    }
+    requestAnimationFrame(orbit);
+  })();
+</script>
+
+<script>
+
+    /* Brand refresh: unified theme, dropdown, and mobile navigation behavior. */
+    (function () {
+      const html = document.documentElement;
+      const toggle = document.querySelector('[data-theme-toggle], .theme-toggle, #theme-toggle');
+      const sunIcon = `<svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"/><path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`;
+      const moonIcon = `<svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+      let theme = html.getAttribute('data-theme') || 'dark';
+      function setTheme(nextTheme) {
+        theme = nextTheme;
+        html.setAttribute('data-theme', theme);
+        if (toggle) {
+          toggle.setAttribute('aria-label', 'Switch to ' + (theme === 'dark' ? 'light' : 'dark') + ' mode');
+          if (!toggle.querySelector('.icon-sun, .icon-moon') || toggle.children.length !== 2) {
+            toggle.innerHTML = theme === 'dark' ? moonIcon : sunIcon;
+          }
+        }
+      }
+      setTheme(theme);
+      if (toggle && !toggle.dataset.brandRefreshBound) {
+        toggle.dataset.brandRefreshBound = 'true';
+        toggle.addEventListener('click', function () { setTheme(theme === 'dark' ? 'light' : 'dark'); });
+      }
+    })();
+
+    (function () {
+      const openBtn = document.getElementById('nav-hamburger') || document.getElementById('mobile-toggle');
+      const nav = document.getElementById('mobile-nav');
+      const closeBtn = document.getElementById('mobile-nav-close');
+      if (!openBtn || !nav || openBtn.dataset.brandRefreshBound) return;
+      openBtn.dataset.brandRefreshBound = 'true';
+      function setOpen(open) {
+        nav.classList.toggle('open', open);
+        nav.classList.toggle('is-open', open);
+        openBtn.setAttribute('aria-expanded', String(open));
+        openBtn.setAttribute('aria-label', open ? 'Close navigation menu' : 'Open navigation menu');
+        document.body.classList.toggle('nav-open', open);
+        if (open) {
+          const first = nav.querySelector('a, button');
+          first && first.focus();
+        }
+      }
+      openBtn.addEventListener('click', function () { setOpen(!(nav.classList.contains('open') || nav.classList.contains('is-open'))); });
+      closeBtn && closeBtn.addEventListener('click', function () { setOpen(false); openBtn.focus(); });
+      nav.addEventListener('click', function (event) {
+        const link = event.target.closest('a');
+        if (link) setOpen(false);
+      });
+      document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape' && (nav.classList.contains('open') || nav.classList.contains('is-open'))) {
+          setOpen(false);
+          openBtn.focus();
+        }
+      });
+    })();
+
+    (function () {
+      document.querySelectorAll('.mobile-nav-disclosure[aria-controls]').forEach(function (button) {
+        if (button.dataset.brandRefreshBound) return;
+        button.dataset.brandRefreshBound = 'true';
+        const submenu = document.getElementById(button.getAttribute('aria-controls'));
+        button.addEventListener('click', function () {
+          const expanded = button.getAttribute('aria-expanded') === 'true';
+          button.setAttribute('aria-expanded', String(!expanded));
+          if (submenu) submenu.hidden = expanded;
+        });
+      });
+    })();
+
+    (function () {
+      document.querySelectorAll('.nav-dropdown-toggle[aria-controls]').forEach(function (button) {
+        if (button.dataset.brandRefreshBound) return;
+        button.dataset.brandRefreshBound = 'true';
+        const menu = document.getElementById(button.getAttribute('aria-controls'));
+        button.addEventListener('click', function () {
+          const expanded = button.getAttribute('aria-expanded') === 'true';
+          button.setAttribute('aria-expanded', String(!expanded));
+          if (menu) menu.classList.toggle('is-open', !expanded);
+        });
+        document.addEventListener('click', function (event) {
+          if (!button.closest('.nav-dropdown, .dropdown')?.contains(event.target)) {
+            button.setAttribute('aria-expanded', 'false');
+            menu && menu.classList.remove('is-open');
+          }
+        });
+      });
+    })();
+  </script>
+
+
+<script id="qa11y-final-drawer-handler">
+  /* QA11Y final drawer handler: capture-phase guard for legacy templates. */
+  (function () {
+    if (window.__qa11yFinalDrawerHandler) return;
+    window.__qa11yFinalDrawerHandler = true;
+    function findButton(target) {
+      return target && target.closest && target.closest('header #nav-hamburger, header #mobile-toggle, header .mobile-menu-btn, #mobile-nav-close');
+    }
+    function getOpenButton() {
+      return document.querySelector('header #nav-hamburger, header #mobile-toggle, header .mobile-menu-btn');
+    }
+    function setOpen(open) {
+      var nav = document.getElementById('mobile-nav');
+      var openBtn = getOpenButton();
+      if (!nav || !openBtn) return;
+      nav.classList.toggle('open', open);
+      nav.classList.toggle('is-open', open);
+      openBtn.setAttribute('aria-expanded', String(open));
+      openBtn.setAttribute('aria-label', open ? 'Close navigation menu' : 'Open navigation menu');
+      document.body.classList.toggle('nav-open', open);
+      document.body.style.overflow = open ? 'hidden' : '';
+      if (open) {
+        window.setTimeout(function () {
+          var first = nav.querySelector('#mobile-nav-close') || nav.querySelector('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])');
+          if (first) first.focus({ preventScroll: true });
+        }, 0);
+      }
+    }
+    document.addEventListener('click', function (event) {
+      var control = findButton(event.target);
+      if (!control) return;
+      var nav = document.getElementById('mobile-nav');
+      if (!nav) return;
+      var isClose = control.id === 'mobile-nav-close';
+      var open = nav.classList.contains('open') || nav.classList.contains('is-open');
+      event.preventDefault();
+      event.stopPropagation();
+      event.stopImmediatePropagation();
+      setOpen(isClose ? false : !open);
+    }, true);
+    document.addEventListener('keydown', function (event) {
+      var nav = document.getElementById('mobile-nav');
+      if (event.key === 'Escape' && nav && (nav.classList.contains('open') || nav.classList.contains('is-open'))) {
+        event.preventDefault();
+        setOpen(false);
+        var openBtn = getOpenButton();
+        if (openBtn) openBtn.focus({ preventScroll: true });
+      }
+    }, true);
+    document.addEventListener('click', function (event) {
+      var nav = document.getElementById('mobile-nav');
+      if (!nav || !(nav.classList.contains('open') || nav.classList.contains('is-open'))) return;
+      if (event.target.closest && event.target.closest('#mobile-nav a')) setOpen(false);
+    }, true);
+  })();
+</script>
+
+
+<script id="qa11y-accessible-nav-handler">
+  /* QA11Y accessible navigation handler: supports click, Space, Enter, Escape, arrows, and outside-click. */
+  (function () {
+    if (window.__qa11yAccessibleNavHandler) return;
+    window.__qa11yAccessibleNavHandler = true;
+
+    function controlledBy(button) {
+      if (!button) return null;
+      var id = button.getAttribute('aria-controls');
+      return id ? document.getElementById(id) : null;
+    }
+
+    function dropdownFor(button) {
+      return button && button.closest ? button.closest('.nav-dropdown, .dropdown') : null;
+    }
+
+    function menuItems(menu) {
+      return menu ? Array.prototype.slice.call(menu.querySelectorAll('a[href], button:not([disabled])')) : [];
+    }
+
+    function setMenuOpen(button, open, options) {
+      var menu = controlledBy(button);
+      if (!button || !menu) return;
+      if (open) closeAllDesktop(button);
+      button.setAttribute('aria-expanded', String(open));
+      menu.hidden = !open;
+      menu.classList.toggle('is-open', open);
+      if (open && options && options.focusFirst) {
+        var first = menuItems(menu)[0];
+        if (first) first.focus({ preventScroll: true });
+      }
+      if (!open && options && options.returnFocus) {
+        button.focus({ preventScroll: true });
+      }
+    }
+
+    function closeAllDesktop(exceptButton) {
+      document.querySelectorAll('.nav-dropdown-toggle[aria-controls]').forEach(function (button) {
+        if (button !== exceptButton) setMenuOpen(button, false);
+      });
+    }
+
+    function toggleDesktop(button, focusFirst) {
+      var expanded = button.getAttribute('aria-expanded') === 'true';
+      setMenuOpen(button, !expanded, { focusFirst: !!focusFirst });
+    }
+
+    function setMobileSubmenuOpen(button, open, options) {
+      var submenu = controlledBy(button);
+      if (!button || !submenu) return;
+      button.setAttribute('aria-expanded', String(open));
+      submenu.hidden = !open;
+      submenu.classList.toggle('is-open', open);
+      if (open && options && options.focusFirst) {
+        var first = menuItems(submenu)[0];
+        if (first) first.focus({ preventScroll: true });
+      }
+    }
+
+    function toggleMobileSubmenu(button, focusFirst) {
+      var expanded = button.getAttribute('aria-expanded') === 'true';
+      setMobileSubmenuOpen(button, !expanded, { focusFirst: !!focusFirst });
+    }
+
+    function moveWithin(items, current, direction) {
+      if (!items.length) return;
+      var index = items.indexOf(current);
+      if (index < 0) index = direction > 0 ? -1 : 0;
+      var next = (index + direction + items.length) % items.length;
+      items[next].focus({ preventScroll: true });
+    }
+
+    document.querySelectorAll('.nav-dropdown-toggle[aria-controls]').forEach(function (button) {
+      var menu = controlledBy(button);
+      if (!menu) return;
+      setMenuOpen(button, button.getAttribute('aria-expanded') === 'true');
+      var wrapper = dropdownFor(button);
+      if (wrapper && !wrapper.dataset.qa11yHoverBound) {
+        wrapper.dataset.qa11yHoverBound = 'true';
+        wrapper.addEventListener('pointerenter', function () { setMenuOpen(button, true); });
+        wrapper.addEventListener('pointerleave', function () {
+          if (!wrapper.contains(document.activeElement)) setMenuOpen(button, false);
+        });
+        wrapper.addEventListener('focusout', function () {
+          window.setTimeout(function () {
+            if (!wrapper.contains(document.activeElement)) setMenuOpen(button, false);
+          }, 0);
+        });
+      }
+    });
+
+    document.querySelectorAll('.mobile-nav-disclosure[aria-controls]').forEach(function (button) {
+      setMobileSubmenuOpen(button, button.getAttribute('aria-expanded') === 'true');
+    });
+
+    document.addEventListener('click', function (event) {
+      var desktopButton = event.target.closest && event.target.closest('.nav-dropdown-toggle[aria-controls]');
+      if (desktopButton) {
+        event.preventDefault();
+        event.stopPropagation();
+        event.stopImmediatePropagation();
+        toggleDesktop(desktopButton, false);
+        return;
+      }
+
+      var mobileButton = event.target.closest && event.target.closest('.mobile-nav-disclosure[aria-controls]');
+      if (mobileButton) {
+        event.preventDefault();
+        event.stopPropagation();
+        event.stopImmediatePropagation();
+        toggleMobileSubmenu(mobileButton, false);
+        return;
+      }
+
+      if (!(event.target.closest && event.target.closest('.nav-dropdown, .dropdown'))) {
+        closeAllDesktop();
+      }
+    }, true);
+
+    document.addEventListener('keydown', function (event) {
+      var desktopButton = event.target.closest && event.target.closest('.nav-dropdown-toggle[aria-controls]');
+      var mobileButton = event.target.closest && event.target.closest('.mobile-nav-disclosure[aria-controls]');
+
+      if (desktopButton && (event.key === ' ' || event.key === 'Enter')) {
+        event.preventDefault();
+        event.stopPropagation();
+        toggleDesktop(desktopButton, false);
+        return;
+      }
+
+      if (desktopButton && event.key === 'ArrowDown') {
+        event.preventDefault();
+        setMenuOpen(desktopButton, true, { focusFirst: true });
+        return;
+      }
+
+      if (mobileButton && (event.key === ' ' || event.key === 'Enter')) {
+        event.preventDefault();
+        event.stopPropagation();
+        toggleMobileSubmenu(mobileButton, false);
+        return;
+      }
+
+      if (mobileButton && event.key === 'ArrowDown') {
+        event.preventDefault();
+        setMobileSubmenuOpen(mobileButton, true, { focusFirst: true });
+        return;
+      }
+
+      var openMenu = event.target.closest && event.target.closest('.nav-dropdown-menu.is-open, .mobile-submenu.is-open');
+      if (openMenu) {
+        var items = menuItems(openMenu);
+        if (event.key === 'ArrowDown') {
+          event.preventDefault();
+          moveWithin(items, event.target, 1);
+          return;
+        }
+        if (event.key === 'ArrowUp') {
+          event.preventDefault();
+          moveWithin(items, event.target, -1);
+          return;
+        }
+        if (event.key === 'Home') {
+          event.preventDefault();
+          if (items[0]) items[0].focus({ preventScroll: true });
+          return;
+        }
+        if (event.key === 'End') {
+          event.preventDefault();
+          if (items[items.length - 1]) items[items.length - 1].focus({ preventScroll: true });
+          return;
+        }
+      }
+
+      if (event.key === 'Escape') {
+        var openDesktop = document.querySelector('.nav-dropdown-toggle[aria-expanded="true"]');
+        if (openDesktop) {
+          event.preventDefault();
+          setMenuOpen(openDesktop, false, { returnFocus: true });
+          return;
+        }
+        var openMobile = document.querySelector('.mobile-nav-disclosure[aria-expanded="true"]');
+        if (openMobile) {
+          event.preventDefault();
+          setMobileSubmenuOpen(openMobile, false);
+          openMobile.focus({ preventScroll: true });
+        }
+      }
+    }, true);
+  })();
+</script>
+
+</body>
+</html>

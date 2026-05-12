@@ -1,0 +1,65 @@
+{
+  "ok": true,
+  "generatedAt": "2026-05-03T05:26:58.041Z",
+  "companyName": "Rumbi Island Grill",
+  "url": "https://rumbi.com/locations/utah/riverdale",
+  "selectedIssue": {
+    "ruleId": "color-contrast",
+    "impact": "serious",
+    "help": "Elements must meet minimum color contrast ratio thresholds",
+    "description": "Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds",
+    "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/color-contrast?application=playwright",
+    "selector": ".orange-button",
+    "target": {
+      "selector": ".orange-button",
+      "tag": "a",
+      "text": "Order Catering",
+      "rect": {
+        "x": 459,
+        "y": 540,
+        "width": 361,
+        "height": 42
+      }
+    },
+    "node": {
+      "html": "<a href=\"https://riverdalerumbi-catering.mobilebytes.com/menu\" class=\"dt-btn dt-btn-m full-width-btn orange-button\" target=\"_blank\">Order Catering</a>",
+      "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 2.42 (foreground color: #ffffff, background color: #ff8604, font size: 13.5pt (18px), font weight: normal). Expected contrast ratio of 4.5:1",
+      "target": [
+        ".orange-button"
+      ]
+    },
+    "wcagMapping": "1.4.3 Contrast (Minimum) (Level AA)",
+    "remediation": {
+      "wcag": "1.4.3 Contrast (Minimum) (Level AA)",
+      "issue": "Text must meet minimum contrast requirements.",
+      "explanation": "Normal text needs at least 4.5:1 contrast and large text needs at least 3:1 so users with low vision can read the content.",
+      "htmlFix": "<p style=\"color:#1a1d26;background:#ffffff;\">Readable text</p>",
+      "reactFix": "<p style={{ color: \"#1a1d26\", background: \"#ffffff\" }}>Readable text</p>",
+      "ruleId": "color-contrast",
+      "mapped": true
+    },
+    "riskNarrative": "Low contrast can make important text difficult to read for customers with low vision, glare sensitivity, aging eyes, or mobile users in bright conditions."
+  },
+  "summary": {
+    "totalViolations": 2,
+    "highImpactViolations": 1,
+    "byImpact": {
+      "serious": 1,
+      "moderate": 1
+    }
+  },
+  "files": {
+    "screenshotPath": "/root/scanner/risk-teasers/prospects-20260502-232650/rumbi/rumbi-island-grill-2026-05-03T05-26-58-042Z-evidence.png",
+    "htmlPath": "/root/scanner/risk-teasers/prospects-20260502-232650/rumbi/rumbi-island-grill-2026-05-03T05-26-58-042Z.html",
+    "pdfPath": "/root/scanner/risk-teasers/prospects-20260502-232650/rumbi/rumbi-island-grill-2026-05-03T05-26-58-042Z.pdf",
+    "jsonPath": "/root/scanner/risk-teasers/prospects-20260502-232650/rumbi/rumbi-island-grill-2026-05-03T05-26-58-042Z.json"
+  },
+  "screenshot": {
+    "clip": {
+      "x": 369,
+      "y": 289,
+      "width": 760,
+      "height": 360
+    }
+  }
+}
