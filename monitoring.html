@@ -17,23 +17,24 @@
   <!-- Open Graph -->
   <meta property="og:site_name" content="QA11Y Labs">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="QA11Y Labs — Architecting a more inclusive digital world">
-  <meta property="og:description" content="Accessibility audits, remediation, monitoring, and consulting from a senior architect with 25+ years of daily screen reader expertise.">
+  <meta property="og:title" content="Monthly Accessibility Monitoring | QA11Y Labs">
+  <meta property="og:description" content="Catch accessibility regressions the moment they ship. Accessibility-tree diffing, screen-reader regression checks, and a clear monthly report — reviewed by QA11Y Labs.">
   <meta property="og:image" content="https://qa11ylabs.com/assets/brand/og-image-primary.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="QA11Y Labs primary logo: cyan shield check mark with QA11Y in cyan and Labs in gold, on a dark terminal-style background.">
-  <meta property="og:url" content="https://qa11ylabs.com/">
+  <meta property="og:url" content="https://qa11ylabs.com/monitoring.html">
 
   <!-- Twitter / X -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="QA11Y Labs — Architecting a more inclusive digital world">
-  <meta name="twitter:description" content="Accessibility audits, remediation, monitoring, and consulting from a senior architect with 25+ years of daily screen reader expertise.">
+  <meta name="twitter:title" content="Monthly Accessibility Monitoring | QA11Y Labs">
+  <meta name="twitter:description" content="Catch accessibility regressions the moment they ship. Accessibility-tree diffing, screen-reader regression checks, and a clear monthly report — reviewed by QA11Y Labs.">
   <meta name="twitter:image" content="https://qa11ylabs.com/assets/brand/og-image-primary.png">
   <meta name="twitter:image:alt" content="QA11Y Labs primary logo: cyan shield check mark with QA11Y in cyan and Labs in gold.">
   <!-- QA11Y BRAND HEAD END -->
-<title>Services &amp; Pricing | QA11Y Labs — Accessibility Consulting</title>
-  <meta name="description" content="WCAG audits, remediation guidance, monthly monitoring, and accessibility consulting. Manual + automated testing with 25+ years of real screen reader expertise.">
+<title>Monthly Accessibility Monitoring | QA11Y Labs</title>
+  <meta name="description" content="Catch accessibility regressions the moment they ship. Monthly accessibility-tree diffing, screen-reader regression checks, and a clear monthly report — reviewed by QA11Y Labs.">
+  <link rel="canonical" href="https://qa11ylabs.com/monitoring.html">
   <!-- Fonts: Cabinet Grotesk (display) + Satoshi (body) -->
   <link rel="preconnect" href="https://api.fontshare.com">
   <link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@500,700&f[]=satoshi@400,500,600,700&display=swap" rel="stylesheet">
@@ -1323,7 +1324,7 @@
 
 <body>
   <!-- Skip to main content -->
-  <a href="services.html#main-content" class="skip-link">Skip to Main Content</a>
+  <a href="monitoring.html#main-content" class="skip-link">Skip to Main Content</a>
 
   <!-- ── HEADER ─────────────────────────────────────────────────── -->
     <header class="site-header" role="banner">
@@ -1361,7 +1362,7 @@
               <li role="none"><a href="services.html" role="menuitem" class="dropdown-item">All Services</a></li>
               <li role="none"><a href="services.html#audits-heading" role="menuitem" class="dropdown-item">WCAG Audits</a></li>
               <li role="none"><a href="services.html#remediation-heading" role="menuitem" class="dropdown-item">Remediation</a></li>
-              <li role="none"><a href="monitoring.html" role="menuitem" class="dropdown-item">Monthly Monitoring</a></li>
+              <li role="none"><a href="monitoring.html" role="menuitem" class="dropdown-item" aria-current="page">Monthly Monitoring</a></li>
               <li role="none"><a href="services.html#consulting-heading" role="menuitem" class="dropdown-item">Consulting</a></li>
             </ul>
           </li>
@@ -1448,7 +1449,7 @@
             <li><a class="mobile-submenu-link" href="services.html">All Services</a></li>
             <li><a class="mobile-submenu-link" href="services.html#audits-heading">WCAG Audits</a></li>
             <li><a class="mobile-submenu-link" href="services.html#remediation-heading">Remediation</a></li>
-            <li><a class="mobile-submenu-link" href="monitoring.html">Monthly Monitoring</a></li>
+            <li><a class="mobile-submenu-link" href="monitoring.html" aria-current="page">Monthly Monitoring</a></li>
             <li><a class="mobile-submenu-link" href="services.html#consulting-heading">Consulting</a></li>
           </ul>
         </li>
@@ -1468,279 +1469,218 @@
   <main id="main-content">
 
     <!-- PAGE HERO -->
-    <section class="page-hero" aria-labelledby="services-headline">
+    <section class="page-hero" aria-labelledby="monitoring-headline">
       <div class="container">
         <div class="page-hero-inner">
           <div class="hero-eyebrow" aria-hidden="true">
             <span class="eyebrow-dot"></span>
-            Accessibility Consulting Services
+            Monthly Accessibility Monitoring
           </div>
-          <h1 id="services-headline">
-            Real audits. Real fixes.<br>
-            <em>Real expertise.</em>
+          <h1 id="monitoring-headline">
+            Catch accessibility regressions<br>
+            <em>the moment they ship.</em>
           </h1>
           <p>
-            Every service is grounded in manual testing by Quintin Williams — 25+ years of daily JAWS screen reader experience. Automated tools catch roughly 30% of accessibility barriers. We find the rest.
+            Every release risks a new accessibility regression — a label that disappears, a focus order that breaks, a control a screen reader can no longer reach. QA11Y Labs monitors your live site each month, diffs the accessibility tree against the prior baseline, and tells you exactly what changed.
           </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── WCAG AUDITS ─────────────────────────────────────────── -->
-    <section class="section" id="audits" aria-labelledby="audits-heading">
-      <div class="container">
-        <span class="section-label">Service 01</span>
-        <h2 class="section-title" id="audits-heading">WCAG Accessibility Audits</h2>
-        <p class="section-sub">Manual + automated testing to WCAG 2.2 AA. Every audit includes native screen reader testing with JAWS (primary), NVDA, and TalkBack — not just automated tool output.</p>
-
-        <div class="audit-grid">
-
-          <!-- Single Page -->
-          <article class="audit-card">
-            <span class="audit-tier">Starter</span>
-            <h3 class="audit-name">Single Page Audit</h3>
-            <p class="audit-scope">Single page — focused scope</p>
-            <p class="audit-price">Starting at <strong>$750</strong></p>
-            <ul class="audit-features">
-              <li>Manual + automated testing, WCAG 2.2 AA</li>
-              <li>Screen reader tested: JAWS, NVDA, VoiceOver, TalkBack</li>
-              <li>Prioritized findings report with compliant code snippet recommendations</li>
-              <li>Pass/fail per criterion with WCAG references</li>
-              <li>PDF + structured report delivery</li>
-            </ul>
-            <a href="schedule.html" class="audit-cta">
-              Schedule Single Page Audit
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </a>
-          </article>
-
-          <!-- Small Site -->
-          <article class="audit-card">
-            <span class="audit-tier">Small Site</span>
-            <h3 class="audit-name">Small Site Audit</h3>
-            <p class="audit-scope">Small sites — up to 10 pages</p>
-            <p class="audit-price">Starting at <strong>$2,000</strong></p>
-            <ul class="audit-features">
-              <li>Manual + automated testing, WCAG 2.2 AA</li>
-              <li>Screen reader tested: JAWS, NVDA, VoiceOver, TalkBack</li>
-              <li>Prioritized findings report with compliant code snippet recommendations</li>
-              <li>Pass/fail per criterion with WCAG references</li>
-              <li>PDF + structured report delivery</li>
-            </ul>
-            <a href="schedule.html" class="audit-cta">
-              Schedule Small Site Audit
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </a>
-          </article>
-
-          <!-- Full Site / Professional -->
-          <article class="audit-card featured">
-            <span class="card-badge">Most Common</span>
-            <span class="audit-tier">Professional</span>
-            <h3 class="audit-name">Full Site Audit</h3>
-            <p class="audit-scope">Mid-size sites — 10–50 pages</p>
-            <p class="audit-price">Custom pricing &mdash; scoped during your free consultation. No surprises.</p>
-            <ul class="audit-features">
-              <li>Manual + automated testing, WCAG 2.2 AA</li>
-              <li>Screen reader tested: JAWS, NVDA, VoiceOver, TalkBack</li>
-              <li>Prioritized findings report with compliant code snippet recommendations</li>
-              <li>Severity tiers: critical, serious, moderate, minor</li>
-              <li>Executive summary for stakeholders</li>
-              <li>One follow-up verification test after client implements fixes</li>
-            </ul>
-            <a href="schedule.html" class="audit-cta">
+          <div class="cta-banner-actions" style="margin-top: var(--space-8); justify-content: flex-start;">
+            <a href="schedule.html" class="btn-primary">
               Schedule a Consultation
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
-          </article>
-
-          <!-- Enterprise -->
-          <article class="audit-card">
-            <span class="audit-tier">Enterprise</span>
-            <h3 class="audit-name">Enterprise / VPAT Audit</h3>
-            <p class="audit-scope">Large sites, complex platforms &amp; VPATs — unlimited scope</p>
-            <p class="audit-price">Custom pricing &mdash; scoped during your free consultation. No surprises.</p>
-            <ul class="audit-features">
-              <li>Manual + automated testing, WCAG 2.2 AA</li>
-              <li>Screen reader tested: JAWS, NVDA, VoiceOver, TalkBack</li>
-              <li>Every finding documented with compliant code snippet recommendations</li>
-              <li>VPAT-ready documentation for procurement compliance</li>
-              <li>ADA Title II / Section 508 legal defensibility framing</li>
-              <li>Stakeholder briefing session included</li>
-              <li>Follow-up verification testing after client fixes</li>
-            </ul>
-            <a href="schedule.html" class="audit-cta">
-              Contact for Enterprise Scope
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </a>
-          </article>
-
-        </div>
-
-        <!-- All audits include -->
-        <div class="audit-includes">
-          <h3>Every audit includes</h3>
-          <div class="includes-grid">
-            <div class="include-item">
-              <div class="include-icon" aria-hidden="true">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-              </div>
-              <div>
-                <strong>JAWS screen reader testing</strong>
-                25+ years of lived JAWS expertise on every engagement.
-              </div>
-            </div>
-            <div class="include-item">
-              <div class="include-icon" aria-hidden="true">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
-              </div>
-              <div>
-                <strong>Mobile: TalkBack &amp; VoiceOver</strong>
-                Android and iOS tested in addition to desktop.
-              </div>
-            </div>
-            <div class="include-item">
-              <div class="include-icon" aria-hidden="true">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-              </div>
-              <div>
-                <strong>Automated + manual combined</strong>
-                axe-core and Lighthouse, plus deep manual inspection.
-              </div>
-            </div>
-            <div class="include-item">
-              <div class="include-icon" aria-hidden="true">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-              </div>
-              <div>
-                <strong>Code-level remediation guidance</strong>
-                Exact HTML/ARIA recommendations in every report.
-              </div>
-            </div>
+            <a href="free-scan.html" class="btn-secondary">Start with a Free Scan</a>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ── CUSTOM ENGAGEMENTS CALLOUT ────────────────────────────── -->
-    <section class="section" id="custom-engagements" aria-labelledby="custom-engagements-heading" style="padding-top:0;padding-bottom:var(--space-12);">
+    <!-- ── WHY MONITOR ─────────────────────────────────────────── -->
+    <section class="section" id="why" aria-labelledby="why-heading">
       <div class="container">
-        <div style="
-          background: rgba(102,252,241,0.06);
-          border-left: 4px solid var(--color-cyan, #66FCF1);
-          border-radius: var(--radius-md, 8px);
-          padding: var(--space-8, 2rem) var(--space-8, 2rem);
-          display: flex;
-          align-items: flex-start;
-          gap: var(--space-6, 1.5rem);
-        " role="note" aria-labelledby="custom-engagements-heading">
-          <div style="flex-shrink:0;margin-top:2px;">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#66FCF1" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-          </div>
-          <div>
-            <h2 id="custom-engagements-heading" style="font-family:var(--font-display);font-size:var(--text-lg);color:var(--color-cyan,#66FCF1);margin:0 0 var(--space-3) 0;font-weight:600;">Custom Engagements</h2>
-            <p style="font-size:var(--text-base);color:var(--color-text);margin:0;max-width:none;line-height:1.65;">
-              Every site is different. For complex platforms, enterprise applications, multi-phase projects, and VPATs, pricing is scoped during your free 30-minute consultation &mdash; so you get an accurate number, not a guess. <a href="https://zcal.co/quintinw" style="color:var(--color-cyan,#66FCF1);text-decoration:underline;text-underline-offset:3px;" target="_blank" rel="noopener noreferrer">Schedule yours at zcal.co/quintinw</a>
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <hr class="section-divider">
-
-    <!-- ── REMEDIATION ─────────────────────────────────────────── -->
-    <section class="section" id="remediation" aria-labelledby="remediation-heading">
-      <div class="container">
-        <span class="section-label">Service 02</span>
-        <h2 class="section-title" id="remediation-heading">Remediation Guidance &amp; Support</h2>
-        <p class="section-sub">An audit without a clear remediation path isn't useful. Every finding we deliver includes prioritized, actionable guidance your team can act on immediately.</p>
+        <span class="section-label">Why ongoing monitoring</span>
+        <h2 class="section-title" id="why-heading">A one-time audit ages the day after you ship.</h2>
+        <p class="section-sub">Sites change constantly — new components, content edits, third-party widgets, framework updates. Each change can quietly break the experience for screen-reader and keyboard users. Monthly monitoring keeps the picture current and gives you documented, defensible proof of ongoing effort.</p>
 
         <div class="remediation-grid">
-
-          <article class="remediation-card">
+          <div class="remediation-card">
             <div class="remediation-icon" aria-hidden="true">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
             </div>
-            <h3>Prioritized Findings Reports</h3>
-            <p>Issues ranked by severity — critical down to minor. Your team knows exactly what to fix first and why it matters most. No guessing about priority.</p>
-          </article>
-
-          <article class="remediation-card">
+            <h3>Regressions are silent</h3>
+            <p>Automated scans flag a fraction of real issues. The rest hide in keyboard order, ARIA semantics, and what the screen reader actually announces — until a user reports them.</p>
+          </div>
+          <div class="remediation-card">
             <div class="remediation-icon" aria-hidden="true">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
             </div>
-            <h3>Compliant Code Snippet Recommendations</h3>
-            <p>Reports include specific, ready-to-reference HTML and ARIA code snippets that demonstrate the correct implementation. Your developers see exactly what the fix looks like — not just what standard was violated.</p>
-          </article>
-
-          <article class="remediation-card">
+            <h3>Compliance is a timeline</h3>
+            <p>ADA Title II, Section 508, and WCAG 2.2 conformance aren't a checkbox — they require evidence that you're maintaining accessibility over time. Monthly reports build that record.</p>
+          </div>
+          <div class="remediation-card">
             <div class="remediation-icon" aria-hidden="true">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 7L9 18l-5-5"/></svg>
             </div>
-            <h3>Follow-Up Verification Testing</h3>
-            <p>After your team implements fixes, we come back and test. We confirm each resolved item actually works correctly with a screen reader — not just that the code changed. Included in Professional and Enterprise audits; available as a standalone service.</p>
-          </article>
-
+            <h3>Caught early is cheap</h3>
+            <p>A regression flagged in the next monthly report costs minutes to fix. The same issue surfaced by a complaint or a legal notice costs orders of magnitude more.</p>
+          </div>
         </div>
       </div>
     </section>
 
     <hr class="section-divider">
 
-    <!-- ── MONITORING ──────────────────────────────────────────── -->
-    <section class="section" id="monitoring" aria-labelledby="monitoring-heading">
+    <!-- ── HOW IT WORKS ────────────────────────────────────────── -->
+    <section class="section" id="how" aria-labelledby="how-heading">
       <div class="container">
-        <span class="section-label">Service 03</span>
-        <h2 class="section-title" id="monitoring-heading">Monthly Accessibility Monitoring</h2>
-        <p class="section-sub">Accessibility isn't a one-time fix. Site updates, new features, and third-party content constantly introduce regressions. Monthly monitoring keeps you compliant and gives you documented proof of ongoing due diligence.</p>
+        <span class="section-label">How monitoring works</span>
+        <h2 class="section-title" id="how-heading">Accessibility-tree diffing, screen-reader regression, human review.</h2>
+        <p class="section-sub">We monitor what assistive technology actually sees — not just the visible page. Each month, your site is captured, compared against the prior baseline, and reviewed by a QA11Y Labs accessibility specialist before anything reaches your inbox.</p>
+
+        <div class="audit-grid">
+          <article class="audit-card">
+            <span class="audit-tier">Step 01</span>
+            <h3 class="audit-name">Capture the accessibility tree</h3>
+            <p class="audit-scope">Each monitored page is rendered and the live accessibility tree — roles, names, states, and relationships — is captured as the canonical baseline.</p>
+            <ul class="audit-features">
+              <li>Headless rendering of production URLs</li>
+              <li>Roles, accessible names, descriptions, and states</li>
+              <li>Reading order and landmark structure</li>
+              <li>Focus order and keyboard reachability</li>
+            </ul>
+          </article>
+
+          <article class="audit-card featured">
+            <span class="audit-tier">Step 02</span>
+            <h3 class="audit-name">Diff against the prior baseline</h3>
+            <p class="audit-scope">The current tree is compared to last month's baseline. We surface what disappeared, what changed role or name, and what is newly unreachable.</p>
+            <ul class="audit-features">
+              <li>Removed or renamed controls</li>
+              <li>Role and state changes (e.g. buttons that lost their name)</li>
+              <li>New focus traps or unreachable regions</li>
+              <li>Heading-level and landmark shifts</li>
+            </ul>
+          </article>
+
+          <article class="audit-card">
+            <span class="audit-tier">Step 03</span>
+            <h3 class="audit-name">Screen-reader regression checks</h3>
+            <p class="audit-scope">Key flows are exercised with JAWS, NVDA, and VoiceOver to confirm that what the tree says matches what a real user hears.</p>
+            <ul class="audit-features">
+              <li>JAWS (primary), NVDA, and VoiceOver passes</li>
+              <li>Form, navigation, and modal flow checks</li>
+              <li>Announcements compared to prior month</li>
+              <li>Notes on anything a sighted scan would miss</li>
+            </ul>
+          </article>
+
+          <article class="audit-card">
+            <span class="audit-tier">Step 04</span>
+            <h3 class="audit-name">Human review by QA11Y Labs</h3>
+            <p class="audit-scope">Findings are reviewed by an accessibility specialist before delivery. No noise, no false alarms — only changes that matter, with context.</p>
+            <ul class="audit-features">
+              <li>Specialist review of every flagged change</li>
+              <li>Severity and WCAG 2.2 mapping</li>
+              <li>Plain-language explanation for each finding</li>
+              <li>Recommended fix or code snippet where relevant</li>
+            </ul>
+          </article>
+
+          <article class="audit-card">
+            <span class="audit-tier">Step 05</span>
+            <h3 class="audit-name">Monthly report &amp; receipt</h3>
+            <p class="audit-scope">You receive a clear, branded monthly report — what changed, what was fixed, what's open, and what's coming next. Built for both your team and your legal record.</p>
+            <ul class="audit-features">
+              <li>PDF + structured summary delivered each month</li>
+              <li>Trend tracking across cycles</li>
+              <li>Audit-ready evidence trail</li>
+              <li>Prioritized action list for engineering</li>
+            </ul>
+          </article>
+
+          <article class="audit-card">
+            <span class="audit-tier">Step 06</span>
+            <h3 class="audit-name">Between cycles, when it counts</h3>
+            <p class="audit-scope">Major release coming? Need a second look before a launch? Higher tiers include between-cycle access for the moments compliance can't wait a month.</p>
+            <ul class="audit-features">
+              <li>Priority escalation paths</li>
+              <li>Pre-release regression checks (Growth &amp; Enterprise)</li>
+              <li>Direct contact with your accessibility specialist</li>
+              <li>Quarterly or monthly review calls</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- ── TIERS ───────────────────────────────────────────────── -->
+    <section class="section" id="tiers" aria-labelledby="tiers-heading">
+      <div class="container">
+        <span class="section-label">Plans</span>
+        <h2 class="section-title" id="tiers-heading">Three tiers. One steady cadence.</h2>
+        <p class="section-sub">Every tier includes accessibility-tree diffing, screen-reader regression checks, human review by QA11Y Labs, and a monthly report. Coverage and response time scale with the tier.</p>
 
         <div class="monitoring-grid">
 
           <article class="monitoring-card">
             <span class="monitoring-tier-label">Essential</span>
             <h3 class="monitoring-name">Essential Monitoring</h3>
-            <p class="monitoring-desc">Baseline ongoing monitoring for smaller sites that need consistent compliance tracking.</p>
+            <p class="monitoring-desc">Steady ongoing coverage for smaller sites that need consistent compliance tracking and a documented record.</p>
             <ul class="monitoring-features">
-              <li>Monthly automated scan across key pages</li>
-              <li>Manual spot checks on high-traffic flows</li>
-              <li>Monthly compliance report delivered</li>
+              <li>Monthly accessibility-tree capture and diff on key pages</li>
+              <li>Manual spot checks on highest-traffic flows</li>
+              <li>Screen-reader regression pass with JAWS or NVDA</li>
+              <li>Monthly compliance report delivered to your team</li>
               <li>Regression alerts for newly introduced issues</li>
             </ul>
+            <a href="contact.html" class="audit-cta" style="margin-top: var(--space-6);">
+              Discuss Essential Monitoring
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
           </article>
 
           <article class="monitoring-card featured">
             <span class="monitoring-tier-label">Growth</span>
             <h3 class="monitoring-name">Growth Monitoring</h3>
-            <p class="monitoring-desc">Deeper coverage for organizations actively shipping updates and needing thorough regression tracking.</p>
+            <p class="monitoring-desc">Deeper coverage for teams actively shipping updates and needing thorough regression tracking between releases.</p>
             <ul class="monitoring-features">
-              <li>Monthly automated + manual testing across full site</li>
-              <li>Screen reader regression testing after site updates</li>
+              <li>Monthly accessibility-tree diff across the full site</li>
+              <li>Screen-reader regression checks (JAWS + NVDA) on key flows</li>
+              <li>Manual review of significant changes after major releases</li>
               <li>Monthly compliance report with trend tracking</li>
               <li>Priority issue escalation between reporting cycles</li>
-              <li>Quarterly review call</li>
+              <li>Quarterly review call with your team</li>
             </ul>
+            <a href="schedule.html" class="audit-cta" style="margin-top: var(--space-6);">
+              Schedule a Growth Consultation
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
           </article>
 
           <article class="monitoring-card">
             <span class="monitoring-tier-label">Enterprise</span>
             <h3 class="monitoring-name">Enterprise Monitoring</h3>
-            <p class="monitoring-desc">Full-coverage monitoring with dedicated support for large organizations with strict compliance requirements.</p>
+            <p class="monitoring-desc">Full-coverage monitoring with dedicated support for organizations with strict compliance and procurement requirements.</p>
             <ul class="monitoring-features">
-              <li>Continuous automated monitoring + monthly deep manual testing</li>
-              <li>Screen reader regression testing after every major release</li>
-              <li>Monthly compliance report with legal defensibility framing</li>
+              <li>Continuous automated monitoring plus monthly deep manual review</li>
+              <li>Screen-reader regression checks (JAWS, NVDA, VoiceOver) after every major release</li>
+              <li>Monthly report with legal-defensibility framing</li>
               <li>Direct access for between-cycle urgent testing requests</li>
               <li>VPAT maintenance support</li>
               <li>Monthly review call with stakeholders</li>
             </ul>
+            <a href="contact.html" class="audit-cta" style="margin-top: var(--space-6);">
+              Discuss Enterprise Monitoring
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
           </article>
 
         </div>
 
-        <div style="background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: var(--space-6) var(--space-8);">
+        <div style="background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: var(--space-6) var(--space-8); margin-top: var(--space-8);">
           <p style="font-size: var(--text-sm); color: var(--color-text-muted); max-width: none; margin: 0;">
-            <strong style="color: var(--color-text);">All monitoring tiers include:</strong> Ongoing automated + manual spot checks, regression testing after site updates, and a monthly compliance report delivered to your team.
+            <strong style="color: var(--color-text);">Every tier includes:</strong> accessibility-tree diffing against the prior baseline, screen-reader regression checks, human review by a QA11Y Labs accessibility specialist, and a monthly compliance report. Pricing is scoped to your site — request a quote and we'll size the plan to the work, not the other way around.
           </p>
         </div>
       </div>
@@ -1748,90 +1688,149 @@
 
     <hr class="section-divider">
 
-    <!-- ── CONSULTING ──────────────────────────────────────────── -->
-    <section class="section" id="consulting" aria-labelledby="consulting-heading">
+    <!-- ── WHAT'S IN THE REPORT ────────────────────────────────── -->
+    <section class="section" id="report" aria-labelledby="report-heading">
       <div class="container">
-        <span class="section-label">Service 04</span>
-        <h2 class="section-title" id="consulting-heading">Accessibility Consulting</h2>
-        <p class="section-sub">Expert advisory across the accessibility compliance spectrum — from ADA Title II strategy to ADA Title II, Section 508, and WCAG 2.2 standards. Quint speaks from 25+ years of lived screen reader expertise, not boilerplate compliance checklists.</p>
+        <span class="section-label">Inside the monthly report</span>
+        <h2 class="section-title" id="report-heading">Useful to engineering. Defensible to legal.</h2>
+        <p class="section-sub">The monthly report is the artifact your team and your lawyers both want on file. It's written to be acted on by developers and understood by everyone else.</p>
 
-        <div class="consulting-layout">
-
-          <div class="consulting-card" role="list" aria-label="Consulting services">
-            <div class="consulting-item highlight" role="listitem">
-              <div class="consulting-icon" aria-hidden="true">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <div class="audit-includes">
+          <h3>Each monthly report includes</h3>
+          <div class="includes-grid">
+            <div class="include-item">
+              <div class="include-icon" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
               </div>
-              <div>
-                <h3>ADA Title II Compliance Strategy</h3>
-                <p>California ADA Title II deadlines are approaching and enforcement is real. We help organizations understand their obligations, assess current state, and build a remediation roadmap that gets them compliant before the deadline — not after an enforcement action.</p>
-              </div>
+              <span><strong>Executive summary</strong>Where you stand, what changed, where to focus.</span>
             </div>
-
-            <div class="consulting-item" role="listitem">
-              <div class="consulting-icon cyan" aria-hidden="true">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            <div class="include-item">
+              <div class="include-icon" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-5"/></svg>
               </div>
-              <div>
-                <h3>ADA Title II — State &amp; Local Government</h3>
-                <p>ADA Title II requires state and local government entities to make their digital services accessible. We help agencies assess compliance gaps, document remediation efforts, and prepare for DOJ scrutiny.</p>
-              </div>
+              <span><strong>Diff against last month</strong>What appeared, disappeared, or changed in the accessibility tree.</span>
             </div>
-
-            <div class="consulting-item" role="listitem">
-              <div class="consulting-icon cyan" aria-hidden="true">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-              </div>
-              <div>
-                <h3>Section 508 Compliance</h3>
-                <p>Federal agencies and their contractors must meet Section 508 standards. We provide gap analysis, VPAT preparation support, and testing that holds up under procurement review.</p>
-              </div>
-            </div>
-
-            <div class="consulting-item" role="listitem">
-              <div class="consulting-icon cyan" aria-hidden="true">
+            <div class="include-item">
+              <div class="include-icon" aria-hidden="true">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
               </div>
-              <div>
-                <h3>WCAG 2.2 Expert Advisory</h3>
-                <p>Direct advisory on WCAG 2.2 success criteria interpretation, testing methodologies, and how standards apply to your specific implementation patterns. We don't recite the spec — we explain how it plays out in practice with real assistive technology.</p>
-              </div>
+              <span><strong>Severity &amp; WCAG mapping</strong>Each finding mapped to WCAG 2.2 with a clear severity.</span>
             </div>
-
-            <div class="consulting-item" role="listitem">
-              <div class="consulting-icon cyan" aria-hidden="true">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            <div class="include-item">
+              <div class="include-icon" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
               </div>
-              <div>
-                <p>Expert advisory on ARIA patterns, keyboard navigation, and WCAG 2.2 conformance. We work through complex accessibility problems with your team directly — developers, QA, and product owners.</p>
-                <p class="audit-price" style="margin-top:var(--space-3);margin-bottom:0;">Accessibility Consulting: Starting at <strong>$175/hr</strong></p>
+              <span><strong>Screen-reader notes</strong>What JAWS, NVDA, or VoiceOver actually announce on key flows.</span>
+            </div>
+            <div class="include-item">
+              <div class="include-icon" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
               </div>
+              <span><strong>Fix recommendations</strong>Code-level guidance, with snippets where appropriate.</span>
+            </div>
+            <div class="include-item">
+              <div class="include-icon" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="9" x2="15" y2="9"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/></svg>
+              </div>
+              <span><strong>Audit-ready trail</strong>A dated, signed report you can hand to legal or procurement.</span>
             </div>
           </div>
+        </div>
 
+        <p style="font-size: var(--text-sm); color: var(--color-text-muted); margin-top: var(--space-6); max-width: 60ch;">
+          Want to see the shape of the report before you commit? <a href="contact.html" style="color: var(--color-primary); text-decoration: underline;">Ask for a sample report</a>.
+        </p>
+      </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- ── WHO IT'S FOR ────────────────────────────────────────── -->
+    <section class="section" id="who" aria-labelledby="who-heading">
+      <div class="container">
+        <div class="consulting-layout">
+          <div>
+            <span class="section-label">Who this is for</span>
+            <h2 class="section-title" id="who-heading">Built for teams that ship often.</h2>
+            <p class="section-sub">If your site changes month over month, your accessibility posture changes with it. Monthly monitoring is for the organizations that can't afford to find out about regressions from a complaint.</p>
+            <ul class="monitoring-features" style="max-width: 60ch;">
+              <li>Public-sector and education entities preparing for ADA Title II</li>
+              <li>Federal contractors maintaining Section 508 conformance</li>
+              <li>SaaS and ecommerce teams shipping weekly or more</li>
+              <li>Organizations with a published accessibility statement to uphold</li>
+              <li>Teams who've completed a remediation and need to protect the work</li>
+            </ul>
+          </div>
           <div class="consulting-aside">
             <div class="quintin-quote">
               <blockquote>
-                "I've been a daily JAWS user for over 25 years. When I test your site, I'm not running a script — I'm navigating it the way your disabled users do. That's the difference."
+                "A clean audit on Monday doesn't mean a clean site on Friday. Monitoring is how you keep the work you paid for from quietly slipping away."
               </blockquote>
               <cite>
                 Quintin Williams
                 <span>Founder, QA11Y Labs</span>
               </cite>
             </div>
-
             <div class="sb62-detail">
-              <h3>About ADA Title II</h3>
-              <p>California's ADA Title II establishes web accessibility requirements with real enforcement timelines. Organizations that haven't started their compliance work are already behind. The question isn't whether you need to comply — it's whether you'll be ready before the deadline.</p>
-              <p>We've helped organizations navigate ADA Title II requirements with clarity and a realistic remediation roadmap. Contact us now — the earlier you start, the more options you have.</p>
-              <a href="schedule.html">
-                Discuss ADA Title II Compliance
+              <h3>Pairs well with a baseline audit</h3>
+              <p>If you haven't had a recent WCAG audit, we usually start there — a clean baseline makes every monthly diff afterward more useful. Already audited? Monitoring picks up the day after we hand off.</p>
+              <a href="services.html#audits-heading">
+                See WCAG audit options
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
               </a>
             </div>
           </div>
         </div>
+      </div>
+    </section>
 
+    <hr class="section-divider">
+
+    <!-- ── FAQ ─────────────────────────────────────────────────── -->
+    <section class="section" id="faq" aria-labelledby="faq-heading">
+      <div class="container">
+        <span class="section-label">Common questions</span>
+        <h2 class="section-title" id="faq-heading">Frequently asked.</h2>
+        <p class="section-sub">If you don't see your question here, <a href="contact.html" style="color: var(--color-primary); text-decoration: underline;">get in touch</a> — we'll answer in plain language, without sales pressure.</p>
+
+        <div class="consulting-card" role="list" aria-label="Frequently asked questions">
+          <div class="consulting-item" role="listitem">
+            <div>
+              <h3>How is this different from an automated scanner?</h3>
+              <p>Automated scanners flag a known subset of issues — roughly 30% of real accessibility barriers. We use scanners as one input, but the meaningful work is diffing the live accessibility tree, running screen-reader checks, and having an accessibility specialist review the result. The report is curated, not auto-generated.</p>
+            </div>
+          </div>
+          <div class="consulting-item" role="listitem">
+            <div>
+              <h3>What pages get monitored?</h3>
+              <p>We agree on a set of monitored URLs and key user flows during onboarding — typically your highest-traffic pages, login and checkout, and any flows tied to compliance or revenue. The scope grows or shrinks with your tier.</p>
+            </div>
+          </div>
+          <div class="consulting-item" role="listitem">
+            <div>
+              <h3>Do you need access to our codebase or staging?</h3>
+              <p>No. Monitoring runs against your public site. If you'd like us to verify a fix on staging or pre-production before release, higher tiers include between-cycle access for that.</p>
+            </div>
+          </div>
+          <div class="consulting-item" role="listitem">
+            <div>
+              <h3>Is the monthly report defensible if we're audited?</h3>
+              <p>Yes — the report is dated, scoped, mapped to WCAG 2.2 success criteria, and reviewed by a named accessibility specialist. Many of our clients keep the report stack as part of their ADA Title II or Section 508 evidence record.</p>
+            </div>
+          </div>
+          <div class="consulting-item" role="listitem">
+            <div>
+              <h3>What if you find something serious mid-cycle?</h3>
+              <p>If our checks surface a high-severity regression, we don't wait for the next report — we contact you directly. Growth and Enterprise tiers include explicit escalation paths and between-cycle access.</p>
+            </div>
+          </div>
+          <div class="consulting-item" role="listitem">
+            <div>
+              <h3>Can we cancel any time?</h3>
+              <p>Yes. Monthly monitoring is month-to-month. We'd rather earn the next month than lock you into something you've outgrown.</p>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -1841,12 +1840,12 @@
     <section class="section" aria-labelledby="cta-heading">
       <div class="container">
         <div class="cta-banner">
-          <p class="cta-banner-eyebrow">Ready to start?</p>
-          <h2 class="cta-banner-title" id="cta-heading">Schedule a consultation. Know where you stand.</h2>
-          <p class="cta-banner-sub">We'll tell you exactly where you stand, pinpoint your biggest risks, and lay out what it takes to get compliant and stay that way.</p>
+          <p class="cta-banner-eyebrow">Ready to keep what you've built?</p>
+          <h2 class="cta-banner-title" id="cta-heading">Start monitoring before the next release ships.</h2>
+          <p class="cta-banner-sub">Tell us about your site and the cadence you ship at. We'll recommend the right tier — or tell you honestly if you don't need one yet.</p>
           <div class="cta-banner-actions">
             <a href="schedule.html" class="btn-primary">
-              Schedule Consultation
+              Schedule a Consultation
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
             <a href="free-scan.html" class="btn-secondary">Get a Free Scan First</a>
@@ -1858,161 +1857,7 @@
   </main>
 
   <!-- ── FOOTER ─────────────────────────────────────────────────── -->
-  
-    <!-- ══════════════════════════════════════════════════
-         REMEDIATION PRICING — Bronze / Silver / Gold / Platinum
-    ══════════════════════════════════════════════════ -->
-    <section class="section" id="remediation-pricing" aria-labelledby="rem-pricing-heading">
-      <div class="container">
-        <header class="section-header">
-          <p class="section-eyebrow">Remediation Pricing</p>
-          <h2 class="section-title" id="rem-pricing-heading">Flat-rate remediation packages.</h2>
-          <p class="section-sub">Every package includes documented findings, prioritized fix list, and real code snippets your developers can act on immediately.</p>
-        </header>
-        <div class="pricing-grid" role="list">
-
-          <article class="pricing-card" role="listitem">
-            <div class="pricing-tier bronze">Bronze</div>
-            <p class="pricing-starting-at">Starting at</p>
-            <div class="pricing-price">$499</div>
-            <p class="pricing-desc">Up to 5 pages, no custom widgets.</p>
-            <ul class="pricing-features">
-              <li>WCAG 2.2 AA audit</li>
-              <li>axe-core + manual JAWS testing</li>
-              <li>Prioritized findings report</li>
-              <li>Code-level fix snippets</li>
-              <li>1 round of remediation review</li>
-            </ul>
-            <a href="schedule.html" class="btn-primary">Get Started</a>
-          </article>
-
-          <article class="pricing-card" role="listitem">
-            <div class="pricing-tier silver">Silver</div>
-            <p class="pricing-starting-at">Starting at</p>
-            <div class="pricing-price">$899</div>
-            <p class="pricing-desc">6–15 pages, basic interactive components.</p>
-            <ul class="pricing-features">
-              <li>Everything in Bronze</li>
-              <li>Forms, carousels, modals</li>
-              <li>ARIA pattern review</li>
-              <li>Keyboard navigation audit</li>
-              <li>2 rounds of remediation review</li>
-            </ul>
-            <a href="schedule.html" class="btn-primary">Get Started</a>
-          </article>
-
-          <article class="pricing-card featured" role="listitem">
-            <div class="pricing-tier gold">Gold <span class="popular-badge">Most Popular</span></div>
-            <p class="pricing-starting-at">Starting at</p>
-            <div class="pricing-price">$1,299</div>
-            <p class="pricing-desc">16–30 pages, complex forms &amp; modals.</p>
-            <ul class="pricing-features">
-              <li>Everything in Silver</li>
-              <li>Complex form flows</li>
-              <li>Modal &amp; dialog patterns</li>
-              <li>Focus management audit</li>
-              <li>3 rounds of remediation review</li>
-              <li>Developer Q&amp;A session (1 hr)</li>
-            </ul>
-            <a href="schedule.html" class="btn-primary">Get Started</a>
-          </article>
-
-          <article class="pricing-card" role="listitem">
-            <div class="pricing-tier platinum">Platinum</div>
-            <p class="pricing-starting-at">Starting at</p>
-            <div class="pricing-price">$1,999</div>
-            <p class="pricing-desc">30+ pages, custom widgets, SPAs, learning modules.</p>
-            <ul class="pricing-features">
-              <li>Everything in Gold</li>
-              <li>Custom widget &amp; SPA testing</li>
-              <li>Learning module / LMS audit</li>
-              <li>Live JAWS session recording</li>
-              <li>Unlimited remediation reviews (90 days)</li>
-              <li>Priority support channel</li>
-            </ul>
-            <a href="schedule.html" class="btn-primary">Get Started</a>
-          </article>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════════════
-         MONITORING PRICING — Bronze / Silver / Gold / Platinum
-    ══════════════════════════════════════════════════ -->
-    <section class="section" id="monitoring-pricing" aria-labelledby="mon-pricing-heading" style="background: rgba(102,252,241,0.03); border-top: 1px solid rgba(102,252,241,0.08);">
-      <div class="container">
-        <header class="section-header">
-          <p class="section-eyebrow">Monthly Monitoring</p>
-          <h2 class="section-title" id="mon-pricing-heading">Stay compliant. Always.</h2>
-          <p class="section-sub">Continuous accessibility monitoring so regressions never reach your users. Cancel anytime.</p>
-        </header>
-        <div class="pricing-grid" role="list">
-
-          <article class="pricing-card" role="listitem">
-            <div class="pricing-tier bronze">Bronze</div>
-            <p class="pricing-starting-at">Starting at</p>
-            <div class="pricing-price">$149<span class="pricing-period">/mo</span></div>
-            <p class="pricing-desc">1 URL, monthly scan, summary report.</p>
-            <ul class="pricing-features">
-              <li>1 URL monitored</li>
-              <li>Monthly automated scan</li>
-              <li>Summary report emailed</li>
-              <li>WCAG 2.2 AA baseline</li>
-            </ul>
-            <a href="schedule.html" class="btn-primary">Get Started</a>
-          </article>
-
-          <article class="pricing-card" role="listitem">
-            <div class="pricing-tier silver">Silver</div>
-            <p class="pricing-starting-at">Starting at</p>
-            <div class="pricing-price">$349<span class="pricing-period">/mo</span></div>
-            <p class="pricing-desc">Up to 5 URLs, bi-weekly scans, detailed report.</p>
-            <ul class="pricing-features">
-              <li>Up to 5 URLs monitored</li>
-              <li>Bi-weekly automated scans</li>
-              <li>Detailed findings report</li>
-              <li>Email + Slack alerts</li>
-            </ul>
-            <a href="schedule.html" class="btn-primary">Get Started</a>
-          </article>
-
-          <article class="pricing-card featured" role="listitem">
-            <div class="pricing-tier gold">Gold <span class="popular-badge">Most Popular</span></div>
-            <p class="pricing-starting-at">Starting at</p>
-            <div class="pricing-price">$599<span class="pricing-period">/mo</span></div>
-            <p class="pricing-desc">Up to 15 URLs, weekly scans, regression alerts.</p>
-            <ul class="pricing-features">
-              <li>Up to 15 URLs monitored</li>
-              <li>Weekly automated scans</li>
-              <li>Regression diff alerts</li>
-              <li>Monthly manual spot-check</li>
-              <li>Priority email support</li>
-            </ul>
-            <a href="schedule.html" class="btn-primary">Get Started</a>
-          </article>
-
-          <article class="pricing-card" role="listitem">
-            <div class="pricing-tier platinum">Platinum</div>
-            <p class="pricing-starting-at">Starting at</p>
-            <div class="pricing-price">$1,299<span class="pricing-period">/mo</span></div>
-            <p class="pricing-desc">Unlimited URLs, continuous monitoring, priority support.</p>
-            <ul class="pricing-features">
-              <li>Unlimited URLs monitored</li>
-              <li>Continuous automated scanning</li>
-              <li>Real-time regression alerts</li>
-              <li>Bi-weekly manual review</li>
-              <li>Dedicated support channel</li>
-              <li>Monthly strategy call</li>
-            </ul>
-            <a href="schedule.html" class="btn-primary">Get Started</a>
-          </article>
-
-        </div>
-      </div>
-    </section>
-
-    <footer class="site-footer" role="contentinfo">
+      <footer class="site-footer" role="contentinfo">
     <div class="container">
       <div class="footer-inner">
 
@@ -2034,7 +1879,7 @@
           <ul role="list">
             <li><a href="services.html#audits">WCAG Audits</a></li>
             <li><a href="services.html#remediation">Remediation Guidance</a></li>
-            <li><a href="monitoring.html">Monthly Monitoring</a></li>
+            <li><a href="monitoring.html" aria-current="page">Monthly Monitoring</a></li>
             <li><a href="services.html#consulting">Consulting</a></li>
           </ul>
         </nav>

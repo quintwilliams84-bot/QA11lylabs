@@ -1,0 +1,14 @@
+# webroot-drift.ignore
+#
+# One pattern per line, rsync --exclude syntax. Comments (#) and blank lines
+# are ignored. Patterns added here are layered on top of the defaults baked
+# into scripts/webroot-drift-detector.sh.
+#
+# Use this file for site-specific runtime/noise files that legitimately exist
+# in the webroot but should not be considered drift.
+
+# Example: ad-hoc client report drops served from the webroot
+# client-reports/
+
+# Example: pa11y output left behind after a deploy verify
+# pa11y-output.txt
