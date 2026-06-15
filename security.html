@@ -1,0 +1,161 @@
+
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- QA11Y BRAND HEAD START -->
+  <link rel="icon" href="assets/brand/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/brand/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/brand/favicon-16.png">
+  <link rel="icon" type="image/svg+xml" href="assets/brand/qa11ylabs-logo-icon.svg">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/brand/apple-touch-icon.png">
+  <link rel="manifest" href="assets/brand/site.webmanifest">
+  <meta name="theme-color" content="#0B0C10">
+  <meta property="og:site_name" content="QA11Y Labs">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://qa11ylabs.com/assets/images/quintin-williams-profile-square.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Portrait of Quintin Williams, founder of QA11Y Labs.">
+  <meta property="og:url" content="https://qa11ylabs.com/security.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://qa11ylabs.com/assets/images/quintin-williams-profile-square.jpg">
+  <meta name="twitter:image:alt" content="Portrait of Quintin Williams, founder of QA11Y Labs.">
+  <!-- QA11Y BRAND HEAD END -->
+  
+  <title>Security & Privacy Attestation — QA11Y Labs</title>
+  <meta name="description" content="At QA11Y Labs, we are committed to the highest standards of security and privacy. Learn about our core principles for protecting client data and building trust.">
+  <meta property="og:title" content="Security & Privacy Attestation — QA11Y Labs">
+  <meta property="og:description" content="At QA11Y Labs, we are committed to the highest standards of security and privacy. Learn about our core principles for protecting client data and building trust.">
+  <meta name="twitter:title" content="Security & Privacy Attestation — QA11Y Labs">
+  <meta name="twitter:description" content="At QA11Y Labs, we are committed to the highest standards of security and privacy. Learn about our core principles for protecting client data and building trust.">
+
+  <link rel="preconnect" href="https://api.fontshare.com">
+  <link href="https://api.fontshare.com/v2/css?f%5B%5D=cabinet-grotesk@500,700&f%5B%5D=satoshi@400,500,600,700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --font-display: 'Cabinet Grotesk', system-ui, sans-serif;
+      --font-body: 'Satoshi', system-ui, sans-serif;
+      --text-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+      --text-lg:   clamp(1.125rem, 1rem + 0.75vw, 1.5rem);
+      --text-2xl:  clamp(2rem, 1.2rem + 2.5vw, 3.5rem);
+      --space-4: 1rem;
+      --space-6: 1.5rem;
+      --space-8: 2rem;
+      --space-10: 2.5rem;
+      --space-12: 3rem;
+      --space-20: 5rem;
+      --radius-sm: 0.375rem;
+      --transition: 180ms cubic-bezier(0.16, 1, 0.3, 1);
+      --content-default: 1100px;
+    }
+    [data-theme="dark"],
+    :root {
+      --color-bg:          #0B0C10;
+      --color-surface:     #0f1117;
+      --color-border:      #1e2330;
+      --color-text:        #C5C6C7;
+      --color-text-muted:  #7a7e8a;
+      --color-primary:     #66FCF1;
+      --color-cta:         #F2A900;
+      --color-text-inverse:#0B0C10;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      min-height: 100dvh;
+      font-family: var(--font-body);
+      font-size: var(--text-base);
+      line-height: 1.65;
+      color: var(--color-text);
+      background-color: var(--color-bg);
+    }
+    h1, h2, h3 {
+      font-family: var(--font-display);
+      line-height: 1.1;
+      text-wrap: balance;
+    }
+    p, li { text-wrap: pretty; max-width: 68ch; }
+    a { color: inherit; text-decoration: none; }
+    :focus-visible {
+      outline: 3px solid var(--color-cta);
+      outline-offset: 3px;
+      border-radius: var(--radius-sm);
+    }
+    .container {
+      width: 100%;
+      max-width: var(--content-default);
+      margin-inline: auto;
+      padding-inline: var(--space-6);
+    }
+    @media (min-width: 768px) { .container { padding-inline: var(--space-10); } }
+    .skip-link { position: absolute; top: -60px; left: var(--space-4); background: var(--color-cta); color: var(--color-text-inverse); padding: var(--space-3) var(--space-6); z-index: 9999; }
+    .skip-link:focus { top: var(--space-4); }
+    .site-header { position: sticky; top: 0; z-index: 100; background: color-mix(in srgb, var(--color-bg) 90%, transparent); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--color-border); }
+    .header-inner { display: flex; align-items: center; justify-content: space-between; height: 4rem; }
+    .logo-link { display: flex; align-items: center; }
+    .primary-nav { display: none; }
+    @media (min-width: 900px) { .primary-nav { display: flex; } }
+    .nav-list { display: flex; list-style: none; }
+    .header-actions { display: flex; align-items: center; }
+    .nav-hamburger { display: flex; }
+    @media (min-width: 900px) { .nav-hamburger { display: none; } }
+    .mobile-nav { display: none; }
+    .site-footer { border-top: 1px solid var(--color-border); padding-block: var(--space-12); margin-top: var(--space-20); }
+    .section { padding-block: var(--space-20); }
+    .section-label { display: inline-flex; align-items: center; gap: var(--space-2); font-family: var(--font-display); font-size: var(--text-xs); font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-primary); margin-bottom: var(--space-4); }
+    .section-label::before { content: ''; display: block; width: 20px; height: 2px; background: var(--color-primary); }
+    .section-heading { font-family: var(--font-display); font-size: var(--text-2xl); font-weight: 700; color: var(--color-text); margin-bottom: var(--space-6); }
+    .section-sub { font-size: var(--text-base); color: var(--color-text-muted); line-height: 1.75; max-width: 60ch; }
+    .content-area h2 { font-family: var(--font-display); font-size: var(--text-lg); color: var(--color-primary); margin-top: var(--space-8); margin-bottom: var(--space-4); }
+    .centered { text-align: center; }
+    .content-area ul { list-style-position: inside; padding-left: var(--space-4); }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to Main Content</a>
+  <header class="site-header">
+  </header>
+  <main id="main-content">
+    <section class="section">
+      <div class="container">
+        <div class="section-label" aria-hidden="true">Our Commitment</div>
+        <h1 class="section-heading">Security & Privacy Attestation</h1>
+        <p class="section-sub">At QA11Y Labs, we believe that a truly accessible digital world must also be a secure one. The trust our clients place in us is our most valued asset, and we are committed to upholding the highest standards of security and privacy in every aspect of our work.</p>
+        
+        <div class="content-area">
+            <h3>Our Core Principles</h3>
+            <ul>
+                <li><strong>Data Security & Encryption:</strong> All client data, from initial contact information to detailed audit reports, is treated as highly confidential. Our infrastructure utilizes encrypted volumes for data at rest and enforces HTTPS/TLS for all data in transit, ensuring your information is protected at all times.</li>
+                <li><strong>Operational Integrity:</strong> We hold ourselves to the same rigorous standards we apply to our clients. Our internal systems and operational protocols undergo regular automated hygiene and security audits. We are committed to identifying and remediating any potential issues before they can impact our clients, ensuring our own digital house is in order.</li>
+                <li><strong>Privacy-First Approach:</strong> We architect for privacy. We do not sell or share client data with third parties. Our website and tools are designed to be privacy-respecting, utilizing minimal tracking and focusing only on the data necessary to deliver our world-class services.</li>
+                <li><strong>Client Data Manifest:</strong> We maintain a public client data handling manifest that summarizes the categories of data we collect, why we collect it, retention expectations, and the security controls we use. <a href="client-data-manifest.json">View the QA11Y Labs Client Data Handling Manifest</a>.</li>
+                <li><strong>Secure by Design:</strong> Our custom-built tools and automated systems, including our AI-driven testing agents, are developed with security as a core requirement, not an afterthought. We believe that secure code is, by its very nature, high-quality code.</li>
+            </ul>
+            <p style="margin-top: 2rem;">Your partnership with QA11Y Labs is built on a foundation of trust. If you have any questions about our security practices, please do not hesitate to contact us.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+      <!-- Footer content will be dynamically loaded -->
+  </footer>
+  <script>
+    // Simple script to load header and footer
+    fetch('nav.html')
+      .then(response => response.text())
+      .then(data => {
+        document.querySelector('.site-header').innerHTML = data;
+        // Re-attach nav logic if it was in the loaded file
+      });
+    fetch('footer.html')
+      .then(response => response.text())
+      .then(data => {
+        document.querySelector('.site-footer').innerHTML = data;
+      });
+  </script>
+</body>
+</html>

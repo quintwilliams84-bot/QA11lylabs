@@ -1,0 +1,50 @@
+{
+  "name": "QA11Y Labs Client Data Handling Manifest",
+  "version": "2026-06-06",
+  "status": "active",
+  "scope": "Public summary of how QA11Y Labs handles website lead data, free scan submissions, document checker submissions, audit evidence, reports, and monitoring artifacts.",
+  "principles": [
+    "Collect the minimum data needed to provide accessibility services.",
+    "Store client-sensitive artifacts only in approved server-side client-data locations, not in public web roots or source repositories.",
+    "Use HTTPS/TLS for data in transit and encrypted storage for sensitive client-data paths.",
+    "Keep raw scanner artifacts and backups under defined retention windows unless an engagement requires longer retention.",
+    "Require human approval before sending external emails, invoices, or client communications through agent-assisted workflows."
+  ],
+  "data_categories": [
+    {
+      "category": "lead_and_contact_data",
+      "examples": ["name", "email", "company", "message", "requested URL"],
+      "purpose": "responding to inquiries, scheduling discovery calls, preparing scopes, and sending requested scan results"
+    },
+    {
+      "category": "scan_and_monitoring_artifacts",
+      "examples": ["automated accessibility results", "accessibility tree snapshots", "DOM summaries", "Lighthouse/axe/Pa11y outputs", "generated reports"],
+      "purpose": "triage, monitoring, remediation guidance, trend comparison, and client reporting"
+    },
+    {
+      "category": "document_checker_artifacts",
+      "examples": ["uploaded PDF/DOCX files", "generated document accessibility reports", "metadata needed to return results"],
+      "purpose": "document accessibility triage and follow-up"
+    }
+  ],
+  "retention_summary": {
+    "free_scan_results": "typically up to 90 days unless a paid engagement or written request requires a different period",
+    "paid_client_audit_data": "typically for the engagement period plus a reasonable follow-up period, commonly up to 12 months unless contract terms differ",
+    "raw_monitoring_artifacts": "rolling retention where practical; operational cleanup jobs remove stale artifacts according to QA11Y retention rules",
+    "deletion_requests": "handled after reasonable verification, with deletion targeted within 30 days unless legal or contractual obligations require retention"
+  },
+  "security_controls": [
+    "HTTPS/TLS for public website traffic",
+    "server-side access controls for operational tools",
+    "encrypted client-data storage paths for sensitive artifacts",
+    "encrypted backup workflow with checksum manifests for client-data backups",
+    "secret redaction rules for agent logs and receipts",
+    "approval gates for external communications and irreversible actions"
+  ],
+  "public_pages": {
+    "security_and_trust": "https://qa11ylabs.com/security.html",
+    "privacy_policy": "https://qa11ylabs.com/privacy.html",
+    "terms": "https://qa11ylabs.com/terms.html"
+  },
+  "contact": "Use the QA11Y Labs contact form or the privacy contact instructions listed on the privacy policy page."
+}
