@@ -43,6 +43,10 @@ const TG_TOKEN   = process.env.TELEGRAM_BOT_TOKEN || '';
 const TG_CHAT_ID = process.env.TELEGRAM_CHAT_ID || '';
 const QA11Y_PYTHON = process.env.QA11Y_PYTHON || '/root/qa11y-venv/bin/python';
 const AGENTMAIL_SENDER = process.env.AGENTMAIL_SENDER || '/root/agentmail_send.py';
+const FREE_SCAN_LEADS_DIR = '/root/qa11y-ops/leads/free-scan';
+const FREE_SCAN_JSONL = path.join(FREE_SCAN_LEADS_DIR, 'free_scan_leads.jsonl');
+const FREE_SCAN_CSV = path.join(FREE_SCAN_LEADS_DIR, 'free_scan_leads.csv');
+const UNIFIED_LEAD_INBOX = '/root/qa11y-ops/leads/unified/lead_inbox.jsonl';
 
 // ══ ABUSE PROTECTION ════════════════════════════════════════════════════════════════════
 
@@ -126,6 +130,91 @@ function normaliseUrl(raw) {
     if (!['http:', 'https:'].includes(u.protocol)) return null;
     return u.href;
   } catch { return null; }
+}
+
+function safeLeadText(value, limit = 400) {
+  return String(value || '').replace(/[\r\n\t]+/g, ' ').trim().slice(0, limit);
+}
+
+function csvCell(value) {
+  const text = safeLeadText(value, 1000);
+  return /[",\n]/.test(text) ? `"${text.replace(/"/g, '""')}"` : text;
+}
+
+function appendLine(filePath, line) {
+  fs.mkdirSync(path.dirname(filePath), { recursive: true });
+  fs.appendFileSync(filePath, line + '\n', { encoding: 'utf8', mode: 0o600 });
+}
+
+function writeFreeScanLead({ url, email, pageTitle, lighthouseScore, violations, passes, messageId, route }) {
+  try {
+    const createdAt = new Date().toISOString();
+    const host = (() => { try { return new URL(url).hostname; } catch { return safeLeadText(url, 180); } })();
+    const sorted = sortViolations(violations || []);
+    const critC = sorted.filter(v => v.impact === 'critical').length;
+    const serC = sorted.filter(v => v.impact === 'serious').length;
+    const top = sorted[0] || {};
+    const leadId = crypto.createHash('sha256')
+      .update(`${createdAt}|${String(email || '').toLowerCase()}|${host}`)
+      .digest('hex')
+      .slice(0, 16);
+    const lead = {
+      created_at: createdAt,
+      lead_id: leadId,
+      source: 'free_url_scan',
+      route: route || 'unknown',
+      name: '',
+      email: safeLeadText(email, 180),
+      company: host,
+      website: url,
+      page_title: safeLeadText(pageTitle, 240),
+      lighthouse_score: lighthouseScore ?? '',
+      total_violations: sorted.length,
+      critical: critC,
+      serious: serC,
+      passes: Array.isArray(passes) ? passes.length : (passes || 0),
+      top_issue: safeLeadText(top.description || top.id || 'No automated violation recorded', 300),
+      message_id: messageId || '',
+      status: 'new_free_scan',
+      next_action: 'Review automated scan result and decide whether to send a consultation follow-up.',
+    };
+    appendLine(FREE_SCAN_JSONL, JSON.stringify(lead));
+    if (!fs.existsSync(FREE_SCAN_CSV)) {
+      appendLine(FREE_SCAN_CSV, [
+        'created_at','lead_id','email','company','website','lighthouse_score',
+        'total_violations','critical','serious','top_issue','message_id','route'
+      ].join(','));
+    }
+    appendLine(FREE_SCAN_CSV, [
+      lead.created_at, lead.lead_id, lead.email, lead.company, lead.website,
+      lead.lighthouse_score, lead.total_violations, lead.critical, lead.serious,
+      lead.top_issue, lead.message_id, lead.route
+    ].map(csvCell).join(','));
+    appendLine(UNIFIED_LEAD_INBOX, JSON.stringify({
+      approval_required: true,
+      company: lead.company,
+      created_at: lead.created_at,
+      email: lead.email,
+      grade: lead.lighthouse_score === '' ? '' : String(lead.lighthouse_score),
+      last_touch: '',
+      lead_id: lead.lead_id,
+      name: '',
+      next_action: lead.next_action,
+      notes: `Free URL scan for ${lead.website}; violations=${lead.total_violations}; critical=${lead.critical}; serious=${lead.serious}; top=${lead.top_issue}`,
+      priority: lead.critical > 0 || lead.serious > 0 ? 'warm' : 'normal',
+      raw: lead,
+      score: lead.lighthouse_score === '' ? '' : String(lead.lighthouse_score),
+      source: 'free_url_scan',
+      source_key: lead.lead_id,
+      status: lead.status,
+      top_issue: lead.top_issue,
+      website: lead.website,
+    }));
+    return lead;
+  } catch (err) {
+    console.warn('[scan] Could not persist free scan lead:', err.message);
+    return null;
+  }
 }
 
 // ── axe-core + Playwright scan ─────────────────────────────────────────────
@@ -567,6 +656,16 @@ function registerScanRoutes(app, agentMailClient, AGENTMAIL_INBOX) {
       // ── Telegram lead alert ────────────────────────────────────────
       const critC = violations.filter(v => v.impact === 'critical').length;
       const serC  = violations.filter(v => v.impact === 'serious').length;
+      writeFreeScanLead({
+        url,
+        email,
+        pageTitle,
+        lighthouseScore: lh.score,
+        violations,
+        passes,
+        messageId: emailResult.messageId,
+        route: 'scan-stream',
+      });
       tgAlert(
         `🔍 New Free Scan Lead\n` +
         `URL: ${url}\n` +
@@ -651,6 +750,16 @@ function registerScanRoutes(app, agentMailClient, AGENTMAIL_INBOX) {
       const pageTitle  = axeResult.pageTitle || new URL(url).hostname;
       const pdfBuffer  = await buildScanPdf(url, violations, passes, lh, pageTitle);
       const emailResult = await sendScanEmail(agentMailClient, AGENTMAIL_INBOX, email, url, pdfBuffer, violations.length);
+      writeFreeScanLead({
+        url,
+        email,
+        pageTitle,
+        lighthouseScore: lh.score,
+        violations,
+        passes,
+        messageId: emailResult.messageId,
+        route: 'scan-post',
+      });
       tgAlert(`🔍 Free Scan (POST)\nURL: ${url}\nEmail: ${email}\nViolations: ${violations.length}`);
       return res.json({ success: true, violations: violations.length, passes: passes.length, message_id: emailResult.messageId });
     } catch (err) {
