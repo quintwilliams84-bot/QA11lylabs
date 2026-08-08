@@ -490,7 +490,7 @@ function sendAgentMailViaPython({ to, subject, text, html, replyTo, attachments 
     timeout: 45000,
     maxBuffer: 1024 * 1024,
   }).trim();
-  const match = output.match(/message_id:\s*([A-Za-z0-9._:-]+)/i);
+  const match = output.match(/message_id:\s*<?([A-Za-z0-9._:-]+)>?\.?/i);
   if (!match) {
     throw new Error(`AgentMail sender did not return a message_id. Output: ${output.slice(0, 240)}`);
   }
