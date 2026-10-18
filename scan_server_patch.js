@@ -28,8 +28,9 @@
 
 'use strict';
 
-const { execSync, execFileSync } = require('child_process');
+const { execFileSync } = require('child_process');
 const path         = require('path');
+const dns          = require('dns').promises;
 const fs           = require('fs');
 const crypto       = require('crypto');
 const os           = require('os');
@@ -187,6 +188,41 @@ function normaliseUrl(raw) {
   } catch { return null; }
 }
 
+// ── SSRF guard: refuse non-public targets ────────────────────────────────────
+// The scanner fetches attacker-chosen URLs and emails the results back, so it
+// must never be pointed at localhost, private networks, or cloud metadata
+// (e.g. 169.254.169.254). Note: DNS is checked at request time; a rebinding
+// attack between check and fetch is a known residual risk.
+function isPrivateIp(ip) {
+  if (ip.includes(':')) {
+    const low = ip.toLowerCase();
+    return low === '::1' || /^(fc|fd)/.test(low) || low.startsWith('fe80');
+  }
+  const p = ip.split('.').map(Number);
+  if (p.length !== 4 || p.some(n => !Number.isInteger(n) || n < 0 || n > 255)) return true;
+  const [a, b] = p;
+  return a === 0 || a === 10 || a === 127 ||
+         (a === 172 && b >= 16 && b <= 31) ||
+         (a === 192 && b === 168) ||
+         (a === 169 && b === 254);
+}
+
+async function assertPublicUrl(url) {
+  const { hostname } = new URL(url);
+  if (/^(localhost|.*\.localhost)$/i.test(hostname)) {
+    throw new Error('private host');
+  }
+  let addrs;
+  try {
+    addrs = await dns.lookup(hostname, { all: true, verbatim: true });
+  } catch {
+    throw new Error('unresolvable host');
+  }
+  for (const { address } of addrs) {
+    if (isPrivateIp(address)) throw new Error('private address');
+  }
+}
+
 function safeLeadText(value, limit = 400) {
   return String(value || '').replace(/[\r\n\t]+/g, ' ').trim().slice(0, limit);
 }
@@ -304,15 +340,17 @@ async function runAxeScan(url, onProgress) {
 // ── Lighthouse score ───────────────────────────────────────────────────────
 function runLighthouse(url, onProgress) {
   onProgress('Running Google Lighthouse accessibility score…');
-  const outPath = `/tmp/lh-${Date.now()}.json`;
+  const outPath = `/tmp/lh-${Date.now()}-${process.pid}.json`;
   try {
-    execSync(
-      `npx lighthouse "${url}" --output=json --output-path=${outPath} ` +
-      `--only-categories=accessibility ` +
-      `--chrome-flags="--headless --no-sandbox --disable-gpu" ` +
-      `--quiet`,
-      { timeout: 90_000, stdio: 'pipe' }
-    );
+    // execFileSync with an args array — no shell is spawned, so a hostile URL
+    // can never break out into command execution (execSync + interpolation did).
+    execFileSync('npx', [
+      'lighthouse', url,
+      '--output=json', `--output-path=${outPath}`,
+      '--only-categories=accessibility',
+      '--chrome-flags=--headless --no-sandbox --disable-gpu',
+      '--quiet',
+    ], { timeout: 90_000, stdio: 'pipe' });
     const data  = JSON.parse(fs.readFileSync(outPath, 'utf8'));
     const score = data?.categories?.accessibility?.score != null
       ? Math.round(data.categories.accessibility.score * 100)
@@ -648,6 +686,13 @@ function registerScanRoutes(app, agentMailClient, AGENTMAIL_INBOX) {
       return sendErr('Invalid URL or email address.');
     }
 
+    // ── SSRF guard: only public websites can be scanned ──────────────────────
+    try {
+      await assertPublicUrl(url);
+    } catch (e) {
+      return sendErr('That address can’t be scanned — please use a public website URL.');
+    }
+
     const ip = clientIp(req);
 
     // ── L2a: Concurrent scan cap ─────────────────────────────────────────────
@@ -796,6 +841,13 @@ function registerScanRoutes(app, agentMailClient, AGENTMAIL_INBOX) {
     const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!url || !email || !emailRe.test(email)) {
       return res.status(400).json({ error: 'Valid url and email are required.' });
+    }
+
+    // SSRF guard: only public websites can be scanned
+    try {
+      await assertPublicUrl(url);
+    } catch (e) {
+      return res.status(400).json({ error: 'That address can’t be scanned — please use a public website URL.' });
     }
 
     const ip = clientIp(req);
