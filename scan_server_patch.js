@@ -19,6 +19,11 @@
  *   L2 — Node in-memory: 5 scans per IP per 10 min + max 2 concurrent scans
  *   L3 — Honeypot field: bots fill it, humans don’t
  *   L4 — Email+domain dedup: same combo blocked for 24 hours
+ *
+ * Browser resilience:
+ *   - Startup browser self-test with Telegram alert on failure
+ *   - Clean user-facing error when the browser can't launch (no raw internals)
+ *   - GET /api/scan-health for uptime monitoring
  */
 
 'use strict';
@@ -110,6 +115,56 @@ function clientIp(req) {
   if (fwd) return fwd.split(',')[0].trim();
   return req.socket?.remoteAddress || 'unknown';
 }
+
+// ══ BROWSER HEALTH ═══════════════════════════════════════════════════════════
+// Cached browser-launch status: null = unchecked, true = ok, false = unavailable.
+// Verified once at startup (non-blocking) and re-checked lazily whenever a scan
+// is requested while marked unavailable, so recovery doesn't need a restart.
+let browserOk = null;
+
+async function verifyBrowser() {
+  const { chromium } = require('playwright');
+  let browser;
+  try {
+    browser = await chromium.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'] });
+    browserOk = true;
+    return true;
+  } catch (err) {
+    browserOk = false;
+    console.error('[scan] Browser verification failed:', err.message);
+    return false;
+  } finally {
+    if (browser) await browser.close().catch(() => {});
+  }
+}
+
+function isBrowserLaunchFailure(err) {
+  return /executable doesn't exist|browserType\.launch|failed to launch/i.test((err && err.message) || '');
+}
+
+// Single launch path for all scans: detects a missing/unusable browser,
+// alerts loudly, and throws a clean user-facing error (no raw internals).
+async function launchScannerBrowser() {
+  const { chromium } = require('playwright');
+  try {
+    return await chromium.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'] });
+  } catch (err) {
+    browserOk = false;
+    if (isBrowserLaunchFailure(err)) {
+      tgAlert(`🚨 Scanner browser failed to launch\nError: ${err.message.slice(0, 160)}`);
+      const clean = new Error('Our scanner is temporarily unavailable — the team has been alerted and is restoring it.');
+      clean.userFacing = true;
+      throw clean;
+    }
+    throw err;
+  }
+}
+
+// Verify at startup (non-blocking) — alerts loudly if the browser is missing
+// so an outage is never silent again.
+verifyBrowser().then(ok => {
+  if (!ok) tgAlert('🚨 Scanner started WITHOUT a working browser. Free scans will fail until Chromium is restored.');
+});
 
 // ── Telegram helper ────────────────────────────────────────────────────────
 async function tgAlert(msg) {
@@ -219,13 +274,12 @@ function writeFreeScanLead({ url, email, pageTitle, lighthouseScore, violations,
 
 // ── axe-core + Playwright scan ─────────────────────────────────────────────
 async function runAxeScan(url, onProgress) {
-  const { chromium }   = require('playwright');
   const { AxeBuilder } = require('@axe-core/playwright');
 
   onProgress('Launching browser and navigating to your site…');
   let browser;
   try {
-    browser = await chromium.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'] });
+    browser = await launchScannerBrowser();
     const ctx  = await browser.newContext({ ignoreHTTPSErrors: true, userAgent: 'QA11YLabsScanner/2.0' });
     const page = await ctx.newPage();
     await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 45_000 });
@@ -615,6 +669,12 @@ function registerScanRoutes(app, agentMailClient, AGENTMAIL_INBOX) {
       return sendErr(`You already have a report for ${host}. Check your email — we sent it within the last 24 hours. Need a deeper audit? Visit qa11ylabs.com/services.html`);
     }
 
+    // ── Browser availability gate ────────────────────────────────────────────
+    if (browserOk === false) await verifyBrowser(); // lazy re-check: may have been restored
+    if (browserOk === false) {
+      return sendErr('Our scanner is temporarily unavailable — the team has been alerted. Please try again shortly.');
+    }
+
     // activeScans tracking
     activeScans++;
     res.on('close', () => { activeScans = Math.max(0, activeScans - 1); });
@@ -704,11 +764,23 @@ function registerScanRoutes(app, agentMailClient, AGENTMAIL_INBOX) {
 
     } catch (err) {
       console.error('[scan-stream] Error:', err.message);
-      send('error', `Scan failed: ${err.message.slice(0, 120)}. Please try again.`);
+      const userMsg = err.userFacing ? err.message : `Scan failed: ${err.message.slice(0, 120)}. Please try again.`;
+      send('error', userMsg);
       tgAlert(`⚠️ Free scan error\nURL: ${url}\nError: ${err.message.slice(0, 100)}`);
     } finally {
       res.end();
     }
+  });
+
+  // ── Browser + scanner health (for uptime monitoring) ───────────────────────
+  app.get('/api/scan-health', async (req, res) => {
+    if (browserOk === null) await verifyBrowser();
+    res.json({
+      browser: browserOk ? 'ok' : 'unavailable',
+      activeScans,
+      maxConcurrent: MAX_CONCURRENT,
+      uptimeSec: Math.round(process.uptime()),
+    });
   });
 
   // Keep legacy POST endpoint working
@@ -741,6 +813,12 @@ function registerScanRoutes(app, agentMailClient, AGENTMAIL_INBOX) {
       return res.status(429).json({ error: `Report for ${host} already sent within 24 hours. Check your email.` });
     }
 
+    // Browser availability gate
+    if (browserOk === false) await verifyBrowser();
+    if (browserOk === false) {
+      return res.status(503).json({ error: 'Our scanner is temporarily unavailable — the team has been alerted. Please try again shortly.' });
+    }
+
     activeScans++;
     try {
       const lh         = runLighthouse(url, () => {});
@@ -764,7 +842,9 @@ function registerScanRoutes(app, agentMailClient, AGENTMAIL_INBOX) {
       return res.json({ success: true, violations: violations.length, passes: passes.length, message_id: emailResult.messageId });
     } catch (err) {
       console.error('[scan POST] Error:', err.message);
-      return res.status(500).json({ error: 'Scan failed. Please try again.' });
+      const status = err.userFacing ? 503 : 500;
+      const msg = err.userFacing ? err.message : 'Scan failed. Please try again.';
+      return res.status(status).json({ error: msg });
     } finally {
       activeScans = Math.max(0, activeScans - 1);
     }
