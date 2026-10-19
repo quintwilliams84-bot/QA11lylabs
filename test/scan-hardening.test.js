@@ -91,4 +91,18 @@ describe('isTrustedProxy', () => {
     assert.equal(ip.isTrustedProxy('100.80.0.1', TRUSTED), true);
     assert.equal(ip.isTrustedProxy('8.8.8.8', TRUSTED), false);
   });
+  it('preserves IPv6 exact matches (Codex: ::1 loopback regression)', () => {
+    assert.equal(ip.isTrustedProxy('::1', TRUSTED), true);
+    assert.equal(ip.isTrustedProxy('[::1]', TRUSTED), true);
+    assert.equal(ip.isTrustedProxy('::2', TRUSTED), false);
+  });
+  it('rejects IPv6 CIDRs clearly (deliberately unsupported)', () => {
+    assert.equal(ip.ipInCidr('::1', '::/0'), false);
+    assert.equal(ip.ipInCidr('fe80::1', 'fe80::/10'), false);
+  });
+  it('rejects empty and invalid syntax', () => {
+    assert.equal(ip.ipInCidr('', '100.64.0.0/10'), false);
+    assert.equal(ip.ipInCidr('100.100.1.1', ''), false);
+    assert.equal(ip.ipInCidr('100.100.1.1', null), false);
+  });
 });
