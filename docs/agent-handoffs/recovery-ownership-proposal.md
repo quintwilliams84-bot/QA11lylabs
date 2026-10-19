@@ -1,14 +1,15 @@
 # Recovery ownership proposal
 
 Cloud specification candidate is now available in OpenclawOps:
-`agent/codex/recovery-policy` at `584975f74a0f41f29dd7216d0bf0b6347aa60cf8`.
-Its revised pure decision-policy suite passed 30 synthetic tests. It has no executor,
+`agent/codex/recovery-policy` at `b7dc2a75696f10a346f4ab106102fa99419a649b`.
+Its revised pure decision-policy suite passed 42 synthetic tests. It has no executor,
 state store, service integration or production authority; all outputs are
 unauthorized proposals. See
-[candidate scope and blockers](https://github.com/quintwilliams84-bot/OpenclawOps/blob/584975f74a0f41f29dd7216d0bf0b6347aa60cf8/docs/agent-operations/RECOVERY_POLICY_CANDIDATE.md).
+[candidate scope and blockers](https://github.com/quintwilliams84-bot/OpenclawOps/blob/b7dc2a75696f10a346f4ab106102fa99419a649b/docs/agent-operations/RECOVERY_POLICY_CANDIDATE.md).
 Full deployed source is still needed before drafting exact replacement adapters.
-The v2 review addresses service/invocation binding, observation continuity, separate
-cooldown accounting and explicit outcomes. Cleanup now always defers. Persistence,
+The v3 review adds permanent request invalidation, authoritative execution-start
+requirements for uncertain resolution, and cross-field budget/cooldown validation.
+Revalidation now returns state that the future adapter must atomically preserve. Cleanup now always defers. Persistence,
 authentication, atomic execution and live integration remain blockers.
 
 DESIGN ONLY. No active policy, service change, restart, permission change or
