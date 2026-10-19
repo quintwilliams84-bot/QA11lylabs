@@ -1,9 +1,10 @@
 # Wiring the agents into Slack
 
-Goal: Muse, OpenClaw, Codex, and Hermes can all post in the `#agents`
-channel (C0CA2N5UMPD) on the `qa11ylabs.slack.com` workspace — build/test/ship
-updates, diagnostics, review findings. Human approval still required for all
-sends, merges, and deploys (see #agents channel topic).
+Goal: Muse and OpenClaw post in the `#agents` channel (C0CA2N5UMPD) on the
+`qa11ylabs.slack.com` workspace — build/test/ship updates, diagnostics.
+Codex works through the GitHub handoff branch; Hermes is delegation-only and
+needs no Slack presence. Human approval still required for all sends,
+merges, and deploys (see #agents channel topic).
 
 ## What's already working (Oct 19, 2026)
 
@@ -11,15 +12,15 @@ sends, merges, and deploys (see #agents channel topic).
 |---|---|---|
 | Muse | Muse Slack app, OAuth as Quintin | ✅ Live — read/post verified |
 | OpenClaw | Its own Slack bot (U0AQXBKFE94) | ✅ Bot exists, posts Sterling v2 briefs — needs channel targeting only |
-| Codex | None | ❌ No Slack path; Quintin relays via pasted handoffs |
-| Hermes | Unknown | ❓ Runtime not visible from here |
+| Codex | None | ➖ No Slack path; Quintin relays via pasted handoffs |
+| Hermes | None needed | ➖ Delegation only — no Slack presence required |
 
-## Chosen approach: incoming webhooks (one per agent)
+## Chosen approach: incoming webhook for OpenClaw (if needed)
 
-Why webhooks instead of more bots/OAuth: an incoming webhook is just a URL.
-Any agent that can `curl` can post. No OAuth dance, no token refresh, no SDK.
-One webhook per agent (not one shared) so posts are attributable and any
-single URL can be rotated without touching the others.
+Why a webhook instead of more bots/OAuth: it's just a URL. Any agent that
+can `curl` can post. No OAuth dance, no token refresh, no SDK. Only OpenClaw
+might need one — and only if pointing its existing bot at #agents turns out
+harder than a fresh webhook. Muse is already connected via OAuth.
 
 **Secrets rule:** webhook URLs are secrets. They live in each agent's
 environment / secret store — NEVER in this repo, never in chat logs.
@@ -47,7 +48,7 @@ is wrong or revoked — regenerate it in the same settings page.
 
 ## Per-agent wiring
 
-### OpenClaw (closest to done)
+### OpenClaw (the only one left to wire)
 
 Its bot already works — the missing piece is delivery target, not credentials.
 Two options, easiest first:
@@ -63,21 +64,18 @@ Two options, easiest first:
     "$SLACK_WEBHOOK_URL"
   ```
 
-### Hermes
+### Hermes — out of scope by design
 
-Runtime not visible from this repo. Whoever operates Hermes needs to:
-
-1. Take one webhook URL from Quintin's click-path above.
-2. Store it as `SLACK_WEBHOOK_URL` in Hermes's environment/secret store.
-3. Add a "post status to Slack" step to its existing reporting flow
-   (same curl shape as above).
+No Slack presence needed. Delegation to Hermes happens through existing
+channels (Quintin relays); it doesn't need a webhook, a bot, or a seat in
+#agents. Kept deliberately simple.
 
 ### Codex
 
-No Slack path by design today — it works through the shared GitHub handoff
+No Slack path by design — it works through the shared GitHub handoff
 branch (`codex/staging-coordination`) and Quintin relays. If Codex ever needs
-to post directly, give it the same webhook treatment as Hermes. Until then:
-Muse mirrors Codex review findings into #agents when Quintin asks.
+to post directly, give it the same webhook treatment as OpenClaw's Option B.
+Until then: Muse mirrors Codex review findings into #agents when Quintin asks.
 
 ### Muse
 
@@ -93,19 +91,17 @@ prefixed with the agent name (e.g. `*Muse* — …`) so attribution stays clear.
 
 ## Challenge assessment (honest)
 
-The webhook itself is the easy 15 minutes. The real work is installing one
-secret into each agent's runtime — and that requires hands on those runtimes:
+The webhook itself is the easy 15 minutes. The only real wiring left is
+OpenClaw: either point its working bot at #agents (one-line config), or
+install one webhook URL in its runtime. That needs whoever holds the
+VPS/OpenClaw config — this repo can't reach it.
 
-- **OpenClaw:** likely minutes (bot works; probably just channel targeting).
-  Needs whoever holds the VPS/OpenClaw config.
-- **Hermes:** unknown effort — first need to find where it runs and whether
-  it can make outbound HTTPS calls.
-- **What this repo cannot do:** store the URLs, or reach into those runtimes.
-  This document is the map, not the wiring.
+Hermes is out of scope by design (delegation only). Codex stays on the
+GitHub handoff. So the "how challenging" answer: one small config change,
+one pair of hands.
 
 ## Checklist
 
-- [ ] Webhook URL created for OpenClaw → installed in its runtime → test post seen
-- [ ] Webhook URL created for Hermes → installed in its runtime → test post seen
-- [ ] OpenClaw posting VPS diagnostic summaries to #agents
+- [ ] OpenClaw pointed at #agents (bot channel targeting, or webhook URL installed) → test post seen
 - [ ] Decide: does Codex need a webhook, or does the GitHub handoff suffice?
+- [ ] Hermes: nothing — delegation only, by design
