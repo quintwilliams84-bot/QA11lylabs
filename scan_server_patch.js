@@ -16,14 +16,24 @@
  *
  * Abuse protection (4 layers):
  *   L1 — nginx rate limit: 2 req/min per IP (in nginx config, burst=3)
- *   L2 — Node in-memory: 5 scans per IP per 10 min + max 2 concurrent scans
+ *   L2 — Node: 5 scans per IP per 10 min (persisted to disk across restarts)
+ *        + FIFO scan queue (waits its turn instead of reject-when-busy)
  *   L3 — Honeypot field: bots fill it, humans don’t
- *   L4 — Email+domain dedup: same combo blocked for 24 hours
+ *   L4 — Email+domain dedup: same combo blocked for 24 hours (persisted)
+ *
+ * Client IP: X-Forwarded-For is only trusted past TRUSTED_PROXIES
+ * (default: localhost + Tailscale range) — rightmost untrusted address wins.
+ *
+ * Phase 2 hardening:
+ *   - Persistent rate-limit/dedup store (RATE_STORE_PATH, default
+ *     /root/qa11y-ops/rate-store.json) — survives restarts
+ *   - FIFO scan queue with 10-min max wait and queue-position events
+ *   - Per-scan timeout (SCAN_TIMEOUT_MS, default 3 min) on axe/PDF/email
  *
  * Browser resilience:
  *   - Startup browser self-test with Telegram alert on failure
  *   - Clean user-facing error when the browser can't launch (no raw internals)
- *   - GET /api/scan-health for uptime monitoring
+ *   - GET /api/scan-health for uptime monitoring (includes queue depth)
  */
 
 'use strict';
@@ -55,39 +65,89 @@ const FREE_SCAN_CSV = path.join(FREE_SCAN_LEADS_DIR, 'free_scan_leads.csv');
 const UNIFIED_LEAD_INBOX = '/root/qa11y-ops/leads/unified/lead_inbox.jsonl';
 
 // ══ ABUSE PROTECTION ════════════════════════════════════════════════════════════════════
+// Phase 2: rate-limit and dedup state persists to disk (a restart no longer wipes
+// it), and scans queue FIFO instead of being rejected when busy.
 
-// ─ L2: In-memory IP rate limit (5 scans / 10 min per IP) ─────────────────────
-// Map: ip → [timestamp, timestamp, ...]
+const RATE_STORE_PATH = process.env.RATE_STORE_PATH || '/root/qa11y-ops/rate-store.json';
+
+// ─ L2: IP rate limit (5 scans / 10 min per IP), persisted ────────────────────
 const IP_WINDOW_MS   = 10 * 60 * 1000; // 10 minutes
 const IP_MAX_SCANS   = 5;              // max 5 per window
-const ipScanTimes    = new Map();      // ip → number[]
+let ipScanTimes      = new Map();      // ip → number[]
 
-function ipAllowed(ip) {
-  const now  = Date.now();
-  const times = (ipScanTimes.get(ip) || []).filter(t => now - t < IP_WINDOW_MS);
-  if (times.length >= IP_MAX_SCANS) return false;
-  times.push(now);
-  ipScanTimes.set(ip, times);
-  return true;
+// ─ L4: Email+domain dedup (24-hour TTL), persisted ───────────────────────────
+const DEDUP_TTL_MS = 24 * 60 * 60 * 1000; // 24 hours
+let dedupStore     = new Map();            // hash → expiresAt
+
+function loadRateStore() {
+  try {
+    const data = JSON.parse(fs.readFileSync(RATE_STORE_PATH, 'utf8'));
+    const now = Date.now();
+    for (const [ip, times] of Object.entries(data.ipScanTimes || {})) {
+      const fresh = (times || []).filter(t => now - t < IP_WINDOW_MS);
+      if (fresh.length) ipScanTimes.set(ip, fresh);
+    }
+    for (const [k, exp] of Object.entries(data.dedup || {})) {
+      if (exp > now) dedupStore.set(k, exp);
+    }
+    console.log(`[scan] Rate store loaded: ${ipScanTimes.size} IPs, ${dedupStore.size} dedup entries`);
+  } catch (_) {
+    console.log('[scan] No rate store found — starting fresh');
+  }
 }
 
-// Purge stale IP entries every 15 minutes so the Map doesn’t grow forever
+function flushRateStore() {
+  try {
+    const now = Date.now();
+    const ips = {};
+    for (const [ip, times] of ipScanTimes.entries()) {
+      const fresh = times.filter(t => now - t < IP_WINDOW_MS);
+      if (fresh.length) ips[ip] = fresh;
+    }
+    const dedup = {};
+    for (const [k, exp] of dedupStore.entries()) {
+      if (exp > now) dedup[k] = exp;
+    }
+    fs.mkdirSync(path.dirname(RATE_STORE_PATH), { recursive: true });
+    fs.writeFileSync(RATE_STORE_PATH, JSON.stringify({ ipScanTimes: ips, dedup }));
+  } catch (e) {
+    console.warn('[scan] Could not save rate store:', e.message);
+  }
+}
+
+let saveTimer = null;
+function saveRateStore() {
+  if (saveTimer) return; // debounce: at most one disk write per 5s
+  saveTimer = setTimeout(() => { saveTimer = null; flushRateStore(); }, 5000);
+}
+
+loadRateStore();
+process.on('SIGTERM', flushRateStore);
+process.on('SIGINT',  flushRateStore);
+
+// Also prune in-memory hourly so the Maps don't grow forever
 setInterval(() => {
-  const cutoff = Date.now() - IP_WINDOW_MS;
+  const now = Date.now();
+  const cutoff = now - IP_WINDOW_MS;
   for (const [ip, times] of ipScanTimes.entries()) {
     const fresh = times.filter(t => t > cutoff);
     if (fresh.length === 0) ipScanTimes.delete(ip);
     else ipScanTimes.set(ip, fresh);
   }
-}, 15 * 60 * 1000);
+  for (const [k, exp] of dedupStore.entries()) {
+    if (now >= exp) dedupStore.delete(k);
+  }
+}, 60 * 60 * 1000);
 
-// ─ L2: Concurrent scan cap (max 2 simultaneous scans) ───────────────────────
-let activeScans = 0;
-const MAX_CONCURRENT = 2;
-
-// ─ L4: Email+domain dedup (24-hour TTL) ─────────────────────────────────────
-const DEDUP_TTL_MS = 24 * 60 * 60 * 1000; // 24 hours
-const dedupStore   = new Map();            // hash → expiresAt
+function ipAllowed(ip) {
+  const now   = Date.now();
+  const times = (ipScanTimes.get(ip) || []).filter(t => now - t < IP_WINDOW_MS);
+  if (times.length >= IP_MAX_SCANS) return false;
+  times.push(now);
+  ipScanTimes.set(ip, times);
+  saveRateStore();
+  return true;
+}
 
 function dedupKey(email, url) {
   const host = (() => { try { return new URL(url).hostname; } catch { return url; } })();
@@ -99,22 +159,124 @@ function isDuplicate(email, url) {
   const exp = dedupStore.get(key);
   if (exp && Date.now() < exp) return true;
   dedupStore.set(key, Date.now() + DEDUP_TTL_MS);
+  saveRateStore();
   return false;
 }
 
-// Purge expired dedup entries hourly
-setInterval(() => {
-  const now = Date.now();
-  for (const [k, exp] of dedupStore.entries()) {
-    if (now >= exp) dedupStore.delete(k);
-  }
-}, 60 * 60 * 1000);
+// ─ L2: FIFO scan queue (Phase 2 — replaces reject-when-busy) ─────────────────
+// Scans wait their turn instead of being turned away. Waiters are cancellable
+// so a disconnected client doesn't hold a queue slot.
+let activeScans = 0;
+const MAX_CONCURRENT  = 2;
+const QUEUE_MAX_WAIT_MS = 10 * 60 * 1000; // 10 minutes max in queue
+const scanWaiters = []; // FIFO of { resolve, reject, timer, settled }
 
-// ─ Helper: get real client IP (respects X-Forwarded-For from nginx) ─────────
+function removeWaiter(w) {
+  const i = scanWaiters.indexOf(w);
+  if (i !== -1) scanWaiters.splice(i, 1);
+}
+
+function acquireScanSlot() {
+  let waiter = null;
+  const promise = new Promise((resolve, reject) => {
+    if (activeScans < MAX_CONCURRENT) {
+      activeScans++;
+      resolve(0); // no wait; position 0
+      return;
+    }
+    const position = scanWaiters.length + 1;
+    waiter = { resolve, reject, settled: false, timer: null };
+    waiter.timer = setTimeout(() => {
+      if (waiter.settled) return;
+      waiter.settled = true;
+      removeWaiter(waiter);
+      reject(new Error('queue-timeout'));
+    }, QUEUE_MAX_WAIT_MS);
+    scanWaiters.push(waiter);
+    // resolve with the position the scan held when it queued
+    const origResolve = waiter.resolve;
+    waiter.resolve = () => { if (!waiter.settled) { waiter.settled = true; clearTimeout(waiter.timer); } origResolve(position); };
+  });
+  return {
+    promise,
+    cancel: () => {
+      if (waiter && !waiter.settled) {
+        waiter.settled = true;
+        clearTimeout(waiter.timer);
+        removeWaiter(waiter);
+        waiter.reject(new Error('cancelled'));
+      }
+    },
+  };
+}
+
+function releaseScanSlot() {
+  activeScans = Math.max(0, activeScans - 1);
+  let next;
+  do {
+    next = scanWaiters.shift();
+  } while (next && next.settled); // skip waiters that timed out/cancelled
+  if (next) {
+    next.settled = true;
+    clearTimeout(next.timer);
+    activeScans++;
+    next.resolve();
+  }
+}
+
+function queueDepth() { return scanWaiters.length; }
+
+// ─ Per-scan timeout ──────────────────────────────────────────────────────────
+// A hung scan can never wedge a worker slot forever. runAxeScan already closes
+// its browser in a finally block, so timing out the promise cleans up.
+const SCAN_TIMEOUT_MS = parseInt(process.env.SCAN_TIMEOUT_MS || '', 10) || 180_000; // 3 min
+
+function withScanTimeout(promise, label) {
+  let timer;
+  const timeout = new Promise((_, reject) => {
+    timer = setTimeout(
+      () => reject(new Error(`${label} timed out after ${Math.round(SCAN_TIMEOUT_MS / 1000)}s`)),
+      SCAN_TIMEOUT_MS
+    );
+  });
+  return Promise.race([promise, timeout]).finally(() => clearTimeout(timer));
+}
+
+// ─ Helper: get real client IP ───────────────────────────────────────────────
+// X-Forwarded-For is client-controlled, so we only trust it past our own
+// proxies. TRUSTED_PROXIES is a comma-separated list of IPs/CIDRs (default:
+// localhost + the Tailscale range). Trusted entries are stripped from the
+// right of the chain; the rightmost remaining address is the client.
+const TRUSTED_PROXIES = (process.env.TRUSTED_PROXIES || '127.0.0.1,::1,100.64.0.0/10')
+  .split(',').map(s => s.trim()).filter(Boolean);
+
+function ipInCidr(ip, cidr) {
+  if (!cidr.includes('/')) return ip === cidr;
+  if (!/^\d+\.\d+\.\d+\.\d+$/.test(ip)) return false;
+  const [base, bits] = cidr.split('/');
+  if (!/^\d+\.\d+\.\d+\.\d+$/.test(base)) return false;
+  const n = parseInt(bits, 10);
+  if (!(n >= 0 && n <= 32)) return false;
+  const toInt = s => s.split('.').reduce((a, p) => ((a << 8) + parseInt(p, 10)) >>> 0, 0);
+  const mask = n === 0 ? 0 : (0xFFFFFFFF << (32 - n)) >>> 0;
+  return (toInt(ip) & mask) === (toInt(base) & mask);
+}
+
+function isTrustedProxy(ip) {
+  const clean = ip.replace(/^::ffff:/i, '');
+  return TRUSTED_PROXIES.some(c => ipInCidr(clean, c.replace(/^::ffff:/i, '')));
+}
+
 function clientIp(req) {
+  const remote = (req.socket?.remoteAddress || '').replace(/^::ffff:/i, '');
   const fwd = req.headers['x-forwarded-for'];
-  if (fwd) return fwd.split(',')[0].trim();
-  return req.socket?.remoteAddress || 'unknown';
+  if (fwd) {
+    const chain = fwd.split(',').map(s => s.trim().replace(/^::ffff:/i, '')).filter(Boolean);
+    for (let i = chain.length - 1; i >= 0; i--) {
+      if (!isTrustedProxy(chain[i])) return chain[i]; // rightmost untrusted = client
+    }
+  }
+  return remote || 'unknown';
 }
 
 // ══ BROWSER HEALTH ═══════════════════════════════════════════════════════════
@@ -695,11 +857,6 @@ function registerScanRoutes(app, agentMailClient, AGENTMAIL_INBOX) {
 
     const ip = clientIp(req);
 
-    // ── L2a: Concurrent scan cap ─────────────────────────────────────────────
-    if (activeScans >= MAX_CONCURRENT) {
-      return sendErr('The scanner is busy right now. Please try again in a minute.');
-    }
-
     // ── L2b: Per-IP rate limit ──────────────────────────────────────────────
     if (!ipAllowed(ip)) {
       console.log(`[scan] IP rate limited: ${ip}`);
@@ -720,9 +877,23 @@ function registerScanRoutes(app, agentMailClient, AGENTMAIL_INBOX) {
       return sendErr('Our scanner is temporarily unavailable — the team has been alerted. Please try again shortly.');
     }
 
-    // activeScans tracking
-    activeScans++;
-    res.on('close', () => { activeScans = Math.max(0, activeScans - 1); });
+    // ── Scan slot: FIFO queue (Phase 2 — waits its turn instead of rejecting) ──
+    const slot = acquireScanSlot();
+    let slotState = 'waiting'; // waiting → held → done
+    res.on('close', () => {
+      if (slotState === 'waiting')     { slot.cancel(); slotState = 'done'; }
+      else if (slotState === 'held')   { releaseScanSlot(); slotState = 'done'; }
+    });
+    let queuePosition = 0;
+    try {
+      queuePosition = await slot.promise;
+      slotState = 'held';
+    } catch (e) {
+      if (e && e.message === 'queue-timeout') {
+        return sendErr('The scanner is very busy right now — please try again in a few minutes.');
+      }
+      return; // client disconnected while waiting
+    }
 
     const send = (stage, message, pct, extra = {}) => {
       try {
@@ -732,6 +903,9 @@ function registerScanRoutes(app, agentMailClient, AGENTMAIL_INBOX) {
     };
 
     send('init', `Starting scan of ${new URL(url).hostname}…`, 5);
+    if (queuePosition > 0) {
+      send('queued', `You're #${queuePosition} in the queue — starting your scan shortly…`, 6);
+    }
 
     try {
       // ── Lighthouse ─────────────────────────────────────────────────
@@ -741,7 +915,10 @@ function registerScanRoutes(app, agentMailClient, AGENTMAIL_INBOX) {
 
       // ── axe-core ───────────────────────────────────────────────────
       send('axe', 'Launching browser and running axe-core WCAG 2.2 AA analysis…', 35);
-      const axeResult = await runAxeScan(url, msg => send('axe', msg, 50));
+      const axeResult = await withScanTimeout(
+        runAxeScan(url, msg => send('axe', msg, 50)),
+        'axe-core scan'
+      );
       const violations = sortViolations(axeResult.violations || []);
       const passes     = axeResult.passes || [];
       const pageTitle  = axeResult.pageTitle || new URL(url).hostname;
@@ -750,12 +927,18 @@ function registerScanRoutes(app, agentMailClient, AGENTMAIL_INBOX) {
 
       // ── PDF ────────────────────────────────────────────────────────
       send('pdf', 'Generating your branded PDF report…', 70);
-      const pdfBuffer = await buildScanPdf(url, violations, passes, lh, pageTitle);
+      const pdfBuffer = await withScanTimeout(
+        buildScanPdf(url, violations, passes, lh, pageTitle),
+        'PDF generation'
+      );
       send('pdf', `PDF ready — ${Math.round(pdfBuffer.length / 1024)}KB`, 80);
 
       // ── Email ──────────────────────────────────────────────────────
       send('email', `Sending report to ${email}…`, 88);
-      const emailResult = await sendScanEmail(agentMailClient, AGENTMAIL_INBOX, email, url, pdfBuffer, violations.length);
+      const emailResult = await withScanTimeout(
+        sendScanEmail(agentMailClient, AGENTMAIL_INBOX, email, url, pdfBuffer, violations.length),
+        'report email'
+      );
       send('email', `Report delivered to your inbox. Message ID: ${emailResult.messageId}`, 95);
 
       // ── Telegram lead alert ────────────────────────────────────────
@@ -824,6 +1007,7 @@ function registerScanRoutes(app, agentMailClient, AGENTMAIL_INBOX) {
       browser: browserOk ? 'ok' : 'unavailable',
       activeScans,
       maxConcurrent: MAX_CONCURRENT,
+      queued: queueDepth(),
       uptimeSec: Math.round(process.uptime()),
     });
   });
@@ -852,10 +1036,7 @@ function registerScanRoutes(app, agentMailClient, AGENTMAIL_INBOX) {
 
     const ip = clientIp(req);
 
-    // L2: concurrent + rate
-    if (activeScans >= MAX_CONCURRENT) {
-      return res.status(429).json({ error: 'Scanner busy. Please try again in a minute.' });
-    }
+    // L2: rate limit
     if (!ipAllowed(ip)) {
       return res.status(429).json({ error: 'Too many requests. Please wait a few minutes.' });
     }
@@ -871,15 +1052,24 @@ function registerScanRoutes(app, agentMailClient, AGENTMAIL_INBOX) {
       return res.status(503).json({ error: 'Our scanner is temporarily unavailable — the team has been alerted. Please try again shortly.' });
     }
 
-    activeScans++;
+    // Scan slot: FIFO queue (Phase 2 — waits its turn instead of 429)
+    const slot = acquireScanSlot();
+    try {
+      await slot.promise;
+    } catch (e) {
+      return res.status(429).json({ error: 'The scanner is very busy right now. Please try again in a few minutes.' });
+    }
     try {
       const lh         = runLighthouse(url, () => {});
-      const axeResult  = await runAxeScan(url, () => {});
+      const axeResult  = await withScanTimeout(runAxeScan(url, () => {}), 'axe-core scan');
       const violations = sortViolations(axeResult.violations || []);
       const passes     = axeResult.passes || [];
       const pageTitle  = axeResult.pageTitle || new URL(url).hostname;
-      const pdfBuffer  = await buildScanPdf(url, violations, passes, lh, pageTitle);
-      const emailResult = await sendScanEmail(agentMailClient, AGENTMAIL_INBOX, email, url, pdfBuffer, violations.length);
+      const pdfBuffer  = await withScanTimeout(buildScanPdf(url, violations, passes, lh, pageTitle), 'PDF generation');
+      const emailResult = await withScanTimeout(
+        sendScanEmail(agentMailClient, AGENTMAIL_INBOX, email, url, pdfBuffer, violations.length),
+        'report email'
+      );
       writeFreeScanLead({
         url,
         email,
@@ -898,7 +1088,7 @@ function registerScanRoutes(app, agentMailClient, AGENTMAIL_INBOX) {
       const msg = err.userFacing ? err.message : 'Scan failed. Please try again.';
       return res.status(status).json({ error: msg });
     } finally {
-      activeScans = Math.max(0, activeScans - 1);
+      releaseScanSlot();
     }
   });
 }
