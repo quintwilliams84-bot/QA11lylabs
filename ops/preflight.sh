@@ -8,7 +8,16 @@
 #
 # Usage: bash ops/preflight.sh
 #
+# VPS-ONLY GUARD: this script validates the production VPS environment. It must
+# not run on an agent's dev machine or in CI — the paths, services, and secrets
+# it checks exist only on the VPS. Cloud-side checks live in `npm test`.
 set -u
+
+if [ -z "${QA11Y_ALLOW_PREFLIGHT_OFF_VPS:-}" ] && [ ! -d /root/qa11y-ops ]; then
+  echo "REFUSING: ops/preflight.sh is VPS-only (no /root/qa11y-ops found)."
+  echo "Cloud-side checks: npm test. To override (not recommended): QA11Y_ALLOW_PREFLIGHT_OFF_VPS=1"
+  exit 2
+fi
 
 PASS=0
 FAIL=0
