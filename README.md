@@ -12,6 +12,10 @@ Source-of-truth repository for the public QA11Y Labs website currently deployed 
 
 ## Evidence preference
 
+For reviewed Chromium installation and synthetic browser readiness checks, see
+[the browser runtime runbook](ops/browser-runtime/README.md). This tooling does
+not activate a scanner release or authorize production changes.
+
 For accessibility QA, prefer accessibility-tree, DOM, and session/video-intercept evidence before screenshots. Use screenshots only when visual proof is needed.
 
 ## Business identity
