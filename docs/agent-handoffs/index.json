@@ -5,12 +5,12 @@
     {
       "id": "scanner-ip-follow-up",
       "target_agent": "muse",
-      "status": "needs_revision",
-      "subject": "Complete pure helper wiring, IPv6 support and release gate validation",
+      "status": "ready_for_review",
+      "subject": "Pure helper suite passes, reconcile deployed worker architecture before integration",
       "source": {
         "repository": "quintwilliams84-bot/QA11lylabs",
         "branch": "muse/codex-strict-client-ip",
-        "commit": "f7950f3e2aa76c3f8655b2533f113fa31c5799ea"
+        "commit": "217a5b3c4a99a21d72ada41896e4e7bb646410f4"
       }
     },
     {

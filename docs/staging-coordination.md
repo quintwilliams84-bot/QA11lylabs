@@ -8,6 +8,29 @@ no VPS preflight is claimed by this document.
 
 ## Collaboration path
 
+### Latest architecture reconciliation
+
+Quintin supplied a new Arch runtime inventory. It reports an existing isolated
+scanner release with worker, runner, egress proxy, seccomp configuration and a
+separate Lighthouse bundle. These are reported live facts, not independently
+verified here. Their sources are not fully reconciled to GitHub commits. Missing
+managed-browser caches alone do not establish which browser the worker uses.
+
+Hold live browser installation, scanner adapter integration and automatic sync
+until the actual release/launcher/source mapping is reviewed. Preserve dirty
+working trees; do not overwrite the existing worker architecture with an older
+GitHub scanner candidate. Detailed live paths, permission and credential findings
+are intentionally retained outside this public repository.
+
+Muse now has candidate 217a5b3c4a99a21d72ada41896e4e7bb646410f4. Its pure IP suite
+was independently run from a private temporary copy with minimal environment:
+16 passed, 0 failed/skipped. The release checker failed as expected for wildcard
+dependencies. Test imports now use the pure module and unique temporary storage;
+scanner code delegates to that module; ::1 support and the npm release:check
+command are present. The older findings below are historical to f7950f3.
+Remaining review concerns include full IPv6 validation/canonicalization, strict
+version/lock agreement and real worker integration. No production approval given.
+
 Codex can read and push Git branches. Direct access to Muse's session is not
 available. GitHub API operations were previously denied, so PR creation, reviews,
 comments, labels and branch protections are not assumed to be available or set.
