@@ -6,6 +6,14 @@ Quintin requires human approval and passing checks on the reviewed revision.
 Production deployment is a separate decision. Existing repository gates apply;
 no VPS preflight is claimed by this document.
 
+## Recovery ownership follow-up
+
+Arch's inventory continuation reports overlapping recovery ownership. The next
+proposed operational workstream is [recovery ownership](agent-handoffs/recovery-ownership-proposal.md),
+before adding automation. This is a design packet, not a live monitor change.
+The short memory sample does not establish active thrashing or a leak. MCP
+declarations do not establish runtime tools or GitHub connectivity.
+
 ## Collaboration path
 
 ### Latest architecture reconciliation
