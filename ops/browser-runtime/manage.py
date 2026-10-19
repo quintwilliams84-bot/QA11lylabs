@@ -11,12 +11,13 @@ import signal
 import stat
 import subprocess
 import sys
+import time
 
 SOURCE = Path(__file__).resolve().parent
-FILES = ("package.json", "package-lock.json", "probe.cjs")
+FILES = ("package.json", "package-lock.json", "probe.cjs", "manage.py")
 
 
-def private_directory(path):
+def private_directory(path, create=True):
     if not path.is_absolute() or path == Path("/"):
         raise ValueError("runtime directory must be absolute and must not be /")
     # Reject links in every existing component; do not silently redirect writes.
@@ -24,6 +25,8 @@ def private_directory(path):
         if component.is_symlink():
             raise ValueError("symlink in runtime path")
     if not path.exists():
+        if not create:
+            raise ValueError("required runtime directory is missing")
         path.mkdir(mode=0o700, parents=True)
     info = path.stat()
     if not stat.S_ISDIR(info.st_mode) or info.st_uid != os.getuid():
@@ -32,7 +35,7 @@ def private_directory(path):
         raise ValueError("runtime directory must have private permissions (0700)")
 
 
-def child_environment(runtime):
+def child_environment(runtime, isolated=False):
     # No dotenv, inherited provider keys, npm auth, or production configuration.
     environment = {
         "PATH": ":".join(dict.fromkeys([
@@ -53,21 +56,23 @@ def child_environment(runtime):
     }
     # Preserve the platform's transport and CA configuration, never disable trust.
     # Proxy bindings may be sensitive: pass through only, never log their values.
-    for name in ("HTTPS_PROXY", "HTTP_PROXY", "ALL_PROXY", "NO_PROXY",
+    for name in (() if isolated else ("HTTPS_PROXY", "HTTP_PROXY", "ALL_PROXY", "NO_PROXY",
                  "https_proxy", "http_proxy", "all_proxy", "no_proxy",
-                 "NODE_EXTRA_CA_CERTS", "SSL_CERT_FILE", "SSL_CERT_DIR"):
+                 "NODE_EXTRA_CA_CERTS", "SSL_CERT_FILE", "SSL_CERT_DIR")):
         if os.environ.get(name):
             environment[name] = os.environ[name]
+    if isolated:
+        environment["QA11Y_PARENT_NETNS"] = os.readlink("/proc/self/ns/net")
+        environment["QA11Y_PARENT_PIDNS"] = os.readlink("/proc/self/ns/pid")
     return environment
 
 
-def run(command, runtime, seconds):
+def run(command, runtime, seconds, isolated=False):
     # Kill only the session we create; retain its leader until group cleanup.
-    process = subprocess.Popen(command, cwd=runtime, env=child_environment(runtime),
+    process = subprocess.Popen(command, cwd=runtime, env=child_environment(runtime, isolated),
                                start_new_session=True)
     try:
         # waitid WNOWAIT avoids reaping/reusing the leader PID before killpg.
-        import time
         deadline = time.monotonic() + seconds
         while not os.waitid(os.P_PID, process.pid, os.WEXITED | os.WNOHANG | os.WNOWAIT):
             if time.monotonic() >= deadline:
@@ -125,6 +130,52 @@ def validate_sources():
     return digest.hexdigest()
 
 
+def provenance():
+    environment = dict(os.environ, GIT_OPTIONAL_LOCKS="0")
+    def git(*args):
+        return subprocess.run(["git", "-c", "core.fsmonitor=false", *args], cwd=SOURCE,
+                              env=environment, check=True, capture_output=True,
+                              text=True, timeout=5).stdout.strip()
+    commit = git("rev-parse", "HEAD")
+    if len(commit) != 40 or any(c not in "0123456789abcdef" for c in commit):
+        raise ValueError("cannot establish full source commit")
+    return {"source_commit": commit,
+            "source_dirty": bool(git("status", "--porcelain", "--untracked-files=normal", "--", ".")),
+            "installer_sha256": hashlib.sha256((SOURCE / "manage.py").read_bytes()).hexdigest()}
+
+
+def existing_runtime(runtime, exclusive=False):
+    """Validate metadata under an existing shared lock; create/write nothing."""
+    private_directory(runtime, create=False)
+    fd = os.open(runtime / ".install.lock", os.O_RDONLY | os.O_NOFOLLOW)
+    lock = os.fdopen(fd, "r")
+    try:
+        fcntl.flock(lock, (fcntl.LOCK_EX if exclusive else fcntl.LOCK_SH) | fcntl.LOCK_NB)
+        for name in FILES:
+            target = runtime / name
+            if target.is_symlink() or target.read_bytes() != (SOURCE / name).read_bytes():
+                raise ValueError("runtime source mismatch; use a new runtime directory")
+        dependencies = json.loads((SOURCE / "package.json").read_text())["dependencies"]
+        for name, version in dependencies.items():
+            installed = json.loads((runtime / "node_modules" / name / "package.json").read_text())
+            if installed.get("version") != version:
+                raise ValueError("installed dependency version mismatch: " + name)
+    except BaseException:
+        lock.close()
+        raise
+    return lock
+
+
+def isolated_probe_command():
+    launcher = shutil.which("unshare")
+    if not launcher:
+        raise ValueError("unshare unavailable; use an approved isolated staging host")
+    # No network interfaces are attached. PID namespace teardown contains even
+    # detached browser descendants. Unsupported host restrictions fail closed.
+    return [launcher, "--user", "--map-current-user", "--net", "--pid", "--fork",
+            "--mount-proc", "--kill-child=KILL", "node", "probe.cjs"]
+
+
 def prepare(runtime):
     private_directory(runtime)
     # Lock held across install + probe; a concurrent invocation must fail safely.
@@ -168,36 +219,45 @@ def main():
     parser.add_argument("--runtime-dir", type=Path, required=True)
     action = parser.add_mutually_exclusive_group()
     action.add_argument("--apply", action="store_true", help="install and test; never activate a service")
-    action.add_argument("--check", action="store_true", help="test an existing runtime without installing")
+    action.add_argument("--check", action="store_true", help="read-only metadata check; does not launch a browser")
+    action.add_argument("--probe", action="store_true", help="run synthetic browser probe in fresh network/PID namespaces")
     args = parser.parse_args()
     if os.getuid() == 0:
         raise ValueError("run as an unprivileged development/service user, never root")
     fingerprint = validate_sources()
+    source = provenance()
     runtime = args.runtime_dir
     if not runtime.is_absolute() or ".." in runtime.parts:
         raise ValueError("use an absolute runtime path without traversal")
     if runtime.is_relative_to(SOURCE.parents[1]):
         raise ValueError("runtime must be outside the repository checkout")
-    if not args.apply and not args.check:
+    if not args.apply and not args.check and not args.probe:
         print(json.dumps({"action": "plan-only", "fingerprint": fingerprint,
-                          "runtime": str(runtime), "activation": False}))
+                          "runtime": str(runtime), "activation": False, **source}))
         return
-    if args.check and (not runtime.is_dir() or any(
-            not (runtime / name).is_file() for name in FILES)):
-        raise ValueError("runtime missing; --check never installs or creates a runtime")
+    if args.check or args.probe:
+        with existing_runtime(runtime, exclusive=args.probe):
+            if args.probe:
+                run(isolated_probe_command(), runtime, 60, isolated=True)
+        print(json.dumps({"status": "probe-pass" if args.probe else "metadata-pass",
+                          "browser_verified": bool(args.probe), "fingerprint": fingerprint,
+                          "runtime": str(runtime), "activation": False, **source}))
+        return
     with prepare(runtime):
         if args.apply:
+            # Check host support before spending time/bandwidth installing tools.
+            run([*isolated_probe_command()[:-2], "/usr/bin/true"], runtime, 10, isolated=True)
             run(["npm", "ci", "--ignore-scripts", "--no-audit", "--no-fund"], runtime, 300)
             # Local pinned CLI only; no npx fallback, OS installer, or global update.
             run(["node", "node_modules/playwright/cli.js", "install", "chromium"], runtime, 300)
-        run(["node", "probe.cjs"], runtime, 60)
+        run(isolated_probe_command(), runtime, 60, isolated=True)
     print(json.dumps({"status": "pass", "fingerprint": fingerprint,
-                      "runtime": str(runtime), "activation": False}))
+                      "runtime": str(runtime), "activation": False, **source}))
 
 
 if __name__ == "__main__":
     try:
         main()
-    except (OSError, ValueError, RuntimeError, TimeoutError) as error:
+    except (OSError, ValueError, RuntimeError, TimeoutError, subprocess.SubprocessError) as error:
         print("FAIL: " + str(error), file=sys.stderr)
         sys.exit(1)

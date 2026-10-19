@@ -1,4 +1,5 @@
 import importlib.util
+import hashlib
 import json
 import os
 from pathlib import Path
@@ -43,6 +44,88 @@ class RuntimeTests(unittest.TestCase):
         with patch.object(manage, "SOURCE", self.root):
             with self.assertRaisesRegex(ValueError, "missing"):
                 manage.validate_sources()
+
+    def test_installer_changes_affect_fingerprint(self):
+        before = manage.validate_sources()
+        for name in manage.FILES:
+            (self.root / name).write_bytes((ROOT / name).read_bytes())
+        with (self.root / "manage.py").open("a") as stream:
+            stream.write("\n# synthetic installer revision\n")
+        with patch.object(manage, "SOURCE", self.root):
+            self.assertNotEqual(before, manage.validate_sources())
+
+    def snapshot(self):
+        return {str(path.relative_to(self.runtime)): (path.stat().st_mode,
+                path.stat().st_mtime_ns, path.read_bytes() if path.is_file() else None)
+                for path in [self.runtime, *self.runtime.rglob('*')]}
+
+    def make_metadata_runtime(self):
+        with manage.prepare(self.runtime):
+            pass
+        packages = json.loads((ROOT / "package.json").read_text())["dependencies"]
+        for name, version in packages.items():
+            target = self.runtime / "node_modules" / name / "package.json"
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_text(json.dumps({"version": version}))
+
+    def test_check_success_is_read_only_and_does_not_claim_browser_health(self):
+        self.make_metadata_runtime()
+        before = self.snapshot()
+        result = subprocess.run([sys.executable, str(ROOT / "manage.py"), "--check",
+                                 "--runtime-dir", str(self.runtime)], capture_output=True, text=True)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        report = json.loads(result.stdout)
+        self.assertEqual(report["status"], "metadata-pass")
+        self.assertFalse(report["browser_verified"])
+        self.assertEqual(len(report["source_commit"]), 40)
+        self.assertEqual(report["installer_sha256"], hashlib.sha256((ROOT / "manage.py").read_bytes()).hexdigest())
+        self.assertEqual(before, self.snapshot())
+
+    def test_failed_check_does_not_repair_or_write_runtime(self):
+        self.make_metadata_runtime()
+        (self.runtime / "probe.cjs").write_text("unexpected edit")
+        before = self.snapshot()
+        result = subprocess.run([sys.executable, str(ROOT / "manage.py"), "--check",
+                                 "--runtime-dir", str(self.runtime)], capture_output=True, text=True)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertEqual(before, self.snapshot())
+
+    def test_check_missing_lock_does_not_recreate_it(self):
+        self.make_metadata_runtime()
+        (self.runtime / ".install.lock").unlink()
+        before = self.snapshot()
+        with self.assertRaises(FileNotFoundError):
+            manage.existing_runtime(self.runtime)
+        self.assertEqual(before, self.snapshot())
+
+    def test_functional_probe_lock_rejects_concurrent_access(self):
+        self.make_metadata_runtime()
+        with manage.existing_runtime(self.runtime, exclusive=True):
+            with self.assertRaises(BlockingIOError):
+                manage.existing_runtime(self.runtime, exclusive=True)
+        with manage.existing_runtime(self.runtime):
+            pass
+
+    def test_probe_without_namespace_fails_before_loading_playwright(self):
+        environment = manage.child_environment(self.runtime)
+        environment.pop("QA11Y_PARENT_NETNS", None)
+        result = subprocess.run(["node", str(ROOT / "probe.cjs")], env=environment,
+                                capture_output=True, text=True)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("namespace isolation required", result.stderr)
+
+    def test_probe_cannot_use_current_host_namespaces(self):
+        environment = manage.child_environment(self.runtime, isolated=True)
+        self.assertNotIn("HTTPS_PROXY", environment)
+        result = subprocess.run(["node", str(ROOT / "probe.cjs")], env=environment,
+                                capture_output=True, text=True)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("namespace isolation required", result.stderr)
+
+    def test_no_namespace_launcher_has_no_fallback(self):
+        with patch.object(manage.shutil, "which", return_value=None):
+            with self.assertRaisesRegex(ValueError, "unshare unavailable"):
+                manage.isolated_probe_command()
 
     def test_lock_mismatch_fails(self):
         for name in manage.FILES:

@@ -38,26 +38,43 @@ runtime. The examples target the cloud workspace, not a production path.
 
 ```bash
 # Plan only; no directory creation, download or service calls.
-python3 ops/browser-runtime/manage.py --runtime-dir /workspace/.qa11y-browser-runtime-v1
+python3 ops/browser-runtime/manage.py --runtime-dir /workspace/.qa11y-browser-runtime-v2
 
 # Explicitly install locked npm packages and their managed Chromium, then probe.
-python3 ops/browser-runtime/manage.py --runtime-dir /workspace/.qa11y-browser-runtime-v1 --apply
+python3 ops/browser-runtime/manage.py --runtime-dir /workspace/.qa11y-browser-runtime-v2 --apply
 
-# Recheck without reinstalling. No HTTP service or port is started.
-python3 ops/browser-runtime/manage.py --runtime-dir /workspace/.qa11y-browser-runtime-v1 --check
+# Read-only metadata check. Does not launch a browser or prove browser health.
+python3 ops/browser-runtime/manage.py --runtime-dir /workspace/.qa11y-browser-runtime-v2 --check
+
+# Functional probe; writes browser profile/temp files, no installation.
+python3 ops/browser-runtime/manage.py --runtime-dir /workspace/.qa11y-browser-runtime-v2 --probe
 
 # Repeat installer-safety tests independently of browser availability.
 PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s ops/browser-runtime -p 'test_*.py' -v
 ```
 
-`--apply` uses `npm ci --ignore-scripts` and the installed Playwright CLI directly,
+`--apply` first checks host namespace support, then uses `npm ci --ignore-scripts`
+and the installed Playwright CLI directly,
 never unpinned `npx`, a global package upgrade, or `sudo`. Installs and probes are
-sequential, with 300s/300s/60s deadlines. Each invocation is bounded to approximately
+sequential, with 10s/300s/300s/60s deadlines. Each invocation is bounded to approximately
 11 minutes plus cleanup grace and filesystem overhead. On timeout it sends TERM,
 allows up to five seconds for cleanup, then kills its own child process group.
 Concurrent installers fail on the same runtime lock. Repeated installs
 use the same lockfile and Chromium cache. Unknown revision changes abort: use a new
 runtime directory for upgrades and preserve the old one for rollback.
+
+`--check` takes a shared lock on the existing lock file and compares source files
+and installed dependency version metadata. It creates no directories, lock files,
+npm configuration or browser profiles. It emits `metadata-pass` and
+`browser_verified: false`; this is not a Chromium launch or package-byte integrity
+attestation. Missing files cause failure rather than repair.
+
+The fingerprint now covers **manage.py as well as manifests and probe**. Final
+readiness output includes the full Git source commit, `source_dirty`, and the
+installer SHA-256. Capture the complete invocation output, including the final
+manager result, with staging evidence. A dirty source is explicitly disclosed,
+not equivalent to validating the cited commit. Use a clean reviewed commit for
+release evidence. The tool does not automatically persist a receipt.
 
 Required download destinations include registry.npmjs.org and Playwright's
 official browser download endpoints (currently cdn.playwright.dev and its official
@@ -71,15 +88,26 @@ to the runtime. The installer rejects root execution and symlinked runtime paths
 The invoking user, reviewed source and private directory ancestors remain trusted;
 this is not a defense against another process with the same UID or a hostile root.
 
-The probe requires a sandboxed Chromium launch, checks Chromium's sandbox status,
-keeps TLS checks enabled, blocks network requests, and requires axe to detect a
+The functional probe runs via util-linux `unshare` in fresh user, network, mount
+and PID namespaces, with no network interface attached. It validates namespace
+identity differs from the invoking host and that only loopback exists before
+loading browser code. It requires a sandboxed Chromium launch, checks Chromium's
+sandbox status, keeps TLS checks enabled, blocks context requests as additional
+defense, and requires axe to detect a
 deliberate accessibility defect. It reports PASS only after those checks.
 It does **not** establish live scanner, Lighthouse audit, PDF, email or lead health.
 No browser security flags are disabled if a host cannot support sandboxing.
-Detached Chromium descendants require a real cleanup test and a release-level
-process supervisor/cgroup before production: process-group cleanup alone cannot
-guarantee termination of a descendant that creates a separate session. That host
-boundary is not configured or claimed by this preparation tool.
+The PID namespace and `--kill-child=KILL` are intended to contain detached Chromium
+descendants when the probe exits. Real-browser success, timeout and interruption
+tests under the intended supervisor are still required; process-group unit tests
+alone do not establish those claims. This is not a full filesystem/container
+security boundary or a production supervisor configuration.
+
+Host namespace restrictions are never relaxed. If `unshare` is missing or denied,
+the tool fails before installation/probing. Use an approved isolated staging host
+that supports this launcher, or prepare a separately reviewed network-disabled
+container adapter. There is no direct host-network browser fallback. The current
+Codex host denies writing uid_map, so successful isolated probing is unverified.
 
 ## Arch / OpenClaw promotion checklist — not an authorization to deploy
 

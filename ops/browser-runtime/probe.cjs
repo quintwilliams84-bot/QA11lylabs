@@ -1,6 +1,15 @@
 'use strict';
 // Synthetic content only. No provider credentials, email, telemetry or app import.
 const fs = require('node:fs');
+const os = require('node:os');
+// Refuse direct invocation in the host namespaces before loading browser code.
+if (!process.env.QA11Y_PARENT_NETNS || !process.env.QA11Y_PARENT_PIDNS ||
+    fs.readlinkSync('/proc/self/ns/net') === process.env.QA11Y_PARENT_NETNS ||
+    fs.readlinkSync('/proc/self/ns/pid') === process.env.QA11Y_PARENT_PIDNS ||
+    Object.keys(os.networkInterfaces()).some(name => name !== 'lo')) {
+  console.error('FAIL: fresh network/PID namespace isolation required; use manage.py --probe.');
+  process.exit(1);
+}
 const { chromium } = require('playwright');
 const { AxeBuilder } = require('@axe-core/playwright');
 
@@ -10,7 +19,7 @@ async function probe() {
     fs.accessSync(chromium.executablePath(), fs.constants.X_OK);
     browser = await chromium.launch({ chromiumSandbox: true, timeout: 20000 });
     const context = await browser.newContext({ ignoreHTTPSErrors: false });
-    // This probe cannot scan the network, even if fixture content changes.
+    // Defense in depth; OS network isolation is enforced by the launcher.
     await context.route('**/*', route => route.abort());
     const diagnostics = await context.newPage();
     diagnostics.setDefaultTimeout(10000);
