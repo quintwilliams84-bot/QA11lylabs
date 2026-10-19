@@ -47,7 +47,8 @@
  * Browser resilience:
  *   - Startup browser self-test with Telegram alert on failure
  *   - Clean user-facing error when the browser can't launch (no raw internals)
- *   - GET /api/scan-health for uptime monitoring (includes queue depth)
+ *   - GET /api/scan-health for uptime monitoring (includes queue depth,
+ *     deployment version + commit SHA)
  */
 
 'use strict';
@@ -71,6 +72,10 @@ loadRootEnv();
 
 const TG_TOKEN   = process.env.TELEGRAM_BOT_TOKEN || '';
 const TG_CHAT_ID = process.env.TELEGRAM_CHAT_ID || '';
+
+// Scanner version for the health endpoint (deployment identity).
+let SCANNER_VERSION = 'unknown';
+try { SCANNER_VERSION = require('./package.json').version || 'unknown'; } catch (_) {}
 const QA11Y_PYTHON = process.env.QA11Y_PYTHON || '/root/qa11y-venv/bin/python';
 const AGENTMAIL_SENDER = process.env.AGENTMAIL_SENDER || '/root/agentmail_send.py';
 const FREE_SCAN_LEADS_DIR = '/root/qa11y-ops/leads/free-scan';
@@ -1179,6 +1184,12 @@ function registerScanRoutes(app, agentMailClient, AGENTMAIL_INBOX) {
       maxConcurrent: MAX_CONCURRENT,
       queued: queueDepth(),
       uptimeSec: Math.round(process.uptime()),
+      // Deployment identity: answers "what code is actually running?" on the
+      // VPS. Version from package.json; commit from QA11Y_COMMIT_SHA (set by
+      // the deploy process — the release receiver should export the release's
+      // commit SHA). Never 'unknown' in production without someone noticing.
+      version: SCANNER_VERSION,
+      commit: process.env.QA11Y_COMMIT_SHA || 'unknown',
     });
   });
 
