@@ -3,6 +3,17 @@
   "delivery": "manual_read_data_only",
   "tasks": [
     {
+      "id": "recovery-policy-independent-review",
+      "target_agent": "codex",
+      "status": "ready_for_review",
+      "subject": "Route pure recovery policy candidate to independent review, no live integration",
+      "source": {
+        "repository": "quintwilliams84-bot/OpenclawOps",
+        "branch": "agent/codex/recovery-policy",
+        "commit": "1586a7a29b7d19277584bb96d573e07c7217e00b"
+      }
+    },
+    {
       "id": "scanner-ip-follow-up",
       "target_agent": "muse",
       "status": "ready_for_review",

@@ -1,5 +1,13 @@
 # Recovery ownership proposal
 
+Cloud specification candidate is now available in OpenclawOps:
+`agent/codex/recovery-policy` at `1586a7a29b7d19277584bb96d573e07c7217e00b`.
+Its pure decision-policy suite passed 16 synthetic tests. It has no executor,
+state store, service integration or production authority; all outputs are
+unauthorized proposals. See
+[candidate scope and blockers](https://github.com/quintwilliams84-bot/OpenclawOps/blob/1586a7a29b7d19277584bb96d573e07c7217e00b/docs/agent-operations/RECOVERY_POLICY_CANDIDATE.md).
+Full deployed source is still needed before drafting exact replacement adapters.
+
 DESIGN ONLY. No active policy, service change, restart, permission change or
 deployment is authorized. Reconcile exact deployed source before implementation.
 Detailed live findings remain outside the public repository.
