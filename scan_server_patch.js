@@ -244,45 +244,16 @@ function withScanTimeout(promise, label) {
 }
 
 // ─ Helper: get real client IP ───────────────────────────────────────────────
-// X-Forwarded-For is client-controlled, so we only trust it past our own
-// proxies. TRUSTED_PROXIES is a comma-separated list of IPs/CIDRs (default:
-// localhost + the Tailscale range). Trusted entries are stripped from the
-// right of the chain; the rightmost remaining address is the client.
+// Pure IP-policy logic lives in ./lib/ip-policy.js (no side effects, directly
+// testable). Env parsing stays here — it does not belong in the pure module.
+// X-Forwarded-For is only consulted when the direct peer is one of OUR
+// proxies; otherwise the header is attacker-controlled and ignored entirely.
+const ipPolicy = require('./lib/ip-policy');
 const TRUSTED_PROXIES = (process.env.TRUSTED_PROXIES || '127.0.0.1,::1,100.64.0.0/10')
   .split(',').map(s => s.trim()).filter(Boolean);
 
-function ipInCidr(ip, cidr) {
-  if (!cidr.includes('/')) return ip === cidr;
-  if (!/^\d+\.\d+\.\d+\.\d+$/.test(ip)) return false;
-  const [base, bits] = cidr.split('/');
-  if (!/^\d+\.\d+\.\d+\.\d+$/.test(base)) return false;
-  const n = parseInt(bits, 10);
-  if (!(n >= 0 && n <= 32)) return false;
-  const toInt = s => s.split('.').reduce((a, p) => ((a << 8) + parseInt(p, 10)) >>> 0, 0);
-  const mask = n === 0 ? 0 : (0xFFFFFFFF << (32 - n)) >>> 0;
-  return (toInt(ip) & mask) === (toInt(base) & mask);
-}
-
-function isTrustedProxy(ip) {
-  const clean = ip.replace(/^::ffff:/i, '');
-  return TRUSTED_PROXIES.some(c => ipInCidr(clean, c.replace(/^::ffff:/i, '')));
-}
-
 function clientIp(req) {
-  const remote = (req.socket?.remoteAddress || '').replace(/^::ffff:/i, '');
-  // X-Forwarded-For is only consulted when the direct peer is one of OUR
-  // proxies. Otherwise the header is attacker-controlled and must be ignored
-  // entirely — taking any entry from it would let a direct connection spoof
-  // the rate-limiter identity.
-  if (!isTrustedProxy(remote)) return remote || 'unknown';
-  const fwd = req.headers['x-forwarded-for'];
-  if (fwd) {
-    const chain = fwd.split(',').map(s => s.trim().replace(/^::ffff:/i, '')).filter(Boolean);
-    for (let i = chain.length - 1; i >= 0; i--) {
-      if (!isTrustedProxy(chain[i])) return chain[i]; // rightmost untrusted = client
-    }
-  }
-  return remote || 'unknown';
+  return ipPolicy.clientIp(req, TRUSTED_PROXIES);
 }
 
 // ══ BROWSER HEALTH ═══════════════════════════════════════════════════════════
@@ -1106,8 +1077,7 @@ module.exports = {
     buildScanPdf,
     sortViolations,
     // Test seams (no production calls — pure/stateful units only):
-    ipInCidr,
-    isTrustedProxy,
     clientIp,
+    ipPolicy, // pure IP helpers (lib/ip-policy.js) — testable without module side effects
   },
 };
