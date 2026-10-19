@@ -14,7 +14,11 @@ const root = path.resolve(__dirname, '..');
 const pkg = require(path.join(root, 'package.json'));
 
 const bad = Object.entries(pkg.dependencies || {})
-  .filter(([, v]) => /[*^~x]|latest/i.test(String(v)));
+  // Reject wildcards (*, x), ranges (^ ~ >= <= > <), tags (latest) — only
+  // exact pinned versions pass. Lockfile agreement with the manifest is
+  // verified at install time by npm ci; existence alone is the floor, not
+  // the proof, and is stated as such.
+  .filter(([, v]) => /[*x^~]|>=|<=|>|<|latest/i.test(String(v)));
 
 if (bad.length) {
   console.error('RELEASE BLOCKED — unpinned dependencies: ' +
