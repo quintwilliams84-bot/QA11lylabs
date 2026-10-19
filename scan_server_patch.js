@@ -119,6 +119,7 @@ let saveTimer = null;
 function saveRateStore() {
   if (saveTimer) return; // debounce: at most one disk write per 5s
   saveTimer = setTimeout(() => { saveTimer = null; flushRateStore(); }, 5000);
+  if (saveTimer.unref) saveTimer.unref();
 }
 
 loadRateStore();
@@ -137,7 +138,7 @@ setInterval(() => {
   for (const [k, exp] of dedupStore.entries()) {
     if (now >= exp) dedupStore.delete(k);
   }
-}, 60 * 60 * 1000);
+}, 60 * 60 * 1000).unref(); // unref: housekeeping timer must not keep the process alive (tests, clean shutdown)
 
 function ipAllowed(ip) {
   const now   = Date.now();
@@ -269,6 +270,11 @@ function isTrustedProxy(ip) {
 
 function clientIp(req) {
   const remote = (req.socket?.remoteAddress || '').replace(/^::ffff:/i, '');
+  // X-Forwarded-For is only consulted when the direct peer is one of OUR
+  // proxies. Otherwise the header is attacker-controlled and must be ignored
+  // entirely — taking any entry from it would let a direct connection spoof
+  // the rate-limiter identity.
+  if (!isTrustedProxy(remote)) return remote || 'unknown';
   const fwd = req.headers['x-forwarded-for'];
   if (fwd) {
     const chain = fwd.split(',').map(s => s.trim().replace(/^::ffff:/i, '')).filter(Boolean);
@@ -324,10 +330,11 @@ async function launchScannerBrowser() {
 }
 
 // Verify at startup (non-blocking) — alerts loudly if the browser is missing
-// so an outage is never silent again.
+// so an outage is never silent again. The catch keeps module load safe in
+// environments without a browser (tests, CI).
 verifyBrowser().then(ok => {
   if (!ok) tgAlert('🚨 Scanner started WITHOUT a working browser. Free scans will fail until Chromium is restored.');
-});
+}).catch(() => {});
 
 // ── Telegram helper ────────────────────────────────────────────────────────
 async function tgAlert(msg) {
@@ -1098,5 +1105,9 @@ module.exports = {
   _internal: {
     buildScanPdf,
     sortViolations,
+    // Test seams (no production calls — pure/stateful units only):
+    ipInCidr,
+    isTrustedProxy,
+    clientIp,
   },
 };
