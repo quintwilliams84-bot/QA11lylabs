@@ -1,0 +1,14 @@
+# Keep pinned dependencies fresh — native GitHub Dependabot.
+# Runs weekly against the manifest; opens PRs for security + version updates.
+# Until package.json versions are pinned (see scripts/release-check.js),
+# there is nothing to update — this file simply waits its turn.
+
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
