@@ -54,14 +54,14 @@
         "repository": "quintwilliams84-bot/QA11lylabs"
       },
       "status": "ready_for_review",
-      "subject": "REV 2 (supersedes 1ffdcd94): bounded Slice 1 only \u2014 route-layer privilege/lifecycle/email-outcome fixes in scan_server_patch.js, exact files/interfaces/tests in from-muse-scanner-reconciliation-rev2-slice1.md; broad rewrite NOT proposed | Amended by addendum (see scanner-slice1-codex-corrections-addendum, cce41fe3): admission/cleanup/restart, runner boundary, email outcomes, doc-track guard.",
+      "subject": "Rev 2 Slice 1 route-layer fixes only. Amended by scanner-slice1-codex-corrections-addendum. No broad rewrite.",
       "target_agent": "codex"
     },
     {
       "id": "proposal-p01-base64-docs-cleanup",
       "target_agent": "codex",
       "status": "ready_for_review",
-      "subject": "P01 (proposals/p01-base64-docs-cleanup-from-muse.md): decode remaining 9 Base64 Markdown files in one docs PR; AGENTS.md already covered by PR #13; asks Codex the Base64-consumer question",
+      "subject": "P01: Decode 9 remaining Base64 Markdown files. AGENTS.md covered separately. Resolve Base64 consumer question.",
       "source": {
         "repository": "quintwilliams84-bot/QA11lylabs",
         "branch": "codex/staging-coordination",
@@ -72,7 +72,7 @@
       "id": "proposal-p02-leads-zero-loss-bridge",
       "target_agent": "codex",
       "status": "ready_for_review",
-      "subject": "P02 (proposals/p02-leads-zero-loss-bridge-from-muse.md): design intake for EXISTING work order WO-1 \u2014 scanner lead files to Lead Pipeline, idempotent + outcome-aware; build gated on scanner restore and Slice 1",
+      "subject": "P02: WO-1 existing lead pipeline bridge design. Idempotent and outcome-aware. Build gated on scanner restore and Slice 1.",
       "source": {
         "repository": "quintwilliams84-bot/QA11lylabs",
         "branch": "codex/staging-coordination",
@@ -83,7 +83,7 @@
       "id": "proposal-p03-slice2-worker-provenance",
       "target_agent": "codex",
       "status": "ready_for_review",
-      "subject": "P03 (proposals/p03-slice2-worker-provenance-from-muse.md): Slice 2 inputs \u2014 VPS version truth evidence drop (Arch), worker-image provenance spec for Codex to own; links Slice 1 addendum A2 and blocked browser-isolated-staging (consolidation suggested)",
+      "subject": "P03: Slice 2 VPS evidence and worker-image provenance. Related to Slice 1 addendum A2 and blocked browser staging.",
       "source": {
         "repository": "quintwilliams84-bot/QA11lylabs",
         "branch": "codex/staging-coordination",
@@ -94,7 +94,7 @@
       "id": "proposal-p04-ci-gate-interim",
       "target_agent": "codex",
       "status": "ready_for_review",
-      "subject": "P04 (proposals/p04-ci-gate-interim-from-muse.md): CI interim \u2014 local test gate with recorded evidence as standing rule; optional one-file web-UI workflow; workflows permission is app-side, not Quintin's miss",
+      "subject": "P04: Propose interim local test evidence gate and optional workflow. Workflow permission remains an app-side prerequisite.",
       "source": {
         "repository": "quintwilliams84-bot/QA11lylabs",
         "branch": "codex/staging-coordination",
@@ -105,7 +105,7 @@
       "id": "proposal-p05-booking-availability-hardening",
       "target_agent": "codex",
       "status": "ready_for_review",
-      "subject": "P05 (proposals/p05-booking-availability-hardening-from-muse.md): fix ZCal working hours so weekday pre-3PM MT slots are not offered; precall conflict flag stays as safety net",
+      "subject": "P05: Correct ZCal weekday availability before 3PM MT. Retain precall conflict flag as a safety net.",
       "source": {
         "repository": "quintwilliams84-bot/QA11lylabs",
         "branch": "codex/staging-coordination",
@@ -116,11 +116,22 @@
       "id": "scanner-slice1-codex-corrections-addendum",
       "target_agent": "codex",
       "status": "ready_for_review",
-      "subject": "Addendum to Slice 1 at 59f89492, BY REFERENCE (proposals/slice1-addendum-codex-corrections-from-muse.md): A1 admission blocked until cleanup verified incl. restart reconciliation (test T4b), A2 trusted runner boundary defined (web service gets NO Docker access, NO sudo), A3 uncertain email outcomes already explicit in Rev 2 I4/T5, A4 document work stays OpenclawOps. Gate: no implementation on technical acceptance alone \u2014 Quintin's explicit work-order approval required",
+      "subject": "Slice 1 addendum: cleanup and restart admission, trusted runner boundary, email uncertainty, document track. Explicit work-order approval required.",
       "source": {
         "repository": "quintwilliams84-bot/QA11lylabs",
         "branch": "codex/staging-coordination",
         "commit": "cce41fe3cc8fdd57616f735aaeaa9b20d8e0c3eb"
+      }
+    },
+    {
+      "id": "doc-001",
+      "target_agent": "codex",
+      "status": "blocked",
+      "subject": "DOC-001 isolated document staging: approve hosted run and obtain Actions evidence. See handoff README",
+      "source": {
+        "repository": "quintwilliams84-bot/OpenclawOps",
+        "branch": "agent/arch/doc-001-staging-work-order",
+        "commit": "b7df5defc983b808e39c48c97afbdd5c863a3f82"
       }
     }
   ]
