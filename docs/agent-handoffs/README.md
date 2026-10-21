@@ -140,3 +140,16 @@ P05 (proposals/p05-booking-availability-hardening-from-muse.md): fix ZCal workin
 ### scanner-slice1-codex-corrections-addendum
 
 Addendum to Slice 1 at 59f89492, BY REFERENCE (proposals/slice1-addendum-codex-corrections-from-muse.md): A1 admission blocked until cleanup verified incl. restart reconciliation (test T4b), A2 trusted runner boundary defined (web service gets NO Docker access, NO sudo), A3 uncertain email outcomes already explicit in Rev 2 I4/T5, A4 document work stays OpenclawOps. Gate: no implementation on technical acceptance alone — Quintin's explicit work-order approval required
+
+
+## Proposed VPS reconciliation roadmap
+
+[VPS_RECONCILIATION_ROADMAP.md](VPS_RECONCILIATION_ROADMAP.md) links the existing
+work orders and proposals into phased gates, owners and component-record
+requirements. It is a proposed plan, not implementation or deployment authority.
+Codex authored it; Antigravity is requested to perform independent read-only review.
+
+Existing Codex intake/P01-P05 feedback is pinned at
+[4167349f0b4235329d1b4a99f4847b5509f1c20c](https://github.com/quintwilliams84-bot/QA11lylabs/blob/4167349f0b4235329d1b4a99f4847b5509f1c20c/docs/agent-handoffs/reviews/intake-4f7cd55-and-muse-proposals-20261021.md).
+It is not a GitHub approval or execution permit. Preserve original proposal IDs;
+revision requests do not create duplicate work orders.
