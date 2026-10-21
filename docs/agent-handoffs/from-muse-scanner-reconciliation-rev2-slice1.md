@@ -188,3 +188,71 @@ opens a PR against main @578c221b for Quintin's review, with a Rev 2
 results summary dropped in Codex's inbox. Nothing merges or deploys on
 implementation — staging and production stay behind the standard's
 separate gates.
+
+---
+
+## Revision 3 — roadmap Phase 2 tightening (2026-10-21, Muse)
+
+Status: Rev 2 and the Oct 21 addendum stand except where this revision
+tightens them. It responds to the proposal gaps in Codex's VPS
+reconciliation roadmap (agent/codex/vps-reconciliation-roadmap @
+98d442b3, Phase 2). Codex's intake feedback (4167349f) explicitly did not
+review Slice 1; this revision is offered for that queued review. Slice 1
+remains unimplemented and unapproved; implementation still requires
+Codex's review of the exact revision plus Quintin's explicit approval
+of the bounded work order.
+
+**R3.1 — Cleanup bound to trusted identity (tightens I3 and addendum A1).**
+Cleanup state is durable and bound to a trusted job/resource identity:
+the job ID issued at admission plus the resource identity returned by
+the execution layer when the resource is created. Restart reconciliation
+verifies resources by that identity against the execution layer's own
+records. Recovery NEVER kills a stored bare PID and NEVER deletes
+arbitrary stored paths. Create/start ambiguity (the resource may or may
+not exist) resolves conservatively: assume it exists, verify by identity,
+and hold admission until it is verified absent or removed.
+
+**R3.2 — The admission ledger is not the rate-limit file (tightens A1).**
+Persisted admission records live in their own store under an atomic
+ownership/concurrency contract: one record per job, created atomically
+(create-exclusive or rename-into-place), single-writer per record, no
+read-modify-write on shared files. The existing rate-limit store is a
+non-authoritative abuse control and is never the job ledger. New crash
+tests (T4c): process killed between claim and cleanup-verification;
+concurrent admissions cannot double-claim a slot; a partial/corrupt
+admission record at startup fails closed (admission blocked), never
+silently discarded.
+
+**R3.3 — Stable submission IDs (tightens I4).** Every scan/email flow
+carries a stable submission ID — a UUID minted at intake and persisted
+before the send attempt — never a timestamp-only ID. An unknown mailer
+outcome is a pending-reconciliation state keyed by that ID: no automatic
+resend, no success or delivery assertion; reconciliation is an explicit,
+recorded act.
+
+**R3.4 — Runner boundary hardening (tightens addendum A2; applies to
+Slice 2 design).** The trusted runner interface additionally requires:
+authenticated local requests with peer-ownership verification (Unix
+socket peer credentials); strict request/response schemas; per-caller
+and per-job quotas; job-specific cancellation (a cancel capability bound
+to the job ID, not a global stop); and execution revalidation — the
+runner re-checks job state and authorization at execution time, not
+only at submit. Recorded plainly: Docker control is effectively
+privileged even behind a non-root account, so the runner is a trust
+boundary to be minimized and audited, not a sandbox claim. A2's core
+rule stands unchanged: the web service gets NO Docker access, NO
+container socket and NO sudo.
+
+**R3.5 — No intermediate deployment.** Slice 1 acceptance covers
+cloud-scope tests only. The interim in-process route shape is NOT
+deployable merely because its mocks/tests pass. Production URL scanning
+resumes only on the isolated execution architecture (Slice 2 runner) or
+an exact replacement Quintin separately approves. Effective sandbox,
+TLS and egress controls are preserved until that approval.
+
+**R3.6 — Lease/watchdog mismatch is not a cleanup guarantee.** The
+egress proxy's 110-second lease versus the 120-second watchdog does not
+guarantee cleanup before readmission. Admission is therefore retained
+through VERIFIED removal in every path: normal completion, frontend
+death, create/start ambiguity, cleanup failure and process restart
+(this is the release condition I3/A1/T4b are read under).

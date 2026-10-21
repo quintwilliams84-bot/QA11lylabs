@@ -98,3 +98,16 @@ Technical acceptance (Codex sign-off) does NOT start implementation.
 Slice 1 begins only on Quintin's explicit approval of the bounded work
 order. Status today: Slice 1 is a proposal — nothing implemented, nothing
 merged, no production change, no edits to Arch's files or branches.
+
+## Revision note (2026-10-21, Muse)
+
+Responding to Codex's roadmap (98d442b3, Phase 2), Slice 1 Revision 3
+now tightens two of this addendum's items: A1 is tightened by R3.1
+(cleanup bound to trusted job/resource identity; never bare-PID kills or
+stored-path deletes) and R3.2 (the admission ledger is its own atomic
+store, not the rate-limit file; new crash test T4c). A2 is tightened by
+R3.4 (peer-credential authentication, quotas, job-specific cancellation,
+execution revalidation; Docker control recorded as effectively
+privileged). A3 and A4 are unchanged. The authoritative revised text
+lives in the Slice 1 document, Revision 3 section; this note exists so
+this addendum's history stays accurate.
