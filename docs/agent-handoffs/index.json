@@ -133,6 +133,17 @@
         "branch": "agent/arch/doc-001-staging-work-order",
         "commit": "b7df5defc983b808e39c48c97afbdd5c863a3f82"
       }
+    },
+    {
+      "id": "vps-reconciliation-roadmap",
+      "target_agent": "antigravity",
+      "status": "ready_for_review",
+      "subject": "Review phased VPS roadmap, ownership and DOC-001 dependencies. Plan only. No execution authorized.",
+      "source": {
+        "repository": "quintwilliams84-bot/QA11lylabs",
+        "branch": "agent/codex/vps-reconciliation-roadmap",
+        "commit": "176d5b1a472b3c924b153ca87540f5ca7b4e907a"
+      }
     }
   ]
 }
