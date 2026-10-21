@@ -71,7 +71,12 @@ protection enforcement. The current task authorizes documentation only; legacy
 VPS-preflight instructions are not permission to perform production operations.
 No automation or authentication changes are included.
 
-At base `bc3847324e888f3b89d61645ca67cc8d10bd83ab`, the existing
-`scanner-source-reconciliation-review` subject exceeds the documented reader
-subject constraints. It is preserved unchanged. Whole-index reader acceptance
-is therefore not claimed; correction is separate coordination work.
+The index is reconciled with coordination revision
+`595db1e20175e4840d836a9710c5524e4f984c1f` (the latest observed remote
+coordination head during this revision). All 11 coordination tasks retain their
+identities, source SHAs, target agents and statuses. DOC-001 is added once,
+for 12 total tasks. Seven invalid subjects are replaced with meaningful ASCII
+summaries within the existing 160-character limit; their original detailed
+text is preserved in the handoff README. Schema version 1 and the reader remain
+unchanged. Actual reader validation covers the complete index for codex, muse,
+arch and antigravity; successful parsing grants no execution authorization.

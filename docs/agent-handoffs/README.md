@@ -106,3 +106,37 @@ for discovery only.
 `doc-001` points to the [existing DOC-001 work order](https://github.com/quintwilliams84-bot/OpenclawOps/blob/b7df5defc983b808e39c48c97afbdd5c863a3f82/docs/work-orders/DOC-001.md).
 The intake instructions record its source references and related prior handoff;
 the work-order packet is not duplicated here.
+
+## Preserved coordination subject details
+
+Reconciled from coordination revision `595db1e20175e4840d836a9710c5524e4f984c1f`.
+The following original descriptions are retained verbatim as review data,
+not commands or authorization. Index subjects are bounded ASCII summaries.
+
+### scanner-source-reconciliation-review
+
+REV 2 (supersedes 1ffdcd94): bounded Slice 1 only — route-layer privilege/lifecycle/email-outcome fixes in scan_server_patch.js, exact files/interfaces/tests in from-muse-scanner-reconciliation-rev2-slice1.md; broad rewrite NOT proposed | Amended by addendum (see scanner-slice1-codex-corrections-addendum, cce41fe3): admission/cleanup/restart, runner boundary, email outcomes, doc-track guard.
+
+### proposal-p01-base64-docs-cleanup
+
+P01 (proposals/p01-base64-docs-cleanup-from-muse.md): decode remaining 9 Base64 Markdown files in one docs PR; AGENTS.md already covered by PR #13; asks Codex the Base64-consumer question
+
+### proposal-p02-leads-zero-loss-bridge
+
+P02 (proposals/p02-leads-zero-loss-bridge-from-muse.md): design intake for EXISTING work order WO-1 — scanner lead files to Lead Pipeline, idempotent + outcome-aware; build gated on scanner restore and Slice 1
+
+### proposal-p03-slice2-worker-provenance
+
+P03 (proposals/p03-slice2-worker-provenance-from-muse.md): Slice 2 inputs — VPS version truth evidence drop (Arch), worker-image provenance spec for Codex to own; links Slice 1 addendum A2 and blocked browser-isolated-staging (consolidation suggested)
+
+### proposal-p04-ci-gate-interim
+
+P04 (proposals/p04-ci-gate-interim-from-muse.md): CI interim — local test gate with recorded evidence as standing rule; optional one-file web-UI workflow; workflows permission is app-side, not Quintin's miss
+
+### proposal-p05-booking-availability-hardening
+
+P05 (proposals/p05-booking-availability-hardening-from-muse.md): fix ZCal working hours so weekday pre-3PM MT slots are not offered; precall conflict flag stays as safety net
+
+### scanner-slice1-codex-corrections-addendum
+
+Addendum to Slice 1 at 59f89492, BY REFERENCE (proposals/slice1-addendum-codex-corrections-from-muse.md): A1 admission blocked until cleanup verified incl. restart reconciliation (test T4b), A2 trusted runner boundary defined (web service gets NO Docker access, NO sudo), A3 uncertain email outcomes already explicit in Rev 2 I4/T5, A4 document work stays OpenclawOps. Gate: no implementation on technical acceptance alone — Quintin's explicit work-order approval required

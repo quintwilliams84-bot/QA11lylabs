@@ -54,8 +54,74 @@
         "repository": "quintwilliams84-bot/QA11lylabs"
       },
       "status": "ready_for_review",
-      "subject": "REV 2 (supersedes 1ffdcd94): bounded Slice 1 only \u2014 route-layer privilege/lifecycle/email-outcome fixes in scan_server_patch.js, exact files/interfaces/tests in from-muse-scanner-reconciliation-rev2-slice1.md; broad rewrite NOT proposed",
+      "subject": "Rev 2 Slice 1 route-layer fixes only. Amended by scanner-slice1-codex-corrections-addendum. No broad rewrite.",
       "target_agent": "codex"
+    },
+    {
+      "id": "proposal-p01-base64-docs-cleanup",
+      "target_agent": "codex",
+      "status": "ready_for_review",
+      "subject": "P01: Decode 9 remaining Base64 Markdown files. AGENTS.md covered separately. Resolve Base64 consumer question.",
+      "source": {
+        "repository": "quintwilliams84-bot/QA11lylabs",
+        "branch": "codex/staging-coordination",
+        "commit": "1411a6bb92960f9744972429b36af3a24f80a3fd"
+      }
+    },
+    {
+      "id": "proposal-p02-leads-zero-loss-bridge",
+      "target_agent": "codex",
+      "status": "ready_for_review",
+      "subject": "P02: WO-1 existing lead pipeline bridge design. Idempotent and outcome-aware. Build gated on scanner restore and Slice 1.",
+      "source": {
+        "repository": "quintwilliams84-bot/QA11lylabs",
+        "branch": "codex/staging-coordination",
+        "commit": "1411a6bb92960f9744972429b36af3a24f80a3fd"
+      }
+    },
+    {
+      "id": "proposal-p03-slice2-worker-provenance",
+      "target_agent": "codex",
+      "status": "ready_for_review",
+      "subject": "P03: Slice 2 VPS evidence and worker-image provenance. Related to Slice 1 addendum A2 and blocked browser staging.",
+      "source": {
+        "repository": "quintwilliams84-bot/QA11lylabs",
+        "branch": "codex/staging-coordination",
+        "commit": "1411a6bb92960f9744972429b36af3a24f80a3fd"
+      }
+    },
+    {
+      "id": "proposal-p04-ci-gate-interim",
+      "target_agent": "codex",
+      "status": "ready_for_review",
+      "subject": "P04: Propose interim local test evidence gate and optional workflow. Workflow permission remains an app-side prerequisite.",
+      "source": {
+        "repository": "quintwilliams84-bot/QA11lylabs",
+        "branch": "codex/staging-coordination",
+        "commit": "1411a6bb92960f9744972429b36af3a24f80a3fd"
+      }
+    },
+    {
+      "id": "proposal-p05-booking-availability-hardening",
+      "target_agent": "codex",
+      "status": "ready_for_review",
+      "subject": "P05: Correct ZCal weekday availability before 3PM MT. Retain precall conflict flag as a safety net.",
+      "source": {
+        "repository": "quintwilliams84-bot/QA11lylabs",
+        "branch": "codex/staging-coordination",
+        "commit": "1411a6bb92960f9744972429b36af3a24f80a3fd"
+      }
+    },
+    {
+      "id": "scanner-slice1-codex-corrections-addendum",
+      "target_agent": "codex",
+      "status": "ready_for_review",
+      "subject": "Slice 1 addendum: cleanup and restart admission, trusted runner boundary, email uncertainty, document track. Explicit work-order approval required.",
+      "source": {
+        "repository": "quintwilliams84-bot/QA11lylabs",
+        "branch": "codex/staging-coordination",
+        "commit": "cce41fe3cc8fdd57616f735aaeaa9b20d8e0c3eb"
+      }
     },
     {
       "id": "doc-001",
