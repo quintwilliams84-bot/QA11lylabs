@@ -56,6 +56,17 @@
       "status": "ready_for_review",
       "subject": "REV 2 (supersedes 1ffdcd94): bounded Slice 1 only \u2014 route-layer privilege/lifecycle/email-outcome fixes in scan_server_patch.js, exact files/interfaces/tests in from-muse-scanner-reconciliation-rev2-slice1.md; broad rewrite NOT proposed",
       "target_agent": "codex"
+    },
+    {
+      "id": "doc-001",
+      "target_agent": "codex",
+      "status": "blocked",
+      "subject": "DOC-001 isolated document staging: approve hosted run and obtain Actions evidence. See handoff README",
+      "source": {
+        "repository": "quintwilliams84-bot/OpenclawOps",
+        "branch": "agent/arch/doc-001-staging-work-order",
+        "commit": "b7df5defc983b808e39c48c97afbdd5c863a3f82"
+      }
     }
   ]
 }

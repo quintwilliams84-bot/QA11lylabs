@@ -95,3 +95,14 @@ budget. Do not loosen host restrictions or disable browser security to make it r
 - Staging operator: approve a compatible isolated host and concrete resource caps.
 - Then review exact adapter configuration and delivery/ack behavior before enabling
   a dispatcher or schedule. No production pull/sync receiver is installed here.
+
+## Proposal intake and DOC-001
+
+Use [proposal intake instructions](PROPOSAL_INTAKE.md) and the
+[proposal template](PROPOSAL_TEMPLATE.md) for new ideas. Review metadata is
+not execution authorization. Existing schema and entries remain authoritative
+for discovery only.
+
+`doc-001` points to the [existing DOC-001 work order](https://github.com/quintwilliams84-bot/OpenclawOps/blob/b7df5defc983b808e39c48c97afbdd5c863a3f82/docs/work-orders/DOC-001.md).
+The intake instructions record its source references and related prior handoff;
+the work-order packet is not duplicated here.
