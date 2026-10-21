@@ -1,1 +1,125 @@
-IyBBZ2VudCBDb2xsYWJvcmF0aW9uIEd1aWRlIOKAlCBxYTExeWxhYnMuY29tCgpUaGlzIHJlcG8gaXMgdGhlIHNvdXJjZSBvZiB0cnV0aCBmb3IgcWExMXlsYWJzLmNvbS4gQWxsIGNoYW5nZXMg4oCUIGZyb20gaHVtYW5zCm9yIEFJIGFnZW50cyDigJQgZmxvdyB0aHJvdWdoIHRoZSBzYW1lIHBpcGVsaW5lLiBObyBleGNlcHRpb25zLCBubyBkaXJlY3QgZWRpdHMKdG8gdGhlIGxpdmUgc2VydmVyLgoKIyMgVW5pdHkgc3RhbmRhcmQKCkV2ZXJ5IGFnZW50IChNdXNlLCBDb2RleCwgQW50aWdyYXZpdHksIE9wZW5DbGF3LCBIZXJtZXMpIGZvbGxvd3MgdGhpcyBleGFjdApwcm90b2NvbC4gRG8gb25seSB3aGF0IGlzIGhlbHBmdWwgYW5kIGNvbnN0cnVjdGl2ZSBmb3IgdGhlIHNoYXJlZCB3b3Jrc3BhY2UuCldoZW4gaW4gZG91YnQsIG9wZW4gYSBQUiBhbmQgbGV0IHJldmlldyBkZWNpZGUg4oCUIG5ldmVyIHB1c2ggYXJvdW5kIHRoZSBnYXRlcy4KCiMjIEJyYW5jaCBtb2RlbAoKfCBCcmFuY2ggICAgICAgICAgICAgfCBQdXJwb3NlICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHwgTWFuYWdlZCBieSB8CnwtLS0tLS0tLS0tLS0tLS0tLS0tLXwtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS18LS0tLS0tLS0tLS0tfAp8IGBtYWluYCAgICAgICAgICAgICB8IFByb2R1Y3Rpb24uIE9ubHkgYXBwcm92ZWQgY2hhbmdlcyBsYW5kIGhlcmUuICAgICAgICAgfCBPcGVuQ2xhdyAgIHwKfCBgb3BlbmNsYXcvb3BzYCAgICAgfCBJbnRlZ3JhdGlvbiBicmFuY2ggZm9yIGJhY2tlbmQvb3BzL3NjYW5uZXIgd29yay4gICAgIHwgT3BlbkNsYXcgICB8CnwgYHdlYnNpdGVgICAgICAgICAgIHwgSW50ZWdyYXRpb24gYnJhbmNoIGZvciBzaXRlIGNvbnRlbnQgYW5kIGZyb250ZW5kLiAgICB8IE9wZW5DbGF3ICAgfAp8IGBtdXNlLzxkZXNjPmAgICAgICB8IE11c2UncyB3b3JrIGJyYW5jaGVzLiBPbmUgYnJhbmNoIHBlciBjaGFuZ2UuICAgICAgICAgfCBNdXNlICAgICAgIHwKfCBgY29kZXgvPGRlc2M+YCAgICAgfCBDb2RleCdzIHdvcmsgYnJhbmNoZXMuIE9uZSBicmFuY2ggcGVyIGNoYW5nZS4gICAgICAgIHwgQ29kZXggICAgICB8CnwgYGFudGlncmF2aXR5LzxkZXNjPmAgfCBBbnRpZ3Jhdml0eSdzIHdvcmsgYnJhbmNoZXMuIE9uZSBicmFuY2ggcGVyIGNoYW5nZS58IEFudGlncmF2aXR5fAoKQWxsIGFnZW50IGJyYW5jaCBuYW1lczogYWxsIGxvd2VyY2FzZSwgaHlwaGVucywgbm8gc2xhc2hlcyBhZnRlciB0aGUgcHJlZml4CihlLmcuIGBtdXNlL2ZpeC1oZXJvLWNvbnRyYXN0YCkuIERlbGV0ZSB0aGUgYnJhbmNoIGFmdGVyIG1lcmdlLgoKQ3VycmVudCBwcmFjdGljZSAoUXVpbnRpbidzIHJ1bGluZyk6IFBScyB0YXJnZXQgYG1haW5gIGRpcmVjdGx5IHVudGlsIHRoZQphcmNoaXRlY3R1cmUgaXMgY29tcGxldGUuIFRoZSBpbnRlZ3JhdGlvbiBicmFuY2hlcyByZW1haW4gT3BlbkNsYXcncyBsYW5lcy4KCiMjIFRoZSBzdGFuZGFyZCDigJQgaW4gb3JkZXIKCmBgYApjbG91ZCBjaGVja3Mg4oaSIGlzb2xhdGVkIHN0YWdpbmcg4oaSIFF1aW50aW4ncyBQUiBhcHByb3ZhbCDihpIgcHJvZHVjdGlvbiBhY3RpdmF0aW9uCmBgYAoKRWFjaCBzdGFnZSBnYXRlcyB0aGUgbmV4dC4gTm8gc3RhZ2UgaXMgc2tpcHBlZCwgbm8gc3RhZ2UgaW1wbGllcyB0aGUgbmV4dC4KCiMjIyAxLiBDbG91ZCBjaGVja3MKCkF1dG9tYXRlZCBjaGVja3MgcnVuIG9uIGV2ZXJ5IFBSIChDSTogYG5wbSB0ZXN0YCwgbGludCwgdGVtcGxhdGUgY2hlY2tsaXN0KS4KQ2hlY2tzIG11c3QgYmUgZ3JlZW4gYmVmb3JlIHJldmlldy4gQSBncmVlbiBjaGVjayBpcyBub3QgYW4gYXBwcm92YWwg4oCUIGl0Cm9ubHkgbWVhbnMgdGhlIGNoYW5nZSBpcyByZXZpZXdhYmxlLgoKIyMjIDIuIElzb2xhdGVkIHN0YWdpbmcKClRoZSBjaGFuZ2UgaXMgdmFsaWRhdGVkIGluIGFuIGlzb2xhdGVkIHN0YWdpbmcgZW52aXJvbm1lbnQg4oCUIG5ldmVyIG9uIHRoZQpsaXZlIHNjYW5uZXIsIG5ldmVyIG9uIHByb2R1Y3Rpb24gdHJhZmZpYy4gRm9yIHRoZSBzY2FubmVyOiBmdWxsIHByZWZsaWdodAooYG9wcy9wcmVmbGlnaHQuc2hgKSBwbHVzIGFuIGVuZC10by1lbmQgc21va2UgdGVzdCBvZiB0aGUgY2hhbmdlZCBmZWF0dXJlCihhIHJlYWwgc2NhbiB0aHJvdWdoIGAvYXBpL3NjYW5gIHByb2R1Y2luZyByZXN1bHRzLCBQREYsIGVtYWlsLCBhbmQgbGVhZApyZWNvcmQpLgoKLSBCcm93c2VyIGNoZWNrcyBydW4gV0lUSCB0aGUgc2FuZGJveCBlbmFibGVkLiBJZiB0aGUgc2FuZGJveCBpcyB1bmF2YWlsYWJsZSwKICB0aGUgY2hlY2sgZmFpbHMgY2xvc2VkLiBOZXZlciBwYXNzIGAtLW5vLXNhbmRib3hgIHRvIG1ha2UgYSBjaGVjayBnbyBncmVlbi4KLSBQcm9jZXNzLWtpbGwgdGVzdHMsIHJlc3RhcnQgZHJpbGxzLCBhbmQgZGVzdHJ1Y3RpdmUgY2hlY2tzIGhhcHBlbiBoZXJlIGFuZAogIG9ubHkgaGVyZS4KLSBFbnZpcm9ubWVudC1zcGVjaWZpYyB2YWx1ZXMgKHBvcnRzLCBwYXRocywgc2VjcmV0cykgbGl2ZSBpbiBWUFMgY29uZmlnIGFuZAogIGVudiBmaWxlcywgbmV2ZXIgaGFyZC1jb2RlZCBpbiByZXBvIGNvZGUuCgojIyMgMy4gUXVpbnRpbidzIFBSIGFwcHJvdmFsIChjdXJyZW50IHJldmlzaW9uKQoKLSBPcGVuIHRoZSBQUiBmcm9tIHRoZSBhZ2VudCBicmFuY2guIEZpbGwgb3V0IHRoZSBQUiB0ZW1wbGF0ZSBjb21wbGV0ZWx5IOKAlAogIGVzcGVjaWFsbHkgdGhlIGFjY2Vzc2liaWxpdHkgY2hlY2tsaXN0LgotIFF1aW50aW4ncyBhcHByb3ZhbCBvbiB0aGUgZXhhY3QgcmV2aXNpb24gYmVpbmcgc2hpcHBlZC4gQSByZWJhc2Ugb3IgbmV3CiAgY29tbWl0IGFmdGVyIGFwcHJvdmFsIG5lZWRzIHJlLWFwcHJvdmFsIOKAlCBhcHByb3ZhbCBhdHRhY2hlcyB0byB0aGUKICByZXZpc2lvbiwgbm90IHRoZSBicmFuY2guCi0gUmV2aWV3ZXJzIGNoZWNrIGNvZGUgcXVhbGl0eSBBTkQgYWNjZXNzaWJpbGl0eTogaWYgeW91IGNhbid0IHZlcmlmeSBpdCB3aXRoCiAgYSBzY3JlZW4gcmVhZGVyLCBzYXkgc28uCi0gS2VlcCBQUnMgc21hbGwgYW5kIGZvY3VzZWQuIE9uZSBpZGVhIHBlciBQUi4KCiMjIyA0LiBQcm9kdWN0aW9uIGFjdGl2YXRpb24gKHNlcGFyYXRlbHkgYXBwcm92ZWQpCgpNZXJnaW5nIGlzIG5vdCBkZXBsb3lpbmcuIFByb2R1Y3Rpb24gYWN0aXZhdGlvbiBpcyBhIHNlcGFyYXRlLCBleHBsaWNpdAphcHByb3ZhbCBieSBRdWludGluIOKAlCBpdCBuZXZlciBoYXBwZW5zIGF1dG9tYXRpY2FsbHkgb24gbWVyZ2UuCgo+IFNjb3BlIG5vdGU6IHRoZSByZWxlYXNlIHJlY2VpdmVyIChkZXBsb3ktYnktcmVsZWFzZS1JRCB3aXRoIHJvbGxiYWNrKSBpcyBhCj4gZGVzaWduIGRvY3VtZW50LCBub3QgYW4gaW5zdGFsbGVkIHN5c3RlbS4gTm8gcmVsZWFzZSByZWNlaXZlciBpcyBpbnN0YWxsZWQKPiBvbiB0aGUgVlBTLCBhbmQgcm9sbGJhY2sgaXMgdW5wcm92ZW4uIFVudGlsIHRoZSByZWNlaXZlciBleGlzdHMgYW5kIGlzCj4gdmFsaWRhdGVkLCBwcm9kdWN0aW9uIGFjdGl2YXRpb24gaXMgYSBtYW51YWwsIGV4cGxpY2l0bHkgYXBwcm92ZWQgc3RlcAo+IHBlcmZvcm1lZCBieSB0aGUgcmVsZWFzZSBtYW5hZ2VyLCB3aXRoIHRoZSBwcmV2aW91cyBrbm93bi1nb29kIHN0YXRlCj4gaWRlbnRpZmllZCBiZWZvcmVoYW5kLgoKIyMgRW52aXJvbm1lbnQgcGFyaXR5IHJ1bGUKClJlcG8gY29kZSBtdXN0IG5ldmVyIGFzc3VtZSBhbiBhZ2VudCdzIGxvY2FsIG1hY2hpbmUuIEFsbCBWUFMtbG9jYWxpemVkCnZhbHVlcyDigJQgcG9ydHMsIGZpbGUgcGF0aHMsIGJyb3dzZXIgYmluYXJ5IGxvY2F0aW9ucywgbGlicmFyeSBwYXRocywgc2VjcmV0cywKQVBJIGVuZHBvaW50cyDigJQgY29tZSBmcm9tIGVudmlyb25tZW50IHZhcmlhYmxlcyBvciBWUFMgY29uZmlnIGZpbGVzIHdpdGgKc2FuZSBmYWxsYmFja3MuIElmIGEgdmFsdWUgb25seSBleGlzdHMgb24gb25lIG1hY2hpbmUsIGl0IGlzIG5vdCBpbiB0aGUgcmVwby4KCiMjIEFjY2Vzc2liaWxpdHkgaXMgdGhlIHByb2R1Y3QKClRoaXMgaXMgUUExMXlMYWJzJyBvd24gd2Vic2l0ZS4gRXZlcnkgY2hhbmdlIG11c3QgbWVldCBXQ0FHIDIuMiBBQSBhdCBtaW5pbXVtLgpJZiBhIGNoYW5nZSBjYW4ndCBiZSB2ZXJpZmllZCBhY2Nlc3NpYmxlLCBpdCBkb2Vzbid0IG1lcmdlLiBUaGUgUFIgdGVtcGxhdGUKY2hlY2tsaXN0IGlzIHRoZSBnYXRlIOKAlCB0cmVhdCBpdCBhcyBzZXJpb3VzbHkgYXMgdGhlIGF1dG9tYXRlZCBjaGVja3MuCg==
+# Agent Collaboration Guide — qa11ylabs.com
+
+This repo is the source of truth for qa11ylabs.com. All changes — from humans
+or AI agents — flow through the same pipeline. No exceptions, no direct edits
+to the live server.
+
+## Unity standard
+
+Every agent (Muse, Codex, Antigravity, OpenClaw, Hermes) follows this exact
+protocol. Do only what is helpful and constructive for the shared workspace.
+When in doubt, open a PR and let review decide — never push around the gates.
+
+## Session check-in — read the agent inbox first
+
+Every agent session that touches this repo or the QA11yLabs workspace starts
+with a check-in. No exceptions, no "I'll catch up later."
+
+1. Fetch branch `codex/staging-coordination` and read
+   `docs/agent-handoffs/index.json`.
+2. Compare it against the inbox state you last saw (your watermark: the
+   branch head SHA you last read). Any task with `target_agent` set to you —
+   and any task whose `status` or source `commit` changed since your
+   watermark — is new to you. Read its summary file in
+   `docs/agent-handoffs/` before starting other work.
+3. Update your watermark to the inbox commit you just read.
+
+Rules of the road:
+
+- The inbox is task discovery, never permission. Reading a task is not
+  accepting it; acting on it still follows the standard below, including
+  Quintin's approval on the exact revision.
+- A changed source SHA needs fresh review — never act on a stale summary.
+- Completion is an actual agent report citing the source SHA and test
+  evidence, delivered through the same inbox or a PR. Silence is not
+  completion.
+- Whoever completes a review pass or a multi-part work item writes the
+  summary for the next agent (plain Markdown in `docs/agent-handoffs/` plus
+  an `index.json` entry pinned to the summary's exact commit). Summaries
+  state the verdict, the exact SHAs reviewed, what was verified and what
+  was not, blockers, and the proposed scope. No credentials, client data,
+  or private logs ever go in the inbox.
+- If you cannot reach GitHub, say so in your status report. Never proceed
+  as if you are current when you could not check in.
+
+## Branch model
+
+| Branch             | Purpose                                              | Managed by |
+|--------------------|------------------------------------------------------|------------|
+| `main`             | Production. Only approved changes land here.         | OpenClaw   |
+| `openclaw/ops`     | Integration branch for backend/ops/scanner work.     | OpenClaw   |
+| `website`          | Integration branch for site content and frontend.    | OpenClaw   |
+| `muse/<desc>`      | Muse's work branches. One branch per change.         | Muse       |
+| `codex/<desc>`     | Codex's work branches. One branch per change.        | Codex      |
+| `antigravity/<desc>` | Antigravity's work branches. One branch per change.| Antigravity|
+
+All agent branch names: all lowercase, hyphens, no slashes after the prefix
+(e.g. `muse/fix-hero-contrast`). Delete the branch after merge.
+
+Current practice (Quintin's ruling): PRs target `main` directly until the
+architecture is complete. The integration branches remain OpenClaw's lanes.
+
+## The standard — in order
+
+```
+cloud checks → isolated staging → Quintin's PR approval → production activation
+```
+
+Each stage gates the next. No stage is skipped, no stage implies the next.
+
+### 1. Cloud checks
+
+Automated checks run on every PR (CI: `npm test`, lint, template checklist).
+Checks must be green before review. A green check is not an approval — it
+only means the change is reviewable.
+
+### 2. Isolated staging
+
+The change is validated in an isolated staging environment — never on the
+live scanner, never on production traffic. For the scanner: full preflight
+(`ops/preflight.sh`) plus an end-to-end smoke test of the changed feature
+(a real scan through `/api/scan` producing results, PDF, email, and lead
+record).
+
+- Browser checks run WITH the sandbox enabled. If the sandbox is unavailable,
+  the check fails closed. Never pass `--no-sandbox` to make a check go green.
+- Process-kill tests, restart drills, and destructive checks happen here and
+  only here.
+- Environment-specific values (ports, paths, secrets) live in VPS config and
+  env files, never hard-coded in repo code.
+
+### 3. Quintin's PR approval (current revision)
+
+- Open the PR from the agent branch. Fill out the PR template completely —
+  especially the accessibility checklist.
+- Quintin's approval on the exact revision being shipped. A rebase or new
+  commit after approval needs re-approval — approval attaches to the
+  revision, not the branch.
+- Reviewers check code quality AND accessibility: if you can't verify it with
+  a screen reader, say so.
+- Keep PRs small and focused. One idea per PR.
+
+### 4. Production activation (separately approved)
+
+Merging is not deploying. Production activation is a separate, explicit
+approval by Quintin — it never happens automatically on merge.
+
+> Scope note: the release receiver (deploy-by-release-ID with rollback) is a
+> design document, not an installed system. No release receiver is installed
+> on the VPS, and rollback is unproven. Until the receiver exists and is
+> validated, production activation is a manual, explicitly approved step
+> performed by the release manager, with the previous known-good state
+> identified beforehand.
+
+## Environment parity rule
+
+Repo code must never assume an agent's local machine. All VPS-localized
+values — ports, file paths, browser binary locations, library paths, secrets,
+API endpoints — come from environment variables or VPS config files with
+sane fallbacks. If a value only exists on one machine, it is not in the repo.
+
+## Accessibility is the product
+
+This is QA11yLabs' own website. Every change must meet WCAG 2.2 AA at minimum.
+If a change can't be verified accessible, it doesn't merge. The PR template
+checklist is the gate — treat it as seriously as the automated checks.
