@@ -95,3 +95,10 @@ budget. Do not loosen host restrictions or disable browser security to make it r
 - Staging operator: approve a compatible isolated host and concrete resource caps.
 - Then review exact adapter configuration and delivery/ack behavior before enabling
   a dispatcher or schedule. No production pull/sync receiver is installed here.
+
+## DOC-001 — pending execution approval
+
+[Exact work order](https://github.com/quintwilliams84-bot/OpenclawOps/blob/b7df5defc983b808e39c48c97afbdd5c863a3f82/docs/work-orders/DOC-001.md).
+Index ID `doc-001` preserves schema version 1 and remains `blocked`. Arch owns preparation; Codex is the designated independent reviewer (acceptance pending). Candidate code is OpenclawOps `4f01d8d47fdb1276ac8dc97d30b5e06312d6cd2c`; release-plan reference is PR 23 at `038529675833f19dfa243160f7692ed4e261d1aa`.
+
+Actions/run/check access is denied by the current API credential; no hosted results are verified. Expected 73 tests are not passed tests. The work order proposes one exact-SHA GitHub-hosted run for Quintin's approval; none was dispatched. No VPS tests, sync, deployment or merge is authorized. This metadata is a manual handoff, not an agent notification or execution permission.
