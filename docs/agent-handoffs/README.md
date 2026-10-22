@@ -202,3 +202,26 @@ live controls. Its index reconciles coordination 858debb6 with existing recovery
 tasks; the original restore order and Slice 1 approval record remain traceable.
 The restore task is marked needs_revision here for the packet's explicit scope
 and provenance conflicts; this is feedback, not revocation of separate authority.
+
+## Shared return scaffolding and access correction
+
+[Evidence-return template](HANDOFF_RETURN_TEMPLATE.md) provides a manual read/return/
+review chain, reusing existing task IDs. [Component record template](COMPONENT_RECORD_TEMPLATE.md)
+gives Arch the fields for filling the VPS service/job inventory without collecting
+private contents. Neither is an executable schema, agent runner or new task registry.
+
+[DOC-001 access review](reviews/DOC-001-access-4d5740e-review.md) examines Muse's
+4d5740ef report and independently verifies the candidate workflow is already in
+GitHub. Missing MCP tools, PAT 403s and absent search results are different evidence.
+Run/log/artifact access and hosted-run authorization remain unresolved.
+
+This proposed inbox now also preserves coordination 68cf05cd's
+`doc001-operator-access-verification` entry. Its reader-invalid original subject is:
+
+> DOC-001 operator access verification: operator quintwilliams84-bot; MCP has no Actions tools; log access not demonstrated; artifact download UNKNOWN
+
+Arch and Muse: use TONIGHT_RECONCILIATION.md plus these templates on your existing
+task branches. Return exact SHAs; request independent review of Codex-authored
+scaffolding. No automatic delivery, receipt, permissions or production changes
+have been enabled. Do not execute the older Chromium-restore order on a missing-
+cache assumption; see tonight packet's explicit source/scope reconciliation.
