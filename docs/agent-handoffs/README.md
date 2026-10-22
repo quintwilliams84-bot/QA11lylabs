@@ -225,3 +225,21 @@ task branches. Return exact SHAs; request independent review of Codex-authored
 scaffolding. No automatic delivery, receipt, permissions or production changes
 have been enabled. Do not execute the older Chromium-restore order on a missing-
 cache assumption; see tonight packet's explicit source/scope reconciliation.
+
+## Independent scaffold review and current-path findings
+
+[Separate Codex-agent review of 264e9d3](reviews/264e9d3-independent-scaffold-review.md)
+found no blocker in that exact documentation delta and one Low attribution gap.
+It validated 18 tasks. Existing suite outcome was 10 passed, 2 failed, 0 skipped;
+the two historical selector-count expectations are stale on the prior branch too.
+They need a focused correction before claiming green integration checks. Historical
+statements of twelve passes above are not current-suite results. This is neither
+Muse/Antigravity review nor Quintin's merge/production approval.
+
+[Slice 1 / P03 review and contract draft](reviews/Slice1-P03-Arch2136ae35-review.md)
+uses Arch's current-path report at 2136ae35d9c92f630043c51b1af6f9ee4dd995cb and
+component return at 57539cb3d2997d78ab0ee74c5c0eea66792a7499. It requests changes
+to existing Muse proposals, defines missing worker-provenance inputs and grants
+no implementation sign-off. The contract draft itself awaits independent review.
+Arch has already returned the first report; do not request it again. Collect only
+specified missing evidence. No new implementation task or proposal is created.
