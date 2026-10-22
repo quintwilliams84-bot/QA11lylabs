@@ -50,7 +50,7 @@
       "id": "scanner-source-reconciliation-review",
       "source": {
         "branch": "codex/staging-coordination",
-        "commit": "1ccbb759b2af6a4c2e2c238f7253f4eced1003a7",
+        "commit": "9d8f101fae41c0c09b29027dc207dca8535193b5",
         "repository": "quintwilliams84-bot/QA11lylabs"
       },
       "status": "ready_for_review",
@@ -87,7 +87,7 @@
       "source": {
         "repository": "quintwilliams84-bot/QA11lylabs",
         "branch": "codex/staging-coordination",
-        "commit": "1ccbb759b2af6a4c2e2c238f7253f4eced1003a7"
+        "commit": "9d8f101fae41c0c09b29027dc207dca8535193b5"
       }
     },
     {
@@ -149,11 +149,11 @@
       "id": "customer-path-integration-scope",
       "target_agent": "muse",
       "status": "ready_for_review",
-      "subject": "Reconcile existing URL Slice 1 and P03 with current customer-path evidence. Revise minimal scope, not a new scanner implementation.",
+      "subject": "Muse return: Slice 1 Rev 4, P03 Rev 3, staging diagnostic packet, reviews of Codex 264e9d3 and 8e102e5",
       "source": {
         "repository": "quintwilliams84-bot/QA11lylabs",
-        "branch": "agent/codex/customer-path-recovery",
-        "commit": "9b972d9664190feca0112a62b4982b80bf0e7119"
+        "branch": "codex/staging-coordination",
+        "commit": "5f84d066911cb46940724925610d7b65f6d4b987"
       }
     },
     {
