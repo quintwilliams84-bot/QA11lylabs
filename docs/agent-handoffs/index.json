@@ -1,0 +1,182 @@
+{
+  "delivery": "manual_read_data_only",
+  "schema_version": 1,
+  "tasks": [
+    {
+      "id": "recovery-policy-independent-review",
+      "source": {
+        "branch": "agent/codex/recovery-policy",
+        "commit": "b7dc2a75696f10a346f4ab106102fa99419a649b",
+        "repository": "quintwilliams84-bot/OpenclawOps"
+      },
+      "status": "ready_for_review",
+      "subject": "Route pure recovery policy candidate to independent review, no live integration",
+      "target_agent": "codex"
+    },
+    {
+      "id": "scanner-ip-follow-up",
+      "source": {
+        "branch": "muse/codex-strict-client-ip",
+        "commit": "217a5b3c4a99a21d72ada41896e4e7bb646410f4",
+        "repository": "quintwilliams84-bot/QA11lylabs"
+      },
+      "status": "ready_for_review",
+      "subject": "Pure helper suite passes, reconcile deployed worker architecture before integration",
+      "target_agent": "muse"
+    },
+    {
+      "id": "browser-isolated-staging",
+      "source": {
+        "branch": "codex/browser-runtime-readiness",
+        "commit": "44deb239b15fad767129d2e6cba81f4ccbb5b72f",
+        "repository": "quintwilliams84-bot/QA11lylabs"
+      },
+      "status": "blocked",
+      "subject": "Await approved isolated staging host and official browser download access",
+      "target_agent": "codex"
+    },
+    {
+      "id": "coordinator-foundation-review",
+      "source": {
+        "branch": "agent/codex/github-coordinator",
+        "commit": "60d7a72bf5c47ed040674d812e3bebc8ad17465a",
+        "repository": "quintwilliams84-bot/OpenclawOps"
+      },
+      "status": "ready_for_review",
+      "subject": "Coordinator candidate requires independent review and real GitHub gate configuration",
+      "target_agent": "codex"
+    },
+    {
+      "id": "scanner-source-reconciliation-review",
+      "source": {
+        "branch": "codex/staging-coordination",
+        "commit": "9d8f101fae41c0c09b29027dc207dca8535193b5",
+        "repository": "quintwilliams84-bot/QA11lylabs"
+      },
+      "status": "ready_for_review",
+      "subject": "Scanner Slice 1 Rev 2 with Revision 3 tightening R3.1-R3.6. See proposal and addendum for exact scope.",
+      "target_agent": "codex"
+    },
+    {
+      "id": "proposal-p01-base64-docs-cleanup",
+      "target_agent": "codex",
+      "status": "ready_for_review",
+      "subject": "P01 Revision 2: Base64 docs cleanup - scope re-verified (9 files, PR 13 open), decode-only, consumer question answered by Codex",
+      "source": {
+        "repository": "quintwilliams84-bot/QA11lylabs",
+        "branch": "codex/staging-coordination",
+        "commit": "1ccbb759b2af6a4c2e2c238f7253f4eced1003a7"
+      }
+    },
+    {
+      "id": "proposal-p02-leads-zero-loss-bridge",
+      "target_agent": "codex",
+      "status": "ready_for_review",
+      "subject": "Review proposal-p02-leads-zero-loss-bridge. See handoff README for full scope.",
+      "source": {
+        "repository": "quintwilliams84-bot/QA11lylabs",
+        "branch": "codex/staging-coordination",
+        "commit": "1ccbb759b2af6a4c2e2c238f7253f4eced1003a7"
+      }
+    },
+    {
+      "id": "proposal-p03-slice2-worker-provenance",
+      "target_agent": "codex",
+      "status": "ready_for_review",
+      "subject": "P03 Rev 2: URL worker is handoff 511aa9b review material. OpenclawOps main is the separate document candidate.",
+      "source": {
+        "repository": "quintwilliams84-bot/QA11lylabs",
+        "branch": "codex/staging-coordination",
+        "commit": "9d8f101fae41c0c09b29027dc207dca8535193b5"
+      }
+    },
+    {
+      "id": "proposal-p04-ci-gate-interim",
+      "target_agent": "codex",
+      "status": "ready_for_review",
+      "subject": "Review proposal-p04-ci-gate-interim. See handoff README for full scope.",
+      "source": {
+        "repository": "quintwilliams84-bot/QA11lylabs",
+        "branch": "codex/staging-coordination",
+        "commit": "1ccbb759b2af6a4c2e2c238f7253f4eced1003a7"
+      }
+    },
+    {
+      "id": "proposal-p05-booking-availability-hardening",
+      "target_agent": "codex",
+      "status": "ready_for_review",
+      "subject": "Review proposal-p05-booking-availability-hardening. See handoff README for full scope.",
+      "source": {
+        "repository": "quintwilliams84-bot/QA11lylabs",
+        "branch": "codex/staging-coordination",
+        "commit": "1ccbb759b2af6a4c2e2c238f7253f4eced1003a7"
+      }
+    },
+    {
+      "id": "scanner-slice1-codex-corrections-addendum",
+      "target_agent": "codex",
+      "status": "ready_for_review",
+      "subject": "Slice 1 addendum A1-A4 (Oct 21) + Revision note: A1/A2 tightened by Slice 1 R3.1/R3.2/R3.4 per roadmap 98d442b3",
+      "source": {
+        "repository": "quintwilliams84-bot/QA11lylabs",
+        "branch": "codex/staging-coordination",
+        "commit": "1ccbb759b2af6a4c2e2c238f7253f4eced1003a7"
+      }
+    },
+    {
+      "id": "doc-001",
+      "target_agent": "codex",
+      "status": "blocked",
+      "subject": "DOC-001 isolated document staging: approve hosted run and obtain Actions evidence. See handoff README",
+      "source": {
+        "repository": "quintwilliams84-bot/OpenclawOps",
+        "branch": "agent/arch/doc-001-staging-work-order",
+        "commit": "b7df5defc983b808e39c48c97afbdd5c863a3f82"
+      }
+    },
+    {
+      "id": "arch-chromium-restore-evidence",
+      "target_agent": "arch",
+      "status": "needs_revision",
+      "subject": "Work order for Arch (Quintin-requested): restore scanner Chromium pinned, VPS smoke test, return B1 version evidence + sshd report",
+      "source": {
+        "repository": "quintwilliams84-bot/QA11lylabs",
+        "branch": "codex/staging-coordination",
+        "commit": "a3a20bbe4d03b921c223e42b82674968c1d37b79"
+      }
+    },
+    {
+      "id": "slice1-scope-approval-quintin",
+      "target_agent": "codex",
+      "status": "ready_for_review",
+      "subject": "Quintin approved Slice 1 bounded scope 2026-10-21: implement on Codex sign-off (B1 evidence still pending)",
+      "source": {
+        "repository": "quintwilliams84-bot/QA11lylabs",
+        "branch": "codex/staging-coordination",
+        "commit": "684d71f52ee7d4f2b5b345633d16a07024c1c981"
+      }
+    },
+    {
+      "id": "doc001-operator-access-verification",
+      "target_agent": "codex",
+      "status": "ready_for_review",
+      "subject": "Review DOC-001 operator evidence at 4d5740ef. MCP catalog lacks Actions tools. Access remains unverified.",
+      "source": {
+        "repository": "quintwilliams84-bot/QA11lylabs",
+        "branch": "codex/staging-coordination",
+        "commit": "4d5740efcd4cc67fb280febeb868ddc898de198e"
+      }
+    },
+    {
+      "id": "customer-path-integration-scope",
+      "target_agent": "muse",
+      "status": "ready_for_review",
+      "subject": "Muse return: Slice 1 Rev 4, P03 Rev 3, staging diagnostic packet, reviews of Codex 264e9d3 and 8e102e5",
+      "source": {
+        "repository": "quintwilliams84-bot/QA11lylabs",
+        "branch": "codex/staging-coordination",
+        "commit": "5f84d066911cb46940724925610d7b65f6d4b987"
+      }
+    }
+  ]
+}
