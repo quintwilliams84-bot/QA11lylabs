@@ -188,6 +188,17 @@
         "branch": "codex/staging-coordination",
         "commit": "684d71f52ee7d4f2b5b345633d16a07024c1c981"
       }
+    },
+    {
+      "id": "doc001-operator-access-verification",
+      "target_agent": "codex",
+      "status": "ready_for_review",
+      "subject": "Review DOC-001 operator evidence at 4d5740ef. MCP catalog lacks Actions tools. Access remains unverified.",
+      "source": {
+        "repository": "quintwilliams84-bot/QA11lylabs",
+        "branch": "codex/staging-coordination",
+        "commit": "4d5740efcd4cc67fb280febeb868ddc898de198e"
+      }
     }
   ]
 }
