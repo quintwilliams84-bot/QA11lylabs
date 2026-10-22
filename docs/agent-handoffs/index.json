@@ -133,6 +133,17 @@
         "branch": "agent/arch/doc-001-staging-work-order",
         "commit": "b7df5defc983b808e39c48c97afbdd5c863a3f82"
       }
+    },
+    {
+      "id": "arch-chromium-restore-evidence",
+      "target_agent": "arch",
+      "status": "ready_for_review",
+      "subject": "Work order for Arch (Quintin-requested): restore scanner Chromium pinned, VPS smoke test, return B1 version evidence + sshd report",
+      "source": {
+        "repository": "quintwilliams84-bot/QA11lylabs",
+        "branch": "codex/staging-coordination",
+        "commit": "a3a20bbe4d03b921c223e42b82674968c1d37b79"
+      }
     }
   ]
 }
