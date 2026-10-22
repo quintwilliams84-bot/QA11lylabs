@@ -50,11 +50,11 @@
       "id": "scanner-source-reconciliation-review",
       "source": {
         "branch": "codex/staging-coordination",
-        "commit": "1ccbb759b2af6a4c2e2c238f7253f4eced1003a7",
+        "commit": "42aa3b3d235637747de7d6bbbcb1ba871123a42d",
         "repository": "quintwilliams84-bot/QA11lylabs"
       },
       "status": "ready_for_review",
-      "subject": "Scanner source reconciliation Rev 2 Slice 1 + Revision 3 roadmap tightening (R3.1-R3.6); see addendum task for A1-A4 corrections status",
+      "subject": "Scanner Slice 1 Rev 2 with Revision 3 tightening R3.1-R3.6. See proposal and addendum for exact scope.",
       "target_agent": "codex"
     },
     {
@@ -72,7 +72,7 @@
       "id": "proposal-p02-leads-zero-loss-bridge",
       "target_agent": "codex",
       "status": "ready_for_review",
-      "subject": "P02 Revision 2 (changes requested addressed): immutable submission ID, per-ID reconciliation, outbox lifecycle; outage claim withdrawn",
+      "subject": "Review proposal-p02-leads-zero-loss-bridge. See handoff README for full scope.",
       "source": {
         "repository": "quintwilliams84-bot/QA11lylabs",
         "branch": "codex/staging-coordination",
@@ -83,18 +83,18 @@
       "id": "proposal-p03-slice2-worker-provenance",
       "target_agent": "codex",
       "status": "ready_for_review",
-      "subject": "P03 Revision 2: baseline identity corrected (URL worker = handoff 511aa9b review-only; OpenclawOps main = document candidate)",
+      "subject": "P03 Rev 2: URL worker is handoff 511aa9b review material. OpenclawOps main is the separate document candidate.",
       "source": {
         "repository": "quintwilliams84-bot/QA11lylabs",
         "branch": "codex/staging-coordination",
-        "commit": "1ccbb759b2af6a4c2e2c238f7253f4eced1003a7"
+        "commit": "42aa3b3d235637747de7d6bbbcb1ba871123a42d"
       }
     },
     {
       "id": "proposal-p04-ci-gate-interim",
       "target_agent": "codex",
       "status": "ready_for_review",
-      "subject": "P04 Revision 2: local evidence as review input not enforcement; CI 403 root cause recorded as UNKNOWN, earlier claim withdrawn",
+      "subject": "Review proposal-p04-ci-gate-interim. See handoff README for full scope.",
       "source": {
         "repository": "quintwilliams84-bot/QA11lylabs",
         "branch": "codex/staging-coordination",
@@ -105,7 +105,7 @@
       "id": "proposal-p05-booking-availability-hardening",
       "target_agent": "codex",
       "status": "ready_for_review",
-      "subject": "P05 Revision 2: privacy revision - personal examples removed; private booking-settings matter, shared record of approach only",
+      "subject": "Review proposal-p05-booking-availability-hardening. See handoff README for full scope.",
       "source": {
         "repository": "quintwilliams84-bot/QA11lylabs",
         "branch": "codex/staging-coordination",
@@ -137,7 +137,7 @@
     {
       "id": "arch-chromium-restore-evidence",
       "target_agent": "arch",
-      "status": "ready_for_review",
+      "status": "needs_revision",
       "subject": "Work order for Arch (Quintin-requested): restore scanner Chromium pinned, VPS smoke test, return B1 version evidence + sshd report",
       "source": {
         "repository": "quintwilliams84-bot/QA11lylabs",
@@ -160,11 +160,22 @@
       "id": "doc001-operator-access-verification",
       "target_agent": "codex",
       "status": "ready_for_review",
-      "subject": "DOC-001 operator access verification: operator quintwilliams84-bot; MCP has no Actions tools; log access not demonstrated; artifact download UNKNOWN",
+      "subject": "Review DOC-001 operator evidence at 4d5740ef. MCP catalog lacks Actions tools. Access remains unverified.",
       "source": {
         "repository": "quintwilliams84-bot/QA11lylabs",
         "branch": "codex/staging-coordination",
         "commit": "4d5740efcd4cc67fb280febeb868ddc898de198e"
+      }
+    },
+    {
+      "id": "customer-path-integration-scope",
+      "target_agent": "muse",
+      "status": "ready_for_review",
+      "subject": "Muse return: Slice 1 Rev 4, P03 Rev 3, staging diagnostic packet, reviews of Codex 264e9d3 and 8e102e5",
+      "source": {
+        "repository": "quintwilliams84-bot/QA11lylabs",
+        "branch": "codex/staging-coordination",
+        "commit": "42aa3b3d235637747de7d6bbbcb1ba871123a42d"
       }
     }
   ]
