@@ -187,3 +187,18 @@ P05 Revision 2: privacy revision - personal examples removed; private booking-se
 blocking inherited file-size limit affecting oversized fixture creation. Revise
 the collector scope before independent review and any hosted-run approval. This
 feedback grants no workflow execution or production permission.
+
+## Tonight: current evidence and revised scope
+
+[Arch/Muse tonight packet](TONIGHT_RECONCILIATION.md) continues the existing
+customer recovery tasks, records the conflicting browser restore order and
+requests an exception-based VPS inventory after the customer-path return.
+[DOC-001 correction replay](reviews/DOC-001-d4a9697-collector-review.md) resolves
+the historical f58f095 collector finding. Latest reviewed DOC-001 revision is
+d4a96970d58d3ec2913a265119d344a5beced7fb; hosted staging remains pending.
+Earlier proposal/README source references above describe prior snapshots.
+This branch is a proposed coordination update, not merged canonical state or
+live controls. Its index reconciles coordination 858debb6 with existing recovery
+tasks; the original restore order and Slice 1 approval record remain traceable.
+The restore task is marked needs_revision here for the packet's explicit scope
+and provenance conflicts; this is feedback, not revocation of separate authority.
