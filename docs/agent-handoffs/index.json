@@ -50,7 +50,7 @@
       "id": "scanner-source-reconciliation-review",
       "source": {
         "branch": "codex/staging-coordination",
-        "commit": "42aa3b3d235637747de7d6bbbcb1ba871123a42d",
+        "commit": "9d8f101fae41c0c09b29027dc207dca8535193b5",
         "repository": "quintwilliams84-bot/QA11lylabs"
       },
       "status": "ready_for_review",
@@ -87,7 +87,7 @@
       "source": {
         "repository": "quintwilliams84-bot/QA11lylabs",
         "branch": "codex/staging-coordination",
-        "commit": "42aa3b3d235637747de7d6bbbcb1ba871123a42d"
+        "commit": "9d8f101fae41c0c09b29027dc207dca8535193b5"
       }
     },
     {
@@ -175,7 +175,7 @@
       "source": {
         "repository": "quintwilliams84-bot/QA11lylabs",
         "branch": "codex/staging-coordination",
-        "commit": "42aa3b3d235637747de7d6bbbcb1ba871123a42d"
+        "commit": "9d8f101fae41c0c09b29027dc207dca8535193b5"
       }
     }
   ]
