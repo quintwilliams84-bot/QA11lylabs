@@ -180,3 +180,10 @@ P04 Revision 2: local evidence as review input not enforcement; CI 403 root caus
 #### proposal-p05-booking-availability-hardening
 
 P05 Revision 2: privacy revision - personal examples removed; private booking-settings matter, shared record of approach only
+
+## DOC-001 evidence amendment: review finding
+
+[Codex review of f58f095](reviews/DOC-001-f58f095-evidence-review.md) records a
+blocking inherited file-size limit affecting oversized fixture creation. Revise
+the collector scope before independent review and any hosted-run approval. This
+feedback grants no workflow execution or production permission.
