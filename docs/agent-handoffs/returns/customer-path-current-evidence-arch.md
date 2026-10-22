@@ -126,3 +126,121 @@ locate document UI beyond top-level static pages. If those still cannot identify
 the fault, report that limitation and request a separately scoped synthetic
 end-to-end test rather than guessing. Muse/Codex should not infer browser failure
 from the reported outage. No production repair is justified by this follow-up.
+
+## One bounded follow-up pass — 2026-10-22 04:26:18 UTC
+
+Collection stopped after this pass. No submissions, installs, restarts, repairs,
+workflow dispatches or repeated Actions probes.
+
+### Configured nginx log destinations
+
+Inspected /etc/nginx/nginx.conf and enabled site
+/etc/nginx/sites-enabled/qa11ylabs (resolves to
+/etc/nginx/sites-available/qa11ylabs). Site root is /var/www/qa11ylabs.
+No site-specific access/error override was found; the site inherits
+/var/log/nginx/access.log and /var/log/nginx/error.log from nginx.conf.
+The referenced /etc/letsencrypt/options-ssl-nginx.conf contains no logging
+directives. /etc/nginx/conf.d/*.conf had no matching files. These are configured
+on-disk paths, not proof of the configuration currently loaded by nginx; no
+nginx reload, dump or configuration execution was performed.
+
+### Properly parsed log suffixes
+
+| Exact location | Bytes read / total size | Parsing and selected result |
+|---|---|---|
+| /var/log/nginx/access.log | 131072 / 571735 | Dropped first partial line; 833 complete lines, 825 parsed as access records. Zero matching /api/scan, /api/scan-stream or /api/document-check requests. Eight unmatched lines not treated as success. |
+| /var/log/nginx/error.log | 0 / 0 | Empty regular log at observation. Error parser expects nginx timestamp/severity, then selected request path and upstream-error category; no records or matching timestamps. |
+
+Query strings, client addresses, customer values and raw lines were not retained
+in the report. Selected matching request/error timestamps: none available.
+No rotated/compressed logs read. No inferences about earlier incidents or other
+logging destinations. Empty selected evidence does not establish service health.
+
+### Document UI and local JavaScript trace
+
+Recursively inspected 48 HTML/HTM/JS/MJS files beneath the configured webroot.
+Bound: at most 400 files and 1 MiB per file; no directory symlinks followed;
+node_modules, .git, hidden directories, uploads, reports, logs and backups excluded.
+Zero candidate files exceeded the limit or were skipped by the file-size/symlink
+checks in this search. Inline scripts were searched as part of their HTML.
+The only document-check/upload-pattern match was the backend
+`document_checker_routes.js`, not an upload UI.
+
+Referenced local script resolution found:
+- igotyou-demo-driver/index.html -> igotyou-demo-driver/driver.js (exists, inspected).
+- igotyou-demo/index.html -> igotyou-demo/assets/index-CtgCyzUA.js (exists, inspected).
+
+No document-upload frontend was located in this inspected scope. Endpoint,
+method and upload field are confirmed ONLY from backend source:
+POST /api/document-check, multipart file field `document` via
+upload.single('document'). No front-end-to-backend contract is verified.
+External scripts, dynamic generated interfaces, other webroots and excluded
+private directories were not inspected. This is not proof the UI exists nowhere.
+
+Exact webroot-relative inspected files (source/assets only, no customer files):
+- `HermesDelegator.js`
+- `a11y-tree-diff.js`
+- `about.html`
+- `accessibility.html`
+- `api/leads_api.js`
+- `blog-accessible-modal.html`
+- `blog-ada-title-ii-2026.html`
+- `blog-agentic-workflow.html`
+- `blog-ai-accessibility-lived-experience.html`
+- `blog-aria-mistakes.html`
+- `blog-automated-tools-30-percent.html`
+- `blog-focus-styles-wcag22.html`
+- `blog-form-field-accessibility.html`
+- `blog-nvda-2024-update.html`
+- `blog-sc-258-target-size.html`
+- `blog-voiceover-ios-workflow.html`
+- `blog-wcag-22-new-criteria.html`
+- `blog.html`
+- `case-studies.html`
+- `contact.html`
+- `document_checker_routes.js`
+- `document_checker_routes.smoke.js`
+- `evidence/jeremiahs-20260502/executive-risk-teaser.html`
+- `evidence/ruby-river-20260502/executive-risk-teaser.html`
+- `evidence/rumbi-20260502/executive-risk-teaser.html`
+- `free-scan.html`
+- `ghost-reader.js`
+- `igotyou-demo-driver/driver.js`
+- `igotyou-demo-driver/index.html`
+- `igotyou-demo/assets/index-CtgCyzUA.js`
+- `igotyou-demo/index.html`
+- `igotyou-demo/service-worker.js`
+- `index.html`
+- `journey-engine.js`
+- `monitoring.html`
+- `phase15g3_test_downstream.js`
+- `privacy.html`
+- `remediation-engine.js`
+- `resources.html`
+- `risk-teaser-email-pack.js`
+- `risk-teaser.js`
+- `scan_server_patch.js`
+- `schedule.html`
+- `security.html`
+- `server.js`
+- `services.html`
+- `terms.html`
+- `test-remediation.js`
+
+### Failure-stage disposition and separately approved test proposal
+
+URL failure: UNKNOWN. Document failure: UNKNOWN; document UI discovery is an
+observed unresolved prerequisite, not proof of parser failure. No browser install
+or restart is evidence-supported. Root cause cannot be derived from these suffixes.
+
+Propose ONE separately approved synthetic customer-path diagnostic session, not
+authorized or run here: an isolated staging clone of the exact source/image/config
+pairing, outbound mail/model/lead adapters stubbed, one owned public URL fixture
+and one small generated PDF, one request per product, no retries. Identify the
+real document UI first or explicitly approve backend-only coverage. Capture
+stage-tagged admission, worker/parser, report, stubbed delivery/persistence and
+owned cleanup outcomes under reviewed deadlines/resource caps. Preserve sandbox,
+TLS and egress controls. This can localize a candidate failure but cannot prove
+live production health; any production test needs a separate precise approval.
+Prerequisites: reproducible pairing, operator, isolated environment, reviewed
+fixtures/stubs and exact test limits. No automatic test follows from this proposal.
