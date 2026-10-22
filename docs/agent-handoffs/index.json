@@ -155,6 +155,17 @@
         "branch": "codex/staging-coordination",
         "commit": "684d71f52ee7d4f2b5b345633d16a07024c1c981"
       }
+    },
+    {
+      "id": "doc001-operator-access-verification",
+      "target_agent": "codex",
+      "status": "ready_for_review",
+      "subject": "DOC-001 operator access verification: operator quintwilliams84-bot; MCP has no Actions tools; log access not demonstrated; artifact download UNKNOWN",
+      "source": {
+        "repository": "quintwilliams84-bot/QA11lylabs",
+        "branch": "codex/staging-coordination",
+        "commit": "4d5740efcd4cc67fb280febeb868ddc898de198e"
+      }
     }
   ]
 }
