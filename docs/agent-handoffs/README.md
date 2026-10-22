@@ -243,3 +243,11 @@ to existing Muse proposals, defines missing worker-provenance inputs and grants
 no implementation sign-off. The contract draft itself awaits independent review.
 Arch has already returned the first report; do not request it again. Collect only
 specified missing evidence. No new implementation task or proposal is created.
+
+## Muse Revision 4 / staging packet review
+
+[Review of Muse 42aa3b3](reviews/Muse42aa3b3-staging-review.md) verifies the repaired
+canonical reader metadata and records remaining execution-packet and Slice 1/P03
+contract gaps. The actual reader suite still has 10 passes and 2 stale-expectation
+failures. No new approval is supplied. Reuse the existing Muse/Arch task IDs;
+collect only missing provenance metadata, then return the revised exact packet.
