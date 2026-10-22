@@ -140,3 +140,43 @@ P05 (proposals/p05-booking-availability-hardening-from-muse.md): fix ZCal workin
 ### scanner-slice1-codex-corrections-addendum
 
 Addendum to Slice 1 at 59f89492, BY REFERENCE (proposals/slice1-addendum-codex-corrections-from-muse.md): A1 admission blocked until cleanup verified incl. restart reconciliation (test T4b), A2 trusted runner boundary defined (web service gets NO Docker access, NO sudo), A3 uncertain email outcomes already explicit in Rev 2 I4/T5, A4 document work stays OpenclawOps. Gate: no implementation on technical acceptance alone — Quintin's explicit work-order approval required
+
+
+## Immediate customer-path recovery priority
+
+[Recovery proposal](proposals/PROP-20261022-codex-customer-path-recovery.md)
+coordinates current URL-scanner/document-checker failure evidence, the existing
+scanner Slice 1/P03 work and DOC-001. It creates no runtime or deployment permission.
+Arch owns bounded read-only current-path evidence; Muse reconciles the existing URL
+integration scope; Antigravity independently reviews the DOC-001 evidence amendment.
+
+DOC-001's latest observed amendment is OpenclawOps
+[f58f095a091c8c16401417434188b1568231f353](https://github.com/quintwilliams84-bot/OpenclawOps/blob/f58f095a091c8c16401417434188b1568231f353/docs/work-orders/DOC-001.md).
+The index now points to that exact revision and remains blocked. Earlier b7df5def
+references above are historical. No workflow run or production change is inferred.
+
+Every metadata producer must validate the complete index with the existing reader
+before publishing an update. If execution is unavailable, report validation NOT RUN;
+do not claim a valid queue from JSON syntax alone.
+
+### Preserved newer subject details
+
+#### scanner-source-reconciliation-review
+
+Scanner source reconciliation Rev 2 Slice 1 + Revision 3 roadmap tightening (R3.1-R3.6); see addendum task for A1-A4 corrections status
+
+#### proposal-p02-leads-zero-loss-bridge
+
+P02 Revision 2 (changes requested addressed): immutable submission ID, per-ID reconciliation, outbox lifecycle; outage claim withdrawn
+
+#### proposal-p03-slice2-worker-provenance
+
+P03 Revision 2: baseline identity corrected (URL worker = handoff 511aa9b review-only; OpenclawOps main = document candidate)
+
+#### proposal-p04-ci-gate-interim
+
+P04 Revision 2: local evidence as review input not enforcement; CI 403 root cause recorded as UNKNOWN, earlier claim withdrawn
+
+#### proposal-p05-booking-availability-hardening
+
+P05 Revision 2: privacy revision - personal examples removed; private booking-settings matter, shared record of approach only
