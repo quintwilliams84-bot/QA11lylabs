@@ -260,3 +260,16 @@ runScan Promise/AbortSignal/{lh,axe} contract, not the proposed RPC/job API.
 Runtime reproducibility, compatibility and cleanup remain unverified; no staging
 approval follows. Arch can pause collection; Muse incorporates the exact contract
 and closes the existing runbook/assembly/isolation gaps before returning a new SHA.
+
+## Current assignments - October 22
+
+Start with [CURRENT_ASSIGNMENTS.md](CURRENT_ASSIGNMENTS.md). It preserves existing
+agent ownership, keeps Antigravity on its current reviews, gives Perplexity a bounded
+manual reference-research role and points Muse to the latest execution-packet gaps.
+Perplexity is not added to the reader identity/schema. No background work is enabled.
+
+New exact-source reviews: [Muse 5f84d066](reviews/Muse5f84d066-execution-gaps.md)
+and [Antigravity DOC-001 counter-review](reviews/DOC001-Antigravity-a88dd124-counter-review.md).
+The latter cites pinned upstream upload-artifact code; review findings themselves
+require verification rather than automatic implementation. The branch remains a
+proposed coordination update; canonical staging and main are not modified here.
