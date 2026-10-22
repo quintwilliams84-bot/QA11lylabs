@@ -1,0 +1,35 @@
+{
+  "manifest_version": 1,
+  "purpose": "Machine-checkable runtime pairing for the QA11yLabs staging diagnostic packet (Rev 3). Values are Arch's installed-state observations, cd7b56146469e5851d76a29bacc37bd5634392aa, observed 2026-10-22 16:15-16:18 UTC. Revalidation is change-based: any change to a pointer, file, package, image or mount expires the observation for execution purposes.",
+  "release": {
+    "name": "20261017-r2",
+    "resolved_root_placeholder": "$RELEASE_ROOT",
+    "note": "Release name and the current symlink are mutable identities; the content hashes below bind the observation."
+  },
+  "worker_image": {
+    "id": "sha256:9bd26ad900bb5e0f4dee75839e957a89ae89c2b7ab1e76050e559790e946b948",
+    "repo_digest": "mcr.microsoft.com/playwright@sha256:9bd26ad900bb5e0f4dee75839e957a89ae89c2b7ab1e76050e559790e946b948",
+    "os_arch": "linux/amd64",
+    "unknown": ["build attestation", "full image package inventory", "container Node version"]
+  },
+  "host_browser": {
+    "path_placeholder": "$CHROME_PATH",
+    "bytes": 293195072,
+    "sha256": "0ba9d6c54dbc1a46dfaa5f95d5975bc9b963030c8647880f5b6a537f8af7d2e8",
+    "package": {"name": "google-chrome-stable", "version": "153.0.8010.52-1", "arch": "amd64"},
+    "configured_origin": "dl.google.com (stable channel) - configured origin only; historical download/signature chain unproven",
+    "executed": false
+  },
+  "release_files": [
+    {"path": "runner.cjs", "sha256": "d2b3167f8be4081822183ccd7022a9bf7b83cf3ba454a73edd6f0c747597b0dd"},
+    {"path": "worker.cjs", "sha256": "9cba6bcd5ee3384f68dea6538c5900589ed9fa44f68dea653459"},
+    {"path": "watchdog.cjs", "sha256": "be66dd6c6e5cfdc2c21efcaac9ca6e09e2202ff93943c07c5b2a216c42ccbecb"},
+    {"path": "egress_proxy.py", "sha256": "8eb1e1df823e2a72ed27f1ceee16de7e6ad1d0a47d372a0e0ea87c7a25e8a8b5"},
+    {"path": "seccomp_profile.json", "sha256": "b9b7007a80b8935859cd1cb7f766ff3ac485dc5bee6237568ab04025ce7dd33a"},
+    {"path": "deps/.package-lock.json", "sha256": "4bbef0f0524728c4347891987d19b6dfe6eb2ebb3629820e41709f7f8a04beb8", "note": "install-tree lock; NOT an npm ci input"},
+    {"path": "lighthouse-bundle/package-lock.json", "sha256": "bff36575a26b5b148513cb98fcda08147bd0e6d3ca491ac2d5f35a4e2cc11cda"}
+  ],
+  "selected_versions": {"playwright": "1.60.0", "playwright-core": "1.60.0", "axe-core": "4.11.4", "@axe-core/playwright": "4.11.3", "lighthouse": "13.4.1"},
+  "absent_inputs": ["deps/package.json", "deps/package-lock.json"],
+  "pairing_status": "BLOCKED - no complete reproducible pairing exists. Admissible resolutions: (a) complete reviewed manifests/locks, or (b) separately approved captured-runtime pairing using the installed release tree read-only with declared provenance limitations (Git correspondence UNKNOWN; not a reproducible build)."
+}

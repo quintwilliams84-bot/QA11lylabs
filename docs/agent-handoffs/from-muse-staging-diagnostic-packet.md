@@ -1,10 +1,18 @@
 # Staging diagnostic packet - customer-path failure localization
 
-Author: Muse. Date: 2026-10-22 (America/Denver). Revision 3,
-responding to Codex reviews 4d26b343e76ee8e0d64c4c4aeae16c995b59f272
-and abf48671437b73052a07b17701675576ee590bb3, incorporating Arch's
-P03 metadata return cd7b56146469e5851d76a29bacc37bd5634392aa
-(observed 2026-10-22 16:15-16:18 UTC).
+Author: Muse. Date: 2026-10-22 (America/Denver). Revision 4,
+responding to Codex review Muse5f84d066-execution-gaps and the
+CURRENT_ASSIGNMENTS revision 9af0c09d32c163db0470ccc078656417a5
+399cb9 read and acknowledged by Muse. Earlier revisions
+responded to Codex reviews 4d26b343e76ee8e0d64c4c4aeae16c995b59f
+272 and abf48671437b73052a07b17701675576ee590bb3 and incorporate
+Arch's P03 metadata return cd7b56146469e5851d76a29bacc37bd5634392
+aa (observed 2026-10-22 16:15-16:18 UTC).
+PURPOSE, narrowed per review: this packet tests EXECUTION-MODULE
+COMPATIBILITY of the installed runner in staging. It is not
+end-to-end outage localization and not production acceptance;
+its result cannot close the page, API, report, mail or document
+stages of the customer path.
 Task: customer-path-integration-scope (existing).
 Status: PREPARED, NOT RUN. Nothing here authorizes execution.
 Execution requires Codex review of this revision and Quintin's
@@ -201,3 +209,95 @@ revision, a named pairing-path approval resolving the BLOCKED
 gate, and Quintin's explicit approval naming the packet.
 Production is out of scope entirely; the customer-path failure
 itself remains UNKNOWN until evidence says otherwise.
+
+
+## Revision 4 (2026-10-22): harness source, confinement, cleanup identity, pairing choice
+
+R4.1 Reviewed harness source is now committed with this packet
+under docs/agent-handoffs/harness/ (identities in its PACKAGE.md):
+pairing/pairing.manifest.json (machine-readable, unwrapped
+digests), pairing/preflight-verify.mjs, harness/run-scan-once.mjs,
+harness/audit-preload.cjs, harness/supervise.sh, runbook/RUNBOOK.md
+(the actual command runbook; the phase prose in earlier revisions
+is superseded by it). Local checks by Muse (test double only,
+never the real runner): env gate BLOCKS with the pairing
+unresolved (exit 3, no scan attempted); with a named pairing
+path the harness drives the contract and records a null lh.score
+as NOT RUN with the verbatim result; the audit preload denies an
+out-of-boundary module load (exit 65); the preflight verifier
+detects hash mismatches and never self-resolves the pairing
+gate. Supervisor end-to-end on a real systemd staging host is
+NOT verified - the only available local host has a stub
+systemd-run, where the supervisor correctly recorded scope
+cleanup UNKNOWN rather than PASS. That verification is staging
+evidence, still to come.
+
+R4.2 Confinement is OS-level and established BEFORE import; the
+module-load audit is evidence logging only, explicitly not a
+security boundary (it cannot prevent import-time side effects
+or permitted-builtin misuse, and the packet no longer implies
+otherwise). supervise.sh launches the harness in a systemd
+scope with PrivateNetwork=yes, ProtectSystem=strict,
+ReadWritePaths limited to $STAGE_ROOT and the Docker socket,
+MemoryMax 2G, CPUQuota 200%, TasksMax 512, and verifies the
+scope exists before trusting it; fallback is an unshare
+mount+network namespace; if neither mechanism is available the
+run is BLOCKED - the harness never runs unconfined. The proxy
+flow is pinned by the module design (worker network none, Unix
+socket relay): the only permitted application flow is the
+proxy's outbound to the single synthetic target over HTTPS with
+strict TLS; DNS for the target is resolved host-side by the
+proxy and the resolved addresses are recorded in the evidence.
+Negative probes, both required PASS before the scan call: a
+direct connection from inside the scope to a non-allowlisted
+address must fail, and a proxy request for a non-allowlisted
+host must be refused.
+
+R4.3 Cleanup identity. A bare recorded PID is never trusted.
+Each run has a random job id; the harness writes job.json with
+(pid, /proc starttime); every stop/kill decision re-verifies
+that pair. Lifetime is tracked by the systemd unit/cgroup (or
+the namespace in fallback). Docker-daemon containers are
+handled independently of the harness tree: before/after
+container-id diff on the dedicated staging host, leftovers
+removed by exact id within 10s and re-verified absent; while
+the job container lives, its HostConfig limits are verified
+against the declared worker caps (805306368 bytes, 1000000000
+NanoCpus, 160 PidsLimit). Resource scope: the 2 GiB / 2 CPU /
+1 GiB figures bind the harness tree via the scope properties
+and a $STAGE_ROOT sized as the only writable tree; daemon-owned
+workers sit outside that cgroup and are bounded by their own
+verified HostConfig caps; the read-only image and host browser
+sit outside the writable disk quota. Harness logs are capped
+at 1 MiB at the sink; overflow is a FAIL stage, never a limit
+imposed on producers. Cleanup failure or missing evidence is
+UNKNOWN/FAIL and stops further tests.
+
+R4.4 Pairing: the machine-readable manifest supersedes the
+line-wrapped digest text of Revision 3 as the verification
+input. CHOSEN PAIRING: path (b), the captured-runtime pairing -
+the installed release tree used read-only, inventoried by the
+manifest, with declared limitations (exact Git correspondence
+UNKNOWN; private-capture comparison UNKNOWN; not a
+reproducible build). The choice is recorded here; its USE
+remains BLOCKED until Quintin approves path (b) by name, and
+the harness itself refuses to run without that named approval
+recorded in its environment gate. Missing inputs for path (b),
+still BLOCKED: a complete runnable-tree inventory beyond the
+files Arch hashed (the copy step generates a full-tree hash
+inventory and the return reports gaps, never hides them), and
+the host Chrome library closure (ldd output), an Arch delta to
+request when the pairing approval is given. Path (a) remains
+admissible if complete reviewed manifests/locks ever exist.
+
+R4.5 Host and operator: operator is Arch (designated in the
+packet since Rev 2). The non-production staging HOST is
+explicitly BLOCKED - none is designated yet, and no production
+VPS may serve as the test host.
+
+R4.6 Freshness, read consistently with P03: change-based
+revalidation governs. Any changed relevant identity invalidates
+correspondence immediately; P03 Revision 4's 24-hour figure is
+a maximum age for observations, never proof that installed
+state is unchanged. The preflight verifier re-runs at
+execution time.

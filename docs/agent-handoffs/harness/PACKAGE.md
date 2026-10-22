@@ -1,0 +1,8 @@
+# Harness package identities (SHA-256)
+
+cabd7379bdfb1e1ce10470c76774105bb887fc4d15fa723c11a6269802129035  pairing/pairing.manifest.json
+3ff55be0e3eb6d245687ed55c674afca9d26b34eb69a35623aa5117c09435017  pairing/preflight-verify.mjs
+baa1654311108f202c3a760617b357762a97c1b12ce5f695961e58d2616cd4fe  harness/run-scan-once.mjs
+f8e8bc9228dd18c1e913da7d78e5ae031f28282b2688a6ab91e387835ff9449e  harness/audit-preload.cjs
+85ec3623cebbf37d41f57049916a6eaa69907da1468c0b6d7cbf5458fe0ee7f2  harness/supervise.sh
+1a23d19514bea64389e2e394f12d7441ede4fb8393e6c1ef086d2ed3b6a0c96d  runbook/RUNBOOK.md
