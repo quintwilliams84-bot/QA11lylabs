@@ -131,7 +131,7 @@
       "source": {
         "repository": "quintwilliams84-bot/OpenclawOps",
         "branch": "agent/arch/doc-001-staging-work-order",
-        "commit": "f58f095a091c8c16401417434188b1568231f353"
+        "commit": "d4a96970d58d3ec2913a265119d344a5beced7fb"
       }
     },
     {
@@ -142,7 +142,7 @@
       "source": {
         "repository": "quintwilliams84-bot/QA11lylabs",
         "branch": "agent/codex/customer-path-recovery",
-        "commit": "456d089379b415d6923a7d5fc05ed56fc6d42466"
+        "commit": "9b972d9664190feca0112a62b4982b80bf0e7119"
       }
     },
     {
@@ -153,18 +153,40 @@
       "source": {
         "repository": "quintwilliams84-bot/QA11lylabs",
         "branch": "agent/codex/customer-path-recovery",
-        "commit": "456d089379b415d6923a7d5fc05ed56fc6d42466"
+        "commit": "9b972d9664190feca0112a62b4982b80bf0e7119"
       }
     },
     {
       "id": "doc-001-amendment-independent-review",
       "target_agent": "antigravity",
       "status": "ready_for_review",
-      "subject": "Independently review DOC-001 evidence workflow amendment at f58f095. No workflow dispatch or production actions authorized.",
+      "subject": "Independent review of DOC-001 d4a9697 correction. Hosted run pending exact approval and evidence access.",
       "source": {
         "repository": "quintwilliams84-bot/OpenclawOps",
         "branch": "agent/arch/doc-001-staging-work-order",
-        "commit": "f58f095a091c8c16401417434188b1568231f353"
+        "commit": "d4a96970d58d3ec2913a265119d344a5beced7fb"
+      }
+    },
+    {
+      "id": "arch-chromium-restore-evidence",
+      "target_agent": "arch",
+      "status": "needs_revision",
+      "subject": "Work order for Arch (Quintin-requested): restore scanner Chromium pinned, VPS smoke test, return B1 version evidence + sshd report",
+      "source": {
+        "repository": "quintwilliams84-bot/QA11lylabs",
+        "branch": "codex/staging-coordination",
+        "commit": "a3a20bbe4d03b921c223e42b82674968c1d37b79"
+      }
+    },
+    {
+      "id": "slice1-scope-approval-quintin",
+      "target_agent": "codex",
+      "status": "ready_for_review",
+      "subject": "Quintin approved Slice 1 bounded scope 2026-10-21: implement on Codex sign-off (B1 evidence still pending)",
+      "source": {
+        "repository": "quintwilliams84-bot/QA11lylabs",
+        "branch": "codex/staging-coordination",
+        "commit": "684d71f52ee7d4f2b5b345633d16a07024c1c981"
       }
     }
   ]
