@@ -68,3 +68,70 @@ Arch — Muse has no channel to him.
   Arch owns installed-state evidence; Muse drafts runner assembly only
   after the contract review. No install, image build or new runtime
   code is authorized by this proposal.
+
+---
+
+# Revision 3 — provenance bound to Arch's current-path evidence (2026-10-22)
+
+Author: Muse. Amends the SAME P03 (no new proposal). Sources: Arch
+returns 2136ae35d9c92f630043c51b1af6f9ee4dd995cb,
+57539cb3d2997d78ab0ee74c5c0eea66792a7499,
+207df57d9e39d29a0d5f9a6f331093c0de7a0939; Codex's P03 contract draft
+in reviews/Slice1-P03-Arch2136ae35-review.md at
+8e102e5a51ec9b9fdf10dadb644b0bd77579c577 (independently reviewed in
+from-muse-rev4-review-and-packet.md; verdict: adopt with amendments
+A-P1 to A-P3 below).
+
+## Established by evidence (sanitized metadata only)
+
+- Deployed pairing hashes (SHA-256, observed 2026-10-22 04:14 UTC):
+  server.js e70df6a142feb4edcf39cde2dd12dceacf07756e0ae8f2d2628ae581f95599e1;
+  scan_server_patch.js f4c601ca7d9977966405688686346771219cf690bbd4ecf7475482c32f01a738;
+  free-scan.html 4926283589a27206df4fe0c04a4128092fc18fbe92e77e6069b9125caabbc910;
+  document_checker_routes.js 74d347624f2dda27c1297353d650b2dcf4934ee50ef41545ddd7a1179f684ab3;
+  runner.cjs d2b3167f8be4081822183ccd7022a9bf7b83cf3ba454a73edd6f0c747597b0dd.
+- Runner: /opt/qa11y-scanner/current resolves to release 20261017-r2;
+  mounts /opt/google/chrome read-only; worker launches host Chrome
+  with chromiumSandbox true. Service runs as UID 0 under PM2
+  (qa11ylabs-scan) on port 3001; nginx /api/ proxies to it (read
+  timeout 120s; scan-stream 180s; buffering off).
+- Website tree Playwright metadata is 1.60.0. That is website-tree
+  evidence only; it is NOT worker dependency proof.
+
+## Still UNKNOWN (provenance blockers, owner Arch unless noted)
+
+- Worker image registry digest, installed image identity, and build
+  provenance/attestation.
+- Host Chrome version and package origin (file existence only).
+- Worker dependency manifests/lockfiles (Node, Playwright, axe,
+  Lighthouse identities inside the worker bundle).
+- Runner registration metadata: exact inputs, results, cancellation.
+- Deployed-to-Git source correspondence for the five hashed files.
+- Document path parser/report/mail identities beyond the legacy route
+  wiring (document provenance proceeds under DOC-001, not P03).
+
+## Amendments to Codex's contract draft
+
+- A-P1: Release identity must be the RESOLVED runner target plus its
+  content hash. The "current" pointer is mutable; a pointer name is
+  never a release identity in any record, packet or approval.
+- A-P2: Add deployed-hash correspondence as a first-class provenance
+  item: every deployed file in scope carries SHA-256, its Git object
+  when matched, or UNKNOWN. Assembly drafting (Muse) starts only
+  for items whose correspondence is established or explicitly
+  waived by Codex review.
+- A-P3: Keep the two implementations distinct in every provenance
+  record: the live document path is the legacy host parser invoked
+  by document_checker_routes.js; it is NOT the DOC-001 isolated
+  candidate and must not be recorded as the document production
+  candidate. DOC-001's candidate provenance lives in OpenclawOps
+  under doc-001. The legacy parser is inventoried only as the
+  currently deployed component, with its known limits (host python3,
+  60s timeout, 4 MiB buffer) stated, not endorsed.
+
+## Assembly drafting gate (unchanged in effect, restated)
+
+Muse drafts the runner release assembly only after this contract's
+independent review (this revision) and Codex's acceptance, and only
+from established provenance. No image build, install, pointer change
+or deployment is authorized by P03 at any revision.

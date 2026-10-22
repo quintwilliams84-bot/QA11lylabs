@@ -256,3 +256,154 @@ guarantee cleanup before readmission. Admission is therefore retained
 through VERIFIED removal in every path: normal completion, frontend
 death, create/start ambiguity, cleanup failure and process restart
 (this is the release condition I3/A1/T4b are read under).
+
+---
+
+# Revision 4 — bound to Arch's current-path evidence (2026-10-22)
+
+Author: Muse. This revision amends the SAME Slice 1 contract (no new
+proposal). It responds to Codex's review at QA11lylabs
+8e102e5a51ec9b9fdf10dadb644b0bd77579c577
+(reviews/Slice1-P03-Arch2136ae35-review.md) and the TONIGHT packet at
+264e9d3592c169e1d85c6fd832d14ac0dce01b32, using Arch's evidence returns
+2136ae35d9c92f630043c51b1af6f9ee4dd995cb, 57539cb3d2997d78ab0ee74c5c0eea66792a7499
+and 207df57d9e39d29a0d5f9a6f331093c0de7a0939. Where Revision 4 conflicts
+with Revisions 2-3, Revision 4 governs. Quintin's bounded-scope approval
+at 684d71f52ee7d4f2b5b345633d16a07024c1c981 stands for this scope; no
+duplicate approval is requested. Codex technical sign-off is still
+withheld pending this revision's review.
+
+## R4.0 — Candidate role and base, corrected by deployed evidence
+
+Arch's observed deployed pairing (2026-10-22 04:14-04:26 UTC, read-only):
+PM2 app qa11ylabs-scan runs /var/www/qa11ylabs/server.js (SHA-256
+e70df6a142feb4edcf39cde2dd12dceacf07756e0ae8f2d2628ae581f95599e1) as
+UID 0 on port 3001. It registers the scan routes from
+scan_server_patch.js (deployed SHA-256
+f4c601ca7d9977966405688686346771219cf690bbd4ecf7475482c32f01a738) and
+the document routes from document_checker_routes.js (SHA-256
+74d347624f2dda27c1297353d650b2dcf4934ee50ef41545ddd7a1179f684ab3).
+The URL route delegates execution to
+/opt/qa11y-scanner/current/runner.cjs (SHA-256
+d2b3167f8be4081822183ccd7022a9bf7b83cf3ba454a73edd6f0c747597b0dd,
+release 20261017-r2), which runs a Docker worker mounting
+/opt/google/chrome read-only; the worker launches that host Chrome with
+chromiumSandbox true. No Playwright-managed cache is in the live path.
+
+Therefore:
+- The Slice 1 candidate is a CLOUD-SIDE ROUTE REFACTOR plus an ADAPTER
+  to the live runner contract. It is not a route replacement that
+  introduces its own browser, and no in-process browser launch may
+  become a production default. The in-process launch paths in I2 are
+  retained ONLY as injected test doubles behind the executor interface.
+- The default executor is the runner interface: submit(jobSpec) returns
+  a job identity; status/events(jobId); cancel(jobId); result(jobId)
+  returns a stage envelope (scan, lighthouse-or-null, report, delivery)
+  in which a stage that did not run is null/UNKNOWN, never fabricated.
+  In-worker Lighthouse output is a runner-reported stage; the route
+  must not silently drop it, and QA main's npx Lighthouse child is
+  still retired (it ran outside the isolated worker and outside SSRF
+  interception). Exact runner inputs/results/cancellation semantics
+  are prerequisite evidence (Arch's next return: registration
+  metadata). Until that lands, the adapter is specified against this
+  abstract contract and coded against a test double.
+- PREREQUISITE P0 (new): the deployed scan_server_patch.js hash does
+  not correspond to any verified Git object (correspondence UNKNOWN).
+  Before implementation, the deployed source must be captured through
+  the private channel and diffed against QA main 578c221b; the
+  candidate's base is the reconciled tree, not main alone. Cloud
+  design/tests may proceed against main plus this contract; the
+  implementation base is not final until P0 closes.
+
+## R4.1 — One authoritative capacity claim (replaces R3.2 mechanics)
+
+Per-job atomic file creation does not bound capacity. The contract is:
+- A single admission ledger directory owned by the service identity
+  holds N slot records (N = configured worker capacity). A claim is
+  the atomic creation (O_EXCL or mkdir) of one slot record carrying:
+  job ID, fencing epoch (monotonic per-slot counter), owner identity,
+  and state (claimed, running, cleaning, terminal).
+- A caller is admitted only while holding a slot claim. Two callers
+  racing create exactly one winner per slot; total admissions never
+  exceed N regardless of caller count or process count on the host.
+- The rate-limit file is non-authoritative and never gates admission.
+- Startup reconciliation: slots in claimed/running/cleaning whose job
+  record is absent or terminal are moved to cleaning and released only
+  after the cleanup-verification hook for that job's trusted resource
+  identity returns (same rule as R3.1; never bare-PID kills, never
+  stored-path deletes). A slot whose owner state is uncertain HOLDS
+  admission (fail closed) and is surfaced for operator reconciliation.
+- Durability: slot and job records are fsynced before the claim is
+  acknowledged; a crash between claim and job-start leaves a
+  reconcilable slot, never a phantom admission.
+- Tests (synthetic, in-process model plus filesystem ledger in a temp
+  dir): kill at claim, create, start, cleanup boundaries; corrupt a
+  slot record; race two callers for the last slot; stale slot with a
+  live owner is never reclaimed; uncertain state holds admission.
+  The model proves the claim contract, NOT real browser cleanup;
+  real cross-restart cleanup is staging evidence (see the diagnostic
+  packet), never claimed from these tests.
+
+## R4.2 — Send-intent durability (replaces the I4/R3.3 expiry reading)
+
+- The stable submission ID (P02/WO-1) is minted and a send-intent
+  record persisted (state: intent) BEFORE any provider call.
+- Outcome transitions are persisted: intent -> accepted, intent ->
+  failed, intent -> unknown. A crash or timeout after provider
+  acceptance but before outcome persistence reconciles to unknown on
+  restart, never to a resend.
+- The normal dedup TTL governs NEW submissions only. It never releases
+  an unknown hold. An unknown submission is released only by explicit
+  operator reconciliation against provider evidence, recorded with
+  the submission ID.
+- Persistence failure BEFORE send: no send occurs. Persistence failure
+  AFTER send: the submission is treated as unknown (hold), as above.
+- Retention: unknown records are retained until reconciled; terminal
+  (accepted/failed) records follow P02's bounded retention. No second
+  outbox is created; this is the P02 outbox lifecycle read at the
+  route boundary.
+- Tests: crash between intent and send, between send and outcome,
+  and during outcome persistence, all with a stubbed provider; no
+  real provider calls; duplicate submission while unknown is held
+  returns the held state, not a new send.
+
+## R4.3 — Registration-time configuration (extends I1)
+
+- registerScanRoutes(app, deps) takes an explicit config object.
+  Registration NEVER reads /root/.env or production paths; environment
+  loading remains the process entrypoint's job (server.js), outside
+  this module.
+- The development/test config refuses production paths and production
+  credential bindings by construction (allowlist of temp locations);
+  tests register routes with production paths absent and all side
+  effects stubbed.
+- Production compatibility: the production entry passes its existing
+  configuration explicitly; behavior parity is checked by the
+  registration contract test (routes present, methods/paths equal).
+- Repeated registration on the same app is an explicit error, tested.
+
+## R4.4 — B1 gate normalized (supersedes conflicting earlier text)
+
+- Gate C (cloud coding of this contract): NOT blocked by B1. Design,
+  adapter code against the test double, and the synthetic test matrix
+  proceed.
+- Gate I (dependency pinning, staging, integration, real-browser
+  validation): BLOCKED until complete B1: worker image digest and
+  installed identity, host Chrome version and package origin, worker
+  dependency manifests/lockfiles, runner registration metadata, and
+  P0 source correspondence.
+- The approval note at 684d71f5 is read under this split: Quintin's
+  approval covers the bounded scope; Gate I items are prerequisites
+  to integration steps, not to cloud coding. No expanded scope is
+  inferred and no duplicate approval is needed for unchanged scope.
+
+## R4.5 — Scope, files, exclusions (unchanged unless stated)
+
+Touched implementation files remain: scan_server_patch.js,
+test/scan-hardening.test.js, ops/preflight.sh — plus, now explicit,
+the admission ledger and send-intent records are runtime state under
+the service-owned state directory configured in deps (not new source
+files). The adapter's runner client lives inside scan_server_patch.js
+under the executor interface. Exclusions stand: no deployable
+in-process intermediate, no web-tier Docker/sudo, no document-track
+changes (OpenclawOps), no sanitized-code port of the deployed tree.
