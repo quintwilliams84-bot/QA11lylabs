@@ -54,7 +54,7 @@
         "repository": "quintwilliams84-bot/QA11lylabs"
       },
       "status": "ready_for_review",
-      "subject": "Scanner source reconciliation Rev 2 Slice 1 + Revision 3 roadmap tightening (R3.1-R3.6); see addendum task for A1-A4 corrections status",
+      "subject": "Scanner Slice 1 Rev 2 with Revision 3 tightening R3.1-R3.6. See proposal and addendum for exact scope.",
       "target_agent": "codex"
     },
     {
@@ -72,7 +72,7 @@
       "id": "proposal-p02-leads-zero-loss-bridge",
       "target_agent": "codex",
       "status": "ready_for_review",
-      "subject": "P02 Revision 2 (changes requested addressed): immutable submission ID, per-ID reconciliation, outbox lifecycle; outage claim withdrawn",
+      "subject": "Review proposal-p02-leads-zero-loss-bridge. See handoff README for full scope.",
       "source": {
         "repository": "quintwilliams84-bot/QA11lylabs",
         "branch": "codex/staging-coordination",
@@ -83,7 +83,7 @@
       "id": "proposal-p03-slice2-worker-provenance",
       "target_agent": "codex",
       "status": "ready_for_review",
-      "subject": "P03 Revision 2: baseline identity corrected (URL worker = handoff 511aa9b review-only; OpenclawOps main = document candidate)",
+      "subject": "P03 Rev 2: URL worker is handoff 511aa9b review material. OpenclawOps main is the separate document candidate.",
       "source": {
         "repository": "quintwilliams84-bot/QA11lylabs",
         "branch": "codex/staging-coordination",
@@ -94,7 +94,7 @@
       "id": "proposal-p04-ci-gate-interim",
       "target_agent": "codex",
       "status": "ready_for_review",
-      "subject": "P04 Revision 2: local evidence as review input not enforcement; CI 403 root cause recorded as UNKNOWN, earlier claim withdrawn",
+      "subject": "Review proposal-p04-ci-gate-interim. See handoff README for full scope.",
       "source": {
         "repository": "quintwilliams84-bot/QA11lylabs",
         "branch": "codex/staging-coordination",
@@ -105,7 +105,7 @@
       "id": "proposal-p05-booking-availability-hardening",
       "target_agent": "codex",
       "status": "ready_for_review",
-      "subject": "P05 Revision 2: privacy revision - personal examples removed; private booking-settings matter, shared record of approach only",
+      "subject": "Review proposal-p05-booking-availability-hardening. See handoff README for full scope.",
       "source": {
         "repository": "quintwilliams84-bot/QA11lylabs",
         "branch": "codex/staging-coordination",
@@ -131,7 +131,40 @@
       "source": {
         "repository": "quintwilliams84-bot/OpenclawOps",
         "branch": "agent/arch/doc-001-staging-work-order",
-        "commit": "b7df5defc983b808e39c48c97afbdd5c863a3f82"
+        "commit": "f58f095a091c8c16401417434188b1568231f353"
+      }
+    },
+    {
+      "id": "customer-path-current-evidence",
+      "target_agent": "arch",
+      "status": "ready_for_review",
+      "subject": "Current URL and document customer-path failure evidence. Read-only inspection scope. No repair or scan submission authorized.",
+      "source": {
+        "repository": "quintwilliams84-bot/QA11lylabs",
+        "branch": "agent/codex/customer-path-recovery",
+        "commit": "456d089379b415d6923a7d5fc05ed56fc6d42466"
+      }
+    },
+    {
+      "id": "customer-path-integration-scope",
+      "target_agent": "muse",
+      "status": "ready_for_review",
+      "subject": "Reconcile existing URL Slice 1 and P03 with current customer-path evidence. Revise minimal scope, not a new scanner implementation.",
+      "source": {
+        "repository": "quintwilliams84-bot/QA11lylabs",
+        "branch": "agent/codex/customer-path-recovery",
+        "commit": "456d089379b415d6923a7d5fc05ed56fc6d42466"
+      }
+    },
+    {
+      "id": "doc-001-amendment-independent-review",
+      "target_agent": "antigravity",
+      "status": "ready_for_review",
+      "subject": "Independently review DOC-001 evidence workflow amendment at f58f095. No workflow dispatch or production actions authorized.",
+      "source": {
+        "repository": "quintwilliams84-bot/OpenclawOps",
+        "branch": "agent/arch/doc-001-staging-work-order",
+        "commit": "f58f095a091c8c16401417434188b1568231f353"
       }
     }
   ]
