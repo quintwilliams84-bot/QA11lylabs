@@ -91,3 +91,38 @@ review; activation needs separate approved artifact/drain/health/rollback packet
 Independent feedback must cite the report commit in a later review. GitHub push
 is publication, not proof Muse/Codex received or accepted it. Component exception
 records follow separately using historical evidence with explicit age/unknowns.
+
+## Follow-up: isolate the failing stage (2026-10-22 04:19 UTC)
+
+Scope remains read-only; no new scan/upload or Actions access probe.
+
+| Check | Result | Meaning / limit |
+|---|---|---|
+| server.js calls registerScanRoutes and registerDocumentCheckerRoutes | PASS static | Registration calls are present, not merely imports. Both receive sendAgentMail. Runtime execution success not tested. |
+| URL UI submission | PASS static | Form POST /api/scan exists; JavaScript creates EventSource /api/scan-stream. No live scan performed. |
+| Direct scanner /health | PASS HTTP 200, curl exit 0 | Source reviewed: app.get('/health', ... status ok). This is process liveness only, not worker readiness. Public /health proxies a different service and must not be treated as scanner health. |
+| /resources.html | PASS HTTP 200, curl exit 0 | Static page availability; document upload UI still UNKNOWN. Top-level HTML document-link search found only resources.html#documents. |
+| Browser/Docker/parser/builder paths | PASS existence and executable-access checks | /opt/google/chrome/chrome, /usr/bin/docker, legacy document_checker.py and qa11y-build-client-doc exist and are executable by observer. No version execution/import/build or compatibility proof. |
+| Current API failure evidence | UNKNOWN | Last 128 KiB of default nginx access log has 10 GET /free-scan.html HTTP 200 records, timestamps Oct 21 20:12:31–22:15:15 MDT. No selected scan/stream/document-check requests in that bounded suffix. May be incomplete or wrong per-vhost log; not proof requests never occurred. |
+| Worker/parser/report/mail failure stage | UNKNOWN / NOT RUN | No existing selected request evidence identifies a failed stage. No basis for reinstall or restart. |
+
+Document route source explicitly invokes host python3 with the legacy analyzer,
+60-second timeout and 4 MiB subprocess buffer, then optionally invokes the report
+builder. It instantiates HermesDelegator. This verifies the older execution path,
+not DOC-001 isolated-worker activation. Route binding and executable presence do
+not establish safe or successful parsing. No runtime/parser limits were changed.
+
+Commands: standard-library bounded source/link matching and os.access checks;
+log suffix reads at most 131072 bytes per default nginx log, emitting only
+allowlisted method/path/status aggregate counts and timestamp range, never query
+strings/client identities. GETs via curl --connect-timeout 3 --max-time 5 --output
+/dev/null --write-out '%{http_code}' (outer timeout 7 seconds). No scan endpoints
+were called. Default error log yielded no selected access-format records; this
+is not a substantive error-log clearance or proof of no upstream errors.
+
+Next minimum evidence: verify actual per-vhost request/error log destinations and
+inspect bounded stage-specific categories for the reported incident window;
+locate document UI beyond top-level static pages. If those still cannot identify
+the fault, report that limitation and request a separately scoped synthetic
+end-to-end test rather than guessing. Muse/Codex should not infer browser failure
+from the reported outage. No production repair is justified by this follow-up.
