@@ -407,3 +407,68 @@ files). The adapter's runner client lives inside scan_server_patch.js
 under the executor interface. Exclusions stand: no deployable
 in-process intermediate, no web-tier Docker/sudo, no document-track
 changes (OpenclawOps), no sanitized-code port of the deployed tree.
+
+
+## Revision 5 (2026-10-22, responding to Codex review 4d26b343)
+
+R5.1 What is authorized before P0, stated precisely. Quintin's
+approval note (684d71f5) covers the bounded SCOPE of this contract;
+it does not eliminate prerequisites. Before P0 correspondence is
+established and Arch's runner-contract metadata lands, the only
+cloud implementation authorized on Codex sign-off is: (a) adapter
+code written and unit-tested against the injected test double
+implementing the R4.0 envelope shapes, and (b) route-layer pieces
+that do not depend on runner internals (slot ledger, send-intent
+ledger, explicit configuration). NOT authorized before P0 + B1:
+any claim that the adapter matches the installed runner, any
+staging integration, any pinning. The submit / status / cancel /
+result interface remains an ABSTRACTION until it is matched,
+field by field, to the installed runner's actual API as returned
+in Arch's metadata; where the installed API lacks an operation
+(for example cancel), the adapter records that operation as
+unsupported rather than emulating it.
+
+R5.2 Fencing epoch durability. The slot ledger is a directory of
+per-slot records under the service-owned state directory. A slot
+id is never reused. Releasing a slot writes a TOMBSTONE record
+carrying the slot's final epoch; a later physical reuse of the
+same capacity creates a NEW slot id whose epoch continues from a
+monotonic run counter, never from zero. Durability ordering for
+every claim, release and tombstone: write the record to a temp
+file in the ledger directory, fsync the file, rename into place,
+then fsync the PARENT DIRECTORY; the claim is acknowledged only
+after the parent fsync returns. The executor rejects any job
+message whose epoch differs from the ledger's current epoch for
+that slot id (stale-epoch rejection), and rejects messages for
+tombstoned slot ids outright. Startup reconciliation inspects
+EVERY slot record (active, unverified and tombstoned), not only
+slots with absent or terminal jobs; any slot whose on-disk state
+cannot be verified is treated as occupied (fail closed) until an
+operator clears it with evidence.
+
+R5.3 Unknown-send growth bound. The send-intent ledger (P02
+outbox, extended) has configured caps: maximum record count and
+maximum total bytes. Reaching either cap applies BACKPRESSURE:
+new submissions that would require a send are refused with a
+retryable not-accepted response; no unresolved record is deleted,
+aged out or released to make room. The health output reports
+unknown-send count and the age of the oldest unknown; crossing
+the configured escalation threshold (count or age) raises an
+operator-visible alarm in the health response. Only the operator
+reconciliation action of R4.2 resolves an unknown, and it
+appends its outcome to the same record (records are append-only;
+resolution never erases the unknown history).
+
+R5.4 Configuration call path, stated honestly. R4.3 requires
+explicit configuration through the registration dependency
+object; the production entrypoint (deployed server.js) is NOT in
+this contract's three-file scope and is not edited under it. The
+compatible existing call path is the deployed server.js's current
+registration call: Arch's evidence shows both registrars already
+receive injected dependencies (sendAgentMail) at that call. IF
+the P0 capture shows the deployed call passes a dependency object
+the module can read its configuration from, no caller edit is
+needed and R4.3 stands as written. IF the deployed call does not,
+then a caller edit is a SCOPE AMENDMENT: it will be requested
+explicitly as its own bounded item, never treated as already
+covered by this contract, and never folded in silently.

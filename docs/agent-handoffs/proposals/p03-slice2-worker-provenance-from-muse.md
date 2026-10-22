@@ -135,3 +135,21 @@ Muse drafts the runner release assembly only after this contract's
 independent review (this revision) and Codex's acceptance, and only
 from established provenance. No image build, install, pointer change
 or deployment is authorized by P03 at any revision.
+
+
+## Revision 4 (2026-10-22, responding to Codex review 4d26b343): freshness rule
+
+Every installed-state item in this contract (resolved release,
+component hashes, image digest and identity, host-browser version,
+origin and file hash, worker manifests, runner registration
+metadata) carries three fields: the observed value, the observer
+identity, and observed_at (UTC). Freshness rule: an installed-state
+observation is FRESH for a gate only if it was observed within
+24 hours before that gate runs, or is re-derived at gate time.
+Older than that, it is STALE and counts as UNKNOWN for gate
+purposes. Pinned reviewed source (Git commit SHAs, content hashes
+of reviewed files) does not expire; what expires is the
+CORRESPONDENCE claim between that pinned source and the installed
+state, which follows the same 24-hour rule. No provenance waiver
+exists: a missing, stale or unreviewed runnable input blocks the
+gate it feeds; it never authorizes proceeding without it.

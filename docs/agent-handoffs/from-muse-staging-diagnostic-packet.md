@@ -1,148 +1,145 @@
-# Staging diagnostic packet — customer-path failure localization
+# Staging diagnostic packet - customer-path failure localization
 
-Author: Muse. Date: 2026-10-22 (America/Denver). Task:
-customer-path-integration-scope (existing). Requested by Quintin;
-implements the diagnostic session Arch proposed at
-207df57d9e39d29a0d5f9a6f331093c0de7a0939. Status: PREPARED, NOT RUN.
-Nothing in this packet is authorization to execute it. Execution
-requires Codex review of this packet and Quintin's explicit approval
-of the packet as the bounded scope. No dispatch, merge or deploy is
-part of this packet.
+Author: Muse. Date: 2026-10-22 (America/Denver). Revision 2,
+responding to Codex review 4d26b343e76ee8e0d64c4c4aeae16c995b59f272.
+Task: customer-path-integration-scope (existing). Implements the
+diagnostic session Arch proposed at
+207df57d9e39d29a0d5f9a6f331093c0de7a0939, narrowed per review.
+Status: PREPARED, NOT RUN. Nothing in this packet is authorization
+to execute it. Execution requires Codex review of this packet
+revision and Quintin's explicit approval naming it. No dispatch,
+merge, deploy, install or production change is part of this packet.
 
-## Purpose and limits
+## Purpose, subject and exclusions (separated per review)
 
-Localize the failing stage of the URL-scan and document-check
-customer paths in an isolated staging clone of the exact deployed
-pairing. This packet cannot prove live production health; it
-produces stage-tagged evidence for one synthetic request per
-product. One request each, NO retries.
+SUBJECT: the deployed URL-scan pairing only, cloned from hashed
+files into isolated staging: server.js
+e70df6a142feb4edcf39cde2dd12dceacf07756e0ae8f2d2628ae581f95599e1
+calling the scan routes backed by scan_server_patch.js
+f4c601ca7d9977966405688686346771219cf690bbd4ecf7475482c32f01a738
+and runner.cjs
+d2b3167f8be4081822183ccd7022a9bf7b83cf3ba454a73edd6f0c747597b0dd
+(release target 20261017-r2 resolved, not the current pointer).
 
-## Exact source identities (deployed, observed 2026-10-22 04:14 UTC)
+EXCLUDED from this packet entirely: the document path. The deployed
+legacy document route (document_checker_routes.js, host python3
+parser) does NOT run under this packet, on the VPS or in staging.
+It is a diagnostic subject of a different kind and is not run here;
+DOC-001 keeps its own existing test gate and this packet produces
+NO document coverage claim and NO acceptance evidence for any
+document candidate. The packet does not silently switch subjects:
+it reproduces deployed URL behavior only.
 
-| Component | Identity |
-| --- | --- |
-| server.js | SHA-256 e70df6a142feb4edcf39cde2dd12dceacf07756e0ae8f2d2628ae581f95599e1 |
-| scan_server_patch.js | SHA-256 f4c601ca7d9977966405688686346771219cf690bbd4ecf7475482c32f01a738 |
-| free-scan.html | SHA-256 4926283589a27206df4fe0c04a4128092fc18fbe92e77e6069b9125caabbc910 |
-| document_checker_routes.js | SHA-256 74d347624f2dda27c1297353d650b2dcf4934ee50ef41545ddd7a1179f684ab3 |
-| runner.cjs | SHA-256 d2b3167f8be4081822183ccd7022a9bf7b83cf3ba454a73edd6f0c747597b0dd, release 20261017-r2 (resolved target, not the current pointer name) |
-| Document candidate (distinct) | OpenclawOps isolated checker under doc-001, workflow at d4a96970d58d3ec2913a265119d344a5beced7fb. NOT part of this packet's runtime; the packet tests the DEPLOYED document route only |
+Purpose: localize the failing stage of the URL-scan customer path
+with stage-tagged evidence for exactly one synthetic request. This
+packet cannot prove live production health or production browser
+provenance; staging-host metadata establishes staging facts only.
 
-Git correspondence for the deployed files: UNKNOWN (Slice 1
-prerequisite P0). The staging clone is assembled from the deployed
-files captured through the private channel and verified against the
-hashes above; sanitized handoff files are never substituted for
-runnable source.
+## Chosen API surface (one only)
 
-## Dependency, browser and image identities
+POST /api/scan with the synthetic target https://example.com.
+Exactly one submission. The EventSource stream surface
+(GET /api/scan-stream) is EXCLUDED and named uncovered; the job is
+observed through the POST response, the staging access log and the
+runner job state instead. Submission count is verified three ways:
+client log (1 request sent), staging access log (exactly 1 POST),
+runner job count (exactly 1 job created). Any mismatch is a FAIL
+of the counting stage, not a reason to send another request.
 
-- Browser: host Chrome at /opt/google/chrome/chrome, mounted
-  read-only into the worker, launched with chromiumSandbox true.
-  Version and package origin: UNKNOWN — collect from package
-  metadata in staging before the run (evidence step, not a fix).
-- Worker image: registry digest and installed identity UNKNOWN —
-  prerequisite; the staging run uses the identical image identity
-  recorded by the operator before start, or the URL stage is
-  reported BLOCKED rather than approximated with a substitute image.
-- Website-tree Playwright metadata 1.60.0 is recorded as website
-  evidence only, not worker dependency proof.
-- Node/PM2/nginx versions: record from the staging host at setup;
-  staging need not mirror production versions except for the
-  components under test (server pairing, runner, worker, Chrome).
+## Operator runbook (parameterized; this text is what is reviewed)
 
-## Isolated environment and operator
+Private host values stay private. Placeholders: $STAGE_HOST_ID
+(recorded at approval), $OPERATOR (Arch, designated), $STAGE_ROOT
+(disposable staging directory created for this run), $JOB (single
+job id generated at setup), $TARGET = https://example.com.
+The operator's filled instantiation is identified in the run
+return by its own SHA-256; the hash binds the instantiation, this
+reviewed text binds the method.
 
-- Environment: disposable staging host or isolated sandbox with no
-  production data, no production credentials, no route to the
-  production lead store or mail provider. Outbound network limited
-  to the single fixture URL fetch through the worker's normal
-  egress controls.
-- Operator: one designated operator (Arch for infrastructure,
-  executing only the commands in this packet). Muse receives the
-  stage results as a return on this task. Codex reviews.
-- Resource and deadline limits: concurrency 1; per-job deadline
-  180 seconds (matches the scan-stream proxy ceiling); worker
-  resource caps as configured in the existing isolated worker
-  (record actual values at setup); total session budget 60
-  minutes; log capture capped at 1 MiB per stage, sanitized
-  before any publication.
+Phase 0 - preflight (deadline 5 min, no mutations):
+  1. Record $STAGE_HOST_ID, operator identity, wall-clock start.
+  2. Verify staged source hashes equal the four identities above;
+     any mismatch: STOP, stage result BLOCKED, no assembly.
+Phase 1 - assembly (deadline 10 min; allowed mutations: create
+$STAGE_ROOT and its children only):
+  3. Create $STAGE_ROOT/{app,state,logs,outbox}; copy the hashed
+     files into app/; re-hash in place and record.
+  4. Construct the staging env from an allowlist file written for
+     this run (PORT loopback-only, state dir = $STAGE_ROOT/state,
+     lead dir = $STAGE_ROOT/state/leads). Startup REJECTS if any
+     AGENTMAIL_* variable, any production credential, or any path
+     under /root is referenced; rejection is a preflight FAIL and
+     the app is never started.
+  5. Wire stubs at the established injection points: both route
+     registrars receive sendAgentMail as a dependency (Arch
+     evidence). Pass the recording stub implemented in the staging
+     harness file (identity: harness file SHA-256 recorded in the
+     return); the stub appends each attempted send to
+     $STAGE_ROOT/outbox/log.jsonl and performs no network I/O.
+     Hermes/model paths: the assembly registers ONLY the scan
+     routes; the document registrar is never loaded, so
+     HermesDelegator is never instantiated. Startup proof (step 7)
+     enumerates the route table to prove it.
+  6. Egress enforcement at OS level: the app process runs in a
+     network namespace (or host firewall equivalent) whose only
+     permitted egress is loopback plus the resolved addresses of
+     $TARGET on 443; all other egress DROP. Negative probe before
+     the product request: one connection attempt to a
+     non-allowlisted address must fail; probe result recorded.
+Phase 2 - start and startup proof (deadline 5 min):
+  7. Start the app bound to 127.0.0.1 on the staging port; record
+     the PID and the exact start command in $STAGE_ROOT/run.json.
+     Enumerate the registered route table from the running process
+     harness: required exactly {POST /api/scan}; any additional
+     product route (in particular any document route) is a FAIL
+     and the run stops before any product request. Assert the
+     loaded send dependency is the stub by its marker export.
+Phase 3 - the one request (independent bounds):
+  8. curl --max-time 180 -X POST $BASE/api/scan with the synthetic
+     form body for $TARGET. Client deadline 180s; the runner
+     worker watchdog (120s, existing) is the worker bound; the
+     nginx proxy ceilings of production are NOT timeouts here and
+     are not relied on. No retries under any outcome.
+Phase 4 - evidence capture (deadline 5 min; read-only):
+  9. Per stage record PASS / FAIL / BLOCKED / NOT RUN with bounded
+     log suffixes (cap 1 MiB per stage): preflight, assembly,
+     egress probe, startup proof, submit accepted, runner claim,
+     worker start, browser stage (as reported by the runner
+     envelope), result assembly, send-intent/stub capture, lead
+     persistence (file presence inside $STAGE_ROOT/state only).
+ 10. Job-specific pre/post inspection only: process by recorded
+     PID, container by the exact id the runner created for $JOB
+     (captured in stage evidence), files under $STAGE_ROOT. No
+     listing of unrelated containers, processes or directories.
+Phase 5 - cleanup (independent deadline 10 min, ALWAYS entered,
+including after a failed stage):
+ 11. Stop the app by recorded PID; ask the runner path to remove
+     the $JOB container by its exact id; remove $STAGE_ROOT job
+     state. Verify by identity: PID gone, container id absent,
+     staging port closed, $STAGE_ROOT/state empty of job data.
+     Absent or failed verification is recorded as UNKNOWN and
+     blocks any readiness claim; absence is never inferred from a
+     failed inspection and never reported as PASS.
+Session budget: 60 minutes wall clock total; per-phase deadlines
+above are hard stops, not targets. A failed stage stops further
+product requests (there is only one) but never skips Phase 5.
+No in-session repair, no restart of any production service.
 
-## Test requests (exactly one each, no retries)
+## Provenance and prerequisites
 
-1. URL: one POST /api/scan for https://example.com through the
-   staging clone's real route, runner and worker, with the mail
-   adapter stubbed (below).
-2. Document: one POST /api/document-check with one small generated
-   synthetic PDF (created in staging, no customer content),
-   multipart field name "document" per the backend contract.
-   Coverage is BACKEND-ONLY: Arch's webroot search (48 files)
-   located no document-upload UI, so no UI claim is made or
-   tested. If a UI is located before execution, it is added to
-   this packet by amendment and re-review, not improvised.
+Production provenance does NOT come from this packet. The complete
+allowlisted pairing for the assembly is the four hashed files
+above plus the worker image and host-browser metadata recorded
+from the relevant actual installation by Arch's separate metadata
+return (P03); until that return lands, the worker/browser stages
+of this packet are expected to be BLOCKED, and the packet's value
+is the route/runner-boundary evidence. Missing prerequisites
+(image digest and manifests, runner registration metadata,
+staging host identity and operator designation recorded at
+approval) keep the affected stages BLOCKED, never waived.
 
-## Stubs and persistence
+## Approval boundary (unchanged)
 
-- Mail adapter (sendAgentMail / AgentMail): replaced by a
-  recording stub. It captures the would-be payload hash and
-  returns a scripted "accepted" outcome. No real send occurs.
-- Model/Hermes adapters (HermesDelegator and any model calls):
-  stubbed to a no-op that records invocation. No model is called.
-- Persistence: all state (admission ledger, job records, lead
-  writes, report artifacts) confined to disposable staging
-  storage created for the session and destroyed at teardown.
-  No production path is mounted writable; production paths are
-  not mounted at all.
-
-## Stage-specific results (required return format)
-
-For each product, report PASS / FAIL / BLOCKED / NOT RUN with the
-sanitized evidence reference: page/route registration, admission,
-worker/parser execution, report build, stubbed delivery,
-persistence, cleanup. A stage that did not run is NOT RUN, never
-inferred from a neighboring stage.
-
-## Verified job cleanup (a required stage, not an assumption)
-
-After each request: worker container removed (operator lists
-containers before and after), admission slot released or
-explicitly reconciled, job temp directories removed, staging
-storage inventory matches the pre-run inventory plus the retained
-sanitized evidence only. Cleanup failure is reported as a FAILED
-stage with the job's trusted resource identity; no bare-PID kills
-or stored-path deletes are used at any point.
-
-## Exact commands (for the approved operator; NOT RUN)
-
-Setup and execution are enumerated in the operator runbook
-accompanying the approval request: capture deployed files by hash
-verification, assemble the clone, record image/browser/package
-identities, install stubs, start the pairing on a staging port,
-run the two curl requests (one each), capture stage logs, verify
-cleanup, tear down. The runbook is executed verbatim; any deviation
-stops the session and is reported. Commands are deliberately not
-embedded in this coordination file because several reference
-private staging paths; the runbook travels with the approval, and
-its hash is recorded in the return.
-
-## Missing prerequisites
-
-1. Worker image digest/installed identity and dependency manifests
-   (Arch metadata return).
-2. Host Chrome version and package origin.
-3. Runner registration metadata (inputs, results, cancellation).
-4. Deployed-to-Git source correspondence (Slice 1 P0) — the clone
-   can run from hashed deployed files without it, but Slice 1
-   implementation cannot.
-5. Staging host identity and operator designation.
-6. Document UI location (only affects coverage labeling; the
-   packet proceeds backend-only without it).
-
-## Approval boundary
-
-Preparation of this packet: done under Quintin's request.
-Execution: requires Codex review of this exact packet revision
-and Quintin's explicit approval naming it. Production is out of
-scope entirely; any production test requires a separate precise
-approval. A failed or ambiguous stage stops the session; no
-retries, no repairs in-session, no restarts of production
-services at any point.
+Execution requires Codex review of this exact revision and
+Quintin's explicit approval naming it. Production is out of
+scope entirely.
