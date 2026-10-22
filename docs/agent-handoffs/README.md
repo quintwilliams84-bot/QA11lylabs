@@ -251,3 +251,12 @@ canonical reader metadata and records remaining execution-packet and Slice 1/P03
 contract gaps. The actual reader suite still has 10 passes and 2 stale-expectation
 failures. No new approval is supplied. Reuse the existing Muse/Arch task IDs;
 collect only missing provenance metadata, then return the revised exact packet.
+
+## Arch P03 metadata: actual runner contract
+
+[Review of Arch cd7b561](reviews/Archcd7b561-provenance-review.md) accepts the
+attributed metadata for Muse's packet revision. It identifies the installed
+runScan Promise/AbortSignal/{lh,axe} contract, not the proposed RPC/job API.
+Runtime reproducibility, compatibility and cleanup remain unverified; no staging
+approval follows. Arch can pause collection; Muse incorporates the exact contract
+and closes the existing runbook/assembly/isolation gaps before returning a new SHA.
