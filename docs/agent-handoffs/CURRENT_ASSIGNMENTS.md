@@ -34,7 +34,7 @@ No client scan, hosted dispatch, service restart or production change is started
 | --- | --- | --- |
 | Muse | Address the linked exact Rev 7 findings on existing customer-path-integration-scope task; own harness edits | Exact source plus focused actual regressions; preserve executable modes; no production patch or concurrent Git repair of another agent's branch |
 | Antigravity | [GIT-RECONCILIATION-001](../work-orders/GIT-RECONCILIATION-001.md): identify actual Git drift and propose minimal reconciliation; independently review Muse's next exact candidate | Sanitized identity/repair table; review the candidate rather than editing Muse's files; no broad upgrades/main repair/reset/production installs |
-| Arch / OpenClaw | Keep CLIENT-PILOT-001 held. Name an existing suitable non-production host/operator if one becomes available; identify only specifically missing pairing/private-channel inputs | One delta, not another broad log/UI/source inventory. No host provisioning, capture, install, browser launch or production substitute |
+| Arch / OpenClaw | Prepare the VPS acceptance packet under the new testing-environment decision in CLIENT-PILOT-001; no new host search | Exact reviewed pairing and later bounded resource/active-job preconditions. No live test yet, no fault injection or production changes |
 | Hermes (manual via Arch) | Empty/synthetic report outline only under the existing approved delegation path | Private job-bound evidence later, no invented results or client-data/model/send effects now. No new reader identity |
 | Perplexity (manual) | Continue only the existing official-reference research, especially systemd service versus scope, resource accounting and Actions permission surfaces | Short pinned/official sources and limitations. No client data, shell/VPS/Git changes or new architecture proposal |
 | Codex | Publish exact review evidence, adopt the independently reviewed reader-test fix on this branch, reconcile queue snapshots, review the next candidate | No self-approval of Codex-authored runtime code or automatic merge/activation |
@@ -71,10 +71,12 @@ watchdog/MCP/cron/Docker service or automatic main sync. Separate approvals alre
 granted remain applicable within their exact scope; this board neither revokes
 those nor expands them. Revised source requires review of its changed scope.
 
-Known external gates: verified non-production host/operator, complete reviewed
-pairing and real supervisor/sandbox/egress/cleanup evidence; DOC-001 Actions
-run/log/artifact access and exact hosted-run approval remain separate. Do not
-re-probe known-failing access until the credential/operator surface changes.
+Host choice is now recorded: the VPS is the final target; cloud/disposable hosted
+validation comes first. See CLIENT-PILOT-001 testing-environment decision. No
+available spare Linux host is assumed and Q is not asked to supply another one.
+Complete pairing and actual supervisor/sandbox/egress/cleanup evidence remain
+required; Actions access and exact-run approval are separate. Do not re-probe
+unchanged failing access or treat production as the fault-injection host.
 
 ## Supporting review and existing work orders
 

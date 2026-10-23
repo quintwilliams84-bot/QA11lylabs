@@ -312,3 +312,13 @@ DOC-001 citation corrections and adoption of Muse's reader-test fix.
 records remaining blockers and actual bounded validation, not a readiness pass.
 [Git reconciliation](../work-orders/GIT-RECONCILIATION-001.md) scopes Antigravity's
 next return. No package upgrade, production Git change or agent privilege is added.
+
+## VPS as final target; agent-operated testing
+
+Quintin's environment clarification is recorded in
+[CLIENT-PILOT-001](../work-orders/CLIENT-PILOT-001.md): existing cloud checks,
+then reviewed disposable hosted validation if available, then separately scoped
+VPS acceptance. No Chromebook/spare machine is required. Agents prepare and run
+approved bounded actions; Q reviews a concrete packet rather than debugging a
+terminal. No live test, provisioning, billing, access change or deployment occurs
+from this documentation amendment.
