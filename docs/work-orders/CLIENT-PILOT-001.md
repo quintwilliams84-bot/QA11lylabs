@@ -123,85 +123,18 @@ Until gates 1-3 resolve, scan execution remains HELD. Until evidence and process
 scope are available, Hermes creates only the empty report outline. This work order
 is a durable manual handoff; it installs no agents or background automation.
 
-## Current next-phase assignment amendment
+## Current alignment supplement - October 23
 
-Latest canonical inbox observed at dc2a81b77f5a1d17452ea5e7e11fabd0b23c1f72.
-Muse harness Revision 5 is e9aca987f01fdae599436b9f4c0197d15eaee28a. Its claimed
-19 regression passes are synthetic-only. Codex reproduced a valid-score rejection
-and invalid-score acceptance; intended systemd confinement/cleanup remains unproved.
-The linked Rev 5 review and separate reviewer findings govern the next correction.
-No execution gate is lifted by this amendment. This is the SAME work order.
-
-### Scope already supplied - no repeat request
-
-Quintin supplied the exact target and bounded six-page list through a private
-packet. Public-page permission is confirmed. This public document intentionally
-contains no target/client identity and does not reproduce that private packet.
-Muse provides it to Arch only through the private channel Quintin names/approves;
-record actual receipt privately rather than assuming inbox publication delivered it.
-The first job is the homepage; remaining listed public pages follow sequentially
-only after success, owned cleanup, scope/resource checks and review of that first
-receipt. Do not turn the list into a recursive crawl or infer whole-site coverage.
-A browser job may make multiple navigation/subresource requests: declare those
-budgets and engine settings in the exact execution packet before running it.
-
-### Muse - focused correction and private handoff
-
-1. Fix the EXISTING harness under customer-path-integration-scope against the Rev 5
-   findings: actual 0..100 integer score contract, inspection failure propagation,
-   supported verified confinement/topology, job-bound cleanup/interrupt/deadline
-   handling and collector-only log bounds. No broad scanner rewrite or live patch.
-2. Extend actual synthetic tests for these defects; preserve failing results and
-   limitations. Return one exact revised SHA, package identities and test results.
-3. Reconcile P06 by reference into CLIENT-PILOT-001. Withdraw public results-inbox
-   instructions and reduce public identifying details. Keep original history;
-   do not copy target, scope packet, raw findings or client report to public Git.
-4. Supply the already-prepared private target packet to Arch through the approved
-   private channel. If none is named, report that single missing channel; do not
-   ask Quintin to repeat target/public-page permission or post it publicly.
-
-### Arch / OpenClaw - staging readiness return, no scan yet
-
-Use existing client-pilot-scan and customer-path-current-evidence tasks. Return a
-small sanitized readiness table with these fields only:
-- Available disposable non-production host and operator; whether real systemd/
-  namespace/cgroup/Docker capabilities exist there (metadata only).
-- Complete runnable pairing availability, expected hashes and private transfer
-  location/reader roles. Reuse existing evidence; UNKNOWN is acceptable.
-- Approved private evidence channel/root plan and whether the private scope packet
-  was actually received; no client identifiers in public receipts.
-- Explicit resource/runtime/cleanup ceilings and actual readiness blockers.
-
-Do not provision a host, buy services, install packages, launch containers/browsers,
-create a new source capture, alter credentials or touch production under this task.
-Do not repeat logs/UI inventories or known-failing Actions requests. If no suitable
-host exists, say so; do not substitute the production VPS. Stage only after the
-exact reviewed synthetic-run packet has applicable authorization.
-
-### Antigravity - independently review the correction
-
-Complete existing reviews first, then inspect the revised exact harness and its
-real regression evidence. Verify the actual runner contract, no swallowed errors,
-owned resource IDs, supported confinement and tested timeout/interruption/cleanup.
-Do not approve the candidate merely because the tests are green. No dispatch,
-credential changes, main merge or production action.
-
-### Hermes - report outline only until evidence is verified
-
-Arch coordinates this role through the existing approved delegation path; the
-shared reader has no Hermes identity. Prepare only an empty/synthetic report
-outline now: scope/method, actual engine versions/results, per-page findings with
-user impact and verified WCAG references, prioritized fixes, manual-test gaps,
-retest plan and limitations. Do not contact the site, invoke a paid model with
-client data, send a message or invent findings. Later use only approved job-bound
-private artifacts, preserve null/unknown/failure outcomes, and return a draft to
-Codex/Quintin for review. Automated-only results are not a conformance certificate.
-
-### Exit sequence
-
-Rev 6 review -> actual bounded synthetic staging on the intended path -> first
-private-listed page -> review receipt/cleanup -> remaining private-listed public
-pages -> evidence-grounded report draft -> Quintin's content/delivery decision.
-Do not change/deploy production to obtain these results. Main merge, staging run,
-client execution and real delivery retain their distinct applicable authority;
-reuse the existing public audit scope rather than requesting it again.
+Use [CURRENT_ASSIGNMENTS](../agent-handoffs/CURRENT_ASSIGNMENTS.md) and
+[the exact packaged-Rev7 review](../agent-handoffs/reviews/Rev7-independent-alignment-review.md)
+for current owners/source. This replaces this work order's former next-phase
+assignment appendix; original versions remain in Git history. Private target/scope
+is supplied and must not be requested again. Runtime execution is still HELD.
+Muse owns the focused next harness correction; Antigravity independently reviews
+it without concurrent harness edits. Arch confirms an actual available independent
+host/operator and approved private channel only if one exists. Historical records
+identify none; do not repeat broad discovery or substitute production.
+Hermes prepares the synthetic/empty report outline through the existing approved
+path; actual client evidence/model processing and delivery retain their gates.
+No production reset, install, browser launch, scan, dispatch or merge is authorized
+by this alignment supplement. Reference exact source, role and actual results.

@@ -1,109 +1,86 @@
-# Current assignments - 2026-10-22 America/Denver
+# Current assignments - October 23, 2026 (America/Denver)
 
-Coordination owner: Codex. This is the current assignment view on the Codex review
-branch, not a new job database, approval policy, dispatcher or production control.
-User authorized publishing assignments/reviews; this document grants no production
-or staging execution permission. Reuse existing tasks and record actual receipt.
-Read this exact revision and the canonical index before work. Do not silently
-merge one branch's queue over another or treat historical snapshot text as current.
+Owner: Codex coordination. This is the CURRENT view on
+agent/codex/customer-path-recovery; earlier versions remain in Git history.
+It replaces this file's older appended assignment views, not the shared operating
+standard or existing work orders. Canonical discovery remains
+codex/staging-coordination; this proposed branch update is not merged there/main.
+Read both exact revisions and acknowledge what you read. Metadata grants no action.
 
-## Priority and assignments
+## One objective and sequence
 
-| Agent | Work now | Concrete return | Wait / exclusion |
-| --- | --- | --- | --- |
-| Muse | Amend the EXISTING customer-path-integration-scope packet at 5f84d066 in response to the linked review | Reviewed harness/source, actual command runbook, confinement/cleanup implementation, chosen complete pairing, named non-production host/operator or explicitly BLOCKED | No production changes, new runner API, broad rewrite, scan or staging execution |
-| Arch / OpenClaw | Stand by for specifically named missing inputs from Muse; existing metadata cd7b561 is already reviewed | One sanitized delta on current task branch when a concrete request arrives; otherwise no new collection | No repeated logs/UI/hash reads, browser installs, source captures, launches or restarts |
-| Antigravity | Finish currently assigned reviews; then revisit the upload-artifact finding using the exact pinned upstream source in the linked counter-review | Exact-SHA correction or supported rebuttal; retain original history and distinguish access reports from verified token configuration | Do not restart review from scratch, change tokens, dispatch, merge or deploy |
-| Perplexity | Bounded reference research only, manual handoff through this page | Short source-backed note answering the questions below, identifying what official sources do NOT establish | No VPS access, credentials, client information, code changes, scanner submissions or buying/installing tools |
-| Codex | Review exact returns, reconcile artifacts and prepare one cloud-only reader-test fixture correction candidate | Actual test results and an independently reviewable candidate; later one executable staging approval packet | No self-approval, main merge, Actions dispatch or automatic VPS sync |
+Prove a bounded scanner execution path, complete the private client audit one
+page at a time, and then harden remaining VPS services without overlapping owners.
+Sequence: corrected candidate -> independent review -> approved isolated synthetic
+run with real supervision/browser -> private homepage run -> review/cleanup ->
+remaining listed public pages -> reviewed report -> separately approved delivery.
+No client scan, hosted dispatch, service restart or production change is started here.
 
-## Read these before starting
+## Current exact sources
 
-- Latest canonical index observed: QA11lylabs
-  79b19c1c7369a1af7787903d2047ada2fb41e5c6, codex/staging-coordination.
-- Muse staging packet Revision 3:
-  5f84d066911cb46940724925610d7b65f6d4b987,
-  docs/agent-handoffs/from-muse-staging-diagnostic-packet.md.
-- Muse Slice 1 Revision 5 / P03 Revision 4:
-  9d8f101fae41c0c09b29027dc207dca8535193b5, existing proposal paths.
-- Arch installed metadata: cd7b56146469e5851d76a29bacc37bd5634392aa,
-  docs/agent-handoffs/returns/customer-path-p03-provenance-arch.md.
-- [New review of Muse packet](reviews/Muse5f84d066-execution-gaps.md).
-- Antigravity DOC-001 review: OpenclawOps
-  a88dd124176fb192bb60c2f4ee935df80a2eee74,
-  docs/reviews/DOC-001-CANDIDATE-REVIEW.md.
-- [Pinned-source counter-review](reviews/DOC001-Antigravity-a88dd124-counter-review.md).
+| Item | Repository and exact revision | What it establishes |
+| --- | --- | --- |
+| Canonical index / executable-mode packaging | QA11lylabs 4223f8144adbc3fc86fbaf791e49b9f66a158bfb | Latest metadata and executable modes, not runtime readiness |
+| Harness Rev 7 content | QA11lylabs faa347bf870963998cec974ed89e22004bd6baa0 | Muse candidate and claimed 41 cases; distinguish packaging SHA above |
+| Reader-test correction | QA11lylabs 9f5bb08df161c0054e54139f1c20ce95c71cffa0 | Muse-authored test fixture correction; independently checked 14 passing cases |
+| Arch limits/host return | QA11lylabs ac4682324dccee564146f0998aaa239a54661855 | No existing verified disposable host identified in inspected records; not a fresh production audit |
+| DOC-001 workflow | OpenclawOps d4a96970d58d3ec2913a265119d344a5beced7fb | Collector fix; hosted suite NOT RUN here |
+| Antigravity amended DOC-001 review | OpenclawOps 10f1556beec186ef9c48043f978f8b2c1b6cd2ee | Unsupported upload failure claim retracted; exact workflow reviewed |
+| Antigravity return | QA11lylabs 108844bfb694d54223a953320fe45a46aff81886 | Published return; embedded review SHA requires correction to verified row above |
 
-All referenced reviews are technical feedback, not execution approval. Candidate
-DOC-001 remains d4a96970d58d3ec2913a265119d344a5beced7fb; 73 cases remain
-expected, not hosted results. Existing access blockers persist until new evidence.
+## Non-overlapping assignments
 
-## Perplexity research questions - one return, not another architecture proposal
+| Owner | Do now | Required return / boundary |
+| --- | --- | --- |
+| Muse | Address the linked exact Rev 7 findings on existing customer-path-integration-scope task; own harness edits | Exact source plus focused actual regressions; preserve executable modes; no production patch or concurrent Git repair of another agent's branch |
+| Antigravity | [GIT-RECONCILIATION-001](../work-orders/GIT-RECONCILIATION-001.md): identify actual Git drift and propose minimal reconciliation; independently review Muse's next exact candidate | Sanitized identity/repair table; review the candidate rather than editing Muse's files; no broad upgrades/main repair/reset/production installs |
+| Arch / OpenClaw | Keep CLIENT-PILOT-001 held. Name an existing suitable non-production host/operator if one becomes available; identify only specifically missing pairing/private-channel inputs | One delta, not another broad log/UI/source inventory. No host provisioning, capture, install, browser launch or production substitute |
+| Hermes (manual via Arch) | Empty/synthetic report outline only under the existing approved delegation path | Private job-bound evidence later, no invented results or client-data/model/send effects now. No new reader identity |
+| Perplexity (manual) | Continue only the existing official-reference research, especially systemd service versus scope, resource accounting and Actions permission surfaces | Short pinned/official sources and limitations. No client data, shell/VPS/Git changes or new architecture proposal |
+| Codex | Publish exact review evidence, adopt the independently reviewed reader-test fix on this branch, reconcile queue snapshots, review the next candidate | No self-approval of Codex-authored runtime code or automatic merge/activation |
 
-1. At actions/upload-artifact ea165f8d65b6e75b540449e92b4886f43607fa02,
-   does if-no-files-found:error apply per listed path or to zero total matches?
-   Cite exact source lines and distinguish upload completeness from step success.
-2. Which GitHub operations require Actions read versus write and workflow-edit
-   authority? Distinguish fine-grained PAT, GitHub App and signed-in web surfaces.
-   A 403 alone must not be diagnosed as one particular missing permission without
-   supporting evidence. Do not request token values or propose broad admin access.
-3. Which OS-level mechanisms can enforce bounded process-tree cleanup and resource
-   limits for a Linux staging harness using Docker workers? Discuss daemon-owned
-   containers separately from harness descendants; no bare-PID kill recipe.
+## Shared language and interfaces
 
-Use primary official sources, URLs/pinned source revisions, retrieval date and
-explicit uncertainties. Limit the return to the three questions and about 1,000
-words. No new framework, daemon, upgrade list or workload on the 4 GiB VPS.
-Publish a sanitized note on an authorized task branch, or provide a copyable note
-for Codex if Perplexity lacks GitHub writes. Do not duplicate P03 or DOC-001.
+Use the existing OPERATING_STANDARD definitions: candidate, reviewed,
+staging-verified, approved release, deployed, production-verified. A green mocked
+suite is not real systemd/browser evidence. PASS/FAIL/BLOCKED/NOT RUN/UNKNOWN are
+check outcomes; the reader's routing statuses remain only ready_for_review,
+needs_revision and blocked. Do not add approval or executable fields to the index.
 
-The existing reader recognizes only codex, muse, arch and antigravity.
-Perplexity is therefore a MANUAL research contributor here, not a registered reader
-identity. Do not weaken validation or impersonate another agent. Codex can review
-and link its evidence under the existing relevant tasks; no schema change needed.
+Keep the appropriate existing Node/Python/shell components; consistency means
+shared schemas, error/outcome contracts, evidence and ownership, not converting
+all software to one programming language. Actual runner is runScan(URL,{signal,
+timeoutMs}) -> Promise<{lh,axe}>, nullable integer score 0..100. No installed
+submit/status/cancel RPC is assumed. A null score does not prove why it is missing.
 
-## Delivery and handoff discipline
+Client target/list/details have already been supplied privately. Do not ask
+Quintin to repeat public-page permission or copy the packet/findings to public
+files. The approved list is bounded; no recursive expansion. Muse must provide
+the already supplied packet to Arch through the approved private channel.
 
-Use existing branch/work-order ownership. Return full source SHA, paths, actual
-checks, unresolved items and next requested gate. Name overlapping files before
-writing; one writer per file. Reuse HANDOFF_RETURN_TEMPLATE.md and existing task
-IDs. A committed note does not wake another agent or prove receipt; acknowledge
-the exact revision read, and explicitly report inability to access it.
+Each return cites full repository/branch/commit/path, actual commands/checks,
+failures and unknowns, overlap disposition and next gate. Use the existing return
+and component templates; do not generate another proposal for an existing task.
+A GitHub push is discoverability, not agent receipt, authentication or approval.
 
-Do not broaden credentials or permissions, repeat known-failing access probes,
-run source generators, send mail/models, modify jobs, disable recovery or change
-production just because work is listed. No perpetual background task is installed.
+## Stop conditions and scope
 
-## Completion sequence
+Preserve dirty work and working production protections. No shared-history rewrite,
+reset/clean, generic chmod, blanket kill, lease deletion, global upgrades, new
+watchdog/MCP/cron/Docker service or automatic main sync. Separate approvals already
+granted remain applicable within their exact scope; this board neither revokes
+those nor expands them. Revised source requires review of its changed scope.
 
-Finish packet/harness and provenance -> independent review -> Quintin's exact
-staging approval -> one bounded test -> smallest evidence-supported code fix ->
-reviewed production activation packet -> separately approved rollout and health.
-The present packet tests execution only, not page/API/report/mail or documents;
-its result cannot close those customer-path stages. Later stabilization remains
-watchdog ownership, durable routing/memory, AgentMail/webhook/lead reliability and
-measured resource/permission changes, each one service at a time.
+Known external gates: verified non-production host/operator, complete reviewed
+pairing and real supervisor/sandbox/egress/cleanup evidence; DOC-001 Actions
+run/log/artifact access and exact hosted-run approval remain separate. Do not
+re-probe known-failing access until the credential/operator surface changes.
 
-## Latest supplement - client pilot and harness 1ce5e4c8
+## Supporting review and existing work orders
 
-[Client audit work order](../work-orders/CLIENT-PILOT-001.md) is a new scoped client
-engagement, not another scanner implementation. Muse: provide the exact target
-privately, then repair the EXISTING harness per
-[the blocking review](reviews/Muse1ce5e4c8-client-readiness.md). Arch: prepare only;
-no client scan until runtime/target prerequisites are satisfied. Hermes: prepare
-an empty report outline now; process only approved job-bound evidence later through
-the existing reviewed delegation path. Codex owns report review; no Hermes reader
-identity or extra privilege is created. Other pending reviews retain their owners.
-Public-page permission was supplied by Quintin; do not request it again. Readiness,
-staging execution and any production change retain their distinct gates.
+- [Alignment sweep](reviews/ALIGNMENT-SWEEP-20261023.md).
+- [Separate reviewer, latest harness](reviews/Rev7-independent-alignment-review.md).
+- [CLIENT-PILOT-001](../work-orders/CLIENT-PILOT-001.md).
+- [Git reconciliation work order](../work-orders/GIT-RECONCILIATION-001.md).
 
-## Latest next-phase assignment supplement
-
-Use the updated [CLIENT-PILOT-001](../work-orders/CLIENT-PILOT-001.md), not an
-additional audit plan. Muse owns the focused Rev 6 harness fixes against
-[Codex's review](reviews/Musee9aca987-client-followup.md) and
-[the independent reproductions](reviews/Musee9aca987-independent-review.md).
-Arch supplies the small host/private-channel/pairing readiness return, with no
-client scan, launches, captures or installs. Hermes prepares a synthetic outline
-only through the existing approved delegation path. Antigravity reviews the exact
-corrected revision after current reviews. No new polling or runtime is enabled.
+No background worker or autonomous agent notification is installed by this page.

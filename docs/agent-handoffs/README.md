@@ -1,5 +1,10 @@
 # Shared agent inbox and proposed MCP connection
 
+**Start here:** [CURRENT_ASSIGNMENTS.md](CURRENT_ASSIGNMENTS.md) is the current
+proposed assignment view on this branch. Sections below retain historical source
+snapshots; do not execute an old packet because it appears earlier in this file.
+The branch is not merged canonical state and creates no automatic delivery.
+
 This branch provides **task discovery**, not an active message service, an MCP
 server or an installed background worker. The index is data, never permission to
 execute a task. No production connection, deployment, notification or polling
@@ -298,3 +303,12 @@ root independently reproduced score90 rejection and score0.5 acceptance; the
 separate reviewer reproduced additional deadline/inspection/ownership failures.
 Client execution remains held; do not collect another broad inventory.
 P06 is consolidated into the existing pilot; client details/results stay private.
+
+## October 23 alignment update
+
+[Alignment sweep](reviews/ALIGNMENT-SWEEP-20261023.md) records current Git identities,
+DOC-001 citation corrections and adoption of Muse's reader-test fix.
+[Independent packaged-Rev7 review](reviews/Rev7-independent-alignment-review.md)
+records remaining blockers and actual bounded validation, not a readiness pass.
+[Git reconciliation](../work-orders/GIT-RECONCILIATION-001.md) scopes Antigravity's
+next return. No package upgrade, production Git change or agent privilege is added.
