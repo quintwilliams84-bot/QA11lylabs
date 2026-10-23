@@ -210,3 +210,68 @@ to the corrected packet; Arch supplies a safe approved origin/topology and one
 sanitized acceptance-packet command companion. No fixture is hosted or scanned.
 Two fixture files do not increase the approved job count. See the bundle's exact
 limits and no-security-bypass rule. Browser expectations and runtime remain NOT RUN.
+## Weekend continuity - existing harness corrections need not wait
+
+Quintin reported Antigravity unavailable for the rest of the weekend and requested
+continued progress. This changes coordination, not production or execution scope.
+
+Latest checked canonical source is QA11lylabs
+113778fea54f5e0edb09ce7c0b2253e4e9325e15. Muse's
+returns/from-muse-team-handoff-ack-e9bb6429.md explicitly confirms by source review
+that ALL SIX findings of the separate packaged-Rev7 review remain in Rev8
+c194a4dbf6e39e1a057fccdee5263543e729aa06. No new independent review of the same
+known-defective code is needed before preparing their already-scoped correction.
+
+Muse: continue the existing bounded harness repair now under applicable prior
+coding authorization. Fix the six confirmed defects; add a focused regression per
+case, preserve actual results and executable modes, and return ONE exact candidate
+SHA. Do not wait for Antigravity to restate the findings. Do not add speculative
+features/upgrades, restart the stack or edit Arch's packet. An assembly mode repair
+must only apply explicit reviewed manifest modes in the owned staging assembly;
+never blanket chmod or mutate production, and re-verify integrity afterward.
+
+Six corrections: bind manager unit to successful current-job invocation; distinguish
+manager inspection errors from verified inactivity; inspect correct CPU/memory/swap/
+PID fields with per-container failure handling; require terminal service status and
+valid result evidence; bind canonical tree identity including permitted links/modes;
+and require host/run bindings at standalone preflight. The existing review paths
+remain authoritative for exact evidence and safe reproductions.
+
+Codex: arrange a SEPARATE review agent for the corrected exact Muse candidate when
+published, then verify relevant actual test outcomes. This is independent technical
+review within Codex, not Muse self-review, Antigravity sign-off, human GitHub PR
+approval or execution authorization. Do not describe another agent's work as tested
+unless it actually ran. No new review of current Rev8 is a prerequisite to fixing
+its already confirmed bugs.
+
+Arch: retain the held a530625 command companion. While Muse codes, identify ONE
+usable existing operator surface for disposable hosted validation, based on a
+meaningful changed surface/available signed-in UI, or report the specific blocker.
+Do not repeat unchanged failed PAT calls, invent permission causes, request/share
+secrets, alter scopes or provision/buy a host. Do not use the production VPS for
+failure-injection tests. Prepare final packet bindings only after the corrected
+executor interface is reviewed; do not repeat inventory.
+
+Hermes: prepare the empty report outline and input/output contract via the existing
+approved delegation path if available. Actual evidence processing waits for the
+verified private scan artifacts and applicable processing scope. No site requests,
+automatic email/model/client-data sends or invented results. The private scope
+packet already belongs with Quintin and must be relayed privately to Arch, not
+republished or requested again as new permission.
+
+Antigravity: leave its independent-review/Git-reconciliation tasks deferred rather
+than reassigning write ownership silently. They can resume on its return; no agent
+repairs its working tree or credentials in its absence.
+
+Final gated sequence: corrected source -> separate reviewer -> intended-path
+synthetic run under an exact approved packet -> one authorized public homepage
+job -> receipt/owned cleanup review -> remaining private-listed public pages ->
+evidence-grounded report -> Quintin's final content/delivery decision. No deployment
+is necessary just to review or fix the staging harness. Existing workflow/access,
+complete-pairing and owned-fixture-origin gaps remain explicit.
+
+Any gate whose existing owner approval specifically names Antigravity is not
+silently satisfied by a different reviewer: present that reviewer substitution
+with the completed exact execution packet for Quintin's decision. Coding/preparation
+continues meanwhile. Do not infer approval to execute, deploy, change permissions
+or use the client as the first sandbox/cleanup test.

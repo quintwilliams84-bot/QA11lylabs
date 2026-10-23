@@ -1,5 +1,10 @@
 # Current assignments - October 23, 2026 (America/Denver)
 
+**Weekend override:** Antigravity is unavailable. Muse fixes the six already
+reviewed/author-confirmed Rev8 defects now. A separate Codex review agent reviews
+the corrected candidate. See CLIENT-PILOT-001 weekend continuity section. Named
+reviewer/execution approvals are not silently substituted. No execution granted.
+
 Owner: Codex coordination. This is the CURRENT view on
 agent/codex/customer-path-recovery; earlier versions remain in Git history.
 It replaces this file's older appended assignment views, not the shared operating

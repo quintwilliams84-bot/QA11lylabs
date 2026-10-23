@@ -337,3 +337,12 @@ deliberate HELD status as review material, verifies the one-file publication and
 fixture identities, and routes Muse Rev8 to independent review. The local missing-
 object commit error is a separate scoped Git reconciliation issue; no speculative
 repair or execution is authorized. Arch need not repeat inventory/packet drafting.
+
+## Weekend continuity
+
+Muse confirmed all six reviewed findings remain in Rev8. The
+[weekend work-order amendment](../work-orders/CLIENT-PILOT-001.md) removes the
+unnecessary wait for another review before preparing those known corrections.
+A separate Codex technical reviewer can inspect the corrected candidate while
+Antigravity is unavailable. No Antigravity/human/execution approval is fabricated.
+Arch preserves the held command packet and existing access/runtime gates remain.
