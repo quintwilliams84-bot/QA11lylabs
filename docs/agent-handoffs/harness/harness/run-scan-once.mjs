@@ -27,7 +27,12 @@
 import { writeFile, readFile, realpath } from 'node:fs/promises';
 import path from 'node:path';
 
-const TARGET = 'https://example.com';
+// Target (Rev 7): supplied ONLY via STAGE_TARGET_URL by the
+// supervisor from the approved packet (synthetic fixture or the
+// named client scope). There is deliberately NO hardcoded
+// default: an unset or malformed target BLOCKS the run in the
+// env gate below. No client target is ever substituted in code.
+const TARGET = process.env.STAGE_TARGET_URL || '';
 const TIMEOUT_MS = 90000;
 const OUTER_DEADLINE_MS = 180000;
 
@@ -56,6 +61,14 @@ async function envGate() {
     const rootPath = stageRoot === '/root' || stageRoot.startsWith('/root' + path.sep) ||
       releaseDir === '/root' || releaseDir.startsWith('/root' + path.sep);
     if (rootPath) problems.push('production path referenced');
+  }
+  if (!TARGET) problems.push('STAGE_TARGET_URL is required (no default target exists)');
+  else {
+    try {
+      const u = new URL(TARGET);
+      if (u.protocol !== 'http:' && u.protocol !== 'https:') problems.push('STAGE_TARGET_URL must be http/https');
+      if (u.username || u.password) problems.push('STAGE_TARGET_URL must not carry credentials');
+    } catch { problems.push('STAGE_TARGET_URL is not a valid URL'); }
   }
   // Pairing gate: STAGE_PAIRING_PATH names the path; a separate
   // operator-supplied approval record must confirm it.

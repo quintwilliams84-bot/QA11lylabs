@@ -1,8 +1,8 @@
 # Staging diagnostic runbook (operator copy)
 
-Companion to the staging diagnostic packet, Revision 6 (amends the
-harness source filed at e9aca987 in response to Codex's two Rev 5
-reviews on branch agent/codex/customer-path-recovery). Status:
+Companion to the staging diagnostic packet, Revision 7 (amends the
+harness source filed at 4296a5e7 in response to Codex's Rev 6
+review). Status:
 PREPARED, NOT RUN. Execution requires: independent review of this
 revision (Antigravity, per the review's next gate), a designated
 non-production staging host named by Arch with a private evidence
@@ -69,15 +69,19 @@ staging host only.
 - harness/aggregate.sh - authoritative aggregation: any FAIL
   fails; any safety component short of PASS blocks PASS;
   baseline failure blocks everything.
-- harness/supervise.sh - supervisor v4: pipefail on, every
-  inspection timeout-bounded and status-captured; exclusive
-  staging root (stale/shared roots refused); transient-service
-  launch; hard deadline stops the OWNED unit unconditionally
-  (identity uncertainty triggers fail-closed cleanup, it never
-  disables cancellation); ownership-aware cleanup (below);
-  job-private temp removal only.
+- harness/supervise.sh - supervisor v5: pipefail on, every
+  inspection timeout-bounded (5s) and status-captured, total
+  inspection time bounded (per-iteration caps); exclusive
+  staging root (stale/shared roots refused) reconciled with
+  assembly (below); transient-service launch with an explicit
+  job-private STAGE_AUDIT_LOG; hard deadline stops the OWNED
+  unit unconditionally (identity uncertainty triggers
+  fail-closed cleanup, it never disables cancellation); FAIL
+  sticky in every component; unit termination verified as a
+  required cleanup component; job-private temp removal only.
 - tests/run-regression.sh - synthetic suite (stubs/doubles
-  only). Rev 6: 32 gated cases.
+  only) plus a real-launcher integration section. Rev 7: 41
+  gated cases.
 
 ## Ownership and cleanup protocol
 
@@ -90,6 +94,30 @@ staging host only.
 - Temp cleanup removes only the supervisor-created job-private
   directory inside $STAGE_TMP. Unrelated entries in the shared
   parent are preserved by design.
+
+## Assembly (how the release copy reaches the job root)
+
+The supervisor never assembles inside a live root, and never
+adopts a pre-populated root. Instead:
+1. The operator assembles the release copy in a SEPARATE
+   assembly dir and runs Phase 0 preflight verification against
+   THAT copy.
+2. The operator records assembly.json in the assembly dir:
+   { tree_sha256, manifest_sha256, assembled_by, assembled_at },
+   where tree_sha256 is the SHA-256 of the sorted
+   (file digest, path) lines of the release tree.
+3. The supervisor verifies the assembly tree against
+   assembly.json, copies it into the fresh job root, and
+   re-verifies the copy's digest before anything launches
+   (ASSEMBLY component). Any mismatch stops the run.
+
+## Target
+
+STAGE_TARGET_URL is supplied by the supervisor from the approved
+packet. There is NO hardcoded default target in the harness
+(Rev 7 removed the example.com default): an unset or malformed
+target BLOCKS the run, and no client target is ever substituted
+in code.
 
 ## Phase 0 - preflight (no mutations)
 
@@ -116,9 +144,13 @@ staging host only.
 
 5. Export STAGE_ROOT (a path that does not yet exist or is
    empty - the supervisor refuses anything else), STAGE_TMP,
-   STAGE_HARNESS_DIR, STAGE_RELEASE_DIR, STAGE_PAIRING_PATH,
+   STAGE_HARNESS_DIR, STAGE_ASSEMBLY_DIR (the verified assembly
+   from the section above), STAGE_PAIRING_PATH,
    STAGE_PAIRING_APPROVAL_FILE, STAGE_PAIRING_MANIFEST,
-   STAGE_HOST_ID, STAGE_RUN_ID, STAGE_TARGET_URL.
+   STAGE_HOST_ID, STAGE_RUN_ID, STAGE_TARGET_URL. The supervisor
+   itself sets the unit's STAGE_RELEASE_DIR (the in-root copy),
+   STAGE_TMP (the job-private dir) and STAGE_AUDIT_LOG (inside
+   the job dir).
 6. bash harness/supervise.sh. Cancellation coverage: caller
    AbortController at 180s (harness), contract timeoutMs 90000,
    supervisor unit stop at $STAGE_HARD_DEADLINE_S (default
@@ -129,7 +161,8 @@ staging host only.
 ## Phase 2 - evidence (read-only)
 
 7. Collect from $STAGE_ROOT: cleanup.json (every component
-   named; UNKNOWN blocks any readiness statement), run.log
+   named, now including assembly and unit_cleanup; UNKNOWN
+   blocks any readiness statement), run.log
    (evidence copy, first 1 MiB of the producer spool, truncation
    marked), and from the job dir: result.json (verbatim contract
    result + score availability), producer.log (uncapped spool),

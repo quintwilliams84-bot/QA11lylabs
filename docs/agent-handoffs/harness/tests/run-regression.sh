@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Synthetic regression suite for harness Rev 6 (test doubles and
+# Synthetic regression suite for harness Rev 7 (test doubles and
 # stubs ONLY - never the real runner, never a real client target).
 # Covers Codex's Rev 5 findings (root follow-up + independent
 # review of e9aca987):
@@ -16,7 +16,14 @@
 #      unrelated temp files preserved, hard deadline stops the
 #      unit even with UNKNOWN identity, evidence log bounded
 #      without capping the producer, shim cidfile capture (a
-#      64-hex workload log line is NOT an identity)
+#      64-hex workload log line is NOT an identity), assembly
+#      digest gate, cidfile harvest after a killed shim, unit
+#      termination as a required cleanup component, E4 gated on
+#      its expected stub outcome (BLOCKED via identity only)
+#   F. REAL launcher + preload + identity writer against a
+#      fixture runner: job-private audit log, canonical job.json,
+#      integer score; missing target BLOCKS with no default
+#   G. executable modes on all package scripts
 # Usage: bash tests/run-regression.sh   (from the package root)
 # Exit 0 = all gated cases pass. Prints one line per case.
 set -u
@@ -104,6 +111,7 @@ run_harness() {
     STAGE_HARNESS_DIR="$PKG/harness" \
     STAGE_PAIRING_PATH=captured-runtime STAGE_PAIRING_APPROVAL_FILE="$HB/approval.json" \
     STAGE_PAIRING_MANIFEST="$HB/manifest.json" STAGE_HOST_ID=test-host STAGE_RUN_ID=test-run \
+    STAGE_TARGET_URL=https://fixture.invalid/ \
     node "$PKG/harness/run-scan-once.mjs" > "$HB/$1/out.log" 2>&1
 }
 EXTRA_ENV=()
@@ -138,6 +146,7 @@ mkcase noapproval 'module.exports = { runScan: async () => ({}) };'
 "${CLEANENV[@]}" STAGE_ROOT="$HB/noapproval/stage" STAGE_RELEASE_DIR="$HB/noapproval/stage/release" \
   STAGE_HARNESS_DIR="$PKG/harness" STAGE_PAIRING_PATH=captured-runtime \
   STAGE_PAIRING_MANIFEST="$HB/manifest.json" STAGE_HOST_ID=test-host STAGE_RUN_ID=test-run \
+  STAGE_TARGET_URL=https://fixture.invalid/ \
   node "$PKG/harness/run-scan-once.mjs" > "$HB/noapproval/out.log" 2>&1; RC=$?
 if [ $RC -eq 3 ] && [ ! -f "$HB/noapproval/stage/job.json" ]; then ok "B3 missing approval record BLOCKS before job.json exists"; else bad "B3" "rc=$RC"; fi
 mkcase cred 'module.exports = { runScan: async () => ({}) };'
@@ -152,15 +161,24 @@ ln -s "$HB/outside" "$HB/escape/stage/release"
   STAGE_HARNESS_DIR="$PKG/harness" \
   STAGE_PAIRING_PATH=captured-runtime STAGE_PAIRING_APPROVAL_FILE="$HB/approval.json" \
   STAGE_PAIRING_MANIFEST="$HB/manifest.json" STAGE_HOST_ID=test-host STAGE_RUN_ID=test-run \
+  STAGE_TARGET_URL=https://fixture.invalid/ \
   node "$PKG/harness/run-scan-once.mjs" > "$HB/escape/out.log" 2>&1; RC=$?
 [ $RC -eq 3 ] && ok "B5 symlink escape of release dir BLOCKS" || bad "B5" "rc=$RC"
+mkcase notarget 'module.exports = { runScan: async () => ({}) };'
+"${CLEANENV[@]}" STAGE_ROOT="$HB/notarget/stage" STAGE_RELEASE_DIR="$HB/notarget/stage/release" \
+  STAGE_HARNESS_DIR="$PKG/harness" \
+  STAGE_PAIRING_PATH=captured-runtime STAGE_PAIRING_APPROVAL_FILE="$HB/approval.json" \
+  STAGE_PAIRING_MANIFEST="$HB/manifest.json" STAGE_HOST_ID=test-host STAGE_RUN_ID=test-run \
+  node "$PKG/harness/run-scan-once.mjs" > "$HB/notarget/out.log" 2>&1; RC=$?
+[ $RC -eq 3 ] && grep -q "STAGE_TARGET_URL is required" "$HB/notarget/stage/result.json" && ok "B12 missing target BLOCKS (no hardcoded default)" || bad "B12" "rc=$RC"
 
 # ============ C. aggregate ============
-agg() { env BASELINE="$1" CONFINEMENT="$2" IDENTITY="$3" HOSTCONFIG="$4" HARNESS="$5" CONTAINER_CLEAN="$6" TMP_CLEAN="$7" bash "$PKG/harness/aggregate.sh"; }
-OUT="$(agg PASS PASS PASS PASS PASS PASS PASS)"; [ "${OUT##* }" = 0 ] && ok "C1 all PASS aggregates PASS" || bad "C1" "$OUT"
-OUT="$(agg PASS PASS PASS PASS "FAIL (x)" PASS PASS)"; [ "${OUT##* }" = 4 ] && ok "C2 any FAIL aggregates FAIL" || bad "C2" "$OUT"
-OUT="$(agg PASS PASS UNKNOWN PASS PASS PASS PASS)"; [ "${OUT##* }" = 3 ] && ok "C3 UNKNOWN blocks PASS" || bad "C3" "$OUT"
-OUT="$(agg "BLOCKED (x)" PASS PASS PASS PASS PASS PASS)"; [ "${OUT##* }" = 3 ] && ok "C4 baseline BLOCKED blocks" || bad "C4" "$OUT"
+agg() { env BASELINE="$1" ASSEMBLY="$2" CONFINEMENT="$3" IDENTITY="$4" HOSTCONFIG="$5" HARNESS="$6" CONTAINER_CLEAN="$7" TMP_CLEAN="$8" UNIT_CLEAN="$9" bash "$PKG/harness/aggregate.sh"; }
+OUT="$(agg PASS PASS PASS PASS PASS PASS PASS PASS PASS)"; [ "${OUT##* }" = 0 ] && ok "C1 all PASS aggregates PASS" || bad "C1" "$OUT"
+OUT="$(agg PASS PASS PASS PASS PASS "FAIL (x)" PASS PASS PASS)"; [ "${OUT##* }" = 4 ] && ok "C2 any FAIL aggregates FAIL" || bad "C2" "$OUT"
+OUT="$(agg PASS PASS PASS UNKNOWN PASS PASS PASS PASS PASS)"; [ "${OUT##* }" = 3 ] && ok "C3 UNKNOWN blocks PASS" || bad "C3" "$OUT"
+OUT="$(agg "BLOCKED (x)" PASS PASS PASS PASS PASS PASS PASS PASS)"; [ "${OUT##* }" = 3 ] && ok "C4 baseline BLOCKED blocks" || bad "C4" "$OUT"
+OUT="$(agg PASS PASS PASS PASS PASS PASS PASS PASS UNKNOWN)"; [ "${OUT##* }" = 3 ] && ok "C6 unit-cleanup UNKNOWN blocks PASS" || bad "C6" "$OUT"
 OUT="$(env BASELINE=PASS CONFINEMENT=PASS bash "$PKG/harness/aggregate.sh")"; [ "${OUT##* }" = 3 ] && ok "C5 missing evidence blocks" || bad "C5" "$OUT"
 
 # ============ D. confinement (real check, unconfined host) ============
@@ -173,12 +191,32 @@ mkdir -p "$STUB_DOCKER_STATE/containers" "$STUB_SYSTEMD_STATE/units"
 export PATH="$PKG/tests/stubs/bin:$PATH"
 export STAGE_REAL_DOCKER="$PKG/tests/stubs/bin/docker"
 FIX="$PKG/tests/fixtures/harness"
-run_supervisor() { # $1 case-name; env via EXTRA_ENV; deadline via DEADLINE
+mkassembly() { # $1 case-dir: release tree + assembly.json with tree digest
+  mkdir -p "$1/assembly/release"
+  printf '%s\n' 'module.exports = { runScan: async () => ({}) };' > "$1/assembly/release/runner.cjs"
+  python3 - "$1/assembly" << 'PYEOF2'
+import hashlib, json, os, sys
+root = os.path.join(sys.argv[1], "release")
+lines = []
+for dirpath, _dirs, files in os.walk(root):
+    for f in sorted(files):
+        full = os.path.join(dirpath, f)
+        rel = "./" + os.path.relpath(full, root)
+        with open(full, "rb") as fh: digest = hashlib.sha256(fh.read()).hexdigest()
+        lines.append(f"{digest}  {rel}\n")
+tree = hashlib.sha256("".join(sorted(lines)).encode()).hexdigest()
+with open(os.path.join(sys.argv[1], "assembly.json"), "w") as fh:
+    json.dump({"tree_sha256": tree, "assembled_by": "regression", "assembled_at": "2026-10-22"}, fh)
+PYEOF2
+}
+run_supervisor() { # $1 case-name; env via EXTRA_ENV; deadline via DEADLINE; target via TARGET_URL (default fixture)
   local C="$WORK/e-$1"; mkdir -p "$C/tmp"
+  [ -d "$C/assembly" ] || mkassembly "$C"
   "${CLEANENV[@]}" PATH="$PATH" "${EXTRA_ENV[@]}" \
     STUB_DOCKER_STATE="$STUB_DOCKER_STATE" STUB_SYSTEMD_STATE="$STUB_SYSTEMD_STATE" \
     STAGE_REAL_DOCKER="$STAGE_REAL_DOCKER" \
     STAGE_ROOT="$C/root" STAGE_TMP="$C/tmp" STAGE_HARNESS_DIR="$FIX" \
+    STAGE_ASSEMBLY_DIR="$C/assembly" STAGE_TARGET_URL="${TARGET_URL-https://fixture.invalid/}" \
     STAGE_RUN_ID="e-$1" STAGE_HARD_DEADLINE_S="${DEADLINE:-240}" \
     bash "$PKG/harness/supervise.sh" > "$C/out.log" 2>&1
   echo $?
@@ -251,11 +289,97 @@ JD="$(ls -d "$WORK/e-e9/root"/job-* 2>/dev/null | head -1)"
 if [ -n "$JD" ] && ! grep -qx "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" "$JD/owned-containers.txt" \
    && [ "$(grep -cE '^[0-9a-f]{64}$' "$JD/owned-containers.txt")" -ge 1 ]; then
   ok "E9 cidfile identity captured; workload hex line ignored"; else bad "E9" "rc=$RC owned=$(cat "$JD/owned-containers.txt" 2>/dev/null)"; fi
-# E4: informational happy path under stubs (IDENTITY needs a real
-# unit cgroup; BLOCKED here is the documented stub limit)
+# E4: GATED happy path under stubs. Expected outcome is BLOCKED
+# with identity as the ONLY non-PASS component (a unit cgroup
+# cannot exist under stub systemd-run), no FAIL anywhere, and
+# unit cleanup PASS. Anything else is a regression.
 EXTRA_ENV=(STUB_FIXTURE_CREATE=1)
 RC="$(run_supervisor e4)"
-info "E4 happy-path under stubs: rc=$RC overall=$(python3 -c "import json;print(json.load(open('$WORK/e-e4/root/cleanup.json'))['overall'])" 2>/dev/null || echo '?') (PASS requires a real systemd host; BLOCKED is the stub limit, FAIL would be a regression)"
+if [ "$RC" = 3 ] && python3 -c "
+import json
+c=json.load(open('$WORK/e-e4/root/cleanup.json'))
+comps=c['components']
+assert c['overall']=='BLOCKED', c
+assert comps['identity'].startswith('UNKNOWN'), comps
+assert not any(v.startswith('FAIL') for v in comps.values()), comps
+assert comps['unit_cleanup']=='PASS', comps
+assert comps['assembly']=='PASS' and comps['baseline']=='PASS', comps
+"; then ok "E4 stub happy path: BLOCKED via identity only, no FAILs, unit cleanup PASS"; else bad "E4" "rc=$RC $(cat "$WORK/e-e4/root/cleanup.json" 2>/dev/null)"; fi
+# E10: cidfile harvest - owned record lost, cidfile record survives
+EXTRA_ENV=(STUB_FIXTURE_CIDHARVEST=1)
+RC="$(run_supervisor e10)"
+JD10="$(ls -d "$WORK/e-e10/root"/job-* 2>/dev/null | head -1)"
+HID10="$(cat "$JD10/harvest-id.txt" 2>/dev/null || echo missing)"
+if python3 -c "
+import json
+c=json.load(open('$WORK/e-e10/root/cleanup.json'))
+assert c['components']['container_cleanup']=='PASS', c
+" && [ "$HID10" != missing ] && [ ! -f "$STUB_DOCKER_STATE/containers/$HID10.created" ]; then
+  ok "E10 killed-shim harvest: cidfile record drives cleanup to PASS"; else bad "E10" "rc=$RC $(cat "$WORK/e-e10/root/cleanup.json" 2>/dev/null)"; fi
+# E11: no target -> BLOCKED before launch
+EXTRA_ENV=()
+TARGET_URL=""
+RC="$(run_supervisor e11)"
+TARGET_URL="https://fixture.invalid/"
+if [ "$RC" = 3 ] && python3 -c "
+import json
+c=json.load(open('$WORK/e-e11/root/cleanup.json'))
+assert c['components']['harness'].startswith('BLOCKED'), c
+"; then ok "E11 missing target BLOCKS before launch"; else bad "E11" "rc=$RC"; fi
+# E12: tampered assembly -> BLOCKED, nothing launched
+EXTRA_ENV=()
+C12="$WORK/e-e12"; mkdir -p "$C12/tmp"; mkassembly "$C12"; echo tampered >> "$C12/assembly/release/runner.cjs"
+"${CLEANENV[@]}" PATH="$PATH" STUB_DOCKER_STATE="$STUB_DOCKER_STATE" STUB_SYSTEMD_STATE="$STUB_SYSTEMD_STATE" \
+  STAGE_REAL_DOCKER="$STAGE_REAL_DOCKER" STAGE_ROOT="$C12/root" STAGE_TMP="$C12/tmp" STAGE_HARNESS_DIR="$FIX" \
+  STAGE_ASSEMBLY_DIR="$C12/assembly" STAGE_TARGET_URL="https://fixture.invalid/" STAGE_RUN_ID="e-e12" \
+  bash "$PKG/harness/supervise.sh" > "$C12/out.log" 2>&1; RC=$?
+if [ "$RC" = 3 ] && python3 -c "
+import json
+c=json.load(open('$WORK/e-e12/root/cleanup.json'))
+assert c['components']['assembly'].startswith('FAIL'), c
+" && [ ! -f "$STUB_SYSTEMD_STATE/units/qa11y-stage-e-e12.pid" ]; then
+  ok "E12 tampered assembly FAILs the digest gate, nothing launched"; else bad "E12" "rc=$RC"; fi
+
+# ============ F. real launcher + preload + identity writer ============
+F="$WORK/f"; mkdir -p "$F/harness/bin" "$F/stage/release" "$F/tmp"
+cp "$PKG/harness/run-confined.sh" "$PKG/harness/run-scan-once.mjs" "$PKG/harness/audit-preload.cjs" "$F/harness/"
+cp "$PKG/harness/bin/docker" "$F/harness/bin/docker"
+cp "$PKG/tests/fixtures/harness/confinement-check.mjs" "$F/harness/"
+printf '%s\n' 'module.exports = { runScan: async () => ({ lh: { score: 88, contrast: true, viewport: true }, axe: { violations: [], passes: [{}], pageTitle: "t", metaDesc: "" } }) };' > "$F/stage/release/runner.cjs"
+run_real_launcher() { # extra env via EXTRA_ENV
+  "${CLEANENV[@]}" PATH="$PATH" "${EXTRA_ENV[@]}" \
+    STUB_DOCKER_STATE="$STUB_DOCKER_STATE" STAGE_REAL_DOCKER="$STAGE_REAL_DOCKER" \
+    STAGE_ROOT="$F/stage" STAGE_TMP="$F/tmp" STAGE_RELEASE_DIR="$F/stage/release" \
+    STAGE_HARNESS_DIR="$F/harness" STAGE_AUDIT_LOG="$F/stage/audit.log" \
+    STAGE_PAIRING_PATH=captured-runtime STAGE_PAIRING_APPROVAL_FILE="$HB/approval.json" \
+    STAGE_PAIRING_MANIFEST="$HB/manifest.json" STAGE_HOST_ID=test-host STAGE_RUN_ID=test-run \
+    ${TARGET_LINE} \
+    bash "$F/harness/run-confined.sh" > "$F/out.log" 2>&1
+}
+EXTRA_ENV=()
+TARGET_LINE="STAGE_TARGET_URL=https://fixture.invalid/"
+run_real_launcher; RC=$?
+if [ $RC -eq 0 ] && python3 -c "
+import json
+r=json.load(open('$F/stage/result.json'))
+assert r['overall']=='PASS' and r['lhScore']==88, r
+j=json.load(open('$F/stage/job.json'))
+assert isinstance(j['pid'], int) and j['pid']>0, j
+assert str(j['proc_starttime']).isdigit(), j
+" && grep -q "ALLOW" "$F/stage/audit.log" && grep -q "runner.cjs" "$F/stage/audit.log"; then
+  ok "F1 real launcher+preload+identity: PASS, job-private audit log, canonical job.json"; else bad "F1" "rc=$RC $(cat "$F/out.log")"; fi
+TARGET_LINE=""
+run_real_launcher; RC=$?
+[ $RC -eq 3 ] && ok "F2 real launcher without target BLOCKS (no default)" || bad "F2" "rc=$RC"
+TARGET_LINE="STAGE_TARGET_URL=https://fixture.invalid/"
+EXTRA_ENV=()
+
+# ============ G. executable modes ============
+GMISS=""
+for f in harness/supervise.sh harness/aggregate.sh harness/run-confined.sh harness/bin/docker tests/run-regression.sh; do
+  [ -x "$PKG/$f" ] || GMISS="$GMISS $f"
+done
+[ -z "$GMISS" ] && ok "G1 all package scripts are executable" || bad "G1" "not executable:$GMISS"
 
 echo "----"
 echo "regression: $PASS passed, $FAIL failed${FAILED_CASES:+ (failed:$FAILED_CASES)}"

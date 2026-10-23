@@ -15,6 +15,10 @@
 set -uo pipefail
 : "${STAGE_ROOT:?}" "${STAGE_HARNESS_DIR:?}"
 export PATH="$STAGE_HARNESS_DIR/bin:$PATH"
+# Job-private audit log (Rev 7): the supervisor passes
+# STAGE_AUDIT_LOG explicitly; the fallback keeps it inside this
+# job's root, never a shared location.
+export STAGE_AUDIT_LOG="${STAGE_AUDIT_LOG:-$STAGE_ROOT/audit.log}"
 exec >>"$STAGE_ROOT/producer.log" 2>&1
 echo "[run-confined] unit started $(date -u +%FT%TZ)"
 node "$STAGE_HARNESS_DIR/confinement-check.mjs" > "$STAGE_ROOT/confinement.json.tmp"
