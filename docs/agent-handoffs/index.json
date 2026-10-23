@@ -148,8 +148,8 @@
     {
       "id": "customer-path-integration-scope",
       "target_agent": "muse",
-      "status": "ready_for_review",
-      "subject": "Muse Rev8 awaits independent exact-source review against remaining Rev7 findings. Reported 45 synthetic cases, no execution clearance.",
+      "status": "needs_revision",
+      "subject": "Fix six reviewed and Muse-confirmed Rev8 defects now. Separate Codex peer review of corrected candidate. Execution held.",
       "source": {
         "repository": "quintwilliams84-bot/QA11lylabs",
         "branch": "codex/staging-coordination",
@@ -208,7 +208,7 @@
       "source": {
         "repository": "quintwilliams84-bot/QA11lylabs",
         "branch": "agent/codex/customer-path-recovery",
-        "commit": "9330659c636c3a6ebf61fea81c69ef921fbf2e40"
+        "commit": "8e5b4cf2df5a1d7e4e4c8cebe5c540b5d68fa34b"
       }
     },
     {
@@ -219,7 +219,7 @@
       "source": {
         "repository": "quintwilliams84-bot/QA11lylabs",
         "branch": "agent/codex/customer-path-recovery",
-        "commit": "9330659c636c3a6ebf61fea81c69ef921fbf2e40"
+        "commit": "8e5b4cf2df5a1d7e4e4c8cebe5c540b5d68fa34b"
       }
     },
     {
