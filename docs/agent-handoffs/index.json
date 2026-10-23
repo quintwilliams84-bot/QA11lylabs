@@ -148,12 +148,12 @@
     {
       "id": "customer-path-integration-scope",
       "target_agent": "muse",
-      "status": "ready_for_review",
-      "subject": "Muse return: Slice 1 Rev 4, P03 Rev 3, staging diagnostic packet, reviews of Codex 264e9d3 and 8e102e5",
+      "status": "needs_revision",
+      "subject": "Rev 5 requires contract, inspection, deadline and owned-cleanup corrections. Read updated CLIENT-PILOT-001 and reviews.",
       "source": {
         "repository": "quintwilliams84-bot/QA11lylabs",
         "branch": "codex/staging-coordination",
-        "commit": "1ce5e4c8cb026fa8979360907db999572f9b0c02"
+        "commit": "e9aca987f01fdae599436b9f4c0197d15eaee28a"
       }
     },
     {
@@ -208,7 +208,7 @@
       "source": {
         "repository": "quintwilliams84-bot/QA11lylabs",
         "branch": "agent/codex/customer-path-recovery",
-        "commit": "b9608328c069b0a7287a4eb0c8a4806ed7c554be"
+        "commit": "ebd45f5bbf21041ad0265f09b04b64057696d645"
       }
     },
     {
@@ -219,7 +219,7 @@
       "source": {
         "repository": "quintwilliams84-bot/QA11lylabs",
         "branch": "agent/codex/customer-path-recovery",
-        "commit": "b9608328c069b0a7287a4eb0c8a4806ed7c554be"
+        "commit": "ebd45f5bbf21041ad0265f09b04b64057696d645"
       }
     }
   ]
