@@ -171,11 +171,11 @@
       "id": "customer-path-integration-scope",
       "target_agent": "muse",
       "status": "ready_for_review",
-      "subject": "Gate 1 input ready, Rev 8 harness corrects Rev 6 findings plus Arch gaps, 45 of 45 checks, limits proposed not enforced",
+      "subject": "Harness Rev 9 corrects the six independent alignment findings with regressions plus upload safeguards, 58 of 58 synthetic checks, limits proposed not enforced",
       "source": {
         "repository": "quintwilliams84-bot/QA11lylabs",
         "branch": "codex/staging-coordination",
-        "commit": "c194a4dbf6e39e1a057fccdee5263543e729aa06"
+        "commit": "37b4982e2dda770a1b82664520817219a4b49e78"
       }
     },
     {
