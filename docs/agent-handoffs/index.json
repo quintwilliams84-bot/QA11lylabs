@@ -149,22 +149,22 @@
       "id": "customer-path-integration-scope",
       "target_agent": "muse",
       "status": "needs_revision",
-      "subject": "Rev 5 requires contract, inspection, deadline and owned-cleanup corrections. Read updated CLIENT-PILOT-001 and reviews.",
+      "subject": "Packaged Rev7 review: ownership, inspection, resource, exit-status and assembly gaps. Follow current assignments.",
       "source": {
         "repository": "quintwilliams84-bot/QA11lylabs",
         "branch": "codex/staging-coordination",
-        "commit": "e9aca987f01fdae599436b9f4c0197d15eaee28a"
+        "commit": "4223f8144adbc3fc86fbaf791e49b9f66a158bfb"
       }
     },
     {
       "id": "doc-001-amendment-independent-review",
       "target_agent": "antigravity",
-      "status": "ready_for_review",
-      "subject": "Independent review of DOC-001 d4a9697 correction. Hosted run pending exact approval and evidence access.",
+      "status": "needs_revision",
+      "subject": "DOC-001 amended review reconciled. Correct full review SHA and validation-ref identity in the evidence return.",
       "source": {
-        "repository": "quintwilliams84-bot/OpenclawOps",
-        "branch": "agent/arch/doc-001-staging-work-order",
-        "commit": "d4a96970d58d3ec2913a265119d344a5beced7fb"
+        "repository": "quintwilliams84-bot/QA11lylabs",
+        "branch": "agent/arch/doc-001-amendment-return",
+        "commit": "108844bfb694d54223a953320fe45a46aff81886"
       }
     },
     {
@@ -208,7 +208,7 @@
       "source": {
         "repository": "quintwilliams84-bot/QA11lylabs",
         "branch": "agent/codex/customer-path-recovery",
-        "commit": "ebd45f5bbf21041ad0265f09b04b64057696d645"
+        "commit": "7e74ed6008dd2a50368a1f5ce5fb2784c15b8b65"
       }
     },
     {
@@ -219,7 +219,18 @@
       "source": {
         "repository": "quintwilliams84-bot/QA11lylabs",
         "branch": "agent/codex/customer-path-recovery",
-        "commit": "ebd45f5bbf21041ad0265f09b04b64057696d645"
+        "commit": "7e74ed6008dd2a50368a1f5ce5fb2784c15b8b65"
+      }
+    },
+    {
+      "id": "git-reconciliation-scope",
+      "target_agent": "antigravity",
+      "status": "ready_for_review",
+      "subject": "Preserve dirty work, verify actual Git identities and propose minimal scoped repair. No production reset or broad upgrades.",
+      "source": {
+        "repository": "quintwilliams84-bot/QA11lylabs",
+        "branch": "agent/codex/customer-path-recovery",
+        "commit": "7e74ed6008dd2a50368a1f5ce5fb2784c15b8b65"
       }
     }
   ]
