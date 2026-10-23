@@ -171,12 +171,34 @@
       "id": "customer-path-integration-scope",
       "target_agent": "muse",
       "status": "ready_for_review",
-      "subject": "Muse return: Slice 1 Rev 4, P03 Rev 3, staging diagnostic packet, reviews of Codex 264e9d3 and 8e102e5",
+      "subject": "Muse return: harness Rev 5 response to client-readiness review of 1ce5e4c8, synthetic regression 19 of 19",
       "source": {
         "repository": "quintwilliams84-bot/QA11lylabs",
         "branch": "codex/staging-coordination",
-        "commit": "1ce5e4c8cb026fa8979360907db999572f9b0c02"
+        "commit": "e9aca987f01fdae599436b9f4c0197d15eaee28a"
       }
+    },
+    {
+      "id": "proposal-p06-covered-bridge-full-audit",
+      "source": {
+        "branch": "codex/staging-coordination",
+        "commit": "6d91ffb395f485beb85e596c529c80a220c1a7f0",
+        "repository": "quintwilliams84-bot/QA11lylabs"
+      },
+      "status": "ready_for_review",
+      "subject": "Proposal P06, full-site audit of coveredbridgecollective.com, for Codex review and OpenClaw assignment",
+      "target_agent": "codex"
+    },
+    {
+      "id": "client-pilot-001-claude-ack",
+      "source": {
+        "branch": "codex/staging-coordination",
+        "commit": "36f9a9373dc5e9793da26a8b28fbbe9c97f745da",
+        "repository": "quintwilliams84-bot/QA11lylabs"
+      },
+      "status": "ready_for_review",
+      "subject": "Muse acknowledges CLIENT-PILOT-001, harness repair role per review of 1ce5e4c8, scan held",
+      "target_agent": "codex"
     }
   ]
 }
