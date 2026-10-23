@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+# Docker CLI shim (Rev 6): placed first on PATH for the harness
+# process tree only (see run-confined.sh). Delegates everything to
+# the real docker binary ($STAGE_REAL_DOCKER, default
+# /usr/bin/docker) and logs every call to $STAGE_ROOT/docker-calls.log.
+#
+# Ownership capture uses the daemon client's CIDFILE protocol,
+# never output scraping (Rev 5 scraped the last 64-hex line of
+# stdout, which for an attached `docker run` is workload output,
+# not an identity - the independent review proved a log line
+# could be recorded as a container ID). For `docker create` and
+# `docker run` the shim injects --cidfile into the job dir when
+# the caller did not supply one, then records the ID the daemon
+# client wrote there. The cidfile exists from creation time, so
+# even a hung or killed attached run leaves its record.
+#
+# Stated limitation, unchanged: if the runner talks to the Docker
+# API directly instead of the CLI, this shim sees nothing,
+# captures nothing, and cleanup reports UNKNOWN rather than PASS.
+set -uo pipefail
+REAL="${STAGE_REAL_DOCKER:-/usr/bin/docker}"
+LOG="${STAGE_ROOT:-/tmp}/docker-calls.log"
+echo "docker $*" >> "$LOG" 2>/dev/null || true
+SUB="${1:-}"
+case "$SUB" in
+  create|run)
+    CIDFILE=""; HAVE_CID=0; IDX=0
+    for a in "$@"; do
+      IDX=$((IDX+1))
+      case "$a" in --cidfile|--cidfile=*) HAVE_CID=1;; esac
+    done
+    if [ "$HAVE_CID" = 0 ]; then
+      CIDFILE="${STAGE_ROOT}/cid-$$.txt"
+      # inject --cidfile directly after the subcommand
+      set -- "$1" --cidfile "$CIDFILE" "${@:2}"
+    fi
+    "$REAL" "$@"
+    RC=$?
+    if [ -n "$CIDFILE" ] && [ -s "$CIDFILE" ]; then
+      ID="$(tr -d '[:space:]' < "$CIDFILE")"
+      case "$ID" in *[!0-9a-f]*|"") : ;;
+        *) [ "${#ID}" = 64 ] && echo "$ID" >> "${STAGE_ROOT}/owned-containers.txt" 2>/dev/null || true;;
+      esac
+    fi
+    exit "$RC"
+    ;;
+  *)
+    exec "$REAL" "$@"
+    ;;
+esac

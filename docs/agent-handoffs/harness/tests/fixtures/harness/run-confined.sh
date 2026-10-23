@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
-# Fixture in-scope launcher for supervisor stub tests: shim first on
-# PATH (real shim, delegating to the stub docker), then the fixture
-# confinement check, then the fixture harness. No ulimit: the stub
-# environment is not the enforced-cap environment.
-set -u
+# Fixture in-unit launcher (Rev 6 semantics): shim first on PATH,
+# output spooled uncapped to producer.log, confinement evidence
+# written, then the fixture harness replaces this process.
+set -uo pipefail
 export PATH="$STAGE_HARNESS_DIR/bin:$PATH"
-node "$STAGE_HARNESS_DIR/confinement-check.mjs" || exit 66
+exec >>"$STAGE_ROOT/producer.log" 2>&1
+node "$STAGE_HARNESS_DIR/confinement-check.mjs" > "$STAGE_ROOT/confinement.json" || exit $?
 exec node "$STAGE_HARNESS_DIR/run-scan-once.mjs"

@@ -1,5 +1,4 @@
-// Fixture confinement check for supervisor stub tests: always PASS.
-// (The real check is exercised separately against this unconfined
-// machine, where it must FAIL - see run-regression.sh case D.)
-console.log(JSON.stringify({ confinement: 'PASS', checks: { fixture: { pass: true, detail: 'stub' } } }));
+// Fixture confinement check: always PASS (the real check is
+// exercised separately against the unconfined test machine).
+console.log(JSON.stringify({ confinement: 'PASS', checks: { fixture: { pass: true, detail: 'fixture' } } }));
 process.exit(0);

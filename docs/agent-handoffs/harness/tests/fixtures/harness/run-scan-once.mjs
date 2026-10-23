@@ -1,18 +1,34 @@
-// Fixture harness for supervisor stub tests. Writes a truthful
-// job.json (own pid + /proc starttime), optionally creates a stub
-// container through the shim (FIXTURE_CREATE=1), sleeps
-// FIXTURE_SLEEP_MS, exits FIXTURE_EXIT.
-import { writeFile, readFile } from 'node:fs/promises';
+// Fixture harness (Rev 6): synthetic doubles only. Behaviour via
+// env: STUB_FIXTURE_CREATE=1 (docker create through the shim),
+// STUB_FIXTURE_RUN=1 (attached docker run through the shim),
+// STUB_PLANT_ID (append a foreign id to the ownership record),
+// STUB_FIXTURE_TMP_UNRELATED=1 (file in the PARENT of STAGE_TMP),
+// STUB_FIXTURE_FLOOD_MB=n (stdout flood), STUB_FIXTURE_SLEEP=n,
+// STUB_FIXTURE_NOJOB=1 (skip job.json), STUB_FIXTURE_RESULT.
+import { writeFileSync, appendFileSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
+import { readFileSync } from 'node:fs';
 import path from 'node:path';
 
-const stat = await readFile(`/proc/${process.pid}/stat`, 'utf8');
-const starttime = stat.slice(stat.lastIndexOf(')') + 2).split(' ')[19];
-await writeFile(path.join(process.env.STAGE_ROOT, 'job.json'),
-  JSON.stringify({ job_id: process.env.STAGE_JOB_ID || 'fixture', pid: process.pid, proc_starttime: starttime }));
-if (process.env.FIXTURE_CREATE === '1') {
-  execFileSync('docker', ['create', 'fixture-image'], { stdio: 'pipe' });
+const root = process.env.STAGE_ROOT;
+if (!process.env.STUB_FIXTURE_NOJOB) {
+  const stat = readFileSync('/proc/self/stat', 'utf8');
+  const starttime = stat.split(' ').slice(21)[0];
+  writeFileSync(path.join(root, 'job.json'), JSON.stringify({ pid: process.pid, starttime: Number(starttime) }));
 }
-const sleepMs = Number(process.env.FIXTURE_SLEEP_MS || 2000);
-await new Promise(r => setTimeout(r, sleepMs));
-process.exit(Number(process.env.FIXTURE_EXIT || 0));
+if (process.env.STUB_FIXTURE_CREATE) execFileSync('docker', ['create', 'stub-image'], { stdio: 'inherit' });
+if (process.env.STUB_FIXTURE_RUN) execFileSync('docker', ['run', 'stub-image'], { stdio: 'inherit' });
+if (process.env.STUB_PLANT_ID) appendFileSync(path.join(root, 'owned-containers.txt'), process.env.STUB_PLANT_ID + '\n');
+if (process.env.STUB_FIXTURE_TMP_UNRELATED) {
+  writeFileSync(path.join(path.dirname(process.env.STAGE_TMP), 'unrelated-new-artifact'), 'not the job\u2019s file');
+}
+const floodMb = Number(process.env.STUB_FIXTURE_FLOOD_MB || 0);
+if (floodMb > 0) {
+  const chunk = 'x'.repeat(1024 * 1024);
+  for (let i = 0; i < floodMb; i++) process.stdout.write(chunk);
+  writeFileSync(path.join(root, 'runtime-file.txt'), 'producer runtime file, must survive intact');
+}
+const sleepS = Number(process.env.STUB_FIXTURE_SLEEP || 0);
+if (sleepS > 0) await new Promise(r => setTimeout(r, sleepS * 1000));
+writeFileSync(path.join(root, 'result.json'), JSON.stringify({ overall: process.env.STUB_FIXTURE_RESULT || 'PASS' }));
+process.exit(0);

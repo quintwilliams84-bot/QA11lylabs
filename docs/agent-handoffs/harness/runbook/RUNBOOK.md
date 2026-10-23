@@ -1,135 +1,150 @@
 # Staging diagnostic runbook (operator copy)
 
-Companion to the staging diagnostic packet, Revision 5 (amends the
-harness source filed at 1ce5e4c8 in response to Codex's
-client-readiness review of that source, on branch
-agent/codex/customer-path-recovery at c298d8be). Status: PREPARED,
-NOT RUN. Execution requires: independent review of this revision
-(Antigravity, per the review's next gate), an approved synthetic
-fixture run in isolated staging, a named pairing-path approval
-record, and Quintin's explicit approval naming the packet and the
-target. Operator: Arch (designated). Placeholders: $STAGE_ROOT
-(disposable staging root), $STAGE_TMP (dedicated temp dir on the
-staging host), $STAGE_HOST_ID (recorded at approval). All commands
-run on the staging host only.
+Companion to the staging diagnostic packet, Revision 6 (amends the
+harness source filed at e9aca987 in response to Codex's two Rev 5
+reviews on branch agent/codex/customer-path-recovery). Status:
+PREPARED, NOT RUN. Execution requires: independent review of this
+revision (Antigravity, per the review's next gate), a designated
+non-production staging host named by Arch with a private evidence
+channel, an approved synthetic-fixture packet, and Quintin's
+explicit approval naming the packet and the target. Operator:
+Arch (designated). Placeholders: $STAGE_ROOT (supervisor-created
+staging root), $STAGE_TMP (shared temp parent; the supervisor
+creates a job-private directory inside it), $STAGE_HOST_ID and
+$STAGE_RUN_ID (recorded at approval). All commands run on the
+staging host only.
+
+## Execution topology (read first)
+
+- The workload runs as a transient systemd SERVICE created by the
+  supervisor (systemd-run --unit, no --scope: scopes cannot carry
+  service execution sandbox properties). Properties requested:
+  PrivateNetwork=yes, ProtectSystem=strict, ReadWritePaths =
+  <job root> <job temp> /var/run/docker.sock, MemoryMax=2G,
+  CPUQuota=200%, TasksMax=512.
+- Network/broker topology: the harness needs no TCP listener and
+  no external route. Its only external channel is the Docker UNIX
+  socket (filesystem, unaffected by the private network
+  namespace); the worker it starts reaches the target only
+  through its own reviewed egress proxy relay on a UNIX socket.
+  A successful negative egress probe alone is NOT the design;
+  this topology is.
+- Confinement is verified from inside the unit before any runner
+  import (harness/confinement-check.mjs): read-only mounts, the
+  three cgroup limits, private namespace, and writability
+  canaries for exactly the allowlisted roots.
 
 ## Package contents (identities recorded in PACKAGE.md)
 
 - pairing/pairing.manifest.json - the observed runtime pairing
-  (Arch cd7b561, 2026-10-22 16:15-16:18 UTC), machine-checkable.
-  Rev 5 corrects the worker.cjs digest (Rev 4 truncated it at 52
-  hex chars; full SHA-256 now recorded).
+  (Arch cd7b561, 2026-10-22), machine-checkable.
 - pairing/preflight-verify.mjs - read-only revalidation of every
-  manifest entry (change-based freshness). Rev 5: schema-validates
-  every digest, distinguishes ENOENT from other read errors by
-  name, and resolves the pairing gate only from an operator
-  supplied approval record (--pairing-approval).
+  manifest entry (change-based freshness); schema-validates every
+  digest; absence proven only by ENOENT; the pairing gate
+  resolves only from an operator-supplied approval record BOUND
+  to the manifest SHA-256, host and run (see Phase 0).
 - harness/run-scan-once.mjs - drives the real contract once:
-  runScan('https://example.com', { signal, timeoutMs: 90000 }).
-  Rev 5: validates the resolved value against the bounded
-  { lh, axe } contract (malformed = FAIL), credential-pattern env
-  gate, realpath containment, approval-record pairing gate,
-  job.json written only after the gate passes.
-- harness/confinement-check.mjs - Rev 5, new: runs INSIDE the
-  scope before the harness; verifies effective policy (read-only
-  /usr and /etc mounts, cgroup memory.max, private net namespace,
-  writability) and prints a JSON verdict the supervisor requires.
-- harness/run-confined.sh - Rev 5, new: in-scope launcher; sets
-  the enforced 1 MiB output cap (ulimit -f), puts the docker shim
-  first on PATH, runs the confinement check, then the harness.
-- harness/bin/docker - Rev 5, new: docker CLI shim capturing
-  created container IDs at creation time (ownership evidence for
-  cleanup). If the runner uses the Docker API directly, nothing
-  is captured and cleanup reports UNKNOWN - stated, not hidden.
+  runScan(target, { signal, timeoutMs: 90000 }). Validates the
+  result against the ACTUAL contract: lh.score is a nullable
+  INTEGER 0..100 (fractional values violate it); score
+  availability is recorded separately (REPORTED /
+  UNAVAILABLE_STAGE_OUTCOME_UNKNOWN) and attempted/not-attempted
+  is never inferred from a null.
+- harness/confinement-check.mjs - effective-policy verification
+  inside the unit (above).
+- harness/run-confined.sh - in-unit launcher: docker shim first
+  on PATH, producer output spooled UNCAPPED into the job dir
+  (the 1 MiB bound applies to the supervisor's evidence copy,
+  never to the producer tree), confinement check, then the
+  harness. Its exit status is the harness's.
+- harness/bin/docker - docker CLI shim: logs calls and captures
+  container identity via the daemon client's CIDFILE protocol
+  (--cidfile injected per create/run). Output scraping is not
+  used: attached-run stdout is workload output, not identity.
+  If the runner uses the Docker API directly, nothing is
+  captured and cleanup reports UNKNOWN - stated, not hidden.
 - harness/audit-preload.cjs - module-load EVIDENCE LOGGING ONLY.
-  Not a security boundary (it cannot see ESM imports, child
-  processes, or network); a tripwire plus the load log.
-- harness/aggregate.sh - Rev 5, new: authoritative status
-  aggregation used by the supervisor (any FAIL fails the run;
-  any UNKNOWN/BLOCKED/missing safety evidence blocks PASS).
-- harness/supervise.sh - supervisor v3: systemd scope ONLY (the
-  unshare fallback is removed - it could not provide the claimed
-  policy), baseline inspections that BLOCK on error instead of
-  swallowing it, identity-verified unit stop at the deadline
-  (job.json pid + starttime + ancestry + cgroup unit binding),
-  ownership-aware cleanup (shim-captured ids only; diff-seen ids
-  are evidence, never removed), containment-checked temp
-  cleanup, interruption enters the same cleanup path.
-- tests/run-regression.sh - synthetic regression suite (stubs and
-  test doubles only): verifier, harness contract/gates,
-  aggregation, confinement refusal, supervisor failure classes.
+  Not a security boundary (no ESM/child-process/network
+  coverage).
+- harness/aggregate.sh - authoritative aggregation: any FAIL
+  fails; any safety component short of PASS blocks PASS;
+  baseline failure blocks everything.
+- harness/supervise.sh - supervisor v4: pipefail on, every
+  inspection timeout-bounded and status-captured; exclusive
+  staging root (stale/shared roots refused); transient-service
+  launch; hard deadline stops the OWNED unit unconditionally
+  (identity uncertainty triggers fail-closed cleanup, it never
+  disables cancellation); ownership-aware cleanup (below);
+  job-private temp removal only.
+- tests/run-regression.sh - synthetic suite (stubs/doubles
+  only). Rev 6: 32 gated cases.
 
-## Phase 0 - preflight (5 min, no mutations)
+## Ownership and cleanup protocol
 
-1. Record $STAGE_HOST_ID, operator, wall-clock start.
-2. node pairing/preflight-verify.mjs --manifest pairing/pairing.manifest.json --release-root $RELEASE_ROOT --chrome-path $CHROME_PATH --image-id <digest from docker image inspect> --pairing-approval <approval record>
-   Exit 0 required to proceed. Exit 2 (FAIL): stop. Exit 3
-   (BLOCKED): the pairing gate is unresolved - stop unless an
-   approval record naming a pairing path is supplied (step 3).
-3. Pairing path, as named in the approval record:
-   - a (manifests): assemble the release copy from reviewed
-     manifests/locks into $STAGE_ROOT/release; re-run step 2
-     against it; proceed only on exit 0.
-   - b (captured-runtime): copy the installed release tree
-     read-only into $STAGE_ROOT/release (hashes re-verified by
-     step 2 against the copy); the run return must restate the
-     declared limitations (Git correspondence UNKNOWN; not a
-     reproducible build).
-4. Export: STAGE_ROOT, STAGE_TMP, STAGE_RELEASE_DIR=$STAGE_ROOT/release,
-   STAGE_HARNESS_DIR=<package harness dir>, STAGE_PAIRING_PATH=
-   manifests|captured-runtime, STAGE_PAIRING_APPROVAL_FILE=
-   <approval record path>. The harness re-checks the environment
-   itself (credential patterns, containment, approval match) and
-   BLOCKS if violated.
+- The supervisor creates the ownership record fresh for the job.
+  A container is removed ONLY when its ID is in that record, is
+  absent from the pre-launch baseline inventory, and inspects
+  with a creation time at or after run start. Anything else is
+  reported (UNKNOWN), never removed. Unowned newcomers are
+  evidence, never targets.
+- Temp cleanup removes only the supervisor-created job-private
+  directory inside $STAGE_TMP. Unrelated entries in the shared
+  parent are preserved by design.
 
-## Phase 1 - assembly check (10 min, mutations inside $STAGE_ROOT only)
+## Phase 0 - preflight (no mutations)
 
-5. Env allowlist file for the run: PORT loopback-only, state
-   and lead dirs under $STAGE_ROOT. The runner subject needs no
-   application env beyond the harness variables above.
-6. Egress negative probe: from the staging host context, one
-   connection attempt to a non-allowlisted address must fail;
-   record the result. The worker's own network is none plus the
-   Unix-socket proxy relay (module design); the harness scope
-   itself runs with PrivateNetwork=yes.
+1. Record $STAGE_HOST_ID, $STAGE_RUN_ID, operator, wall-clock
+   start.
+2. Obtain the pairing approval record through the approver's own
+   channel and INDEPENDENTLY verify the scoped authorization it
+   represents. The record file is operator-supplied EVIDENCE,
+   not an authenticated approval: it must carry path (a|b),
+   approved_by, approved_at, manifest_sha256 (of the exact
+   manifest file), host_id and run_id, and both the verifier and
+   the harness reject any record whose bindings do not match.
+3. node pairing/preflight-verify.mjs --manifest pairing/pairing.manifest.json --release-root $RELEASE_ROOT --chrome-path $CHROME_PATH --image-id <digest> --pairing-approval <record> --host-id $STAGE_HOST_ID --run-id $STAGE_RUN_ID
+   Exit 0 required. Exit 2 (FAIL): stop. Exit 3 (BLOCKED):
+   pairing gate unresolved - stop.
+4. Pairing path per the record: (a) assemble the release copy
+   from reviewed manifests/locks into the job root; (b) copy the
+   installed release tree read-only into the job root (hashes
+   re-verified against the copy); the return restates path (b)'s
+   declared limitations (Git correspondence UNKNOWN; not a
+   reproducible build).
 
-## Phase 2 - the run (outer bounds enforced by supervise.sh)
+## Phase 1 - the run
 
-7. bash harness/supervise.sh (v3: systemd scope with sandbox
-   properties only; confinement verified from inside before any
-   runner import; identity-verified unit stop at
-   $STAGE_HARD_DEADLINE_S, default 240s; owned-container
-   HostConfig verification and cleanup; temp cleanup with
-   containment checks; cleanup.json always written, including
-   on interruption). The harness aborts its caller at 180s and
-   fixes timeoutMs at 90000.
-   Cancellation coverage: caller AbortController at 180s
-   (harness), worker timeoutMs 90000 (contract), supervisor unit
-   stop at the hard deadline, INT/TERM trap enters cleanup; the
-   harness package has no other cancel surface - the runner
-   contract exposes no cancel RPC.
-8. No retries. Any non-zero exit or BLOCKED result ends the
-   session; cleanup evidence is captured regardless.
+5. Export STAGE_ROOT (a path that does not yet exist or is
+   empty - the supervisor refuses anything else), STAGE_TMP,
+   STAGE_HARNESS_DIR, STAGE_RELEASE_DIR, STAGE_PAIRING_PATH,
+   STAGE_PAIRING_APPROVAL_FILE, STAGE_PAIRING_MANIFEST,
+   STAGE_HOST_ID, STAGE_RUN_ID, STAGE_TARGET_URL.
+6. bash harness/supervise.sh. Cancellation coverage: caller
+   AbortController at 180s (harness), contract timeoutMs 90000,
+   supervisor unit stop at $STAGE_HARD_DEADLINE_S (default
+   240s) regardless of identity state, INT/TERM enters the same
+   cleanup path. No retries. Any non-zero exit or BLOCKED ends
+   the session; cleanup evidence is captured regardless.
 
-## Phase 3 - evidence (5 min, read-only)
+## Phase 2 - evidence (read-only)
 
-9. Collect from $STAGE_ROOT: result.json (stage table and the
-   verbatim { lh, axe } result - a null lh.score is recorded
-   as null; metaDesc as returned), audit.log (every module load
-   ALLOW/DENY - evidence logging, not a boundary), cleanup.json
-   (every component named; UNKNOWN blocks any readiness
-   statement), docker-calls.log and owned-containers.txt
-   (creation-time capture).
-10. Stage table for the return: preflight, pairing, assembly,
-    load audit, egress probe, admission, proxy readiness,
-    container create/start, attached worker, result validation,
-    cleanup - PASS / FAIL / BLOCKED / NOT RUN each, log suffixes
-    capped at 1 MiB per stage.
+7. Collect from $STAGE_ROOT: cleanup.json (every component
+   named; UNKNOWN blocks any readiness statement), run.log
+   (evidence copy, first 1 MiB of the producer spool, truncation
+   marked), and from the job dir: result.json (verbatim contract
+   result + score availability), producer.log (uncapped spool),
+   audit.log, confinement.json, docker-calls.log,
+   owned-containers.txt.
+8. Stage table for the return: preflight, pairing, confinement,
+   load audit, admission, proxy readiness, container
+   create/start, attached worker, result validation, cleanup -
+   PASS / FAIL / BLOCKED / NOT RUN each.
 
 ## Stop conditions (any phase)
 
-Hash mismatch; manifest schema failure; pairing gate unresolved;
-confinement check FAIL or missing; an audit DENY; egress probe
-succeeds when it should fail; any cleanup component UNKNOWN or
-FAIL. On any stop: no further product requests, Phase 3 evidence
-still collected, no in-session repair, no production contact.
+Hash mismatch; manifest schema failure; approval record unbound
+or unverified; confinement check FAIL or missing; an audit DENY;
+any cleanup component UNKNOWN or FAIL; the target reachable
+through any path other than the worker's proxy relay. On any
+stop: no further product requests, evidence still collected,
+no in-session repair, no production contact.

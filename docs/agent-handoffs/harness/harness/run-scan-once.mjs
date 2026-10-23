@@ -70,6 +70,20 @@ async function envGate() {
       const approval = JSON.parse(await readFile(approvalFile, 'utf8'));
       if (approval.path !== PAIRING_PATHS[named]) problems.push('pairing approval record path does not match STAGE_PAIRING_PATH');
       if (!approval.approved_by || !approval.approved_at) problems.push('pairing approval record lacks approved_by/approved_at');
+      // Binding (Rev 6): the record is operator-supplied EVIDENCE,
+      // not an authenticated approval. It must bind the exact
+      // manifest bytes, this host and this run; anything less is
+      // treated as unresolved. Dispatch additionally requires
+      // independently verified scoped authorization (runbook).
+      const manifestFile = process.env.STAGE_PAIRING_MANIFEST;
+      if (!manifestFile) problems.push('STAGE_PAIRING_MANIFEST is required to bind the approval record');
+      else {
+        const { createHash } = await import('node:crypto');
+        const manifestSha = createHash('sha256').update(await readFile(manifestFile)).digest('hex');
+        if (approval.manifest_sha256 !== manifestSha) problems.push('pairing approval record manifest_sha256 does not match the manifest file');
+      }
+      if (!process.env.STAGE_HOST_ID || approval.host_id !== process.env.STAGE_HOST_ID) problems.push('pairing approval record host_id does not match STAGE_HOST_ID');
+      if (!process.env.STAGE_RUN_ID || approval.run_id !== process.env.STAGE_RUN_ID) problems.push('pairing approval record run_id does not match STAGE_RUN_ID');
     } catch (e) {
       problems.push(`pairing approval record unreadable (${e.code || e.message})`);
     }
@@ -79,15 +93,23 @@ async function envGate() {
 
 // Bounded result contract (Arch's reviewed runner contract): the
 // resolved value must be { lh: {score, contrast, viewport},
-// axe: {violations, passes, pageTitle, metaDesc} } with score a
-// number in [0,1] or null, violations <= 250 entries, passes <= 500.
+// axe: {violations, passes, pageTitle, metaDesc} }. The ACTUAL
+// runner contract (Arch cd7b561) makes lh.score a nullable
+// INTEGER in 0..100 - not a 0..1 fraction. A fractional value
+// (0.5) violates the contract; 0, 1, 90, 100 and null conform.
+// A null score is recorded verbatim with a separate availability
+// status: null alone does not prove Lighthouse did or did not
+// run (the worker can catch a Lighthouse failure and still
+// return axe results), so attempted/not-attempted is never
+// inferred from it.
+// violations <= 250 entries, passes <= 500, text fields bounded.
 function validateResult(value) {
   const errs = [];
   if (!value || typeof value !== 'object') return ['result is not an object'];
   const { lh, axe } = value;
   if (!lh || typeof lh !== 'object') errs.push('lh missing or not an object');
   else {
-    if (!(lh.score === null || (typeof lh.score === 'number' && lh.score >= 0 && lh.score <= 1))) errs.push('lh.score is neither null nor a number in [0,1]');
+    if (!(lh.score === null || (Number.isInteger(lh.score) && lh.score >= 0 && lh.score <= 100))) errs.push('lh.score is neither null nor an integer in [0,100]');
     for (const k of ['contrast', 'viewport']) {
       if (!(k in lh) || !(lh[k] === null || typeof lh[k] === 'string' || typeof lh[k] === 'number' || typeof lh[k] === 'boolean')) errs.push(`lh.${k} missing or wrong type`);
     }
@@ -151,10 +173,15 @@ try {
   } else {
     // Record the result field-for-field. A null lh.score is recorded
     // as null: it is neither Lighthouse success proof nor a run
-    // failure; the lh-score stage reports NOT RUN for it.
+    // failure, and attempted/not-attempted is never inferred from it.
     out.result = value;
     stage('scan', 'PASS', 'promise resolved; result satisfies the bounded {lh, axe} contract');
-    stage('lh-score', typeof value.lh.score === 'number' ? 'PASS' : 'NOT RUN', `lh.score = ${value.lh.score}`);
+    // Score availability is reported as data, not as a stage
+    // verdict: an integer score is REPORTED; null is UNAVAILABLE
+    // with the stage outcome unknown (never inferred either way).
+    out.lhScore = value.lh.score;
+    out.lhScoreStatus = value.lh.score === null ? 'UNAVAILABLE_STAGE_OUTCOME_UNKNOWN' : 'REPORTED';
+    stage('lh-score', 'PASS', `lh.score = ${value.lh.score} (${out.lhScoreStatus})`);
     out.overall = 'PASS';
   }
 } catch (e) {

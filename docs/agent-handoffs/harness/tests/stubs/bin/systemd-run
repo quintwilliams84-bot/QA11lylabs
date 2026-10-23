@@ -1,14 +1,25 @@
 #!/usr/bin/env bash
-# Stub systemd-run: finds the wrapped command (bash .../run-confined.sh)
-# and execs it, so the supervisor's $! is the launcher process and the
-# harness node is its descendant, mirroring the real scope topology
-# (minus the cgroup, which is why IDENTITY stays UNKNOWN under stubs).
+# systemd-run stub (Rev 6, transient SERVICE mode): starts the
+# command in the background, records unit -> pid, returns at once.
 set -u
-S="${STUB_STATE:?}"
-pos=0
-for i in "$@"; do pos=$((pos+1)); case "$i" in *run-confined.sh) break ;; esac; done
-# command starts one position before run-confined.sh
-start=$((pos-1))
-cmd=("${@:start}")
-echo "$$" > "$S/launcher.pid"
-exec "${cmd[@]}"
+STATE="${STUB_SYSTEMD_STATE:?}"
+mkdir -p "$STATE/units"
+UNIT=""; SETENVS=(); CMD=()
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --unit) UNIT="$2"; shift 2;;
+    --unit=*) UNIT="${1#--unit=}"; shift;;
+    -p|--property) shift 2;;
+    --property=*) shift;;
+    --setenv) SETENVS+=("$2"); shift 2;;
+    --setenv=*) SETENVS+=("${1#--setenv=}"); shift;;
+    --) shift; CMD=("$@"); break;;
+    -*) shift;;
+    *) CMD=("$@"); break;;
+  esac
+done
+UNIT="${UNIT%.service}"
+[ -n "$UNIT" ] || { echo "stub systemd-run: no unit" >&2; exit 1; }
+env "${SETENVS[@]}" "${CMD[@]}" &
+echo $! > "$STATE/units/$UNIT.pid"
+exit 0

@@ -1,14 +1,23 @@
 #!/usr/bin/env bash
-# Stub systemctl for supervisor regression tests. State in $STUB_STATE.
+# systemctl stub (Rev 6): show MainPID / stop / kill / is-active /
+# reset-failed against $STUB_SYSTEMD_STATE/units/<unit>.pid.
 set -u
-S="${STUB_STATE:?}"
+STATE="${STUB_SYSTEMD_STATE:?}"
+UNIT=""
+for a in "$@"; do case "$a" in *.service) UNIT="${a%.service}";; esac; done
+# unit may also arrive without the .service suffix
+if [ -z "$UNIT" ]; then for a in "$@"; do [ -f "$STATE/units/$a.pid" ] && UNIT="$a"; done; fi
+PIDFILE="$STATE/units/$UNIT.pid"
 case "${1:-}" in
   show)
-    [ -f "$S/stopped" ] && exit 1
-    echo "ControlGroup=/user.slice/stub.scope"; exit 0 ;;
-  stop)
-    touch "$S/stopped"
-    [ -f "$S/child.pid" ] && kill "$(cat "$S/child.pid")" 2>/dev/null || true
-    exit 0 ;;
-  *) exit 0 ;;
+    if [ -f "$PIDFILE" ]; then cat "$PIDFILE"; else echo 0; fi
+    exit 0;;
+  stop|kill)
+    if [ -f "$PIDFILE" ]; then kill "$(cat "$PIDFILE")" 2>/dev/null || true; fi
+    exit 0;;
+  is-active)
+    if [ -f "$PIDFILE" ] && kill -0 "$(cat "$PIDFILE")" 2>/dev/null; then echo active; exit 0; fi
+    echo inactive; exit 3;;
+  reset-failed) exit 0;;
+  *) exit 0;;
 esac

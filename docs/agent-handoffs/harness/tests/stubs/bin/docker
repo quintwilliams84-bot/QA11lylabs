@@ -1,27 +1,50 @@
 #!/usr/bin/env bash
-# Stub docker for supervisor regression tests. State in $STUB_STATE.
-# Modes via $STUB_DOCKER_MODE: ok | down | badcaps | rmfail.
+# Docker stub (Rev 6): state dir $STUB_DOCKER_STATE with per-container
+# .created (epoch) files. Modes: STUB_DOCKER_MODE=down|rmfail|hexlog.
+# STUB_HC overrides the HostConfig inspect line.
 set -u
-S="${STUB_STATE:?}"; MODE="${STUB_DOCKER_MODE:-ok}"
-touch "$S/all.txt" "$S/running.txt"
+STATE="${STUB_DOCKER_STATE:?}"
+mkdir -p "$STATE/containers"
+MODE="${STUB_DOCKER_MODE:-ok}"
+if [ "$MODE" = down ]; then echo "Cannot connect to the Docker daemon" >&2; exit 1; fi
 cmd="${1:-}"; shift || true
 case "$cmd" in
   ps)
-    [ "$MODE" = "down" ] && { echo "Cannot connect to the Docker daemon" >&2; exit 1; }
-    if [ "${1:-}" = "-aq" ] || [ "${1:-}" = "-a" ]; then cat "$S/all.txt"; else cat "$S/running.txt"; fi
-    ;;
+    ls "$STATE/containers" 2>/dev/null | sed 's/\.created$//' | grep -E '^[0-9a-f]{64}$' || true
+    exit 0;;
   create|run)
-    id="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-    echo "$id" >> "$S/all.txt"; echo "$id" >> "$S/running.txt"
-    echo "$id" ;;
+    CIDFILE=""; PREV=""
+    for a in "$@"; do
+      if [ "$PREV" = "--cidfile" ]; then CIDFILE="$a"; fi
+      case "$a" in --cidfile=*) CIDFILE="${a#--cidfile=}";; esac
+      PREV="$a"
+    done
+    ID="$(printf '%s-%s' "$(date +%s%N)" "$$" | sha256sum | cut -d' ' -f1)"
+    date +%s > "$STATE/containers/$ID.created"
+    [ -n "$CIDFILE" ] && printf '%s' "$ID" > "$CIDFILE"
+    if [ "$cmd" = run ] && [ "$MODE" = hexlog ]; then
+      echo "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      echo "workload output line"
+    else
+      echo "$ID"
+    fi
+    exit 0;;
   inspect)
-    id="${@: -1}"
-    if [ "$MODE" = "badcaps" ]; then echo "1024 0 0"; else echo "805306368 1000000000 160"; fi ;;
+    FMT=""; ID=""
+    while [ $# -gt 0 ]; do
+      case "$1" in -f) FMT="$2"; shift 2;; -f*) FMT="${1#-f}"; shift;; *) ID="$1"; shift;; esac
+    done
+    [ -f "$STATE/containers/$ID.created" ] || { echo "No such object" >&2; exit 1; }
+    case "$FMT" in
+      *HostConfig*) echo "${STUB_HC:-805306368 1000000000 160}";;
+      *Created*) date -u -d "@$(cat "$STATE/containers/$ID.created")" +"%Y-%m-%dT%H:%M:%SZ";;
+      *) echo "{}";;
+    esac
+    exit 0;;
   rm)
-    [ "$MODE" = "rmfail" ] && { echo "stub rm failure" >&2; exit 1; }
-    id="${@: -1}"
-    grep -vx "$id" "$S/all.txt" > "$S/all.tmp" || true; mv "$S/all.tmp" "$S/all.txt"
-    grep -vx "$id" "$S/running.txt" > "$S/run.tmp" || true; mv "$S/run.tmp" "$S/running.txt"
-    echo "$id" ;;
-  *) echo "stub docker: unhandled $cmd" >&2; exit 1 ;;
+    if [ "$MODE" = rmfail ]; then echo "rm failed (stub)" >&2; exit 1; fi
+    ID="${@: -1}"
+    if [ -f "$STATE/containers/$ID.created" ]; then rm -f "$STATE/containers/$ID.created"; echo "$ID"; exit 0; fi
+    echo "No such container" >&2; exit 1;;
+  *) exit 0;;
 esac

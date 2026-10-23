@@ -1,0 +1,35 @@
+PASS  A1 verifier exit 0 with bound approval record
+PASS  A2 verifier BLOCKED without approval record
+PASS  A3 verifier catches 52-char digest as schema FAIL
+PASS  A4 verifier catches hash mismatch
+PASS  A5 absence check names ENOTDIR, not PASS
+PASS  A6 approval bound to wrong manifest FAILs
+PASS  A7 approval bound to wrong host FAILs
+PASS  B1 null score: PASS, availability recorded separately
+PASS  B6 integer score 90 accepted (actual contract)
+PASS  B9 integer score 0 accepted
+PASS  B7 fractional score 0.5 rejected
+PASS  B8 score 101 rejected
+PASS  B11 negative score rejected
+PASS  B10 string score rejected
+PASS  B2 malformed result is FAIL, not PASS
+PASS  B3 missing approval record BLOCKS before job.json exists
+PASS  B4 credential-pattern env BLOCKS
+PASS  B5 symlink escape of release dir BLOCKS
+PASS  C1 all PASS aggregates PASS
+PASS  C2 any FAIL aggregates FAIL
+PASS  C3 UNKNOWN blocks PASS
+PASS  C4 baseline BLOCKED blocks
+PASS  C5 missing evidence blocks
+PASS  D confinement-check FAILs unconfined (exit 66)
+PASS  E1 daemon down: baseline BLOCKED, nothing launched
+PASS  E2 HostConfig mismatch FAILs the run
+PASS  E3 failed cleanup FAILs the run
+PASS  E5 baseline container in job record: not removed, UNKNOWN
+PASS  E6 unrelated temp artifact preserved, tmp cleanup PASS
+PASS  E7 deadline stops unit with UNKNOWN identity (2s)
+PASS  E8 evidence log bounded at 1 MiB, producer spool + runtime file intact
+PASS  E9 cidfile identity captured; workload hex line ignored
+INFO  E4 happy-path under stubs: rc=3 overall=BLOCKED (PASS requires a real systemd host; BLOCKED is the stub limit, FAIL would be a regression)
+----
+regression: 32 passed, 0 failed

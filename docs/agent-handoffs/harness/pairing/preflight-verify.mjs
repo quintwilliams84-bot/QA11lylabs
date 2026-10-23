@@ -108,14 +108,24 @@ if (!args['pairing-approval']) {
 } else {
   try {
     const approval = JSON.parse(await readFile(args['pairing-approval'], 'utf8'));
+    // Binding (Rev 6): the record is operator-supplied EVIDENCE, not
+    // an authenticated approval. It must bind the exact manifest
+    // bytes, host and run it claims to cover; dispatch still
+    // requires independently verifying the scoped authorization
+    // through the approver's own channel before any run.
+    const { createHash } = await import('node:crypto');
+    const manifestSha = createHash('sha256').update(await readFile(args.manifest)).digest('hex');
+    if (approval.manifest_sha256 !== manifestSha) approval._bindingError = 'manifest_sha256 does not match the manifest file';
+    if (args['host-id'] && approval.host_id !== args['host-id']) approval._bindingError = 'host_id does not match --host-id';
+    if (args['run-id'] && approval.run_id !== args['run-id']) approval._bindingError = 'run_id does not match --run-id';
     const pathOk = approval.path === 'a' || approval.path === 'b';
     const whoOk = typeof approval.approved_by === 'string' && approval.approved_by.length > 0;
     const whenOk = typeof approval.approved_at === 'string' && approval.approved_at.length > 0;
-    if (pathOk && whoOk && whenOk) {
+    if (pathOk && whoOk && whenOk && !approval._bindingError) {
       record('pairing-gate', 'PASS',
         `path (${approval.path}) approved by ${approval.approved_by} at ${approval.approved_at} (operator-supplied record; verifier does not create approvals)`);
     } else {
-      record('pairing-gate', 'FAIL', 'approval record malformed: requires path "a"|"b", approved_by, approved_at');
+      record('pairing-gate', 'FAIL', 'approval record malformed or unbound: ' + (approval._bindingError || 'requires path a|b, approved_by, approved_at, manifest_sha256, host_id, run_id'));
     }
   } catch (e) {
     record('pairing-gate', 'FAIL', `approval record unreadable (${errKind(e)})`);
