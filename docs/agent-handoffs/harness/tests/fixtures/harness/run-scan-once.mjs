@@ -18,7 +18,8 @@ if (!process.env.STUB_FIXTURE_NOJOB) {
   const starttime = stat.slice(stat.lastIndexOf(')') + 2).split(' ')[19];
   writeFileSync(path.join(root, 'job.json'), JSON.stringify({ pid: process.pid, proc_starttime: starttime }));
 }
-if (process.env.STUB_FIXTURE_CREATE) execFileSync('docker', ['create', 'stub-image'], { stdio: 'inherit' });
+const createN = Number(process.env.STUB_FIXTURE_CREATE_N || (process.env.STUB_FIXTURE_CREATE ? 1 : 0));
+for (let i = 0; i < createN; i++) execFileSync('docker', ['create', 'stub-image'], { stdio: 'inherit' });
 if (process.env.STUB_FIXTURE_CIDHARVEST) {
   // Simulate a shim killed mid-run: the container exists and its
   // cidfile record exists, but the direct owned record is lost.
@@ -42,5 +43,6 @@ if (floodMb > 0) {
 }
 const sleepS = Number(process.env.STUB_FIXTURE_SLEEP || 0);
 if (sleepS > 0) await new Promise(r => setTimeout(r, sleepS * 1000));
+if (process.env.STUB_PLANT_LATE_ID) appendFileSync(path.join(root, 'owned-containers.txt'), 'f'.repeat(64) + '\n');
 writeFileSync(path.join(root, 'result.json'), JSON.stringify({ overall: process.env.STUB_FIXTURE_RESULT || 'PASS' }));
-process.exit(0);
+process.exit(process.env.STUB_FIXTURE_EXIT_CODE ? Number(process.env.STUB_FIXTURE_EXIT_CODE) : 0);

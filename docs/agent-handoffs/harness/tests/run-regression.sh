@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Synthetic regression suite for harness Rev 8 (test doubles and
+# Synthetic regression suite for harness Rev 9 (test doubles and
 # stubs ONLY - never the real runner, never a real client target).
 # Covers Codex's Rev 5 findings (root follow-up + independent
 # review of e9aca987):
@@ -91,6 +91,16 @@ OUT="$(verify "$VA/manifest.json" "$VA/approval-wrong-manifest.json" h r)"; RC=$
 [ $RC -eq 2 ] && echo "$OUT" | grep -q "manifest_sha256 does not match" && ok "A6 approval bound to wrong manifest FAILs" || bad "A6" "rc=$RC out=$OUT"
 OUT="$(verify "$VA/manifest.json" "$VA/approval-wrong-host.json" h r)"; RC=$?
 [ $RC -eq 2 ] && echo "$OUT" | grep -q "host_id does not match" && ok "A7 approval bound to wrong host FAILs" || bad "A7" "rc=$RC out=$OUT"
+OUT="$("${CLEANENV[@]}" node "$PKG/pairing/preflight-verify.mjs" --manifest "$VA/manifest.json" --release-root "$VA/release" --chrome-path "$VA/chrome" --image-id "$IMG" --pairing-approval "$VA/approval.json" 2>&1)"; RC=$?
+[ $RC -eq 2 ] && echo "$OUT" | grep -q "requires --host-id and --run-id" && ok "A8 preflight without host/run args FAILs (finding 6)" || bad "A8" "rc=$RC out=$OUT"
+python3 - "$VA" << 'PYEOF3'
+import json, sys
+va = sys.argv[1]
+rec = json.load(open(f"{va}/approval.json")); del rec["host_id"]
+with open(f"{va}/approval-nobind.json", "w") as fh: json.dump(rec, fh)
+PYEOF3
+OUT="$(verify "$VA/manifest.json" "$VA/approval-nobind.json" h r)"; RC=$?
+[ $RC -eq 2 ] && echo "$OUT" | grep -q "lacks host_id or run_id" && ok "A9 record without host_id FAILs even with flags (finding 6)" || bad "A9" "rc=$RC out=$OUT"
 
 # ============ B. harness contract + env gate ============
 HB="$WORK/hb"; mkdir -p "$HB"
@@ -198,15 +208,25 @@ mkassembly() { # $1 case-dir: release tree + assembly.json with tree digest
 import hashlib, json, os, sys
 root = os.path.join(sys.argv[1], "release")
 lines = []
-for dirpath, _dirs, files in os.walk(root):
-    for f in sorted(files):
-        full = os.path.join(dirpath, f)
-        rel = "./" + os.path.relpath(full, root)
-        with open(full, "rb") as fh: digest = hashlib.sha256(fh.read()).hexdigest()
-        lines.append(f"{digest}  {rel}\n")
-tree = hashlib.sha256("".join(sorted(lines)).encode()).hexdigest()
+for dirpath, dirnames, filenames in os.walk(root, followlinks=False):
+    for name in dirnames + filenames:
+        full = os.path.join(dirpath, name)
+        rel = os.path.relpath(full, root)
+        st = os.lstat(full)
+        mode = format(st.st_mode & 0o7777, "04o")
+        if os.path.islink(full):
+            lines.append("L %s %s -> %s" % (mode, rel, os.readlink(full)))
+        elif os.path.isdir(full):
+            lines.append("D %s %s" % (mode, rel))
+        elif os.path.isfile(full):
+            h = hashlib.sha256(open(full, "rb").read()).hexdigest()
+            lines.append("F %s %s %s" % (mode, rel, h))
+        else:
+            sys.exit(1)
+lines.sort()
+tree = hashlib.sha256(("\n".join(lines) + "\n").encode()).hexdigest()
 with open(os.path.join(sys.argv[1], "assembly.json"), "w") as fh:
-    json.dump({"tree_sha256": tree, "assembled_by": "regression", "assembled_at": "2026-10-22"}, fh)
+    json.dump({"tree_sha256": tree, "assembled_by": "regression", "assembled_at": "2026-10-23"}, fh)
 PYEOF2
 }
 run_supervisor() { # $1 case-name; env via EXTRA_ENV; deadline via DEADLINE; target via TARGET_URL (default fixture)
@@ -383,6 +403,109 @@ assert 'spool' in c['components']['harness'], c
 "; then ok "E16 spool storage bound stops the run (FAIL)"; else bad "E16" "rc=$RC $(cat "$WORK/e-e16/root/cleanup.json" 2>/dev/null)"; fi
 EXTRA_ENV=()
 
+# E17: launch collision - a foreign unit with the same name
+# exists and the launch fails; the supervisor must NOT stop the
+# foreign unit (finding 1: launch ownership).
+FOREIGN=qa11y-stage-e-e17
+printf 'inv-foreign\n' > "$STUB_SYSTEMD_STATE/units/$FOREIGN.invocation"
+sleep 60 & FOREIGN_PID=$!
+echo "$FOREIGN_PID" > "$STUB_SYSTEMD_STATE/units/$FOREIGN.pid"
+: > "$STUB_SYSTEMD_STATE/stop.log"
+EXTRA_ENV=(STUB_SYSTEMD_RUN_FAIL=1)
+RC="$(run_supervisor e17)"
+if [ "$RC" = 4 ] && ! grep -qx "$FOREIGN" "$STUB_SYSTEMD_STATE/stop.log" && kill -0 "$FOREIGN_PID" 2>/dev/null && python3 -c "
+import json
+c=json.load(open('$WORK/e-e17/root/cleanup.json'))
+assert 'never launched' in c['components']['unit_cleanup'], c
+"; then ok "E17 foreign unit untouched on failed launch (finding 1)"; else bad "E17" "rc=$RC stoplog=$(cat "$STUB_SYSTEMD_STATE/stop.log" 2>/dev/null)"; fi
+kill "$FOREIGN_PID" 2>/dev/null || true
+rm -f "$STUB_SYSTEMD_STATE/units/$FOREIGN.invocation" "$STUB_SYSTEMD_STATE/units/$FOREIGN.pid"
+EXTRA_ENV=()
+# E18: manager inspection errors - UNIT_CLEAN and the terminal
+# status stay UNKNOWN, never PASS (findings 2 and 4).
+EXTRA_ENV=(STUB_SYSTEMCTL_MODE=error STUB_FIXTURE_CREATE=1)
+RC="$(run_supervisor e18)"
+if [ "$RC" = 3 ] && python3 -c "
+import json
+c=json.load(open('$WORK/e-e18/root/cleanup.json'))
+assert c['components']['unit_cleanup'].startswith('UNKNOWN'), c
+assert c['components']['harness'].startswith('UNKNOWN'), c
+"; then ok "E18 manager errors: UNKNOWN blocks, no silent PASS (findings 2, 4)"; else bad "E18" "rc=$RC $(cat "$WORK/e-e18/root/cleanup.json" 2>/dev/null)"; fi
+EXTRA_ENV=()
+# E19: wrong NanoCpus (unbounded CPU) FAILs HostConfig (finding 3).
+EXTRA_ENV=(STUB_HC="805306368 1000000000 0 160" STUB_FIXTURE_CREATE=1)
+RC="$(run_supervisor e19)"
+if [ "$RC" = 4 ] && python3 -c "
+import json
+c=json.load(open('$WORK/e-e19/root/cleanup.json'))
+assert c['components']['hostconfig'].startswith('FAIL'), c
+"; then ok "E19 NanoCpus inspected: unbounded CPU FAILs (finding 3)"; else bad "E19" "rc=$RC"; fi
+# E20: HostConfig inspection failure is a sticky FAIL (finding 3).
+EXTRA_ENV=(STUB_DOCKER_MODE=inspectfail STUB_FIXTURE_CREATE=1)
+RC="$(run_supervisor e20)"
+EXTRA_ENV=()
+if [ "$RC" = 4 ] && python3 -c "
+import json
+c=json.load(open('$WORK/e-e20/root/cleanup.json'))
+assert 'inspection failed' in c['components']['hostconfig'], c
+"; then ok "E20 HostConfig inspection failure FAILs closed (finding 3)"; else bad "E20" "rc=$RC"; fi
+# E21: ps hides the container, but inspection is ledger-driven:
+# the owned container is still inspected and cleanup still works.
+EXTRA_ENV=(STUB_DOCKER_PS_HIDE=1 STUB_FIXTURE_CREATE=1)
+RC="$(run_supervisor e21)"
+EXTRA_ENV=()
+if python3 -c "
+import json
+c=json.load(open('$WORK/e-e21/root/cleanup.json'))
+assert c['components']['hostconfig'] == 'PASS', c
+assert c['components']['container_cleanup'] == 'PASS', c
+"; then ok "E21 ps-hidden container still inspected via owned ledger"; else bad "E21" "rc=$RC $(cat "$WORK/e-e21/root/cleanup.json" 2>/dev/null)"; fi
+# E21b: coverage reconciliation - an owned id that was never
+# inspected downgrades HostConfig PASS to UNKNOWN at cleanup.
+EXTRA_ENV=(STUB_FIXTURE_CREATE_N=3 STUB_PLANT_LATE_ID=1)
+RC="$(run_supervisor e21b)"
+EXTRA_ENV=()
+if [ "$RC" = 3 ] && python3 -c "
+import json
+c=json.load(open('$WORK/e-e21b/root/cleanup.json'))
+assert c['components']['hostconfig'].startswith('UNKNOWN (owned container'), c
+"; then ok "E21b never-inspected owned id downgrades HostConfig to UNKNOWN (finding 3)"; else bad "E21b" "rc=$RC $(cat "$WORK/e-e21b/root/cleanup.json" 2>/dev/null)"; fi
+# E22: PASS result file + service exit 7 - the manager terminal
+# status contradicts the result; HARNESS must FAIL (finding 4).
+EXTRA_ENV=(STUB_FIXTURE_EXIT_CODE=7)
+RC="$(run_supervisor e22)"
+EXTRA_ENV=()
+if [ "$RC" = 4 ] && python3 -c "
+import json
+c=json.load(open('$WORK/e-e22/root/cleanup.json'))
+assert 'terminal status contradicts' in c['components']['harness'], c
+"; then ok "E22 PASS result + exit 7: HARNESS FAILs (finding 4)"; else bad "E22" "rc=$RC $(cat "$WORK/e-e22/root/cleanup.json" 2>/dev/null)"; fi
+# E23: assembly entry swapped for a symlink with identical
+# content - the v2 digest binds type and target (finding 5).
+EXTRA_ENV=()
+C23="$WORK/e-e23"; mkdir -p "$C23/tmp"; mkassembly "$C23"
+cp "$C23/assembly/release/runner.cjs" "$C23/assembly/release/real.cjs"
+rm "$C23/assembly/release/runner.cjs"; ln -s real.cjs "$C23/assembly/release/runner.cjs"
+"${CLEANENV[@]}" PATH="$PATH" STUB_DOCKER_STATE="$STUB_DOCKER_STATE" STUB_SYSTEMD_STATE="$STUB_SYSTEMD_STATE" \
+  STAGE_REAL_DOCKER="$STAGE_REAL_DOCKER" STAGE_ROOT="$C23/root" STAGE_TMP="$C23/tmp" STAGE_HARNESS_DIR="$FIX" \
+  STAGE_ASSEMBLY_DIR="$C23/assembly" STAGE_TARGET_URL="https://fixture.invalid/" STAGE_RUN_ID="e-e23" \
+  bash "$PKG/harness/supervise.sh" > "$C23/out.log" 2>&1; RC=$?
+if [ "$RC" = 3 ] && python3 -c "
+import json
+c=json.load(open('$WORK/e-e23/root/cleanup.json'))
+assert c['components']['assembly'].startswith('FAIL'), c
+" && [ ! -f "$STUB_SYSTEMD_STATE/units/qa11y-stage-e-e23.pid" ]; then
+  ok "E23 symlink swap FAILs the v2 digest gate (finding 5)"; else bad "E23" "rc=$RC"; fi
+# E24: mode-stripped harness tree self-heals (safeguard): the
+# docker shim starts 0644; the supervisor restores +x pre-launch.
+HEAL="$WORK/healfix"; rm -rf "$HEAL"; cp -r "$FIX" "$HEAL"; chmod 0644 "$HEAL/bin/docker" "$HEAL/run-confined.sh"
+C24="$WORK/e-e24"; mkdir -p "$C24/tmp"; mkassembly "$C24"
+"${CLEANENV[@]}" PATH="$PATH" STUB_DOCKER_STATE="$STUB_DOCKER_STATE" STUB_SYSTEMD_STATE="$STUB_SYSTEMD_STATE" \
+  STUB_FIXTURE_CREATE=1 STAGE_REAL_DOCKER="$STAGE_REAL_DOCKER" STAGE_ROOT="$C24/root" STAGE_TMP="$C24/tmp" STAGE_HARNESS_DIR="$HEAL" \
+  STAGE_ASSEMBLY_DIR="$C24/assembly" STAGE_TARGET_URL="https://fixture.invalid/" STAGE_RUN_ID="e-e24" \
+  bash "$PKG/harness/supervise.sh" > "$C24/out.log" 2>&1; RC=$?
+if [ -x "$HEAL/bin/docker" ] && [ "$RC" != 0 ]; then ok "E24 self-heal restored shim exec bit pre-launch (rc=$RC)"; else bad "E24" "rc=$RC shim-x=$(test -x "$HEAL/bin/docker" && echo yes || echo no)"; fi
+
 # ============ F. real launcher + preload + identity writer ============
 F="$WORK/f"; mkdir -p "$F/harness/bin" "$F/stage/release" "$F/tmp"
 cp "$PKG/harness/run-confined.sh" "$PKG/harness/run-scan-once.mjs" "$PKG/harness/audit-preload.cjs" "$F/harness/"
@@ -423,6 +546,25 @@ for f in harness/supervise.sh harness/aggregate.sh harness/run-confined.sh harne
   [ -x "$PKG/$f" ] || GMISS="$GMISS $f"
 done
 [ -z "$GMISS" ] && ok "G1 all package scripts are executable" || bad "G1" "not executable:$GMISS"
+
+# ============ H. tree-integrity verifier (safeguard) ============
+MANIFEST_TMP="$WORK/tree-manifest.json"
+python3 - "$PKG" "$MANIFEST_TMP" << 'PYEOF4'
+import hashlib, json, os, sys
+pkg, out = sys.argv[1], sys.argv[2]
+files = {}
+for dirpath, _dirs, names in os.walk(pkg):
+    for n in names:
+        full = os.path.join(dirpath, n)
+        rel = os.path.relpath(full, pkg)
+        if rel in ("TREE-MANIFEST.json",): continue
+        files[rel] = {"sha256": hashlib.sha256(open(full, "rb").read()).hexdigest(),
+                      "executable": bool(os.lstat(full).st_mode & 0o100)}
+json.dump({"files": files}, open(out, "w"), indent=1)
+PYEOF4
+if node "$PKG/tools/verify-tree.mjs" "$PKG" "$MANIFEST_TMP" > "$WORK/vt.log" 2>&1; then ok "H1 verify-tree accepts the intact package"; else bad "H1" "$(cat "$WORK/vt.log")"; fi
+VT="$WORK/vt-copy"; rm -rf "$VT"; cp -r "$PKG" "$VT"; echo tampered >> "$VT/harness/aggregate.sh"
+if node "$PKG/tools/verify-tree.mjs" "$VT" "$MANIFEST_TMP" > "$WORK/vt2.log" 2>&1; then bad "H2" "tampered copy accepted"; else grep -q "HASH-MISMATCH harness/aggregate.sh" "$WORK/vt2.log" && ok "H2 verify-tree catches a tampered file" || bad "H2" "$(cat "$WORK/vt2.log")"; fi
 
 echo "----"
 echo "regression: $PASS passed, $FAIL failed${FAILED_CASES:+ (failed:$FAILED_CASES)}"

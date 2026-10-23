@@ -81,6 +81,14 @@ staging host only.
   required cleanup component; job-private temp removal only.
 - tests/run-regression.sh - synthetic suite (stubs/doubles
   only) plus a real-launcher integration section. Rev 8: 45
+  synthetic checks including producer-spool and lifecycle cases.
+  Rev 9: 58 synthetic checks - the independent Rev 7 alignment
+  review's six findings each carry regressions (launch
+  ownership, unit-cleanup evidence, NanoCpus and inspection
+  coverage, manager terminal status, digest v2 binding modes
+  and link targets, preflight host/run binding) plus the
+  upload safeguards (self-healing exec modes, TREE-MANIFEST
+  and tools/verify-tree.mjs).
   gated cases.
 
 ## Ownership and cleanup protocol

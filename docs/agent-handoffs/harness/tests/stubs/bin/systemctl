@@ -1,22 +1,58 @@
 #!/usr/bin/env bash
-# systemctl stub (Rev 6): show MainPID / stop / kill / is-active /
-# reset-failed against $STUB_SYSTEMD_STATE/units/<unit>.pid.
+# systemctl stub (Rev 9): property-aware show (MainPID, InvocationID,
+# LoadState, ActiveState, ExecMainCode, ExecMainStatus, Result),
+# stop/kill with a stop.log, is-active, reset-failed. Unit state in
+# $STUB_SYSTEMD_STATE/units/<unit>.{pid,invocation,jobdir,termstatus}.
+# STUB_SYSTEMCTL_MODE=error makes every call fail (manager error).
 set -u
 STATE="${STUB_SYSTEMD_STATE:?}"
-UNIT=""
-for a in "$@"; do case "$a" in *.service) UNIT="${a%.service}";; esac; done
-# unit may also arrive without the .service suffix
-if [ -z "$UNIT" ]; then for a in "$@"; do [ -f "$STATE/units/$a.pid" ] && UNIT="$a"; done; fi
-PIDFILE="$STATE/units/$UNIT.pid"
-case "${1:-}" in
+if [ "${STUB_SYSTEMCTL_MODE:-}" = error ]; then echo "stub systemctl: manager error" >&2; exit 1; fi
+SUB="${1:-}"; shift || true
+PROPS=(); VALUE=0; UNIT=""
+while [ $# -gt 0 ]; do
+  case "$1" in
+    -p) PROPS+=("$2"); shift 2;;
+    --value) VALUE=1; shift;;
+    *.service) UNIT="${1%.service}"; shift;;
+    *) if [ -f "$STATE/units/$1.invocation" ] || [ -f "$STATE/units/$1.pid" ]; then UNIT="$1"; fi; shift;;
+  esac
+done
+UDIR="$STATE/units/$UNIT"
+PID=""; [ -f "$UDIR.pid" ] && PID="$(cat "$UDIR.pid")"
+alive() { [ -n "$PID" ] && kill -0 "$PID" 2>/dev/null; }
+exitcode_file() { if [ -f "$UDIR.jobdir" ]; then local jd; jd="$(cat "$UDIR.jobdir")"; [ -f "$jd/service-exit.code" ] && printf '%s' "$jd/service-exit.code"; fi; }
+prop() {
+  local ec=""
+  case "$1" in
+    MainPID) if alive; then echo "$PID"; else echo 0; fi;;
+    InvocationID) if [ -f "$UDIR.invocation" ]; then cat "$UDIR.invocation"; else echo ""; fi;;
+    LoadState) if [ -f "$UDIR.invocation" ]; then echo loaded; else echo not-found; fi;;
+    ActiveState) if alive; then echo active; elif [ -f "$UDIR.termstatus" ]; then echo failed; else echo inactive; fi;;
+    ExecMainCode) echo 1;;
+    ExecMainStatus)
+      if alive; then echo 0
+      elif ec="$(exitcode_file)" && [ -n "$ec" ]; then cat "$ec"
+      elif [ -f "$UDIR.termstatus" ]; then cut -d' ' -f1 "$UDIR.termstatus"
+      else echo 0; fi;;
+    Result)
+      if alive; then echo ""
+      elif ec="$(exitcode_file)" && [ -n "$ec" ]; then if [ "$(cat "$ec")" = 0 ]; then echo success; else echo exit-code; fi
+      elif [ -f "$UDIR.termstatus" ]; then echo failure
+      else echo success; fi;;
+    *) echo "";;
+  esac
+}
+case "$SUB" in
   show)
-    if [ -f "$PIDFILE" ]; then cat "$PIDFILE"; else echo 0; fi
+    if [ "$VALUE" = 1 ] && [ "${#PROPS[@]}" -ge 1 ]; then prop "${PROPS[0]}"
+    else for pr in "${PROPS[@]}"; do printf '%s=%s\n' "$pr" "$(prop "$pr")"; done; fi
     exit 0;;
   stop|kill)
-    if [ -f "$PIDFILE" ]; then kill "$(cat "$PIDFILE")" 2>/dev/null || true; fi
+    [ -n "$UNIT" ] && echo "$UNIT" >> "$STATE/stop.log"
+    if alive; then kill "$PID" 2>/dev/null || true; echo "143 signal" > "$UDIR.termstatus"; fi
     exit 0;;
   is-active)
-    if [ -f "$PIDFILE" ] && kill -0 "$(cat "$PIDFILE")" 2>/dev/null; then echo active; exit 0; fi
+    if alive; then echo active; exit 0; fi
     echo inactive; exit 3;;
   reset-failed) exit 0;;
   *) exit 0;;

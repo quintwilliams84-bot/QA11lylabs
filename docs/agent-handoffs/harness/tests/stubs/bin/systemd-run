@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
-# systemd-run stub (Rev 6, transient SERVICE mode): starts the
-# command in the background, records unit -> pid, returns at once.
+# systemd-run stub (Rev 9, transient SERVICE mode): starts the
+# command in the background, records unit -> pid plus the launch
+# invocation identity and the job dir (for terminal-status reads),
+# returns at once. STUB_SYSTEMD_RUN_FAIL=1 fails the launch BEFORE
+# recording anything (an existing foreign unit stays untouched).
 set -u
 STATE="${STUB_SYSTEMD_STATE:?}"
 mkdir -p "$STATE/units"
@@ -21,6 +24,10 @@ done
 if [ "${STUB_SYSTEMD_RUN_FAIL:-}" = 1 ]; then echo "stub systemd-run: launch failed" >&2; exit 1; fi
 UNIT="${UNIT%.service}"
 [ -n "$UNIT" ] || { echo "stub systemd-run: no unit" >&2; exit 1; }
+printf 'inv-%s\n' "$UNIT" > "$STATE/units/$UNIT.invocation"
+for e in "${SETENVS[@]}"; do
+  case "$e" in STAGE_JOB_DIR=*) printf '%s' "${e#STAGE_JOB_DIR=}" > "$STATE/units/$UNIT.jobdir";; esac
+done
 env "${SETENVS[@]}" "${CMD[@]}" &
 echo $! > "$STATE/units/$UNIT.pid"
 exit 0

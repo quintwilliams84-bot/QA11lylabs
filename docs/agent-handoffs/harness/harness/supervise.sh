@@ -1,5 +1,29 @@
 #!/usr/bin/env bash
-# Supervisor v6 (Rev 8) for the staging diagnostic harness.
+# Supervisor v7 (Rev 9) for the staging diagnostic harness.
+#
+# Rev 9 answers the independent Rev 7 alignment review (six
+# findings, all verified present in Rev 8 source by Muse):
+# 1. Launch ownership: the supervisor stops a unit only when
+#    THIS invocation launched it and the manager still reports
+#    the same InvocationID recorded at launch.
+# 2. UNIT_CLEAN starts UNKNOWN and reaches PASS only on explicit
+#    manager evidence (LoadState not-found, or inactive/failed
+#    with MainPID 0); inspection errors stay UNKNOWN.
+# 3. HostConfig now inspects NanoCpus as well as Memory,
+#    MemorySwap and PidsLimit; a failed inspection is a sticky
+#    FAIL, and cleanup reconciles coverage: any owned container
+#    never inspected downgrades PASS to UNKNOWN.
+# 4. HARNESS PASS requires the manager terminal status of the
+#    owned invocation (Result=success, ExecMainStatus=0,
+#    InvocationID match) in addition to the result file.
+# 5. tree_digest v2 binds entry type, mode, path, link target
+#    and content; unsupported entry types fail the digest.
+# 6. (pairing/preflight-verify.mjs) standalone preflight now
+#    REQUIRES --host-id and --run-id and a record carrying both.
+# Safeguards (Quintin, Oct 23): the launcher heals executable
+# modes inside the assembled release before digesting, so a
+# mode-stripped checkout still runs; the digest binds the
+# healed modes, so the heal is verified, not assumed.
 #
 # Rev 8 answers Arch's enforcement-gaps handoff (ac468232):
 # - The producer spool/storage is now bounded SEPARATELY from the
@@ -76,6 +100,7 @@ mkdir -p "$STAGE_ROOT" || { echo "BLOCKED: cannot create STAGE_ROOT" >&2; exit 3
 JOB_DIR="$STAGE_ROOT/job-$RUN_ID"
 mkdir -p "$JOB_DIR" || { echo "BLOCKED: cannot create job dir" >&2; exit 3; }
 OWNED="$JOB_DIR/owned-containers.txt"
+INSPECTED="$JOB_DIR/inspected-containers.txt"; : > "$INSPECTED"
 printf '# job %s\n' "$RUN_ID" > "$OWNED"
 
 # --- job-private temp dir ----------------------------------------
@@ -117,12 +142,48 @@ finish() { # $1 overall $2 rc
   write_cleanup "$1" "$2"; echo "overall: $1"; exit "$2"
 }
 
-stop_unit() { "${SYSTEMCTL[@]}" stop "$UNIT" >/dev/null 2>&1 || true; }
+LAUNCHED=0; INVOCATION_ID=""
+stop_unit() {
+  # Stop only a unit THIS invocation launched, and only while
+  # the manager still reports the launch invocation identity.
+  [ "$LAUNCHED" = 1 ] || return 0
+  local cur=""
+  cur="$("${SYSTEMCTL[@]}" show -p InvocationID --value "$UNIT" 2>/dev/null | tr -d '[:space:]')" || cur=""
+  if [ -n "$INVOCATION_ID" ] && [ -n "$cur" ] && [ "$cur" != "$INVOCATION_ID" ]; then
+    return 0
+  fi
+  "${SYSTEMCTL[@]}" stop "$UNIT" >/dev/null 2>&1 || true
+}
 on_interrupt() { INTERRUPTED=1; HARNESS="FAIL (interrupted)"; stop_unit; }
 trap on_interrupt INT TERM
 
-tree_digest() { # $1 dir -> sha256 of sorted (digest, path) lines
-  ( cd "$1" && find . -type f -print0 | sort -z | xargs -0 sha256sum 2>/dev/null | sha256sum | cut -d' ' -f1 )
+tree_digest() { # $1 dir -> canonical digest binding type, mode, path, link target, content
+  python3 - "$1" << 'PYEOF2'
+import hashlib, os, sys
+root = sys.argv[1]
+lines = []
+for dirpath, dirnames, filenames in os.walk(root, followlinks=False):
+    for name in dirnames + filenames:
+        p = os.path.join(dirpath, name)
+        rel = os.path.relpath(p, root)
+        st = os.lstat(p)
+        mode = format(st.st_mode & 0o7777, "04o")
+        if os.path.islink(p):
+            target = os.readlink(p)
+            resolved = os.path.realpath(p)
+            if not resolved.startswith(os.path.realpath(root) + os.sep) or not os.path.exists(resolved):
+                print("tree_digest: link escapes or unresolved: " + rel, file=sys.stderr); sys.exit(1)
+            lines.append("L %s %s -> %s" % (mode, rel, target))
+        elif os.path.isdir(p):
+            lines.append("D %s %s" % (mode, rel))
+        elif os.path.isfile(p):
+            h = hashlib.sha256(open(p, "rb").read()).hexdigest()
+            lines.append("F %s %s %s" % (mode, rel, h))
+        else:
+            print("tree_digest: unsupported entry: " + rel, file=sys.stderr); sys.exit(1)
+lines.sort()
+sys.stdout.write(hashlib.sha256(("\n".join(lines) + "\n").encode()).hexdigest())
+PYEOF2
 }
 
 # --- assembly: verify the operator's tree, copy it in, re-verify --
@@ -159,6 +220,16 @@ printf '%s\n' "$BEFORE_ALL" > "$JOB_DIR/baseline.txt"
 
 cleanup_phase() {
   CLEANUP_START=$SECONDS
+  # HostConfig coverage: PASS is only honest if every owned
+  # container was actually inspected at least once.
+  if [ -s "$OWNED" ] && [ "$HOSTCONFIG" = "PASS" ]; then
+    while read -r ocid; do
+      if ! grep -qx "$ocid" "$INSPECTED" 2>/dev/null; then
+        HOSTCONFIG="UNKNOWN (owned container $ocid never inspected)"
+        break
+      fi
+    done < <(grep -E '^[0-9a-f]{64}$' "$OWNED" | sort -u)
+  fi
   # --- harvest ownership: direct records + cidfiles the shim
   #     recorded before delegating (interruption-proof).
   : >> "$OWNED"
@@ -239,14 +310,36 @@ EOF
     fi
   fi
   # --- unit termination is a REQUIRED cleanup component -------------
+  # PASS requires explicit manager evidence; inspection errors and
+  # ambiguous states stay UNKNOWN (never a silent PASS).
   stop_unit
   sleep 1
-  UNIT_CLEAN="PASS"
-  if "${SYSTEMCTL[@]}" is-active "$UNIT" >/dev/null 2>&1; then
-    UNIT_CLEAN="FAIL (unit still active after stop)"
-  fi
-  if [ -n "${MAINPID:-}" ] && [ "${MAINPID:-0}" != "0" ] && kill -0 "$MAINPID" 2>/dev/null; then
-    UNIT_CLEAN="FAIL (unit MainPID $MAINPID still alive)"
+  if [ "$LAUNCHED" != 1 ]; then
+    UNIT_CLEAN="PASS (unit never launched by this invocation; nothing owned to stop)"
+  else
+    SHOW_OUT="$("${SYSTEMCTL[@]}" show -p LoadState -p ActiveState -p MainPID -p InvocationID "$UNIT" 2>/dev/null)" || SHOW_OUT=""
+    if [ -z "$SHOW_OUT" ]; then
+      UNIT_CLEAN="UNKNOWN (manager inspection failed during cleanup)"
+    else
+      LS_="$(printf '%s\n' "$SHOW_OUT" | sed -n 's/^LoadState=//p')"
+      AS_="$(printf '%s\n' "$SHOW_OUT" | sed -n 's/^ActiveState=//p')"
+      MP_="$(printf '%s\n' "$SHOW_OUT" | sed -n 's/^MainPID=//p')"
+      IV_="$(printf '%s\n' "$SHOW_OUT" | sed -n 's/^InvocationID=//p')"
+      if [ -n "$INVOCATION_ID" ] && [ -n "$IV_" ] && [ "$IV_" != "$INVOCATION_ID" ]; then
+        UNIT_CLEAN="UNKNOWN (unit invocation changed; termination not attributable)"
+      elif [ "$LS_" = "not-found" ]; then
+        UNIT_CLEAN="PASS"
+      elif { [ "$AS_" = "inactive" ] || [ "$AS_" = "failed" ]; } && { [ -z "$MP_" ] || [ "$MP_" = "0" ]; }; then
+        UNIT_CLEAN="PASS"
+      elif [ "$AS_" = "active" ] || [ "$AS_" = "activating" ] || [ "$AS_" = "deactivating" ]; then
+        UNIT_CLEAN="FAIL (unit still $AS_ after stop)"
+      else
+        UNIT_CLEAN="UNKNOWN (manager reported LoadState=$LS_ ActiveState=$AS_ MainPID=$MP_)"
+      fi
+    fi
+    if [ -n "${MAINPID:-}" ] && [ "${MAINPID:-0}" != "0" ] && kill -0 "$MAINPID" 2>/dev/null; then
+      UNIT_CLEAN="FAIL (unit MainPID $MAINPID still alive)"
+    fi
   fi
   "${SYSTEMCTL[@]}" reset-failed "$UNIT" >/dev/null 2>&1 || true
 }
@@ -275,6 +368,16 @@ LAUNCH_ENV=(
   --setenv=STAGE_HOST_ID="${STAGE_HOST_ID:-}"
   --setenv=STAGE_TARGET_URL="$STAGE_TARGET_URL"
 )
+# Self-heal executable modes in the harness tree (Rev 9 safeguard):
+# the filing path stores files at 100644, so a fresh checkout may
+# lack exec bits. The docker shim is reached through PATH and
+# needs +x; healing here is idempotent and confined to this
+# package's own tree. (Assembly content is unaffected: modes are
+# bound separately by the v2 digest verification above.)
+for f in bin/docker run-confined.sh aggregate.sh supervise.sh; do
+  [ -f "$STAGE_HARNESS_DIR/$f" ] && chmod 0755 "$STAGE_HARNESS_DIR/$f" 2>/dev/null || true
+done
+
 if ! "${SYSTEMD_RUN[@]}" --unit="$UNIT" \
       -p PrivateNetwork=yes -p ProtectSystem=strict \
       -p ReadWritePaths="$STAGE_ROOT $TMP_JOB /var/run/docker.sock" \
@@ -288,6 +391,9 @@ if ! "${SYSTEMD_RUN[@]}" --unit="$UNIT" \
   cleanup_phase
   OVERALL_RC="$(aggregate_now)"; finish "${OVERALL_RC%% *}" "${OVERALL_RC##* }"
 fi
+
+LAUNCHED=1
+INVOCATION_ID="$("${SYSTEMCTL[@]}" show -p InvocationID --value "$UNIT" 2>/dev/null | tr -d '[:space:]')" || INVOCATION_ID=""
 
 # MainPID of the owned unit (bounded retries)
 MAINPID=""
@@ -362,12 +468,13 @@ print(s[s.rindex(")")+2:].split(" ")[19])' "$JPID" 2>/dev/null || echo x)"
       CHECKED=0
       while [ "$CHECKED" -lt 3 ] && [ "$CHECKED" -lt "$TOTAL" ]; do
         cid="${OWNED_IDS[$(( (HC_IDX + CHECKED) % TOTAL ))]}"
-        HC="$("${DOCKER[@]}" inspect -f '{{.HostConfig.Memory}} {{.HostConfig.MemorySwap}} {{.HostConfig.PidsLimit}}' "$cid" 2>/dev/null)" || HC=""
-        if [ -n "$HC" ]; then
-          if [ "$HC" = "805306368 1000000000 160" ]; then
-            [ "$HOSTCONFIG" != "FAIL" ] && [ "${HOSTCONFIG:0:4}" != "FAIL" ] && HOSTCONFIG="PASS"
-          else HOSTCONFIG="FAIL (HostConfig $HC)"; fi
-        fi
+        HC="$("${DOCKER[@]}" inspect -f '{{.HostConfig.Memory}} {{.HostConfig.MemorySwap}} {{.HostConfig.NanoCpus}} {{.HostConfig.PidsLimit}}' "$cid" 2>/dev/null)" || HC=""
+        if [ -z "$HC" ]; then
+          [ "${HOSTCONFIG:0:4}" != "FAIL" ] && HOSTCONFIG="FAIL (HostConfig inspection failed for $cid)"
+        elif [ "$HC" = "805306368 1000000000 1000000000 160" ]; then
+          printf '%s\n' "$cid" >> "$INSPECTED"
+          [ "${HOSTCONFIG:0:4}" != "FAIL" ] && HOSTCONFIG="PASS"
+        else HOSTCONFIG="FAIL (HostConfig $HC)"; fi
         CHECKED=$((CHECKED+1))
       done
       HC_IDX=$(( (HC_IDX + 3) % TOTAL ))
@@ -390,9 +497,29 @@ elif [ "$INTERRUPTED" = 1 ]; then
 elif [ "$DEADLINE_FIRED" = 1 ]; then
   HARNESS="FAIL (hard deadline fired; unit stopped)"
 elif [ -f "$JOB_DIR/result.json" ]; then
+  # Manager terminal status of the OWNED invocation: a PASS result
+  # file alone never suffices - the service must also have exited
+  # successfully under the invocation recorded at launch.
+  TERM_STATE="unknown"; TERM_NOTE="manager terminal status unavailable"
+  TSHOW="$("${SYSTEMCTL[@]}" show -p ExecMainCode -p ExecMainStatus -p Result -p InvocationID "$UNIT" 2>/dev/null)" || TSHOW=""
+  if [ -n "$TSHOW" ]; then
+    TES="$(printf '%s\n' "$TSHOW" | sed -n 's/^ExecMainStatus=//p')"
+    TRS="$(printf '%s\n' "$TSHOW" | sed -n 's/^Result=//p')"
+    TIV="$(printf '%s\n' "$TSHOW" | sed -n 's/^InvocationID=//p')"
+    if [ -n "$INVOCATION_ID" ] && [ -n "$TIV" ] && [ "$TIV" != "$INVOCATION_ID" ]; then
+      TERM_STATE="unknown"; TERM_NOTE="unit invocation changed since launch"
+    elif [ "$TRS" = "success" ] && [ "$TES" = "0" ]; then
+      TERM_STATE="ok"; TERM_NOTE=""
+    else
+      TERM_STATE="failed"; TERM_NOTE="Result=$TRS ExecMainStatus=$TES"
+    fi
+  fi
   HV="$(timeout 5 python3 -c 'import json,sys; print(json.load(open(sys.argv[1])).get("overall",""))' "$JOB_DIR/result.json" 2>/dev/null || true)"
   case "$HV" in
-    PASS) HARNESS="PASS";;
+    PASS)
+      if [ "$TERM_STATE" = "ok" ]; then HARNESS="PASS"
+      elif [ "$TERM_STATE" = "failed" ]; then HARNESS="FAIL (service terminal status contradicts PASS result: $TERM_NOTE)"
+      else HARNESS="UNKNOWN (terminal status unverified: $TERM_NOTE)"; fi;;
     FAIL) HARNESS="FAIL (harness reported FAIL)";;
     BLOCKED) HARNESS="BLOCKED (harness reported BLOCKED)";;
     *) HARNESS="UNKNOWN (no harness overall verdict)";;

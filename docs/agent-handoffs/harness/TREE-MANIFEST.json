@@ -1,0 +1,91 @@
+{
+ "package": "staging-diagnostic-harness",
+ "revision": "rev9",
+ "note": "Covers every package file except this manifest and PACKAGE.md. Verify with: node tools/verify-tree.mjs <tree-dir> <tree-dir>/TREE-MANIFEST.json",
+ "files": {
+  "harness/aggregate.sh": {
+   "sha256": "130a2317579abdf092d9a7845eca4955aec7863078afc63e92aaf31bc7236256",
+   "executable": true
+  },
+  "harness/audit-preload.cjs": {
+   "sha256": "220657edafce6987264746e9e685bbfe6fed4ee1a17a3368ed64b639247d3751",
+   "executable": false
+  },
+  "harness/confinement-check.mjs": {
+   "sha256": "c491bb96927fd7c2891e2329ae126e688a12d5b9bf4b3039b16e08c2d57ee0b2",
+   "executable": false
+  },
+  "harness/run-confined.sh": {
+   "sha256": "c52a4abe700a0059f8a66f7d496c3ee73bb82171e9aa0a814558556ed335b4ea",
+   "executable": true
+  },
+  "harness/run-scan-once.mjs": {
+   "sha256": "5640243ef6a23949ef6e5d4c2e469cf5a3322360c68fd140b647f15dd7a8c719",
+   "executable": false
+  },
+  "harness/supervise.sh": {
+   "sha256": "e81fdfa5847c1e27421f79fcbbc03efb9768276c56293f25ea50143ff02031be",
+   "executable": true
+  },
+  "harness/bin/docker": {
+   "sha256": "34a0f471fcc17c45738085ae6bf9fc74b4c3a1be71c43ec6c89e7f76b5213e75",
+   "executable": true
+  },
+  "pairing/pairing.manifest.json": {
+   "sha256": "d27f4e7de28c012a6e686da99db6efada9fc2fad49c7ceba2954f38a78cca035",
+   "executable": false
+  },
+  "pairing/preflight-verify.mjs": {
+   "sha256": "2b23c047400c2ced64d4be293ca0481e9155c312da0b40522c992efb174614de",
+   "executable": false
+  },
+  "runbook/RUNBOOK.md": {
+   "sha256": "a2fa2f6398008b8727d35bc074b65a95ddde2545cf6b62d99e84528abb538a22",
+   "executable": false
+  },
+  "tests/REGRESSION-RESULTS-2026-10-23-rev9.txt": {
+   "sha256": "2fbe13570bf720aae9ff2a71c6d233f33944f7bdd12f7e951923b38edfaa14fb",
+   "executable": false
+  },
+  "tests/run-regression.sh": {
+   "sha256": "63b29fe4b746283c05f983e5888fc16d906a4797c3fc9786f7151df49c54b50d",
+   "executable": true
+  },
+  "tests/stubs/bin/docker": {
+   "sha256": "9bedec6895e565a0f7b7d638f0c278a17dd1d9daf9f0562562a865ec7d82c0e2",
+   "executable": true
+  },
+  "tests/stubs/bin/systemctl": {
+   "sha256": "723930eb3866b2b3d01ff54976f0bfce38cd5ca9f52a1450e5a288ad3bb56533",
+   "executable": true
+  },
+  "tests/stubs/bin/systemd-run": {
+   "sha256": "abfdab63666ae41c9c5467715aeb55a7deed95137f879c993ab0c6c47572b00c",
+   "executable": true
+  },
+  "tests/fixtures/harness/audit-preload.cjs": {
+   "sha256": "220657edafce6987264746e9e685bbfe6fed4ee1a17a3368ed64b639247d3751",
+   "executable": false
+  },
+  "tests/fixtures/harness/confinement-check.mjs": {
+   "sha256": "4420593ae50f1ccd1c78311aecbc4f13be652b1e887241252ddf6abb9fdface9",
+   "executable": false
+  },
+  "tests/fixtures/harness/run-confined.sh": {
+   "sha256": "c4d4f9c178cdb828b43c2d5d5826cc9f3356b055caee4dcf7d4bb36c26fe51cd",
+   "executable": true
+  },
+  "tests/fixtures/harness/run-scan-once.mjs": {
+   "sha256": "8abb38508b746af02792b941006d630cb04cdbfc7c5572338cd9f6d87cc7fd2d",
+   "executable": false
+  },
+  "tests/fixtures/harness/bin/docker": {
+   "sha256": "34a0f471fcc17c45738085ae6bf9fc74b4c3a1be71c43ec6c89e7f76b5213e75",
+   "executable": true
+  },
+  "tools/verify-tree.mjs": {
+   "sha256": "3583162def47f018cd12d00f25822648af9262471ee3356192b46b46eb5d83c2",
+   "executable": false
+  }
+ }
+}

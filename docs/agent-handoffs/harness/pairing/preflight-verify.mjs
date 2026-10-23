@@ -116,8 +116,13 @@ if (!args['pairing-approval']) {
     const { createHash } = await import('node:crypto');
     const manifestSha = createHash('sha256').update(await readFile(args.manifest)).digest('hex');
     if (approval.manifest_sha256 !== manifestSha) approval._bindingError = 'manifest_sha256 does not match the manifest file';
-    if (args['host-id'] && approval.host_id !== args['host-id']) approval._bindingError = 'host_id does not match --host-id';
-    if (args['run-id'] && approval.run_id !== args['run-id']) approval._bindingError = 'run_id does not match --run-id';
+    // Rev 9 (finding 6): standalone preflight REQUIRES the
+    // expected host/run arguments AND a record carrying both -
+    // omitting the flags must never let an unbound record pass.
+    if (!args['host-id'] || !args['run-id']) approval._bindingError = 'standalone preflight requires --host-id and --run-id arguments';
+    else if (!approval.host_id || !approval.run_id) approval._bindingError = 'approval record lacks host_id or run_id';
+    else if (approval.host_id !== args['host-id']) approval._bindingError = 'host_id does not match --host-id';
+    else if (approval.run_id !== args['run-id']) approval._bindingError = 'run_id does not match --run-id';
     const pathOk = approval.path === 'a' || approval.path === 'b';
     const whoOk = typeof approval.approved_by === 'string' && approval.approved_by.length > 0;
     const whenOk = typeof approval.approved_at === 'string' && approval.approved_at.length > 0;

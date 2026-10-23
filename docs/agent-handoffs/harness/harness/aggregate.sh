@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Authoritative status aggregation (Rev 6), used by supervise.sh and
+# Authoritative status aggregation (Rev 9 semantics), used by supervise.sh and
 # unit-tested directly by tests/run-regression.sh. Component statuses
 # arrive via the environment: BASELINE ASSEMBLY CONFINEMENT
 # IDENTITY HOSTCONFIG HARNESS CONTAINER_CLEAN TMP_CLEAN UNIT_CLEAN.

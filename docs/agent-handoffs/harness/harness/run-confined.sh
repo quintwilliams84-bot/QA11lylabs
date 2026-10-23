@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# In-unit launcher (Rev 6): run by the supervisor's transient
+# In-unit launcher (Rev 9: Rev 6 design plus exit capture): run by the supervisor's transient
 # systemd SERVICE (services, unlike scopes, carry the execution
 # sandbox properties). Phase 1 verifies the effective confinement
 # from inside (confinement-check.mjs); the harness - and therefore
@@ -29,4 +29,11 @@ if [ "$CC_RC" != 0 ]; then
   exit "$CC_RC"
 fi
 echo "[run-confined] confinement PASS; starting harness"
-exec node --require "$STAGE_HARNESS_DIR/audit-preload.cjs" "$STAGE_HARNESS_DIR/run-scan-once.mjs"
+node --require "$STAGE_HARNESS_DIR/audit-preload.cjs" "$STAGE_HARNESS_DIR/run-scan-once.mjs"
+HARNESS_RC=$?
+# Record the harness exit status inside the job root as in-unit
+# evidence; the supervisor ALSO requires the manager terminal
+# status (Result/ExecMainStatus) before any PASS.
+printf '%s' "$HARNESS_RC" > "$STAGE_ROOT/service-exit.code" 2>/dev/null || true
+echo "[run-confined] harness exited $HARNESS_RC"
+exit "$HARNESS_RC"
