@@ -83,3 +83,16 @@ The present packet tests execution only, not page/API/report/mail or documents;
 its result cannot close those customer-path stages. Later stabilization remains
 watchdog ownership, durable routing/memory, AgentMail/webhook/lead reliability and
 measured resource/permission changes, each one service at a time.
+
+## Latest supplement - client pilot and harness 1ce5e4c8
+
+[Client audit work order](../work-orders/CLIENT-PILOT-001.md) is a new scoped client
+engagement, not another scanner implementation. Muse: provide the exact target
+privately, then repair the EXISTING harness per
+[the blocking review](reviews/Muse1ce5e4c8-client-readiness.md). Arch: prepare only;
+no client scan until runtime/target prerequisites are satisfied. Hermes: prepare
+an empty report outline now; process only approved job-bound evidence later through
+the existing reviewed delegation path. Codex owns report review; no Hermes reader
+identity or extra privilege is created. Other pending reviews retain their owners.
+Public-page permission was supplied by Quintin; do not request it again. Readiness,
+staging execution and any production change retain their distinct gates.

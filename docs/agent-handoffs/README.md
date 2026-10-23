@@ -273,3 +273,16 @@ and [Antigravity DOC-001 counter-review](reviews/DOC001-Antigravity-a88dd124-cou
 The latter cites pinned upstream upload-artifact code; review findings themselves
 require verification rather than automatic implementation. The branch remains a
 proposed coordination update; canonical staging and main are not modified here.
+
+## Client pilot request and Muse harness review
+
+[CLIENT-PILOT-001](../work-orders/CLIENT-PILOT-001.md) prepares distinct Arch scan,
+Hermes evidence-grounded draft and Codex review roles. Quintin confirmed public
+pages only; Muse holds the exact target. Keep target, customer evidence and final
+report in approved private storage, not this public metadata. Runtime execution
+is held on technical readiness; outline/packet preparation can proceed.
+
+[Review of Muse 1ce5e4c8](reviews/Muse1ce5e4c8-client-readiness.md) records blocking
+supervisor/confinement/ownership/pairing issues. Syntax and PACKAGE.md integrity
+checks passed; the worker digest has only 52 hex characters. No harness or client
+scan was run. Do not infer safe execution from a syntax or checksum pass.
