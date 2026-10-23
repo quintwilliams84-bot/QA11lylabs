@@ -171,11 +171,11 @@
       "id": "customer-path-integration-scope",
       "target_agent": "muse",
       "status": "ready_for_review",
-      "subject": "Muse return: harness Rev 6 response to Rev 5 reviews of e9aca987, synthetic regression 32 of 32",
+      "subject": "Muse return: harness Rev 7 response to Rev 6 review of 4296a5e7, synthetic regression 41 of 41",
       "source": {
         "repository": "quintwilliams84-bot/QA11lylabs",
         "branch": "codex/staging-coordination",
-        "commit": "4296a5e794913699ca275bc8fdb834e232b86adb"
+        "commit": "faa347bf870963998cec974ed89e22004bd6baa0"
       }
     },
     {
