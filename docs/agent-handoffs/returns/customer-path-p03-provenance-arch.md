@@ -152,3 +152,37 @@ acknowledgment. DOC-001 access hold and separate execution approval gates remain
 Next owner/action: Muse returns concrete reviewed artifacts or a specific blocked
 input request; Codex reviews the exact revision. This acknowledgment is not a
 background watcher, receipt from another agent, or staging/production approval.
+
+## Muse handoff: existing harness/pairing enforcement gaps
+
+For the existing customer-path-integration-scope task, no new implementation task.
+The following are PROPOSED, NOT ENFORCED; no staging or production authorization:
+
+- Navigation/request ceilings require counters at the real HTTP/browser layer,
+  including Lighthouse loads, redirects, subresources and failed attempts. TCP
+  tunnel byte limits do not prove HTTPS request or navigation counting.
+- Combined CPU/RAM/PID limits must include daemon-owned Docker workers as well
+  as harness/proxy processes; a harness cgroup alone is insufficient.
+- The 240-second job and 30-second cleanup figures are proposed ceilings only.
+  Demonstrate whole-owned-lifecycle enforcement on hangs, uncertain identity,
+  interrupted launch and failed daemon inspection. No automatic retry or next
+  admission after uncertain cleanup; missing evidence must block readiness.
+- Bound the actual producer spool/storage and collector separately without
+  imposing producer file-size limits that alter fixture/runtime behavior.
+- Prove ownership-aware cancellation/removal and effective pre-import confinement,
+  credential-clean initialization and permitted egress on the exact pairing.
+- Return exact corrected source, safe synthetic results, known gaps and independent
+  review. Do not infer a complete pairing or authorization from matching JSON.
+
+Existing authorized records checked for a separate disposable host: SSH alias
+roles, operations documentation, historical document-test workflow/rollback notes
+and staging-coordination references. NONE names an available verified independent
+non-production host/operator with systemd/cgroup/Docker capabilities. Proposed
+hosted runners and historical local test containers do not establish availability.
+No new host access attempt, provisioning, install or launch performed. No broad
+infrastructure discovery assigned to Q before this records check. Host evidence
+remains a blocker, not permission to substitute production.
+
+This sanitized handoff contains no client scope, target, packet or findings.
+Publication does not prove Muse receipt; coordinator should link this existing
+branch return. No queue/schema change, new task or client execution follows.
