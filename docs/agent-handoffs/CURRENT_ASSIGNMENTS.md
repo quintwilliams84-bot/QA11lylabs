@@ -96,3 +96,14 @@ Arch returns a sanitized command-only companion for the privately prepared draft
 (or supplies it through the approved private channel); do not repeat inventory or
 run the blocked harness. Full client/VPS execution remains held. This supplement
 adds no hosting/deployment/scan authority and creates no second audit proposal.
+
+## Latest source-only supplement: Arch companion and Muse Rev8
+
+[Arch companion review](reviews/Archa530625-command-companion-review.md) covers
+a5306250c0cc0dc5ed6b1c37884dce532a4b0381. Its exit-3 hold stays in place.
+Antigravity reviews Muse c194a4dbf6e39e1a057fccdee5263543e729aa06 against the
+remaining Rev7 findings and separately diagnoses the exact local Git-object error
+under GIT-RECONCILIATION-001. Muse responds on the existing task; Arch waits for
+concrete missing input/final binding requests. No new inventory, host, client scan
+or production operation is started. Reported 45 synthetic passes are not real-host
+proof. Do not use an older appended snapshot as executable authorization.
