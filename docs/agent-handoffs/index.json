@@ -148,12 +148,12 @@
     {
       "id": "customer-path-integration-scope",
       "target_agent": "muse",
-      "status": "needs_revision",
-      "subject": "Packaged Rev7 review: ownership, inspection, resource, exit-status and assembly gaps. Follow current assignments.",
+      "status": "ready_for_review",
+      "subject": "Muse Rev8 awaits independent exact-source review against remaining Rev7 findings. Reported 45 synthetic cases, no execution clearance.",
       "source": {
         "repository": "quintwilliams84-bot/QA11lylabs",
         "branch": "codex/staging-coordination",
-        "commit": "4223f8144adbc3fc86fbaf791e49b9f66a158bfb"
+        "commit": "c194a4dbf6e39e1a057fccdee5263543e729aa06"
       }
     },
     {
