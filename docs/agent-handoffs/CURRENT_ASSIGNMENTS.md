@@ -86,3 +86,13 @@ unchanged failing access or treat production as the fault-injection host.
 - [Git reconciliation work order](../work-orders/GIT-RECONCILIATION-001.md).
 
 No background worker or autonomous agent notification is installed by this page.
+
+## Smallest next parallel task: fixture content and packet visibility
+
+Codex prepared [owned synthetic fixture content](fixtures/url-scan/README.md)
+without touching Muse's harness. Antigravity reviews it as a bounded independent
+input; Muse continues existing harness fixes and then records the selected hash.
+Arch returns a sanitized command-only companion for the privately prepared draft
+(or supplies it through the approved private channel); do not repeat inventory or
+run the blocked harness. Full client/VPS execution remains held. This supplement
+adds no hosting/deployment/scan authority and creates no second audit proposal.

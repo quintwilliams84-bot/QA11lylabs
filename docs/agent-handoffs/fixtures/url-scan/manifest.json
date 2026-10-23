@@ -1,0 +1,44 @@
+{
+  "fixture_version": 1,
+  "purpose": "Synthetic static URL scan targets; not a client report or deployment",
+  "browser_validation": "NOT RUN",
+  "expected_rules_validation": "NOT RUN",
+  "files": [
+    {
+      "path": "control.html",
+      "bytes": 1062,
+      "sha256": "5940e11a51dfc2aa39377f539618d290e82d7fb38ba2f96625c9a77f25c16b11"
+    },
+    {
+      "path": "seeded.html",
+      "bytes": 1134,
+      "sha256": "3b54cf4b521950ed055d1946de2f96a4274adc6102c404513a813f1a2523d75d"
+    }
+  ],
+  "expectations": {
+    "seeded.html": {
+      "required_rule_ids": [
+        "image-alt",
+        "button-name",
+        "label"
+      ],
+      "unexpected_additional_rules": "Record and review; do not suppress to claim a pass"
+    },
+    "control.html": {
+      "seeded_rules_expected_absent": [
+        "image-alt",
+        "button-name",
+        "label"
+      ],
+      "whole_page_conformance": "Not established"
+    }
+  },
+  "side_effects": {
+    "scripts": false,
+    "external_assets": false,
+    "forms": false,
+    "storage": false,
+    "client_data": false
+  },
+  "hosting_status": "NOT HOSTED - approved HTTPS origin and runtime gates required"
+}

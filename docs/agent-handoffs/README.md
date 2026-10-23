@@ -322,3 +322,10 @@ VPS acceptance. No Chromebook/spare machine is required. Agents prepare and run
 approved bounded actions; Q reviews a concrete packet rather than debugging a
 terminal. No live test, provisioning, billing, access change or deployment occurs
 from this documentation amendment.
+
+## Owned synthetic URL fixture content
+
+[Fixture bundle](fixtures/url-scan/README.md) provides hashed control/seeded HTML
+for CLIENT-PILOT-001. Static structure/hash checks passed; axe/browser, hosting
+and runtime remain NOT RUN. Antigravity reviews it; Arch supplies the sanitized
+acceptance commands, and Muse keeps ownership of the current harness correction.

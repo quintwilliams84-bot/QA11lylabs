@@ -200,3 +200,13 @@ agents or execute unattended after the turn. Agents use their existing permitted
 surfaces; unavailable access is reported with one specific next action. No host,
 package or resource spending is incurred by this amendment. Client target/evidence
 stays private; Hermes waits for reviewed approved evidence before drafting findings.
+
+## Missing owned fixture: content prepared, hosting still pending
+
+The [synthetic URL fixture bundle](../agent-handoffs/fixtures/url-scan/README.md)
+now supplies a control and a three-defect page with hashed bytes/expected rule IDs.
+This is test content only. Antigravity reviews it; Muse binds exact chosen bytes
+to the corrected packet; Arch supplies a safe approved origin/topology and one
+sanitized acceptance-packet command companion. No fixture is hosted or scanned.
+Two fixture files do not increase the approved job count. See the bundle's exact
+limits and no-security-bypass rule. Browser expectations and runtime remain NOT RUN.
