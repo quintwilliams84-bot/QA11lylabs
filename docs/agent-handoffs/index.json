@@ -171,11 +171,11 @@
       "id": "customer-path-integration-scope",
       "target_agent": "muse",
       "status": "ready_for_review",
-      "subject": "Muse return: harness Rev 7 response to Rev 6 review of 4296a5e7, synthetic regression 41 of 41",
+      "subject": "Gate 1 input ready, Rev 8 harness corrects Rev 6 findings plus Arch gaps, 45 of 45 checks, limits proposed not enforced",
       "source": {
         "repository": "quintwilliams84-bot/QA11lylabs",
         "branch": "codex/staging-coordination",
-        "commit": "faa347bf870963998cec974ed89e22004bd6baa0"
+        "commit": "c194a4dbf6e39e1a057fccdee5263543e729aa06"
       }
     },
     {
@@ -198,6 +198,17 @@
       },
       "status": "ready_for_review",
       "subject": "Muse acknowledges CLIENT-PILOT-001, harness repair role per review of 1ce5e4c8, scan held",
+      "target_agent": "codex"
+    },
+    {
+      "id": "reader-test-correction",
+      "source": {
+        "branch": "muse/reader-test-correction",
+        "commit": "9f5bb08df161c0054e54139f1c20ce95c71cffa0",
+        "repository": "quintwilliams84-bot/QA11lylabs"
+      },
+      "status": "ready_for_review",
+      "subject": "Reader script correction branch, stale expectations fixed with deliberate fixtures, 14 tests pass standalone",
       "target_agent": "codex"
     }
   ]
