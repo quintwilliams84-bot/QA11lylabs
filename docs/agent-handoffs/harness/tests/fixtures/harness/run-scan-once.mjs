@@ -29,6 +29,7 @@ if (process.env.STUB_FIXTURE_CIDHARVEST) {
   writeFileSync(path.join(root, 'harvest-id.txt'), id);
 }
 if (process.env.STUB_FIXTURE_RUN) execFileSync('docker', ['run', 'stub-image'], { stdio: 'inherit' });
+if (process.env.STUB_FIXTURE_RUNSLOW) execFileSync('docker', ['run', 'stub-image'], { stdio: 'inherit' });
 if (process.env.STUB_PLANT_ID) appendFileSync(path.join(root, 'owned-containers.txt'), process.env.STUB_PLANT_ID + '\n');
 if (process.env.STUB_FIXTURE_TMP_UNRELATED) {
   writeFileSync(path.join(path.dirname(process.env.STAGE_TMP), 'unrelated-new-artifact'), 'not the job\u2019s file');

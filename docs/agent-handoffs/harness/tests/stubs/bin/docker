@@ -10,6 +10,10 @@ if [ "$MODE" = down ]; then echo "Cannot connect to the Docker daemon" >&2; exit
 cmd="${1:-}"; shift || true
 case "$cmd" in
   ps)
+    if [ -n "${STUB_DOCKER_PS_FAIL_AFTER:-}" ]; then
+      N="$(( $(cat "$STATE/pscount" 2>/dev/null || echo 0) + 1 ))"; echo "$N" > "$STATE/pscount"
+      if [ "$N" -gt "$STUB_DOCKER_PS_FAIL_AFTER" ]; then echo "daemon inspection failed (stub)" >&2; exit 1; fi
+    fi
     ls "$STATE/containers" 2>/dev/null | sed 's/\.created$//' | grep -E '^[0-9a-f]{64}$' || true
     exit 0;;
   create|run)
@@ -22,6 +26,10 @@ case "$cmd" in
     ID="$(printf '%s-%s' "$(date +%s%N)" "$$" | sha256sum | cut -d' ' -f1)"
     date +%s > "$STATE/containers/$ID.created"
     [ -n "$CIDFILE" ] && printf '%s' "$ID" > "$CIDFILE"
+    if [ "$cmd" = run ] && [ "$MODE" = runslow ]; then
+      sleep 30
+      exit 0
+    fi
     if [ "$cmd" = run ] && [ "$MODE" = hexlog ]; then
       echo "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
       echo "workload output line"

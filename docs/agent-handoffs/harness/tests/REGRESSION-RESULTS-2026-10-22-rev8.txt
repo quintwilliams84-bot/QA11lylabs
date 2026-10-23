@@ -1,0 +1,47 @@
+PASS  A1 verifier exit 0 with bound approval record
+PASS  A2 verifier BLOCKED without approval record
+PASS  A3 verifier catches 52-char digest as schema FAIL
+PASS  A4 verifier catches hash mismatch
+PASS  A5 absence check names ENOTDIR, not PASS
+PASS  A6 approval bound to wrong manifest FAILs
+PASS  A7 approval bound to wrong host FAILs
+PASS  B1 null score: PASS, availability recorded separately
+PASS  B6 integer score 90 accepted (actual contract)
+PASS  B9 integer score 0 accepted
+PASS  B7 fractional score 0.5 rejected
+PASS  B8 score 101 rejected
+PASS  B11 negative score rejected
+PASS  B10 string score rejected
+PASS  B2 malformed result is FAIL, not PASS
+PASS  B3 missing approval record BLOCKS before job.json exists
+PASS  B4 credential-pattern env BLOCKS
+PASS  B5 symlink escape of release dir BLOCKS
+PASS  B12 missing target BLOCKS (no hardcoded default)
+PASS  C1 all PASS aggregates PASS
+PASS  C2 any FAIL aggregates FAIL
+PASS  C3 UNKNOWN blocks PASS
+PASS  C4 baseline BLOCKED blocks
+PASS  C6 unit-cleanup UNKNOWN blocks PASS
+PASS  C5 missing evidence blocks
+PASS  D confinement-check FAILs unconfined (exit 66)
+PASS  E1 daemon down: baseline BLOCKED, nothing launched
+PASS  E2 HostConfig mismatch FAILs the run
+PASS  E3 failed cleanup FAILs the run
+PASS  E5 baseline container in job record: not removed, UNKNOWN
+PASS  E6 unrelated temp artifact preserved, tmp cleanup PASS
+PASS  E7 deadline stops unit with UNKNOWN identity (3s)
+PASS  E8 evidence log bounded at 1 MiB, producer spool + runtime file intact
+PASS  E9 cidfile identity captured; workload hex line ignored
+PASS  E4 stub happy path: BLOCKED via identity only, no FAILs, unit cleanup PASS
+PASS  E10 killed-shim harvest: cidfile record drives cleanup to PASS
+PASS  E11 missing target BLOCKS before launch
+PASS  E12 tampered assembly FAILs the digest gate, nothing launched
+PASS  E13 interrupted attached run: deadline FAIL, container removed via cidfile harvest
+PASS  E14 failed launch FAILs with cleanup evidence
+PASS  E15 cleanup inspection failure: UNKNOWN blocks readiness
+PASS  E16 spool storage bound stops the run (FAIL)
+PASS  F1 real launcher+preload+identity: PASS, job-private audit log, canonical job.json
+PASS  F2 real launcher without target BLOCKS (no default)
+PASS  G1 all package scripts are executable
+----
+regression: 45 passed, 0 failed

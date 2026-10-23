@@ -1,5 +1,23 @@
 #!/usr/bin/env bash
-# Supervisor v5 (Rev 7) for the staging diagnostic harness.
+# Supervisor v6 (Rev 8) for the staging diagnostic harness.
+#
+# Rev 8 answers Arch's enforcement-gaps handoff (ac468232):
+# - The producer spool/storage is now bounded SEPARATELY from the
+#   evidence collector: if the spool exceeds STAGE_SPOOL_MAX_BYTES
+#   (default 64 MiB), the watchdog stops the unit and the run
+#   FAILs. The producer's writes are never capped in place; the
+#   bound is enforced by stopping the owned lifecycle, and the
+#   evidence copy stays bounded at 1 MiB as before.
+# - Cleanup has a total ceiling (STAGE_CLEANUP_DEADLINE_S,
+#   default 30s, a PROPOSED figure): exceeding it marks the
+#   remaining components UNKNOWN and finishes - missing evidence
+#   blocks readiness, and no next admission follows an uncertain
+#   cleanup (the root is quarantined by the exclusive-root rule).
+# - Every other proposed limit (navigation/request ceilings,
+#   combined harness+worker CPU/RAM/PID, permitted-egress proof)
+#   is recorded in the runbook's limits register as PROPOSED and
+#   UNENFORCED until demonstrated on the staging host. This
+#   supervisor does not claim them.
 #
 # Answers Codex's Rev 6 review of 4296a5e7. Changes from v4:
 # - A job-private STAGE_AUDIT_LOG is passed explicitly into the
@@ -140,6 +158,7 @@ BASELINE="PASS"
 printf '%s\n' "$BEFORE_ALL" > "$JOB_DIR/baseline.txt"
 
 cleanup_phase() {
+  CLEANUP_START=$SECONDS
   # --- harvest ownership: direct records + cidfiles the shim
   #     recorded before delegating (interruption-proof).
   : >> "$OWNED"
@@ -179,8 +198,12 @@ cleanup_phase() {
     done <<EOF
 $owned_ids
 EOF
-    if ! STILL="$("${DOCKER[@]}" ps -aq --no-trunc 2>/dev/null)"; then
+    if [ $((SECONDS - CLEANUP_START)) -gt "${STAGE_CLEANUP_DEADLINE_S:-30}" ]; then
+      [ "$CONTAINER_CLEAN" = "PASS" ] && CONTAINER_CLEAN="UNKNOWN (cleanup ceiling ${STAGE_CLEANUP_DEADLINE_S:-30}s exceeded before re-verify)"
+      STILL=""
+    elif ! STILL="$("${DOCKER[@]}" ps -aq --no-trunc 2>/dev/null)"; then
       [ "$CONTAINER_CLEAN" = "PASS" ] && CONTAINER_CLEAN="UNKNOWN (re-verify failed)"
+      STILL=""
     else
       while IFS= read -r cid; do
         [ -z "$cid" ] && continue
@@ -290,6 +313,16 @@ while :; do
     if grep -q '"confinement":"PASS"' "$JOB_DIR/confinement.json"; then CONFINEMENT="PASS";
     elif grep -q '"confinement":"FAIL"' "$JOB_DIR/confinement.json"; then CONFINEMENT="FAIL"; fi
   fi
+  # producer spool/storage bound (separate from the evidence
+  # collector bound): fail-closed stop of the owned unit.
+  if [ -f "$JOB_DIR/producer.log" ]; then
+    SPOOL_SIZE="$(stat -c %s "$JOB_DIR/producer.log" 2>/dev/null || echo 0)"
+    if [ "$SPOOL_SIZE" -gt "${STAGE_SPOOL_MAX_BYTES:-67108864}" ]; then
+      HARNESS="FAIL (producer spool exceeded ${STAGE_SPOOL_MAX_BYTES:-67108864} bytes; unit stopped)"
+      stop_unit
+      break
+    fi
+  fi
   # identity evidence (reporting only; never gates the deadline).
   # Canonical parse on both sides: fields after the last ')'.
   if [ -f "$JOB_DIR/job.json" ] && [ "$IDENTITY" != "PASS" ]; then
@@ -350,7 +383,9 @@ if unit_alive; then "${SYSTEMCTL[@]}" kill "$UNIT" >/dev/null 2>&1 || true; slee
 
 # harness verdict. Deadline and interruption are STICKY failures:
 # a result file produced under a fired deadline never upgrades.
-if [ "$INTERRUPTED" = 1 ]; then
+if [ "${HARNESS:0:4}" = "FAIL" ]; then
+  : # sticky failure already recorded (interrupt, spool bound)
+elif [ "$INTERRUPTED" = 1 ]; then
   HARNESS="FAIL (interrupted)"
 elif [ "$DEADLINE_FIRED" = 1 ]; then
   HARNESS="FAIL (hard deadline fired; unit stopped)"

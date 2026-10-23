@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Synthetic regression suite for harness Rev 7 (test doubles and
+# Synthetic regression suite for harness Rev 8 (test doubles and
 # stubs ONLY - never the real runner, never a real client target).
 # Covers Codex's Rev 5 findings (root follow-up + independent
 # review of e9aca987):
@@ -339,6 +339,49 @@ c=json.load(open('$WORK/e-e12/root/cleanup.json'))
 assert c['components']['assembly'].startswith('FAIL'), c
 " && [ ! -f "$STUB_SYSTEMD_STATE/units/qa11y-stage-e-e12.pid" ]; then
   ok "E12 tampered assembly FAILs the digest gate, nothing launched"; else bad "E12" "rc=$RC"; fi
+
+# E13: interrupted attached run - deadline stops the unit while
+# an attached docker run is mid-flight; the cidfile recorded
+# before delegation drives cleanup of the real container record.
+EXTRA_ENV=(STUB_FIXTURE_RUNSLOW=1 STUB_DOCKER_MODE=runslow)
+DEADLINE=2
+RC="$(run_supervisor e13)"
+DEADLINE=240
+if [ "$RC" = 4 ] && python3 -c "
+import json
+c=json.load(open('$WORK/e-e13/root/cleanup.json'))
+assert c['components']['harness'].startswith('FAIL'), c
+assert c['components']['container_cleanup']=='PASS', c
+"; then ok "E13 interrupted attached run: deadline FAIL, container removed via cidfile harvest"; else bad "E13" "rc=$RC $(cat "$WORK/e-e13/root/cleanup.json" 2>/dev/null)"; fi
+# E14: failed launch - transient service never starts; cleanup
+# evidence still written, no readiness claimed.
+EXTRA_ENV=(STUB_SYSTEMD_RUN_FAIL=1)
+RC="$(run_supervisor e14)"
+if [ "$RC" = 4 ] && python3 -c "
+import json
+c=json.load(open('$WORK/e-e14/root/cleanup.json'))
+assert c['components']['harness'].startswith('FAIL'), c
+"; then ok "E14 failed launch FAILs with cleanup evidence"; else bad "E14" "rc=$RC"; fi
+# E15: daemon inspection fails during cleanup - component goes
+# UNKNOWN (missing evidence blocks), never a silent PASS.
+EXTRA_ENV=(STUB_DOCKER_PS_FAIL_AFTER=1)
+RC="$(run_supervisor e15)"
+if [ "$RC" = 3 ] && python3 -c "
+import json
+c=json.load(open('$WORK/e-e15/root/cleanup.json'))
+assert c['components']['container_cleanup'].startswith('UNKNOWN'), c
+"; then ok "E15 cleanup inspection failure: UNKNOWN blocks readiness"; else bad "E15" "rc=$RC"; fi
+EXTRA_ENV=()
+# E16: producer spool bound - flood beyond the storage bound
+# stops the unit and FAILs the run (collector bound is separate).
+EXTRA_ENV=(STUB_FIXTURE_FLOOD_MB=2 STAGE_SPOOL_MAX_BYTES=1000000)
+RC="$(run_supervisor e16)"
+if [ "$RC" = 4 ] && python3 -c "
+import json
+c=json.load(open('$WORK/e-e16/root/cleanup.json'))
+assert 'spool' in c['components']['harness'], c
+"; then ok "E16 spool storage bound stops the run (FAIL)"; else bad "E16" "rc=$RC $(cat "$WORK/e-e16/root/cleanup.json" 2>/dev/null)"; fi
+EXTRA_ENV=()
 
 # ============ F. real launcher + preload + identity writer ============
 F="$WORK/f"; mkdir -p "$F/harness/bin" "$F/stage/release" "$F/tmp"

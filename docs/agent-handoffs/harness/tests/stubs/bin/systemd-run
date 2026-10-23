@@ -18,6 +18,7 @@ while [ $# -gt 0 ]; do
     *) CMD=("$@"); break;;
   esac
 done
+if [ "${STUB_SYSTEMD_RUN_FAIL:-}" = 1 ]; then echo "stub systemd-run: launch failed" >&2; exit 1; fi
 UNIT="${UNIT%.service}"
 [ -n "$UNIT" ] || { echo "stub systemd-run: no unit" >&2; exit 1; }
 env "${SETENVS[@]}" "${CMD[@]}" &

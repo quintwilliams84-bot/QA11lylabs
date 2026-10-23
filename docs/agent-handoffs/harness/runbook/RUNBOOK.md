@@ -1,8 +1,8 @@
 # Staging diagnostic runbook (operator copy)
 
-Companion to the staging diagnostic packet, Revision 7 (amends the
-harness source filed at 4296a5e7 in response to Codex's Rev 6
-review). Status:
+Companion to the staging diagnostic packet, Revision 8 (amends the
+harness source filed at faa347bf in response to Codex's Rev 6
+review and Arch's enforcement-gaps handoff at ac468232). Status:
 PREPARED, NOT RUN. Execution requires: independent review of this
 revision (Antigravity, per the review's next gate), a designated
 non-production staging host named by Arch with a private evidence
@@ -80,7 +80,7 @@ staging host only.
   sticky in every component; unit termination verified as a
   required cleanup component; job-private temp removal only.
 - tests/run-regression.sh - synthetic suite (stubs/doubles
-  only) plus a real-launcher integration section. Rev 7: 41
+  only) plus a real-launcher integration section. Rev 8: 45
   gated cases.
 
 ## Ownership and cleanup protocol
@@ -94,6 +94,64 @@ staging host only.
 - Temp cleanup removes only the supervisor-created job-private
   directory inside $STAGE_TMP. Unrelated entries in the shared
   parent are preserved by design.
+
+## Checkout step: restore executable bits
+
+The package's scripts are executable in the author's tree, but
+the filing path used to publish this package stores every file
+as mode 100644 (verified 2026-10-23: local files 0770, branch
+tree 100644). Git modes can only be corrected by an
+authenticated git client (git update-index --chmod=+x and a
+push); until that commit lands, ANY fresh checkout must run:
+
+  chmod +x harness/supervise.sh harness/aggregate.sh \
+    harness/run-confined.sh harness/bin/docker \
+    tests/run-regression.sh tests/stubs/bin/* \
+    tests/fixtures/harness/bin/* \
+    tests/fixtures/harness/run-confined.sh
+
+(paths relative to this package's root). Without this step the
+supervisor cannot exec run-confined.sh or the docker shim and
+the run FAILs at launch - which is the correct fail-closed
+behaviour, but operators should not have to discover it.
+
+## Limits register (PROPOSED, NOT ENFORCED until demonstrated)
+
+Per Arch's handoff at ac468232: the following limits are
+PROPOSED. None is claimed as enforced by this package; each
+becomes enforceable only when demonstrated on the exact
+pairing on the staging host, and the return for that run must
+say so explicitly.
+
+- Navigation/request ceilings (incl. Lighthouse loads,
+  redirects, subresources, failed attempts): NOT enforced by
+  this harness. The harness admits exactly ONE runScan call;
+  counting inside the browser belongs to the worker/proxy
+  layer. TCP/byte limits do not prove request counting.
+- Combined CPU/RAM/PID ceiling across harness + daemon-owned
+  Docker workers: NOT enforced. The unit's MemoryMax/CPUQuota/
+  TasksMax bound the harness processes only; worker values
+  (768 MiB, swap 1000000000, 160 PIDs) are the runner's
+  source-declared HostConfig, observed by spot check, not
+  imposed by this package.
+- Job ceiling 240s / cleanup ceiling 30s: PROPOSED figures.
+  The supervisor enforces the job deadline on its owned unit
+  and bounds cleanup inspections; whole-owned-lifecycle
+  enforcement (hangs, uncertain identity, interrupted launch,
+  failed daemon inspection) is demonstrated synthetically in
+  the regression suite (E7, E13, E14, E15) and remains
+  UNDEMONSTRATED against real systemd/Docker.
+- Producer spool/storage bound (supervisor, 64 MiB default)
+  and evidence collector bound (1 MiB copy): implemented and
+  synthetically tested (E8, E16); the producer's own writes
+  are never capped in place.
+- Permitted egress on the exact pairing: UNDEMONSTRATED.
+  Requires the staging host and the worker's proxy relay;
+  a negative probe alone is not proof.
+- No automatic retry and no next admission after an uncertain
+  cleanup: enforced structurally (single-run supervisor,
+  exclusive-root quarantine, aggregation blocks readiness on
+  any non-PASS cleanup).
 
 ## Assembly (how the release copy reaches the job root)
 
