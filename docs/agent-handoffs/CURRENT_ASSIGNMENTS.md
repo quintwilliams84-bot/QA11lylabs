@@ -96,3 +96,14 @@ the existing reviewed delegation path. Codex owns report review; no Hermes reade
 identity or extra privilege is created. Other pending reviews retain their owners.
 Public-page permission was supplied by Quintin; do not request it again. Readiness,
 staging execution and any production change retain their distinct gates.
+
+## Latest next-phase assignment supplement
+
+Use the updated [CLIENT-PILOT-001](../work-orders/CLIENT-PILOT-001.md), not an
+additional audit plan. Muse owns the focused Rev 6 harness fixes against
+[Codex's review](reviews/Musee9aca987-client-followup.md) and
+[the independent reproductions](reviews/Musee9aca987-independent-review.md).
+Arch supplies the small host/private-channel/pairing readiness return, with no
+client scan, launches, captures or installs. Hermes prepares a synthetic outline
+only through the existing approved delegation path. Antigravity reviews the exact
+corrected revision after current reviews. No new polling or runtime is enabled.

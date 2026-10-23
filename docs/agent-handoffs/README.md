@@ -286,3 +286,15 @@ is held on technical readiness; outline/packet preparation can proceed.
 supervisor/confinement/ownership/pairing issues. Syntax and PACKAGE.md integrity
 checks passed; the worker digest has only 52 hex characters. No harness or client
 scan was run. Do not infer safe execution from a syntax or checksum pass.
+
+## Next-phase client-pilot update
+
+The [existing CLIENT-PILOT-001 work order](../work-orders/CLIENT-PILOT-001.md) now
+records receipt of the private scope packet and assigns the smallest next actions.
+[Rev 5 follow-up](reviews/Musee9aca987-client-followup.md) and
+[separate Codex-agent review](reviews/Musee9aca987-independent-review.md) explain
+why 19 passing stub regressions do not establish intended-path readiness. The
+root independently reproduced score90 rejection and score0.5 acceptance; the
+separate reviewer reproduced additional deadline/inspection/ownership failures.
+Client execution remains held; do not collect another broad inventory.
+P06 is consolidated into the existing pilot; client details/results stay private.
