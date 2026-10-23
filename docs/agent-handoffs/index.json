@@ -208,7 +208,7 @@
       "source": {
         "repository": "quintwilliams84-bot/QA11lylabs",
         "branch": "agent/codex/customer-path-recovery",
-        "commit": "c124b1d4b92d81cab3ce26a3a195f97af2f3f233"
+        "commit": "9330659c636c3a6ebf61fea81c69ef921fbf2e40"
       }
     },
     {
@@ -219,7 +219,7 @@
       "source": {
         "repository": "quintwilliams84-bot/QA11lylabs",
         "branch": "agent/codex/customer-path-recovery",
-        "commit": "c124b1d4b92d81cab3ce26a3a195f97af2f3f233"
+        "commit": "9330659c636c3a6ebf61fea81c69ef921fbf2e40"
       }
     },
     {
@@ -231,6 +231,17 @@
         "repository": "quintwilliams84-bot/QA11lylabs",
         "branch": "agent/codex/customer-path-recovery",
         "commit": "7e74ed6008dd2a50368a1f5ce5fb2784c15b8b65"
+      }
+    },
+    {
+      "id": "synthetic-fixture-independent-review",
+      "target_agent": "antigravity",
+      "status": "ready_for_review",
+      "subject": "Review synthetic URL fixture content and expected axe rules. No hosting or scans authorized. Existing CLIENT-PILOT-001 input.",
+      "source": {
+        "repository": "quintwilliams84-bot/QA11lylabs",
+        "branch": "agent/codex/customer-path-recovery",
+        "commit": "9330659c636c3a6ebf61fea81c69ef921fbf2e40"
       }
     }
   ]
