@@ -153,7 +153,7 @@
       "source": {
         "repository": "quintwilliams84-bot/QA11lylabs",
         "branch": "codex/staging-coordination",
-        "commit": "5f84d066911cb46940724925610d7b65f6d4b987"
+        "commit": "1ce5e4c8cb026fa8979360907db999572f9b0c02"
       }
     },
     {
@@ -198,6 +198,28 @@
         "repository": "quintwilliams84-bot/QA11lylabs",
         "branch": "codex/staging-coordination",
         "commit": "4d5740efcd4cc67fb280febeb868ddc898de198e"
+      }
+    },
+    {
+      "id": "client-pilot-scan",
+      "target_agent": "arch",
+      "status": "blocked",
+      "subject": "Client pilot scan preparation. Public pages authorized, exact target from Muse. Execution held on reviewed runtime readiness.",
+      "source": {
+        "repository": "quintwilliams84-bot/QA11lylabs",
+        "branch": "agent/codex/customer-path-recovery",
+        "commit": "b9608328c069b0a7287a4eb0c8a4806ed7c554be"
+      }
+    },
+    {
+      "id": "client-pilot-report-review",
+      "target_agent": "codex",
+      "status": "blocked",
+      "subject": "Client pilot evidence and report review. Hermes prepares outline only until verified artifacts and processing scope are available.",
+      "source": {
+        "repository": "quintwilliams84-bot/QA11lylabs",
+        "branch": "agent/codex/customer-path-recovery",
+        "commit": "b9608328c069b0a7287a4eb0c8a4806ed7c554be"
       }
     }
   ]
