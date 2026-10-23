@@ -1,6 +1,6 @@
 {
   "manifest_version": 1,
-  "purpose": "Machine-checkable runtime pairing for the QA11yLabs staging diagnostic packet (Rev 3). Values are Arch's installed-state observations, cd7b56146469e5851d76a29bacc37bd5634392aa, observed 2026-10-22 16:15-16:18 UTC. Revalidation is change-based: any change to a pointer, file, package, image or mount expires the observation for execution purposes.",
+  "purpose": "Machine-checkable runtime pairing for the QA11yLabs staging diagnostic packet (Rev 5). Values are Arch's installed-state observations, cd7b56146469e5851d76a29bacc37bd5634392aa, observed 2026-10-22 16:15-16:18 UTC. Revalidation is change-based: any change to a pointer, file, package, image or mount expires the observation for execution purposes. Rev 5 correction: the Rev 4 worker.cjs digest was truncated at 52 hex characters; it is corrected below to the full SHA-256 recorded in Arch cd7b561 line 36, per Codex's client-readiness review of 1ce5e4c8.",
   "release": {
     "name": "20261017-r2",
     "resolved_root_placeholder": "$RELEASE_ROOT",
@@ -22,7 +22,7 @@
   },
   "release_files": [
     {"path": "runner.cjs", "sha256": "d2b3167f8be4081822183ccd7022a9bf7b83cf3ba454a73edd6f0c747597b0dd"},
-    {"path": "worker.cjs", "sha256": "9cba6bcd5ee3384f68dea6538c5900589ed9fa44f68dea653459"},
+    {"path": "worker.cjs", "sha256": "9cba6bcd5ee33840622fa37fcc0eac0ca2538c5900589ed9fa44f68dea653459"},
     {"path": "watchdog.cjs", "sha256": "be66dd6c6e5cfdc2c21efcaac9ca6e09e2202ff93943c07c5b2a216c42ccbecb"},
     {"path": "egress_proxy.py", "sha256": "8eb1e1df823e2a72ed27f1ceee16de7e6ad1d0a47d372a0e0ea87c7a25e8a8b5"},
     {"path": "seccomp_profile.json", "sha256": "b9b7007a80b8935859cd1cb7f766ff3ac485dc5bee6237568ab04025ce7dd33a"},

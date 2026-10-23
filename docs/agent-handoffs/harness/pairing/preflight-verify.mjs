@@ -1,12 +1,24 @@
-// Preflight pairing verifier for the staging diagnostic packet.
+// Preflight pairing verifier for the staging diagnostic packet (Rev 5).
 // Read-only. Rechecks every manifest entry against a target install
-// and prints PASS / FAIL / BLOCKED per item. Exit 0 only if all
-// checkable items PASS and the pairing gate is explicitly resolved.
+// and prints PASS / FAIL / BLOCKED per item. Exit codes: 0 = every
+// checkable item PASS and the pairing gate resolved by an operator
+// supplied approval record; 2 = FAIL (identity or schema broken);
+// 3 = BLOCKED (gate unresolved or an item could not be inspected).
+// This verifier NEVER creates or implies an approval. The gate
+// resolves only when --pairing-approval names a record file supplied
+// by the operator: JSON { path: "a"|"b", approved_by, approved_at }.
+// (Path "a" = manifests/locks; path "b" = captured-runtime pairing.)
+// Rev 5 changes per Codex's client-readiness review of 1ce5e4c8:
+//   - manifest schema is validated first: every digest must be a full
+//     64-char lowercase hex SHA-256 (the Rev 4 worker.cjs digest was
+//     truncated at 52 chars and passed silently);
+//   - absence/read checks distinguish ENOENT from permission and
+//     other errors, and name the error code in the result detail;
+//   - the pairing gate has a coherent resolved path (approval record)
+//     instead of being BLOCKED unconditionally.
 // Usage: node preflight-verify.mjs --manifest pairing.manifest.json \
 //          --release-root $RELEASE_ROOT --chrome-path $CHROME_PATH \
-//          [--image-id sha256:...]  (from `docker image inspect`)
-// Change-based revalidation: this IS the recheck the packet requires
-// before any separately approved run.
+//          [--image-id sha256:...] [--pairing-approval approval.json]
 import { createHash } from 'node:crypto';
 import { createReadStream } from 'node:fs';
 import { readFile, stat } from 'node:fs/promises';
@@ -15,45 +27,100 @@ import path from 'node:path';
 const args = Object.fromEntries(process.argv.slice(2).reduce((acc, a, i, arr) => {
   if (a.startsWith('--')) acc.push([a.slice(2), arr[i + 1]]); return acc;
 }, []));
-const manifest = JSON.parse(await readFile(args.manifest, 'utf8'));
 const results = [];
 const record = (item, status, detail) => results.push({ item, status, detail });
+const SHA256 = /^[0-9a-f]{64}$/;
+
+let manifest;
+try {
+  manifest = JSON.parse(await readFile(args.manifest, 'utf8'));
+} catch (e) {
+  console.log(`FAIL    manifest - unreadable or invalid JSON (${e.code || e.message})`);
+  console.log('OVERALL: FAIL');
+  process.exit(2);
+}
+
+// --- schema validation: a malformed identity is a FAIL, never a
+// silent mismatch against a value that could never match.
+let schemaOk = true;
+const checkDigest = (item, value) => {
+  if (typeof value !== 'string' || !SHA256.test(value)) {
+    record(item, 'FAIL', `manifest schema: digest is not a full 64-char lowercase hex SHA-256 (got ${typeof value === 'string' ? value.length + ' chars' : typeof value})`);
+    schemaOk = false;
+  }
+};
+for (const f of manifest.release_files || []) checkDigest(`schema:file:${f.path}`, f.sha256);
+checkDigest('schema:host-browser', manifest.host_browser && manifest.host_browser.sha256);
+const imageId = manifest.worker_image && manifest.worker_image.id;
+if (typeof imageId !== 'string' || !/^sha256:[0-9a-f]{64}$/.test(imageId)) {
+  record('schema:worker-image', 'FAIL', 'manifest schema: worker image id is not sha256:<64 hex>');
+  schemaOk = false;
+}
 
 async function sha256(file) {
   const h = createHash('sha256');
   for await (const chunk of createReadStream(file)) h.update(chunk);
   return h.digest('hex');
 }
+const errKind = (e) => (e && e.code) ? e.code : String(e && e.message || e);
 
-for (const f of manifest.release_files) {
-  const p = path.join(args['release-root'], f.path);
+if (schemaOk) {
+  for (const f of manifest.release_files) {
+    const p = path.join(args['release-root'], f.path);
+    try {
+      const got = await sha256(p);
+      record(`file:${f.path}`, got === f.sha256 ? 'PASS' : 'FAIL',
+        got === f.sha256 ? 'hash match' : `hash mismatch (got ${got.slice(0, 12)}...)`);
+    } catch (e) {
+      record(`file:${f.path}`, 'FAIL', `unreadable (${errKind(e)})`);
+    }
+  }
+  for (const absent of manifest.absent_inputs) {
+    try {
+      await stat(path.join(args['release-root'], absent));
+      record(`absent:${absent}`, 'FAIL', 'present but manifest expects absent - pairing changed, re-review');
+    } catch (e) {
+      if (e && e.code === 'ENOENT') record(`absent:${absent}`, 'PASS', 'still absent (ENOENT; pairing gap unchanged)');
+      else record(`absent:${absent}`, 'FAIL', `absence not confirmable (${errKind(e)}); only ENOENT proves absence`);
+    }
+  }
   try {
-    const got = await sha256(p);
-    record(`file:${f.path}`, got === f.sha256 ? 'PASS' : 'FAIL',
-      got === f.sha256 ? 'hash match' : `hash mismatch (got ${got.slice(0, 12)}...)`);
-  } catch { record(`file:${f.path}`, 'FAIL', 'missing or unreadable'); }
+    const got = await sha256(args['chrome-path']);
+    const size = (await stat(args['chrome-path'])).size;
+    const ok = got === manifest.host_browser.sha256 && size === manifest.host_browser.bytes;
+    record('host-browser', ok ? 'PASS' : 'FAIL', ok ? 'hash and size match' : 'browser identity changed');
+  } catch (e) {
+    record('host-browser', 'FAIL', `browser unreadable (${errKind(e)})`);
+  }
+  if (args['image-id']) {
+    record('worker-image', args['image-id'] === manifest.worker_image.id ? 'PASS' : 'FAIL',
+      args['image-id'] === manifest.worker_image.id ? 'digest match' : 'image digest changed');
+  } else {
+    record('worker-image', 'BLOCKED', 'no image id supplied; run docker image inspect on the staging host');
+  }
 }
-for (const absent of manifest.absent_inputs) {
-  try {
-    await stat(path.join(args['release-root'], absent));
-    record(`absent:${absent}`, 'FAIL', 'present but manifest expects absent - pairing changed, re-review');
-  } catch { record(`absent:${absent}`, 'PASS', 'still absent (pairing gap unchanged)'); }
-}
-try {
-  const got = await sha256(args['chrome-path']);
-  const size = (await stat(args['chrome-path'])).size;
-  const ok = got === manifest.host_browser.sha256 && size === manifest.host_browser.bytes;
-  record('host-browser', ok ? 'PASS' : 'FAIL', ok ? 'hash and size match' : 'browser identity changed');
-} catch { record('host-browser', 'FAIL', 'browser missing or unreadable'); }
 
-if (args['image-id']) {
-  record('worker-image', args['image-id'] === manifest.worker_image.id ? 'PASS' : 'FAIL',
-    args['image-id'] === manifest.worker_image.id ? 'digest match' : 'image digest changed');
+// --- pairing gate: resolved only by an operator-supplied approval
+// record naming path (a) manifests/locks or (b) captured-runtime.
+if (!args['pairing-approval']) {
+  record('pairing-gate', 'BLOCKED',
+    'no approval record supplied. Execution requires a named approval of manifests/locks (path a) or of the captured-runtime pairing (path b). This verifier never resolves the gate itself.');
 } else {
-  record('worker-image', 'BLOCKED', 'no image id supplied; run docker image inspect on the staging host');
+  try {
+    const approval = JSON.parse(await readFile(args['pairing-approval'], 'utf8'));
+    const pathOk = approval.path === 'a' || approval.path === 'b';
+    const whoOk = typeof approval.approved_by === 'string' && approval.approved_by.length > 0;
+    const whenOk = typeof approval.approved_at === 'string' && approval.approved_at.length > 0;
+    if (pathOk && whoOk && whenOk) {
+      record('pairing-gate', 'PASS',
+        `path (${approval.path}) approved by ${approval.approved_by} at ${approval.approved_at} (operator-supplied record; verifier does not create approvals)`);
+    } else {
+      record('pairing-gate', 'FAIL', 'approval record malformed: requires path "a"|"b", approved_by, approved_at');
+    }
+  } catch (e) {
+    record('pairing-gate', 'FAIL', `approval record unreadable (${errKind(e)})`);
+  }
 }
-record('pairing-gate', 'BLOCKED',
-  'deps/package.json and deps/package-lock.json are absent. Execution requires a named approval of manifests/locks (path a) or of the captured-runtime pairing (path b). This verifier never resolves the gate itself.');
 
 for (const r of results) console.log(`${r.status.padEnd(7)} ${r.item} - ${r.detail}`);
 const hardFail = results.some(r => r.status === 'FAIL');

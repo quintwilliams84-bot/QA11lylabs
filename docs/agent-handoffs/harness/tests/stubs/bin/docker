@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# Stub docker for supervisor regression tests. State in $STUB_STATE.
+# Modes via $STUB_DOCKER_MODE: ok | down | badcaps | rmfail.
+set -u
+S="${STUB_STATE:?}"; MODE="${STUB_DOCKER_MODE:-ok}"
+touch "$S/all.txt" "$S/running.txt"
+cmd="${1:-}"; shift || true
+case "$cmd" in
+  ps)
+    [ "$MODE" = "down" ] && { echo "Cannot connect to the Docker daemon" >&2; exit 1; }
+    if [ "${1:-}" = "-aq" ] || [ "${1:-}" = "-a" ]; then cat "$S/all.txt"; else cat "$S/running.txt"; fi
+    ;;
+  create|run)
+    id="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    echo "$id" >> "$S/all.txt"; echo "$id" >> "$S/running.txt"
+    echo "$id" ;;
+  inspect)
+    id="${@: -1}"
+    if [ "$MODE" = "badcaps" ]; then echo "1024 0 0"; else echo "805306368 1000000000 160"; fi ;;
+  rm)
+    [ "$MODE" = "rmfail" ] && { echo "stub rm failure" >&2; exit 1; }
+    id="${@: -1}"
+    grep -vx "$id" "$S/all.txt" > "$S/all.tmp" || true; mv "$S/all.tmp" "$S/all.txt"
+    grep -vx "$id" "$S/running.txt" > "$S/run.tmp" || true; mv "$S/run.tmp" "$S/running.txt"
+    echo "$id" ;;
+  *) echo "stub docker: unhandled $cmd" >&2; exit 1 ;;
+esac

@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# Stub systemctl for supervisor regression tests. State in $STUB_STATE.
+set -u
+S="${STUB_STATE:?}"
+case "${1:-}" in
+  show)
+    [ -f "$S/stopped" ] && exit 1
+    echo "ControlGroup=/user.slice/stub.scope"; exit 0 ;;
+  stop)
+    touch "$S/stopped"
+    [ -f "$S/child.pid" ] && kill "$(cat "$S/child.pid")" 2>/dev/null || true
+    exit 0 ;;
+  *) exit 0 ;;
+esac

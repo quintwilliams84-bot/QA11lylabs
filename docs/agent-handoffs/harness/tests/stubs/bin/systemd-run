@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# Stub systemd-run: finds the wrapped command (bash .../run-confined.sh)
+# and execs it, so the supervisor's $! is the launcher process and the
+# harness node is its descendant, mirroring the real scope topology
+# (minus the cgroup, which is why IDENTITY stays UNKNOWN under stubs).
+set -u
+S="${STUB_STATE:?}"
+pos=0
+for i in "$@"; do pos=$((pos+1)); case "$i" in *run-confined.sh) break ;; esac; done
+# command starts one position before run-confined.sh
+start=$((pos-1))
+cmd=("${@:start}")
+echo "$$" > "$S/launcher.pid"
+exec "${cmd[@]}"

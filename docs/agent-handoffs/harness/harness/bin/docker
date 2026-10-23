@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+# Docker CLI shim (Rev 5): placed first on PATH for the harness
+# process tree only (see run-confined.sh). Delegates everything to
+# the real docker binary, but records the full container ID printed
+# by `docker create` / `docker run` into
+# $STAGE_ROOT/owned-containers.txt - creation-time capture from the
+# job's own process tree, which is what makes later cleanup
+# ownership-aware. The supervisor removes ONLY ids recorded here;
+# ids merely seen in a before/after diff are evidence, never removed.
+# Limitation (stated, not hidden): if the runner talks to the Docker
+# API directly instead of the CLI, this shim captures nothing and
+# the supervisor reports cleanup UNKNOWN rather than PASS.
+set -u
+REAL="${STAGE_REAL_DOCKER:-/usr/bin/docker}"
+: "${STAGE_ROOT:?}"
+printf '%s %s\n' "$(date +%s)" "$*" >> "$STAGE_ROOT/docker-calls.log" 2>/dev/null || true
+out="$("$REAL" "$@")"; rc=$?
+printf '%s\n' "$out"
+if [ $rc -eq 0 ]; then
+  case "${1:-}" in
+    create|run)
+      id="$(printf '%s\n' "$out" | grep -E '^[0-9a-f]{64}$' | tail -1 || true)"
+      [ -n "$id" ] && printf '%s\n' "$id" >> "$STAGE_ROOT/owned-containers.txt" ;;
+  esac
+fi
+exit $rc
