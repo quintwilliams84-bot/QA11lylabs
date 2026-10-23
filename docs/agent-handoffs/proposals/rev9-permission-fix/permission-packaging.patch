@@ -1,0 +1,123 @@
+diff --git a/docs/agent-handoffs/harness/TREE-MANIFEST.json b/docs/agent-handoffs/harness/TREE-MANIFEST.json
+index a289441..cb3a3dd 100644
+--- a/docs/agent-handoffs/harness/TREE-MANIFEST.json
++++ b/docs/agent-handoffs/harness/TREE-MANIFEST.json
+@@ -1,7 +1,7 @@
+ {
+  "package": "staging-diagnostic-harness",
+  "revision": "rev9",
+- "note": "Covers every package file except this manifest and PACKAGE.md. Verify with: node tools/verify-tree.mjs <tree-dir> <tree-dir>/TREE-MANIFEST.json",
++ "note": "Covers every package file except this manifest and PACKAGE.md. Verify with: node tools/verify-tree.mjs <tree-dir> <tree-dir>/TREE-MANIFEST.json Proposed mode-only packaging repair is recorded in Git; runtime mode repair is forbidden. Other controller findings remain unresolved.",
+  "files": {
+   "harness/aggregate.sh": {
+    "sha256": "130a2317579abdf092d9a7845eca4955aec7863078afc63e92aaf31bc7236256",
+@@ -24,7 +24,7 @@
+    "executable": false
+   },
+   "harness/supervise.sh": {
+-   "sha256": "e81fdfa5847c1e27421f79fcbbc03efb9768276c56293f25ea50143ff02031be",
++   "sha256": "a3dfae1eb45084213e8cdf9f18ab2bcbe14bc72d8c5754fb049e2cd41cda8352",
+    "executable": true
+   },
+   "harness/bin/docker": {
+@@ -88,4 +88,4 @@
+    "executable": false
+   }
+  }
+-}
+\ No newline at end of file
++}
+diff --git a/docs/agent-handoffs/harness/harness/aggregate.sh b/docs/agent-handoffs/harness/harness/aggregate.sh
+old mode 100644
+new mode 100755
+diff --git a/docs/agent-handoffs/harness/harness/bin/docker b/docs/agent-handoffs/harness/harness/bin/docker
+old mode 100644
+new mode 100755
+diff --git a/docs/agent-handoffs/harness/harness/run-confined.sh b/docs/agent-handoffs/harness/harness/run-confined.sh
+old mode 100644
+new mode 100755
+diff --git a/docs/agent-handoffs/harness/harness/supervise.sh b/docs/agent-handoffs/harness/harness/supervise.sh
+old mode 100644
+new mode 100755
+index 3ef84ba..71a26bc
+--- a/docs/agent-handoffs/harness/harness/supervise.sh
++++ b/docs/agent-handoffs/harness/harness/supervise.sh
+@@ -20,10 +20,8 @@
+ #    and content; unsupported entry types fail the digest.
+ # 6. (pairing/preflight-verify.mjs) standalone preflight now
+ #    REQUIRES --host-id and --run-id and a record carrying both.
+-# Safeguards (Quintin, Oct 23): the launcher heals executable
+-# modes inside the assembled release before digesting, so a
+-# mode-stripped checkout still runs; the digest binds the
+-# healed modes, so the heal is verified, not assumed.
++# Permission proposal: launch verifies package modes without changing them.
++# Packaging repair belongs to a separate reviewed assembly step.
+ #
+ # Rev 8 answers Arch's enforcement-gaps handoff (ac468232):
+ # - The producer spool/storage is now bounded SEPARATELY from the
+@@ -78,6 +76,31 @@ set -uo pipefail
+ : "${STAGE_TMP:?STAGE_TMP required}"
+ : "${STAGE_HARNESS_DIR:?STAGE_HARNESS_DIR required}"
+ : "${STAGE_ASSEMBLY_DIR:?STAGE_ASSEMBLY_DIR required (operator-assembled release copy + assembly.json)}"
++# Fail before creating job state or contacting a supervisor. This is a
++# packaging check, not proof of authenticated ownership or immutable storage.
++if ! python3 - "$STAGE_HARNESS_DIR" <<'MODE_CHECK'
++import os, stat, sys
++root = sys.argv[1]
++try:
++    if not os.path.isabs(root) or os.path.normpath(root) != root:
++        raise ValueError("harness directory must be an absolute normalized path")
++    if os.path.realpath(root) != root or not os.path.isdir(root):
++        raise ValueError("harness directory must be a real directory without symlink ancestors")
++    for rel in ("bin/docker", "run-confined.sh", "aggregate.sh", "supervise.sh"):
++        name = os.path.join(root, rel)
++        info = os.lstat(name)
++        if os.path.realpath(name) != name or not stat.S_ISREG(info.st_mode):
++            raise ValueError("required launch file must be regular with no symlink components: " + rel)
++        if stat.S_IMODE(info.st_mode) != 0o755 or not os.access(name, os.R_OK | os.X_OK):
++            raise ValueError("required launch file must be readable/executable mode 0755: " + rel)
++except (OSError, ValueError) as error:
++    print("BLOCKED: invalid harness packaging: " + str(error), file=sys.stderr)
++    sys.exit(3)
++MODE_CHECK
++then
++  exit 3
++fi
++
+ DEADLINE_S="${STAGE_HARD_DEADLINE_S:-240}"
+ RUN_ID="${STAGE_RUN_ID:-run-$$-$(date +%s)}"
+ UNIT="qa11y-stage-${RUN_ID}.service"
+@@ -368,15 +391,6 @@ LAUNCH_ENV=(
+   --setenv=STAGE_HOST_ID="${STAGE_HOST_ID:-}"
+   --setenv=STAGE_TARGET_URL="$STAGE_TARGET_URL"
+ )
+-# Self-heal executable modes in the harness tree (Rev 9 safeguard):
+-# the filing path stores files at 100644, so a fresh checkout may
+-# lack exec bits. The docker shim is reached through PATH and
+-# needs +x; healing here is idempotent and confined to this
+-# package's own tree. (Assembly content is unaffected: modes are
+-# bound separately by the v2 digest verification above.)
+-for f in bin/docker run-confined.sh aggregate.sh supervise.sh; do
+-  [ -f "$STAGE_HARNESS_DIR/$f" ] && chmod 0755 "$STAGE_HARNESS_DIR/$f" 2>/dev/null || true
+-done
+ 
+ if ! "${SYSTEMD_RUN[@]}" --unit="$UNIT" \
+       -p PrivateNetwork=yes -p ProtectSystem=strict \
+diff --git a/docs/agent-handoffs/harness/tests/fixtures/harness/bin/docker b/docs/agent-handoffs/harness/tests/fixtures/harness/bin/docker
+old mode 100644
+new mode 100755
+diff --git a/docs/agent-handoffs/harness/tests/fixtures/harness/run-confined.sh b/docs/agent-handoffs/harness/tests/fixtures/harness/run-confined.sh
+old mode 100644
+new mode 100755
+diff --git a/docs/agent-handoffs/harness/tests/run-regression.sh b/docs/agent-handoffs/harness/tests/run-regression.sh
+old mode 100644
+new mode 100755
+diff --git a/docs/agent-handoffs/harness/tests/stubs/bin/docker b/docs/agent-handoffs/harness/tests/stubs/bin/docker
+old mode 100644
+new mode 100755
+diff --git a/docs/agent-handoffs/harness/tests/stubs/bin/systemctl b/docs/agent-handoffs/harness/tests/stubs/bin/systemctl
+old mode 100644
+new mode 100755
+diff --git a/docs/agent-handoffs/harness/tests/stubs/bin/systemd-run b/docs/agent-handoffs/harness/tests/stubs/bin/systemd-run
+old mode 100644
+new mode 100755

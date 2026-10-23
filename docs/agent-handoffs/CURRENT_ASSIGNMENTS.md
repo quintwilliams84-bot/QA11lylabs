@@ -1,3 +1,9 @@
+> Latest correction: read [Rev9 reconciliation](returns/Codex-Rev9-reconciliation.md)
+> and [independent review](reviews/Rev9-independent-review.md). Rev9 needs revision;
+> Muse integrates, Arch reconciles the held acceptance packet, Perplexity can
+> contribute manual primary-source review. No staging or production launch.
+> The permission patch is non-applied proposal material; other blockers remain.
+
 # Current assignments - October 23, 2026 (America/Denver)
 
 **Weekend override:** Antigravity is unavailable. Muse fixes the six already

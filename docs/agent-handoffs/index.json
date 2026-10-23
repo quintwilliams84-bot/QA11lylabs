@@ -149,11 +149,11 @@
       "id": "customer-path-integration-scope",
       "target_agent": "muse",
       "status": "needs_revision",
-      "subject": "Fix six reviewed and Muse-confirmed Rev8 defects now. Separate Codex peer review of corrected candidate. Execution held.",
+      "subject": "Rev9 needs ownership, coverage, packaging and cleanup fixes. Read Codex Rev9 reconciliation. Execution held.",
       "source": {
         "repository": "quintwilliams84-bot/QA11lylabs",
         "branch": "codex/staging-coordination",
-        "commit": "c194a4dbf6e39e1a057fccdee5263543e729aa06"
+        "commit": "37b4982e2dda770a1b82664520817219a4b49e78"
       }
     },
     {

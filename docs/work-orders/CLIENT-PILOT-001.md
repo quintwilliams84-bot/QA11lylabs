@@ -275,3 +275,13 @@ silently satisfied by a different reviewer: present that reviewer substitution
 with the completed exact execution packet for Quintin's decision. Coding/preparation
 continues meanwhile. Do not infer approval to execute, deploy, change permissions
 or use the client as the first sandbox/cleanup test.
+
+
+## Rev9 reconciliation - 2026-10-23
+
+Candidate 37b4982e2dda770a1b82664520817219a4b49e78 needs revision following
+independent ownership, coverage, packaging and cleanup review. See
+[concrete owner actions](../agent-handoffs/returns/Codex-Rev9-reconciliation.md).
+Codex supplied a non-applied narrow permission proposal; Muse remains sole
+integration writer. Nine prefix-only checks passed, not a real lifecycle run.
+Existing acceptance exit-3 hold and all execution approvals remain separate.
