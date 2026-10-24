@@ -130,3 +130,73 @@ timeout 5s docker inspect --format '{{.Id}} {{.State.Status}} {{.HostConfig.Memo
 # only exclusively owned temp removed, bounded evidence retained; 30s proposed.
 # Any error/UNKNOWN: hold admission, no retries, preserve evidence, report to Q.
 # No production resets/restarts/lease deletion, host fixture, main merge or sends.
+
+# PARAMETER REGISTER — amendment to existing CLIENT-PILOT-001 packet
+# Read Codex reconciliation + independent review at
+# 7f0dc6af3a836fe03c8d536fc3cdc456522c23c5. Rev9 remains needs_revision.
+# Each row: name | units | proposed value | enforcement point | evidence | approval
+# Names STAGE_* below are observed candidate inputs; other names are packet labels,
+# NOT invented supported executor environment variables. Final binding awaits review.
+# STAGE_HARD_DEADLINE_S | seconds | 240 | manager-enforced workload lifetime plus supervisor absolute clock | MISSING corrected behavior | PENDING
+# STAGE_CLEANUP_DEADLINE_S | seconds | 30 | single monotonic deadline across stop/inspect/removal/temp/escalation, calls capped to remaining time | Rev9 total-loop defect | PENDING
+# worker_timeoutMs | milliseconds | 90000 | existing runScan timer, worker phase only | historical source cd7b561, NOT whole-job proof | PENDING
+# caller_abort | seconds | 180 | reviewed caller AbortSignal | intended-host evidence MISSING | PENDING
+# inspection_timeout | seconds | <=5 and <=remaining cleanup budget | each manager/daemon observation | corrected implementation MISSING | PENDING
+# worker_memory | bytes | 805306368 | Docker Memory | historical source only | PENDING
+# worker_memory_plus_swap | bytes | 805306368 | Docker MemorySwap, verify semantics and effective cgroup | historical source only | PENDING
+# worker_cpu | NanoCpus | 1000000000 | Docker NanoCpus, never compare swap field as CPU | Rev9 review requires per-ID coverage | PENDING
+# worker_pids | tasks | 160 | Docker PidsLimit | historical source only | PENDING
+# worker_shm | bytes | 67108864 | worker shm mount | live enforcement NOT RUN | PENDING
+# worker_tmpfs | bytes | 134217728 | worker tmpfs mount | live enforcement NOT RUN | PENDING
+# aggregate_memory | bytes | 1073741824 | account harness/proxy AND daemon-owned workers | implementation + measured isolated peak MISSING | PENDING
+# aggregate_cpu | CPUs | 1 | combined accounting across those cgroups | NOT ENFORCED | PENDING
+# aggregate_pids | tasks | 192 | combined owned-process/container accounting | NOT ENFORCED | PENDING
+# STAGE_SPOOL_MAX_BYTES | bytes | 16777216 | actual producer spool/storage bound, not post-hoc copy, no producer RLIMIT_FSIZE | corrected validation/enforcement MISSING | PENDING
+# log_sink | bytes/file | 1048576 | streaming collector, overflow fails and triggers owned cleanup | intended-path tests MISSING | PENDING
+# log_total | bytes | 16777216 | cumulative log/spool quota, not two independent allowances | NOT ENFORCED | PENDING
+# temp_plus_writable_disk | bytes | 1073741824 | job-owned quota incl spool/results/temp, separate immutable cache accounting | NOT ENFORCED | PENDING
+# admission_memory_available | MiB | >=1536 | fresh bounded MemAvailable read before trusted claim | no fresh measurement; do not lower to pass | PENDING
+# admission_disk_free | MiB | >=2048 | relevant writable filesystem observation | old inventory not clearance | PENDING
+# admission_pressure | percent | full avg10 <0.5 | fresh PSI read | current readiness UNKNOWN | PENDING
+# pressure_stop | percent/seconds | full avg10 >=1 for 10s | bounded owned monitor | implementation MISSING | PENDING
+# memory_stop | MiB | <=512 available or new OOM | bounded owned monitor/cgroup counters | implementation MISSING | PENDING
+# job_count/concurrency/retries | count | 1 / 1 / 0 | trusted cross-process admission, immutable run ID | process-local active flag insufficient | PENDING
+# navigations | count/job | <=3 | actual engine/browser navigation accounting | NOT ENFORCED | PENDING
+# network_requests | count/job | <=200 incl redirects/subresources/failures | actual HTTP/engine accounting, not tunnel counts | NOT ENFORCED | PENDING
+# response_total | bytes/job | 26214400 | streaming egress accounting | intended-path proof MISSING | PENDING
+# response_single | bytes/response | 8388608 | streaming response accounting | intended-path proof MISSING | PENDING
+# redirects/additional_origins | count | 0 / 0 for selected fixture | reviewed HTTPS/egress allowlist | origin MISSING | PENDING
+# fixture_identity | SHA256 | 5940e11a51dfc2aa39377f539618d290e82d7fb38ba2f96625c9a77f25c16b11 | exact control.html bytes + hosted body/content-type/final origin receipt | content manifest read at 057ba70; hosting absent | PENDING
+# executor_identity | full Git SHA + tree hash/modes | MISSING corrected reviewed candidate | pinned exact-file/type manifest with explicit exclusions | Rev9 failed shipped modes/extras checks | PENDING
+# pairing_identity | SHA256 + host_id + run_id | MISSING complete approved manifest | nonempty exact bindings before job creation | selected runtime hashes only, no complete tree | PENDING
+# owned_cleanup | invocation ID/container IDs/cgroup + monotonic time | nonempty matching current identity for every operation | guard stop/kill/reset, harvest cidfiles FIRST, per-ID HostConfig and absence evidence | Rev9 failures reproduced by separate reviewer | PENDING
+#
+# Numeric gate requirement BEFORE filesystem mutation/launch:
+# positive decimal integer only; reject missing/malformed/zero/negative/fraction/
+# overflow and values outside approved finite range. For this first packet use
+# exact proposed constants (min=max) after review; do not silently clamp or default.
+# Relationships: worker 90 < caller 180 < job 240; cleanup 30 separately bounded;
+# per-sink <= aggregate log <= writable quota; worker caps <= aggregate caps.
+# Validate while preserving a working safety lifetime even when identity evidence
+# is unavailable: no unauthorized kill, but no unbounded launched workload either.
+# An approval file cannot authenticate its own contents.
+#
+# SMALLEST ISOLATED SYNTHETIC SCOPE FOR Q — HELD DRAFT, NOT RUN
+# One corrected/reviewed exact package, one complete reviewed pairing, one hosted
+# control fixture at an explicitly approved operator-controlled HTTPS origin,
+# one sequential runScan job, zero retries. No seeded-page second job; no client,
+# API/report/mail/document route, notification, model or production credentials.
+# Proposed ceilings above must be implemented and calibrated from isolated evidence
+# before a real VPS acceptance packet. Isolated host capabilities and approved
+# operator surface remain MISSING; production is NOT a substitute test environment.
+# Pure cloud negative regressions must first cover all reproduced Rev9 defects;
+# this single success-path job does not replace isolated interruption/timeout tests.
+# Expected evidence: exact package/mode verification, bound identities, pre-import
+# effective confinement, live engine versions, validated control result, terminal
+# service success, resource/request counters, all-owned HostConfig coverage and
+# completed owned cleanup. Actual checks this amendment: document reads, Bash syntax;
+# runtime cases 0, actual isolated results NOT RUN. No full compliance claim.
+# Stop further requests on any failed/unknown check, drift, unsupported limit,
+# extra origin, deadline or uncertain cleanup. Quarantine remains, no automatic retry.
+# Muse alone integrates executor fixes. Arch binds commands only after independent
+# review. Hermes stays outline-only, with no invocation/receipt claim.
