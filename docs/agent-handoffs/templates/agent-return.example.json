@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "task_id": "customer-path-integration-scope",
+  "producer": "muse",
+  "source": {
+    "repository": "quintwilliams84-bot/QA11lylabs",
+    "branch": "codex/staging-coordination",
+    "commit": "a5e7816d83d13008b11fadc92686a015b6fa5de3"
+  },
+  "changed_paths": [],
+  "scope_summary": "Example return only; describes required review inputs without asserting completion.",
+  "checks": [
+    {
+      "name": "Independent exact-source executor review",
+      "result": "NOT RUN",
+      "evidence_ref": "NOT AVAILABLE",
+      "summary": "No independent review or runtime execution is claimed by this example."
+    }
+  ],
+  "blockers": [
+    "Exact package reconciliation and independent executor review remain prerequisites.",
+    "Complete pairing, approved fixture origin and isolated execution approval remain required."
+  ],
+  "next_owner": "muse",
+  "next_action": "Return the corrected exact package and actual check evidence on the existing task.",
+  "authorization": "none"
+}

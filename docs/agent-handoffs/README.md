@@ -151,3 +151,16 @@ and [Codex reconciliation and next owners](https://github.com/quintwilliams84-bo
 pinned to recovery commit `7f0dc6af3a836fe03c8d536fc3cdc456522c23c5`.
 Muse remains the harness integrator. This reconciles only this staging task;
 unrelated task entries and source identities are preserved. Execution remains held.
+
+
+## Construction onboarding and workflow tools
+
+Start with [the shared construction map](CONSTRUCTION_START.md), then read only
+[the common protocol](CONSTRUCTION_PROTOCOL.md) and your linked role brief.
+[Workflow tools](WORKFLOW_TOOLS.md) preserve package Git modes and support direct,
+changed-only inbox reads. The [evidence sidecar](schemas/agent-return.schema.json)
+and its example standardize returns without changing the existing routing index.
+Independent supporting-tool and sidecar reviews are in `reviews/`.
+These are repository helpers pending adoption, not an installed dispatcher,
+execution approval or enforced CI. Rev10's remaining package-set finding and
+CLIENT-PILOT-001's runtime gates remain explicit in the map.
