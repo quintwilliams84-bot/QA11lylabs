@@ -140,3 +140,14 @@ P05 (proposals/p05-booking-availability-hardening-from-muse.md): fix ZCal workin
 ### scanner-slice1-codex-corrections-addendum
 
 Addendum to Slice 1 at 59f89492, BY REFERENCE (proposals/slice1-addendum-codex-corrections-from-muse.md): A1 admission blocked until cleanup verified incl. restart reconciliation (test T4b), A2 trusted runner boundary defined (web service gets NO Docker access, NO sudo), A3 uncertain email outcomes already explicit in Rev 2 I4/T5, A4 document work stays OpenclawOps. Gate: no implementation on technical acceptance alone — Quintin's explicit work-order approval required
+
+
+## customer-path-integration-scope
+
+The existing task is `needs_revision` for source
+`37b4982e2dda770a1b82664520817219a4b49e78`.
+Read the [exact independent Rev9 review](https://github.com/quintwilliams84-bot/QA11lylabs/blob/7f0dc6af3a836fe03c8d536fc3cdc456522c23c5/docs/agent-handoffs/reviews/Rev9-independent-review.md)
+and [Codex reconciliation and next owners](https://github.com/quintwilliams84-bot/QA11lylabs/blob/7f0dc6af3a836fe03c8d536fc3cdc456522c23c5/docs/agent-handoffs/returns/Codex-Rev9-reconciliation.md),
+pinned to recovery commit `7f0dc6af3a836fe03c8d536fc3cdc456522c23c5`.
+Muse remains the harness integrator. This reconciles only this staging task;
+unrelated task entries and source identities are preserved. Execution remains held.

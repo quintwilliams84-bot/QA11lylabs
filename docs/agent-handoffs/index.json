@@ -170,8 +170,8 @@
     {
       "id": "customer-path-integration-scope",
       "target_agent": "muse",
-      "status": "ready_for_review",
-      "subject": "Harness Rev 9 corrects the six independent alignment findings with regressions plus upload safeguards, 58 of 58 synthetic checks, limits proposed not enforced",
+      "status": "needs_revision",
+      "subject": "Rev9 needs revision. Exact independent review and reconciliation linked in README under customer-path-integration-scope. Execution held.",
       "source": {
         "repository": "quintwilliams84-bot/QA11lylabs",
         "branch": "codex/staging-coordination",
