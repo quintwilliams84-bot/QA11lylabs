@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "task_id": "customer-path-integration-scope",
+  "producer": "arch",
+  "source": {
+    "repository": "quintwilliams84-bot/QA11lylabs",
+    "branch": "agent/arch/package-reconciliation",
+    "commit": "cdc202aa31c1e9e2d5bc9f37cf6088f2f0b204d3"
+  },
+  "changed_paths": [
+    "docs/agent-handoffs/harness/TREE-MANIFEST.json",
+    "docs/agent-handoffs/harness/PACKAGE.md",
+    "docs/agent-handoffs/proposals/p07-mode-independent-invocation-from-muse.md"
+  ],
+  "scope_summary": "Manifest preserved historical logs and clarify P07 without runtime changes.",
+  "checks": [
+    {
+      "name": "baseline strict package",
+      "result": "FAIL",
+      "evidence_ref": "docs/agent-handoffs/returns/customer-path-package-reconciliation.md",
+      "summary": "Five historical result logs were unlisted; verifier exited 2."
+    },
+    {
+      "name": "staged and committed package",
+      "result": "PASS",
+      "evidence_ref": "docs/agent-handoffs/returns/customer-path-package-reconciliation.md",
+      "summary": "Both checks exited 0: 26 manifested files, eleven executable entries."
+    },
+    {
+      "name": "full harness and intended host",
+      "result": "NOT RUN",
+      "evidence_ref": "docs/agent-handoffs/returns/customer-path-package-reconciliation.md",
+      "summary": "No runtime execution; claimed 67 tests remain attributed."
+    }
+  ],
+  "blockers": [
+    "Independent exact-package review pending.",
+    "Runtime pairing, fixture, isolation and intended-host acceptance unresolved."
+  ],
+  "next_owner": "codex",
+  "next_action": "Review exact package and P07 clarification; execution remains held.",
+  "authorization": "none"
+}
