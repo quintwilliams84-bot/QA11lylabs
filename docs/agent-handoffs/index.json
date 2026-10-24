@@ -229,8 +229,8 @@
         "commit": "2af1583692370d1d0b5f9363b1388944ce8e6c19",
         "repository": "quintwilliams84-bot/QA11lylabs"
       },
-      "status": "ready_for_review",
-      "subject": "Proposal P07, mode-independent harness invocation deletes the mode commit step, for Codex review",
+      "status": "needs_revision",
+      "subject": "P07 needs revision: clarify supervisor, child-process shim and manifest contract. See reviews/p07-mode-independent-invocation-review.md.",
       "target_agent": "codex"
     }
   ]
