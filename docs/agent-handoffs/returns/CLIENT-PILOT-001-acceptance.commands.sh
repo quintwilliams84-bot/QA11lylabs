@@ -200,3 +200,102 @@ timeout 5s docker inspect --format '{{.Id}} {{.State.Status}} {{.HostConfig.Memo
 # extra origin, deadline or uncertain cleanup. Quarantine remains, no automatic retry.
 # Muse alone integrates executor fixes. Arch binds commands only after independent
 # review. Hermes stays outline-only, with no invocation/receipt claim.
+
+# RELEASE CHECKLIST — existing CLIENT-PILOT-001, release preparation only
+# Evidence base: Codex 7f0dc6af3a836fe03c8d536fc3cdc456522c23c5,
+# including permission proposal SHA256
+# e57f28e6de18756597827dc3f540a496e4b8167c51ad78f9fd9757d8c041193d.
+# Muse: integrate/reconcile the proposal and all ownership/deadline/coverage fixes
+# on your existing branch; regenerate final package identities and exact results.
+# Arch does not apply that partial patch or edit your implementation files.
+# Latest canonical harness-path history checked this turn still names Rev9
+# 37b4982e2dda770a1b82664520817219a4b49e78; no successor found there.
+# This is bounded discovery, not proof no successor exists on another branch.
+# One guessed harness/worker.cjs API lookup returned 404; not runtime evidence.
+# Publication of this handoff is not Muse receipt or acknowledgment.
+#
+# prerequisite | state | identity/evidence | next owner | specific approval/gate
+# Source corrections | BLOCKED | Rev9 reviewed needs_revision; successor full SHA MISSING | Muse | independent review of final corrected delta
+# Exact package/modes/integrity | BLOCKED | shipped Rev9 mode + extra-file defects; partial permission patch not integrated | Muse | pinned full file/type/mode/link manifest, exact packaged checks
+# Existing source record | READY for review only | observed hashes above and Arch cd7b561; not freshness/assembly proof | Arch | no execution authority implied
+# Complete runnable pairing | BLOCKED | deps root manifest/lock, library closure, approved assembly choice incomplete | Muse/Arch | exact path a/b pairing approved with host/run/manifest binding
+# Browser/image provenance | UNKNOWN readiness | Chrome 153.0.8010.52-1 and image ID above from historical metadata; compatibility/attestation incomplete | Arch after scoped gate | revalidation only when decision-critical; real isolated compatibility proof
+# Synthetic content | READY content identity only | control SHA above, 1062 bytes at fixture source 9330659 | independent reviewer/Muse | content review and final binding
+# Fixture origin | BLOCKED | no approved HTTPS HTML serving origin or response/hash/TLS receipt | Codex/Arch | separately scoped hosting/origin approval before scan; no hosting now
+# Enforced limits | UNKNOWN | entire parameter register PROPOSED; no actual intended-path enforcement results | Muse/reviewer | numeric validation + enforcement and calibration accepted before execution
+# Isolated success | BLOCKED | no real systemd/browser/Docker result for corrected exact candidate | designated operator | one reviewed isolated synthetic flight with evidence access
+# Isolated timeout | BLOCKED | no exact-candidate intended-host timeout/cleanup proof | Muse/operator | separate explicit disposable-host test scope; never inject on production
+# Isolated interruption | BLOCKED | stub results do not prove real manager/container cleanup | Muse/operator | bounded disposable-host interruption case and independent review
+# URL submission integration | UNKNOWN | runtime execution packet bypasses POST/SSE routes; no truthful UI/admission/cancel proof | Muse | separate reviewed route adapter and synthetic integration scope
+# Report integration | UNKNOWN | fixture scan not report builder/content/accessibility validation | Muse/Codex | job-bound output-format/report checks, no fabricated scores
+# Delivery/persistence | UNKNOWN | provider accepted != delivered; lead/outbox unknown outcomes not exercised | existing P02 owner | stubbed delivery/retention/idempotency tests, separate real-send approval
+# Activation | BLOCKED | no deployable accepted release or complete prior pairing established | Arch/Codex | Q approves exact activation packet AFTER tests; no main merge implied
+# Recoverable rollback | BLOCKED | known prior full code/image/config/state pairing and restore proof missing | Arch | review exact backup/restore/suspension scope before deployment
+# Hermes | READY outline-only boundary | empty outline retained, no verified scan artifacts | Arch | approved job-bound evidence and processing scope before invocation
+#
+# CEILING BASIS / COMPATIBILITY REVIEW — no thresholds changed
+# Existing worker source (historical cd7b561) runs accessibility Lighthouse against
+# Chrome, then a Playwright page.goto and AxeBuilder.analyze. Thus one runner job
+# may navigate more than once and fetch many subresources; one job != one request.
+# Official Playwright docs navigate before analyze; Lighthouse navigation mode
+# analyzes a fresh page load. These sources do not guarantee a request count,
+# memory ceiling, elapsed time or 3-navigation maximum for our pinned pairing.
+# Sources read 2026-10-23 (general guidance, not pinned-runtime test results):
+# https://playwright.dev/docs/accessibility-testing
+# https://github.com/GoogleChrome/lighthouse/blob/main/docs/user-flows.md
+# https://github.com/GoogleChrome/lighthouse
+#
+# 3 navigations/200 requests/25 MiB response budget: conservative initial proposals
+# for the tiny no-external-asset control page, NOT measured requirements for axe,
+# Lighthouse or client pages. Browser internal requests, redirects and failed
+# attempts require precise accounting semantics; actual observed counts must be
+# reported. No arbitrary exclusion of engine traffic to obtain PASS.
+# 768 MiB/1 CPU/160 PIDs: source-configured historical worker caps, not an official
+# vendor minimum nor measured safe peak. 1 GiB aggregate leaves ~256 MiB for other
+# owned processes; sufficiency UNKNOWN. Account charged shm/tmpfs correctly without
+# double-counting, and separate shared image cache from writable-disk allowance.
+# CPU throttling can lengthen Lighthouse audit, axe DOM analysis and cleanup;
+# 90/180/240 seconds are proposed layers, not additive service guarantees.
+# Lighthouse maxWaitForLoad is a page-load wait setting, NOT a whole-job timeout.
+# 30s cleanup must be measured across all owned resources under one absolute clock.
+# 1536 MiB available-memory threshold is an admission proposal, not proof of spare
+# capacity or replacement for effective limits. Do not lower it to fit old snapshots.
+# Output/spool limits must fail explicitly and preserve outcome/cleanup evidence;
+# a truncated report cannot be promoted to complete valid output. No producer cap.
+# If isolated calibration exceeds a ceiling: retain failure and measurements,
+# revise scope/budget with independent review and Q approval; never disable sandbox,
+# TLS, egress, ownership checks or silently raise limits to get green results.
+#
+# SMALLEST NEXT EXECUTABLE TEST — conditional definition, NOT ready today
+# One owned control fixture, one corrected reviewed executor/pairing, one isolated
+# success-path job, concurrency 1, no retry, exact ceilings and receipt requirements
+# above. Needs final full SHA/package manifest, content review + approved hosted
+# origin, verified operator/isolated capabilities and applicable Q test approval.
+# No document, client, notifications, external provider or production service.
+# Preserve the existing launch/inspection command shapes only as review material;
+# Muse must supply final real inputs/cleanup interface before Arch binds them.
+# Success on this job does not waive separate isolated timeout/interruption gates.
+# Never use the VPS acceptance run as failure-injection calibration.
+#
+# EXACT ACTIVATION SCOPE / RECOVERABLE ROLLBACK BOUNDARY
+# Current scope activates NOTHING: no service replacement/config edits/image pull,
+# symlink switch, timer enablement, install, mode change or public fixture hosting.
+# Proposed isolated test affects only its explicitly approved owned transient unit,
+# job resources, fixture traffic and private evidence; reviewed cleanup restores
+# that test allocation while retaining evidence. UNKNOWN cleanup quarantines it.
+# Later production acceptance = ONE separately approved synthetic job against the
+# exact reviewed installed pairing; still no deployment or automatic client run.
+# Actual release activation requires a new filled card: exact target service/files,
+# hashes before/after, approved admission/drain, complete privately captured prior
+# pairing, compatible state/restore procedure, health thresholds and owned rollback
+# commands. No generic rm/reset/restart or guessed service name is supplied.
+# If old document parser restoration reopens weaknesses, approved intake suspension
+# is a separate contingency; do not call the legacy parser the validated replacement.
+#
+# ACTUAL THIS TURN: source/document reads, official reference review, Bash syntax
+# check of unchanged operational bodies plus comments. Runtime tests 0, all real
+# isolated results NOT RUN. Missing source-path lookup 404 disclosed above.
+# Next Muse: exact successor SHA and real input/limit/cleanup contract, package
+# identities, preserved failures and per-case results. No repeat inventory/access
+# requests; request only those missing artifacts. Codex/reviewer accepts change;
+# Q receives one complete bounded approval card, not terminal-debug instructions.
