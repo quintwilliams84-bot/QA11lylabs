@@ -105,3 +105,30 @@ Revised scope:
 4. Regression addition: packaged tree at 0644 throughout, assembly
    step applied, full supervisor path green under stubs, and the gate
    still exits 3 when a shim lacks its mode in the assembled tree.
+
+
+## Review clarification - packaging reconciliation (supersedes conflicting text above)
+
+P07 remains a proposal, not implemented or authorized by this amendment.
+The outer supervisor stays outside the worker service. The worker's command
+is /bin/bash run-confined.sh, NOT supervise.sh. Bash can invoke aggregate.sh;
+Node can invoke JavaScript entrypoints. Neither makes a Docker shim executable
+for child-process spawn. Retain executable shim requirements and do not bypass
+ownership checks. The deployed runner's recorded absolute /usr/bin/docker
+interface cannot be intercepted by PATH alone: an exact reviewed runner/adapter
+pairing is still required. No installed runner API is changed here.
+
+The CURRENT contract retains all eleven executable flags, strict file-set,
+regular-file, content hash and mode checks, and both declared exclusions.
+No mode gate or verifier check is removed. Any future mode-independent design
+must jointly specify manifest flags, verifier behavior, assembly digest and
+independently pinned package provenance, then test that exact package.
+Assembly permission mutation is not approved by this document.
+
+A green stub test does not establish intended-host identity or cleanup.
+The known synthetic happy-path BLOCKED result must remain honest. Before P07
+implementation acceptance, independently test missing interpreters, actual
+child-spawn shim selection, malformed package rejection and affected timeout,
+interruption and cleanup paths. Intended-host acceptance remains separate.
+The five historical logs are retained verbatim and explicitly manifested.
+No fixture, security limit, supervisor, executable or runtime behavior changes.

@@ -16,7 +16,7 @@ SHA-256:
 - pairing verifier: `pairing/preflight-verify.mjs` `2b23c047400c2ced64d4be293ca0481e9155c312da0b40522c992efb174614de`
 - pairing manifest (example): `pairing/pairing.manifest.json` `d27f4e7de28c012a6e686da99db6efada9fc2fad49c7ceba2954f38a78cca035`
 - tree verifier (Rev 9, strict Rev 10): `tools/verify-tree.mjs` `1db7989216a86c4054b188f715ffbfb3f5e4e71db02c4432d975ee8af861288d`
-- tree manifest (Rev 9, strict Rev 10): `TREE-MANIFEST.json` `afd743060bd0b4a2ca717e715675cbee968124e96748ba49f06ef1d7825328f3`
+- tree manifest (Rev 9, strict Rev 10): `TREE-MANIFEST.json` `072b8a24bf914a99e4ea120f1858d72d0c0cc16718dd21c2965cddcfeca44ff5`
 
 Full-tree integrity (every file, hashes plus executable bits,
 strict set equality): see `TREE-MANIFEST.json`, checked by
@@ -36,13 +36,13 @@ absolute cleanup deadline, a strict tree verifier, and
 numeric configuration validation. Quintin's no-new-credential
 decision stands.
 
-Mode note: the ten executable files are intended at 100755
-in Git. The filing path stores 100644, so - exactly as with
-Rev 7 and Rev 8 - a mode-only commit on top of the filing
-commit (the ten mode changes in Codex's proposal) finalizes
-the tree; until it lands, verify-tree reports the mode
-difference and the supervisor's packaging gate blocks runs
-from a stripped tree. Nothing about that is silent anymore.
+Mode note: the eleven executable files are recorded at 100755 in Git,
+including tools/verify-tree.mjs. The mode-only finalization is
+045ef12cfea6a76045c0b1eceb639501e0af7a36. This reconciliation preserves
+those modes and all executable bytes. Five historical regression result
+logs are now explicitly manifested, unchanged; exclusions remain exactly
+PACKAGE.md and TREE-MANIFEST.json. The strict verifier remains unchanged.
+Historical result logs are attributed evidence, not a new regression replay.
 
 Known limitation (unchanged): an end-to-end supervisor PASS
 requires the real non-production systemd host; under the
