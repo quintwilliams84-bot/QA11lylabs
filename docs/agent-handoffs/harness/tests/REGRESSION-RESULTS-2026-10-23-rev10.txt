@@ -1,0 +1,69 @@
+PASS  A1 verifier exit 0 with bound approval record
+PASS  A2 verifier BLOCKED without approval record
+PASS  A3 verifier catches 52-char digest as schema FAIL
+PASS  A4 verifier catches hash mismatch
+PASS  A5 absence check names ENOTDIR, not PASS
+PASS  A6 approval bound to wrong manifest FAILs
+PASS  A7 approval bound to wrong host FAILs
+PASS  A8 preflight without host/run args FAILs (finding 6)
+PASS  A9 record without host_id FAILs even with flags (finding 6)
+PASS  B1 null score: PASS, availability recorded separately
+PASS  B6 integer score 90 accepted (actual contract)
+PASS  B9 integer score 0 accepted
+PASS  B7 fractional score 0.5 rejected
+PASS  B8 score 101 rejected
+PASS  B11 negative score rejected
+PASS  B10 string score rejected
+PASS  B2 malformed result is FAIL, not PASS
+PASS  B3 missing approval record BLOCKS before job.json exists
+PASS  B4 credential-pattern env BLOCKS
+PASS  B5 symlink escape of release dir BLOCKS
+PASS  B12 missing target BLOCKS (no hardcoded default)
+PASS  C1 all PASS aggregates PASS
+PASS  C2 any FAIL aggregates FAIL
+PASS  C3 UNKNOWN blocks PASS
+PASS  C4 baseline BLOCKED blocks
+PASS  C6 unit-cleanup UNKNOWN blocks PASS
+PASS  C5 missing evidence blocks
+PASS  D confinement-check FAILs unconfined (exit 66)
+PASS  E1 daemon down: baseline BLOCKED, nothing launched
+PASS  E2 HostConfig mismatch FAILs the run
+PASS  E3 failed cleanup FAILs the run
+PASS  E5 baseline container in job record: not removed, UNKNOWN
+PASS  E6 unrelated temp artifact preserved, tmp cleanup PASS
+PASS  E7 deadline stops unit with UNKNOWN identity (4s)
+PASS  E8 evidence log bounded at 1 MiB, producer spool + runtime file intact
+PASS  E9 cidfile identity captured; workload hex line ignored
+PASS  E4 stub happy path: BLOCKED via identity only, no FAILs, unit cleanup PASS
+PASS  E10 killed-shim harvest: cidfile record drives cleanup to PASS
+PASS  E11 missing target BLOCKS before launch
+PASS  E12 tampered assembly FAILs the digest gate, nothing launched
+PASS  E13 interrupted attached run: deadline FAIL, container removed via cidfile harvest
+PASS  E14 failed launch FAILs with cleanup evidence
+PASS  E15 cleanup inspection failure: UNKNOWN blocks readiness
+PASS  E16 spool storage bound stops the run (FAIL)
+PASS  E17 foreign unit untouched on failed launch (finding 1)
+PASS  E18 manager errors: UNKNOWN blocks, no silent PASS (findings 2, 4)
+PASS  E19 NanoCpus inspected: unbounded CPU FAILs (finding 3)
+PASS  E20 HostConfig inspection failure FAILs closed (finding 3)
+PASS  E21 ps-hidden container still inspected via owned ledger
+PASS  E21b never-inspected owned id downgrades HostConfig to UNKNOWN (finding 3)
+PASS  E22 PASS result + exit 7: HARNESS FAILs (finding 4)
+PASS  E23 symlink swap FAILs the v2 digest gate (finding 5)
+PASS  E24 mode-stripped tree BLOCKS at the packaging gate
+PASS  E24b symlinked launcher file BLOCKS at the packaging gate
+PASS  E25 missing InvocationID: no stop attempted, terminal PASS withheld
+PASS  E26 cidfile-only container: removed, coverage UNKNOWN (finding 2)
+PASS  E27 cleanup deadline absolute: budget stops removals (elapsed 8s, 4 left)
+PASS  E28 non-numeric hard deadline BLOCKS pre-job
+PASS  E29 zero cleanup deadline BLOCKS pre-job
+PASS  E30 overflowing hard deadline BLOCKS pre-job
+PASS  F1 real launcher+preload+identity: PASS, job-private audit log, canonical job.json
+PASS  F2 real launcher without target BLOCKS (no default)
+PASS  G1 all package scripts are executable
+PASS  H1 verify-tree accepts the intact package
+PASS  H2 verify-tree catches a tampered file
+PASS  H3 verify-tree rejects extra files (strict set)
+PASS  H4 shipped TREE-MANIFEST verifies the package tree
+----
+regression: 67 passed, 0 failed

@@ -25,7 +25,7 @@ prop() {
   local ec=""
   case "$1" in
     MainPID) if alive; then echo "$PID"; else echo 0; fi;;
-    InvocationID) if [ -f "$UDIR.invocation" ]; then cat "$UDIR.invocation"; else echo ""; fi;;
+    InvocationID) if [ "${STUB_SYSTEMCTL_NOID:-}" = 1 ]; then echo ""; elif [ -f "$UDIR.invocation" ]; then cat "$UDIR.invocation"; else echo ""; fi;;
     LoadState) if [ -f "$UDIR.invocation" ]; then echo loaded; else echo not-found; fi;;
     ActiveState) if alive; then echo active; elif [ -f "$UDIR.termstatus" ]; then echo failed; else echo inactive; fi;;
     ExecMainCode) echo 1;;

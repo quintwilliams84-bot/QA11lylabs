@@ -44,5 +44,10 @@ if (floodMb > 0) {
 const sleepS = Number(process.env.STUB_FIXTURE_SLEEP || 0);
 if (sleepS > 0) await new Promise(r => setTimeout(r, sleepS * 1000));
 if (process.env.STUB_PLANT_LATE_ID) appendFileSync(path.join(root, 'owned-containers.txt'), 'f'.repeat(64) + '\n');
+if (process.env.STUB_FIXTURE_CIDFILE_ONLY) {
+  const lateCid = path.join(root, 'late.cid');
+  execFileSync(process.env.STAGE_REAL_DOCKER, ['create', '--cidfile', lateCid, 'stub-image'], { stdio: 'inherit' });
+  appendFileSync(path.join(root, 'cidfiles.txt'), lateCid + '\n');
+}
 writeFileSync(path.join(root, 'result.json'), JSON.stringify({ overall: process.env.STUB_FIXTURE_RESULT || 'PASS' }));
 process.exit(process.env.STUB_FIXTURE_EXIT_CODE ? Number(process.env.STUB_FIXTURE_EXIT_CODE) : 0);

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Synthetic regression suite for harness Rev 9 (test doubles and
+# Synthetic regression suite for harness Rev 10 (test doubles and
 # stubs ONLY - never the real runner, never a real client target).
 # Covers Codex's Rev 5 findings (root follow-up + independent
 # review of e9aca987):
@@ -200,7 +200,10 @@ export STUB_DOCKER_STATE="$WORK/docker-state" STUB_SYSTEMD_STATE="$WORK/systemd-
 mkdir -p "$STUB_DOCKER_STATE/containers" "$STUB_SYSTEMD_STATE/units"
 export PATH="$PKG/tests/stubs/bin:$PATH"
 export STAGE_REAL_DOCKER="$PKG/tests/stubs/bin/docker"
-FIX="$PKG/tests/fixtures/harness"
+FIXSRC="$PKG/tests/fixtures/harness"
+FIX="$WORK/fix"; rm -rf "$FIX"; cp -r "$FIXSRC" "$FIX"
+cp "$PKG/harness/aggregate.sh" "$PKG/harness/supervise.sh" "$FIX/"
+chmod 0755 "$FIX/bin/docker" "$FIX/run-confined.sh" "$FIX/aggregate.sh" "$FIX/supervise.sh"
 mkassembly() { # $1 case-dir: release tree + assembly.json with tree digest
   mkdir -p "$1/assembly/release"
   printf '%s\n' 'module.exports = { runScan: async () => ({}) };' > "$1/assembly/release/runner.cjs"
@@ -496,15 +499,75 @@ c=json.load(open('$WORK/e-e23/root/cleanup.json'))
 assert c['components']['assembly'].startswith('FAIL'), c
 " && [ ! -f "$STUB_SYSTEMD_STATE/units/qa11y-stage-e-e23.pid" ]; then
   ok "E23 symlink swap FAILs the v2 digest gate (finding 5)"; else bad "E23" "rc=$RC"; fi
-# E24: mode-stripped harness tree self-heals (safeguard): the
-# docker shim starts 0644; the supervisor restores +x pre-launch.
-HEAL="$WORK/healfix"; rm -rf "$HEAL"; cp -r "$FIX" "$HEAL"; chmod 0644 "$HEAL/bin/docker" "$HEAL/run-confined.sh"
+# E24: packaging gate - a mode-stripped harness tree BLOCKS
+# before job creation (Rev 10; replaces the Rev 9 self-heal).
+GATE="$WORK/gatefix"; rm -rf "$GATE"; cp -r "$FIX" "$GATE"; chmod 0644 "$GATE/bin/docker"
 C24="$WORK/e-e24"; mkdir -p "$C24/tmp"; mkassembly "$C24"
 "${CLEANENV[@]}" PATH="$PATH" STUB_DOCKER_STATE="$STUB_DOCKER_STATE" STUB_SYSTEMD_STATE="$STUB_SYSTEMD_STATE" \
-  STUB_FIXTURE_CREATE=1 STAGE_REAL_DOCKER="$STAGE_REAL_DOCKER" STAGE_ROOT="$C24/root" STAGE_TMP="$C24/tmp" STAGE_HARNESS_DIR="$HEAL" \
+  STAGE_REAL_DOCKER="$STAGE_REAL_DOCKER" STAGE_ROOT="$C24/root" STAGE_TMP="$C24/tmp" STAGE_HARNESS_DIR="$GATE" \
   STAGE_ASSEMBLY_DIR="$C24/assembly" STAGE_TARGET_URL="https://fixture.invalid/" STAGE_RUN_ID="e-e24" \
   bash "$PKG/harness/supervise.sh" > "$C24/out.log" 2>&1; RC=$?
-if [ -x "$HEAL/bin/docker" ] && [ "$RC" != 0 ]; then ok "E24 self-heal restored shim exec bit pre-launch (rc=$RC)"; else bad "E24" "rc=$RC shim-x=$(test -x "$HEAL/bin/docker" && echo yes || echo no)"; fi
+if [ "$RC" = 3 ] && grep -q "invalid harness packaging" "$C24/out.log" && [ ! -e "$C24/root" ]; then ok "E24 mode-stripped tree BLOCKS at the packaging gate"; else bad "E24" "rc=$RC $(cat "$C24/out.log")"; fi
+# E24b: a symlinked launcher file BLOCKS at the packaging gate.
+GATE2="$WORK/gatefix2"; rm -rf "$GATE2"; cp -r "$FIX" "$GATE2"; rm "$GATE2/run-confined.sh"; ln -s "$FIX/run-confined.sh" "$GATE2/run-confined.sh"
+C24B="$WORK/e-e24b"; mkdir -p "$C24B/tmp"; mkassembly "$C24B"
+"${CLEANENV[@]}" PATH="$PATH" STUB_DOCKER_STATE="$STUB_DOCKER_STATE" STUB_SYSTEMD_STATE="$STUB_SYSTEMD_STATE" \
+  STAGE_REAL_DOCKER="$STAGE_REAL_DOCKER" STAGE_ROOT="$C24B/root" STAGE_TMP="$C24B/tmp" STAGE_HARNESS_DIR="$GATE2" \
+  STAGE_ASSEMBLY_DIR="$C24B/assembly" STAGE_TARGET_URL="https://fixture.invalid/" STAGE_RUN_ID="e-e24b" \
+  bash "$PKG/harness/supervise.sh" > "$C24B/out.log" 2>&1; RC=$?
+if [ "$RC" = 3 ] && grep -q "invalid harness packaging" "$C24B/out.log"; then ok "E24b symlinked launcher file BLOCKS at the packaging gate"; else bad "E24b" "rc=$RC $(cat "$C24B/out.log")"; fi
+# E25: missing InvocationID - no stop is attempted and the
+# terminal gate cannot PASS (finding 1, fail closed).
+: > "$STUB_SYSTEMD_STATE/stop.log"
+EXTRA_ENV=(STUB_SYSTEMCTL_NOID=1 STUB_FIXTURE_CREATE=1)
+RC="$(run_supervisor e25)"
+EXTRA_ENV=()
+if [ "$RC" = 3 ] && ! grep -qx "qa11y-stage-e-e25" "$STUB_SYSTEMD_STATE/stop.log" && python3 -c "
+import json
+c=json.load(open('$WORK/e-e25/root/cleanup.json'))
+assert c['components']['harness'].startswith('UNKNOWN'), c
+"; then ok "E25 missing InvocationID: no stop attempted, terminal PASS withheld"; else bad "E25" "rc=$RC stoplog=$(cat "$STUB_SYSTEMD_STATE/stop.log")"; fi
+# E26: cidfile-only container (never in the run ledger, never
+# inspected) - harvested at cleanup, removed, but HostConfig
+# coverage downgrades to UNKNOWN (finding 2).
+EXTRA_ENV=(STUB_FIXTURE_CREATE=1 STUB_FIXTURE_CIDFILE_ONLY=1)
+RC="$(run_supervisor e26)"
+EXTRA_ENV=()
+if [ "$RC" = 3 ] && python3 -c "
+import json
+c=json.load(open('$WORK/e-e26/root/cleanup.json'))
+assert c['components']['hostconfig'].startswith('UNKNOWN (owned container'), c
+assert c['components']['container_cleanup'] == 'PASS', c
+"; then ok "E26 cidfile-only container: removed, coverage UNKNOWN (finding 2)"; else bad "E26" "rc=$RC $(cat "$WORK/e-e26/root/cleanup.json" 2>/dev/null)"; fi
+# E27: cleanup deadline is absolute - slow removals exhaust
+# the budget, the rest stay UNKNOWN and in place (finding 4).
+EXTRA_ENV=(STUB_FIXTURE_CREATE_N=5 STUB_DOCKER_RM_SLEEP=2 STAGE_CLEANUP_DEADLINE_S=6)
+T0=$SECONDS
+RC="$(run_supervisor e27)"
+EXTRA_ENV=()
+ELAPSED=$((SECONDS - T0))
+LEFT="$(ls "$STUB_DOCKER_STATE/containers" 2>/dev/null | wc -l)"
+if [ "$RC" = 3 ] && [ "$ELAPSED" -lt 40 ] && [ "$LEFT" -ge 1 ] && python3 -c "
+import json
+c=json.load(open('$WORK/e-e27/root/cleanup.json'))
+assert 'deadline exhausted' in c['components']['container_cleanup'], c
+"; then ok "E27 cleanup deadline absolute: budget stops removals (elapsed ${ELAPSED}s, $LEFT left)"; else bad "E27" "rc=$RC elapsed=$ELAPSED left=$LEFT"; fi
+# E28-E30: numeric configuration validation BLOCKS pre-job.
+gate_case() { # $1 name, rest env pairs
+  local N="$1"; shift
+  local C="$WORK/e-$N"; mkdir -p "$C/tmp"; mkassembly "$C"
+  "${CLEANENV[@]}" PATH="$PATH" "$@" STUB_DOCKER_STATE="$STUB_DOCKER_STATE" STUB_SYSTEMD_STATE="$STUB_SYSTEMD_STATE" \
+    STAGE_REAL_DOCKER="$STAGE_REAL_DOCKER" STAGE_ROOT="$C/root" STAGE_TMP="$C/tmp" STAGE_HARNESS_DIR="$FIX" \
+    STAGE_ASSEMBLY_DIR="$C/assembly" STAGE_TARGET_URL="https://fixture.invalid/" STAGE_RUN_ID="e-$N" \
+    bash "$PKG/harness/supervise.sh" > "$C/out.log" 2>&1
+  echo $?
+}
+RC="$(gate_case e28 STAGE_HARD_DEADLINE_S=abc)"
+if [ "$RC" = 3 ] && grep -q "invalid numeric configuration" "$WORK/e-e28/out.log" && [ ! -e "$WORK/e-e28/root" ]; then ok "E28 non-numeric hard deadline BLOCKS pre-job"; else bad "E28" "rc=$RC"; fi
+RC="$(gate_case e29 STAGE_CLEANUP_DEADLINE_S=0)"
+if [ "$RC" = 3 ] && grep -q "invalid numeric configuration" "$WORK/e-e29/out.log"; then ok "E29 zero cleanup deadline BLOCKS pre-job"; else bad "E29" "rc=$RC"; fi
+RC="$(gate_case e30 STAGE_HARD_DEADLINE_S=99999999999)"
+if [ "$RC" = 3 ] && grep -q "invalid numeric configuration" "$WORK/e-e30/out.log"; then ok "E30 overflowing hard deadline BLOCKS pre-job"; else bad "E30" "rc=$RC"; fi
 
 # ============ F. real launcher + preload + identity writer ============
 F="$WORK/f"; mkdir -p "$F/harness/bin" "$F/stage/release" "$F/tmp"
@@ -560,11 +623,15 @@ for dirpath, _dirs, names in os.walk(pkg):
         if rel in ("TREE-MANIFEST.json",): continue
         files[rel] = {"sha256": hashlib.sha256(open(full, "rb").read()).hexdigest(),
                       "executable": bool(os.lstat(full).st_mode & 0o100)}
-json.dump({"files": files}, open(out, "w"), indent=1)
+json.dump({"files": files, "exclusions": ["PACKAGE.md", "TREE-MANIFEST.json"]}, open(out, "w"), indent=1)
 PYEOF4
 if node "$PKG/tools/verify-tree.mjs" "$PKG" "$MANIFEST_TMP" > "$WORK/vt.log" 2>&1; then ok "H1 verify-tree accepts the intact package"; else bad "H1" "$(cat "$WORK/vt.log")"; fi
 VT="$WORK/vt-copy"; rm -rf "$VT"; cp -r "$PKG" "$VT"; echo tampered >> "$VT/harness/aggregate.sh"
 if node "$PKG/tools/verify-tree.mjs" "$VT" "$MANIFEST_TMP" > "$WORK/vt2.log" 2>&1; then bad "H2" "tampered copy accepted"; else grep -q "HASH-MISMATCH harness/aggregate.sh" "$WORK/vt2.log" && ok "H2 verify-tree catches a tampered file" || bad "H2" "$(cat "$WORK/vt2.log")"; fi
+
+echo 'console.log("extra");' > "$VT/harness/evil-extra.mjs"
+if node "$PKG/tools/verify-tree.mjs" "$VT" "$MANIFEST_TMP" > "$WORK/vt3.log" 2>&1; then bad "H3" "extra file accepted"; else grep -q "EXTRA-FILE harness/evil-extra.mjs" "$WORK/vt3.log" && ok "H3 verify-tree rejects extra files (strict set)" || bad "H3" "$(cat "$WORK/vt3.log")"; fi
+if node "$PKG/tools/verify-tree.mjs" "$PKG" "$PKG/TREE-MANIFEST.json" > "$WORK/vt4.log" 2>&1; then ok "H4 shipped TREE-MANIFEST verifies the package tree"; else bad "H4" "$(cat "$WORK/vt4.log")"; fi
 
 echo "----"
 echo "regression: $PASS passed, $FAIL failed${FAILED_CASES:+ (failed:$FAILED_CASES)}"

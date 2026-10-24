@@ -1,5 +1,41 @@
 #!/usr/bin/env bash
-# Supervisor v7 (Rev 9) for the staging diagnostic harness.
+# Supervisor v8 (Rev 10) for the staging diagnostic harness.
+#
+# Rev 10 answers the independent Rev 9 review (five reproduced
+# findings) and Codex's reconciliation routing (seven items):
+# 1. Ownership fails CLOSED: stop, kill, reset-failed and a
+#    terminal PASS all require a nonempty launch InvocationID
+#    AND a nonempty matching current read. The unit also gets
+#    a manager-enforced RuntimeMaxSec bound at launch, so a
+#    launched job is never unbounded even if later inspection
+#    fails.
+# 2. Cleanup harvests every cidfile BEFORE HostConfig coverage
+#    reconciliation, so a harvested-but-uninspected container
+#    downgrades PASS to UNKNOWN even though it is removed.
+# 3. Packaging modes are FINAL IN THE TREE: no runtime chmod.
+#    A pre-job packaging gate (adapted from Codex's reviewed
+#    rev9-permission-fix proposal) requires the harness dir to
+#    be an absolute, normalized, symlink-free path and the
+#    four launcher files to be regular files at exactly 0755;
+#    anything else exits 3 before job state exists.
+# 4. Cleanup runs against ONE monotonic absolute deadline,
+#    checked before every phase and every removal target, with
+#    each external call bounded by the remaining budget;
+#    expiry leaves the rest UNKNOWN and the job quarantined.
+# 5. (tools/verify-tree.mjs) the verifier now also rejects
+#    EXTRA files: the actual file set must equal the pinned
+#    manifest set plus its declared exclusions.
+# 6. Numeric configuration is validated before job creation:
+#    STAGE_HARD_DEADLINE_S (1..86400 s), STAGE_CLEANUP_
+#    DEADLINE_S (1..3600 s), STAGE_SPOOL_MAX_BYTES
+#    (1024..1099511627776). Malformed, zero, negative or
+#    out-of-range values BLOCK (exit 3). The cleanup deadline
+#    is an independent bound on the cleanup phase only; it is
+#    NOT required to fit inside the hard deadline (cleanup
+#    runs after the deadline fires by design). These ranges
+#    are input sanity bounds, not operational budgets; the
+#    runbook limits register still governs what may be
+#    claimed as enforced.
 #
 # Rev 9 answers the independent Rev 7 alignment review (six
 # findings, all verified present in Rev 8 source by Muse):
@@ -20,10 +56,11 @@
 #    and content; unsupported entry types fail the digest.
 # 6. (pairing/preflight-verify.mjs) standalone preflight now
 #    REQUIRES --host-id and --run-id and a record carrying both.
-# Safeguards (Quintin, Oct 23): the launcher heals executable
-# modes inside the assembled release before digesting, so a
-# mode-stripped checkout still runs; the digest binds the
-# healed modes, so the heal is verified, not assumed.
+# Safeguards (Quintin, Oct 23; mode handling revised in Rev 10
+# per the reviewed permission proposal): uploads are proven
+# unaltered by TREE-MANIFEST.json + tools/verify-tree.mjs, and
+# modes are finalized in the tree itself - the supervisor
+# verifies them fail-closed and never rewrites them.
 #
 # Rev 8 answers Arch's enforcement-gaps handoff (ac468232):
 # - The producer spool/storage is now bounded SEPARATELY from the
@@ -78,7 +115,49 @@ set -uo pipefail
 : "${STAGE_TMP:?STAGE_TMP required}"
 : "${STAGE_HARNESS_DIR:?STAGE_HARNESS_DIR required}"
 : "${STAGE_ASSEMBLY_DIR:?STAGE_ASSEMBLY_DIR required (operator-assembled release copy + assembly.json)}"
+# --- packaging gate (Rev 10, adapted from Codex's reviewed
+# rev9-permission-fix proposal): fail BEFORE creating job state.
+# Packaging check only - not proof of ownership or provenance.
+if ! python3 - "$STAGE_HARNESS_DIR" <<'MODE_CHECK'
+import os, stat, sys
+root = sys.argv[1]
+try:
+    if not os.path.isabs(root) or os.path.normpath(root) != root:
+        raise ValueError("harness directory must be an absolute normalized path")
+    if os.path.realpath(root) != root or not os.path.isdir(root):
+        raise ValueError("harness directory must be a real directory without symlink ancestors")
+    for rel in ("bin/docker", "run-confined.sh", "aggregate.sh", "supervise.sh"):
+        name = os.path.join(root, rel)
+        info = os.lstat(name)
+        if os.path.realpath(name) != name or not stat.S_ISREG(info.st_mode):
+            raise ValueError("required launch file must be regular with no symlink components: " + rel)
+        if stat.S_IMODE(info.st_mode) != 0o755 or not os.access(name, os.R_OK | os.X_OK):
+            raise ValueError("required launch file must be readable/executable mode 0755: " + rel)
+except (OSError, ValueError) as error:
+    print("BLOCKED: invalid harness packaging: " + str(error), file=sys.stderr)
+    sys.exit(3)
+MODE_CHECK
+then
+  exit 3
+fi
+# --- numeric configuration validation (Rev 10): before job
+# creation; malformed values block, never silently continue.
 DEADLINE_S="${STAGE_HARD_DEADLINE_S:-240}"
+CLEANUP_S="${STAGE_CLEANUP_DEADLINE_S:-30}"
+SPOOL_BYTES="${STAGE_SPOOL_MAX_BYTES:-67108864}"
+config_ok=1
+case "$DEADLINE_S" in *[!0-9]*|"") config_ok=0;; esac
+case "$CLEANUP_S" in *[!0-9]*|"") config_ok=0;; esac
+case "$SPOOL_BYTES" in *[!0-9]*|"") config_ok=0;; esac
+if [ "$config_ok" = 1 ]; then
+  { [ "$DEADLINE_S" -ge 1 ] && [ "$DEADLINE_S" -le 86400 ]; } || config_ok=0
+  { [ "$CLEANUP_S" -ge 1 ] && [ "$CLEANUP_S" -le 3600 ]; } || config_ok=0
+  { [ "$SPOOL_BYTES" -ge 1024 ] && [ "$SPOOL_BYTES" -le 1099511627776 ]; } || config_ok=0
+fi
+if [ "$config_ok" != 1 ]; then
+  echo "BLOCKED: invalid numeric configuration (STAGE_HARD_DEADLINE_S=$DEADLINE_S, STAGE_CLEANUP_DEADLINE_S=$CLEANUP_S, STAGE_SPOOL_MAX_BYTES=$SPOOL_BYTES)" >&2
+  exit 3
+fi
 RUN_ID="${STAGE_RUN_ID:-run-$$-$(date +%s)}"
 UNIT="qa11y-stage-${RUN_ID}.service"
 DOCKER=(timeout 5 docker)
@@ -143,17 +222,18 @@ finish() { # $1 overall $2 rc
 }
 
 LAUNCHED=0; INVOCATION_ID=""
-stop_unit() {
-  # Stop only a unit THIS invocation launched, and only while
-  # the manager still reports the launch invocation identity.
-  [ "$LAUNCHED" = 1 ] || return 0
+invocation_verified() {
+  # Ownership is proven ONLY by a nonempty launch InvocationID
+  # AND a nonempty current read that matches it exactly. Any
+  # missing evidence means NOT verified - never fail open.
+  [ "$LAUNCHED" = 1 ] || return 1
+  [ -n "$INVOCATION_ID" ] || return 1
   local cur=""
   cur="$("${SYSTEMCTL[@]}" show -p InvocationID --value "$UNIT" 2>/dev/null | tr -d '[:space:]')" || cur=""
-  if [ -n "$INVOCATION_ID" ] && [ -n "$cur" ] && [ "$cur" != "$INVOCATION_ID" ]; then
-    return 0
-  fi
-  "${SYSTEMCTL[@]}" stop "$UNIT" >/dev/null 2>&1 || true
+  [ -n "$cur" ] && [ "$cur" = "$INVOCATION_ID" ]
 }
+stop_unit() { if invocation_verified; then "${SYSTEMCTL[@]}" stop "$UNIT" >/dev/null 2>&1 || true; fi; }
+owned_kill() { if invocation_verified; then "${SYSTEMCTL[@]}" kill "$UNIT" >/dev/null 2>&1 || true; fi; }
 on_interrupt() { INTERRUPTED=1; HARNESS="FAIL (interrupted)"; stop_unit; }
 trap on_interrupt INT TERM
 
@@ -220,18 +300,17 @@ printf '%s\n' "$BEFORE_ALL" > "$JOB_DIR/baseline.txt"
 
 cleanup_phase() {
   CLEANUP_START=$SECONDS
-  # HostConfig coverage: PASS is only honest if every owned
-  # container was actually inspected at least once.
-  if [ -s "$OWNED" ] && [ "$HOSTCONFIG" = "PASS" ]; then
-    while read -r ocid; do
-      if ! grep -qx "$ocid" "$INSPECTED" 2>/dev/null; then
-        HOSTCONFIG="UNKNOWN (owned container $ocid never inspected)"
-        break
-      fi
-    done < <(grep -E '^[0-9a-f]{64}$' "$OWNED" | sort -u)
-  fi
-  # --- harvest ownership: direct records + cidfiles the shim
-  #     recorded before delegating (interruption-proof).
+  RESET_OK=0
+  # ONE monotonic absolute deadline for the whole cleanup
+  # (Rev 10): checked before every phase and every target;
+  # each external call is bounded by the remaining budget.
+  cleanup_left() { echo $(( CLEANUP_S - (SECONDS - CLEANUP_START) )); }
+  over_cleanup_budget() { [ $((SECONDS - CLEANUP_START)) -ge "$CLEANUP_S" ]; }
+  cdocker() { local left; left="$(cleanup_left)"; [ "$left" -ge 1 ] || return 124; [ "$left" -gt 5 ] && left=5; timeout "$left" docker "$@"; }
+  # --- harvest ownership FIRST (Rev 10): direct records plus
+  #     cidfiles the shim recorded before delegating
+  #     (interruption-proof). Coverage is reconciled only after
+  #     the complete owned set is known.
   : >> "$OWNED"
   if [ -f "$JOB_DIR/cidfiles.txt" ]; then
     while IFS= read -r cf; do
@@ -242,6 +321,16 @@ cleanup_phase() {
       esac
     done < "$JOB_DIR/cidfiles.txt"
   fi
+  # --- HostConfig coverage: PASS is only honest if every owned
+  #     container (including harvested ones) was inspected.
+  if [ -s "$OWNED" ] && [ "$HOSTCONFIG" = "PASS" ]; then
+    while read -r ocid; do
+      if ! grep -qx "$ocid" "$INSPECTED" 2>/dev/null; then
+        HOSTCONFIG="UNKNOWN (owned container $ocid never inspected)"
+        break
+      fi
+    done < <(grep -E '^[0-9a-f]{64}$' "$OWNED" | sort -u)
+  fi
   # --- containers: current-job record only, baseline excluded,
   #     creation provenance required. FAIL is sticky.
   CONTAINER_CLEAN="PASS"
@@ -251,28 +340,36 @@ cleanup_phase() {
   if [ -n "$owned_ids" ]; then
     while IFS= read -r cid; do
       [ -z "$cid" ] && continue
+      if over_cleanup_budget; then
+        [ "$CONTAINER_CLEAN" = "PASS" ] && CONTAINER_CLEAN="UNKNOWN (cleanup deadline exhausted; $cid left in place)"
+        continue
+      fi
       if printf '%s\n' "$BEFORE_ALL" | grep -qx "$cid"; then
         [ "$CONTAINER_CLEAN" = "PASS" ] && CONTAINER_CLEAN="UNKNOWN (baseline container in job record; not removed)"
         continue
       fi
       CREATED_EPOCH=""
-      if CISO="$("${DOCKER[@]}" inspect -f '{{.Created}}' "$cid" 2>/dev/null)"; then
+      if CISO="$(cdocker inspect -f '{{.Created}}' "$cid" 2>/dev/null)"; then
         CREATED_EPOCH="$(date -d "$CISO" +%s 2>/dev/null || echo "")"
       fi
       if [ -z "$CREATED_EPOCH" ] || [ "$CREATED_EPOCH" -lt "$RUN_START_EPOCH" ]; then
         [ "$CONTAINER_CLEAN" = "PASS" ] && CONTAINER_CLEAN="UNKNOWN (creation provenance unproven for $cid; not removed)"
         continue
       fi
-      if ! "${DOCKER[@]}" rm -f "$cid" >/dev/null 2>&1; then
-        CONTAINER_CLEAN="FAIL (rm $cid)"
+      if ! cdocker rm -f "$cid" >/dev/null 2>&1; then
+        if over_cleanup_budget; then
+          CONTAINER_CLEAN="UNKNOWN (cleanup deadline exhausted during removal of $cid)"
+        else
+          CONTAINER_CLEAN="FAIL (rm $cid)"
+        fi
       fi
     done <<EOF
 $owned_ids
 EOF
-    if [ $((SECONDS - CLEANUP_START)) -gt "${STAGE_CLEANUP_DEADLINE_S:-30}" ]; then
-      [ "$CONTAINER_CLEAN" = "PASS" ] && CONTAINER_CLEAN="UNKNOWN (cleanup ceiling ${STAGE_CLEANUP_DEADLINE_S:-30}s exceeded before re-verify)"
+    if over_cleanup_budget; then
+      [ "$CONTAINER_CLEAN" = "PASS" ] && CONTAINER_CLEAN="UNKNOWN (cleanup deadline exhausted before re-verify)"
       STILL=""
-    elif ! STILL="$("${DOCKER[@]}" ps -aq --no-trunc 2>/dev/null)"; then
+    elif ! STILL="$(cdocker ps -aq --no-trunc 2>/dev/null)"; then
       [ "$CONTAINER_CLEAN" = "PASS" ] && CONTAINER_CLEAN="UNKNOWN (re-verify failed)"
       STILL=""
     else
@@ -290,7 +387,7 @@ EOF
       fi
     fi
   else
-    if ! STILL="$("${DOCKER[@]}" ps -aq --no-trunc 2>/dev/null)"; then
+    if ! STILL="$(cdocker ps -aq --no-trunc 2>/dev/null)"; then
       CONTAINER_CLEAN="UNKNOWN (post-run inventory failed)"
     else
       NEWUNOWNED="$(comm -13 <(printf '%s\n' "$BEFORE_ALL" | sort -u) <(printf '%s\n' "$STILL" | sort -u) || true)"
@@ -298,25 +395,34 @@ EOF
     fi
   fi
   # --- temp: remove ONLY the job-private directory ------------------
-  TMP_CLEAN="PASS"
-  if [ -e "$TMP_JOB" ]; then
-    local REAL_TMP="" REAL_JOB=""
-    REAL_TMP="$(realpath "$STAGE_TMP" 2>/dev/null || echo "")"
-    REAL_JOB="$(realpath "$TMP_JOB" 2>/dev/null || echo "")"
-    if [ -L "$TMP_JOB" ] || [ -z "$REAL_JOB" ] || [ "${REAL_JOB%/*}" != "$REAL_TMP" ]; then
-      TMP_CLEAN="UNKNOWN (job temp dir failed containment checks; left in place)"
-    elif ! rm -rf "$TMP_JOB" 2>/dev/null; then
-      TMP_CLEAN="FAIL (rm job temp dir)"
+  if over_cleanup_budget; then
+    TMP_CLEAN="UNKNOWN (cleanup deadline exhausted before temp phase; job temp left in place)"
+  else
+    TMP_CLEAN="PASS"
+    if [ -e "$TMP_JOB" ]; then
+      local REAL_TMP="" REAL_JOB=""
+      REAL_TMP="$(realpath "$STAGE_TMP" 2>/dev/null || echo "")"
+      REAL_JOB="$(realpath "$TMP_JOB" 2>/dev/null || echo "")"
+      if [ -L "$TMP_JOB" ] || [ -z "$REAL_JOB" ] || [ "${REAL_JOB%/*}" != "$REAL_TMP" ]; then
+        TMP_CLEAN="UNKNOWN (job temp dir failed containment checks; left in place)"
+      elif ! rm -rf "$TMP_JOB" 2>/dev/null; then
+        TMP_CLEAN="FAIL (rm job temp dir)"
+      fi
     fi
   fi
   # --- unit termination is a REQUIRED cleanup component -------------
   # PASS requires explicit manager evidence; inspection errors and
-  # ambiguous states stay UNKNOWN (never a silent PASS).
-  stop_unit
-  sleep 1
-  if [ "$LAUNCHED" != 1 ]; then
+  # ambiguous states stay UNKNOWN (never a silent PASS). The stop
+  # itself is ownership-guarded (Rev 10): no proven identity, no
+  # stop - and RuntimeMaxSec bounds the unit regardless.
+  if over_cleanup_budget; then
+    UNIT_CLEAN="UNKNOWN (cleanup deadline exhausted before unit phase)"
+  elif [ "$LAUNCHED" != 1 ]; then
+    stop_unit
     UNIT_CLEAN="PASS (unit never launched by this invocation; nothing owned to stop)"
   else
+    stop_unit
+    sleep 1
     SHOW_OUT="$("${SYSTEMCTL[@]}" show -p LoadState -p ActiveState -p MainPID -p InvocationID "$UNIT" 2>/dev/null)" || SHOW_OUT=""
     if [ -z "$SHOW_OUT" ]; then
       UNIT_CLEAN="UNKNOWN (manager inspection failed during cleanup)"
@@ -325,6 +431,8 @@ EOF
       AS_="$(printf '%s\n' "$SHOW_OUT" | sed -n 's/^ActiveState=//p')"
       MP_="$(printf '%s\n' "$SHOW_OUT" | sed -n 's/^MainPID=//p')"
       IV_="$(printf '%s\n' "$SHOW_OUT" | sed -n 's/^InvocationID=//p')"
+      if [ -n "$INVOCATION_ID" ] && [ -n "$IV_" ] && [ "$IV_" = "$INVOCATION_ID" ]; then RESET_OK=1; fi
+      if [ "$LS_" = "not-found" ]; then RESET_OK=1; fi
       if [ -n "$INVOCATION_ID" ] && [ -n "$IV_" ] && [ "$IV_" != "$INVOCATION_ID" ]; then
         UNIT_CLEAN="UNKNOWN (unit invocation changed; termination not attributable)"
       elif [ "$LS_" = "not-found" ]; then
@@ -341,7 +449,11 @@ EOF
       UNIT_CLEAN="FAIL (unit MainPID $MAINPID still alive)"
     fi
   fi
-  "${SYSTEMCTL[@]}" reset-failed "$UNIT" >/dev/null 2>&1 || true
+  # reset-failed only when this invocation's termination state
+  # was actually established (Rev 10).
+  if [ "$LAUNCHED" = 1 ] && [ "$RESET_OK" = 1 ]; then
+    "${SYSTEMCTL[@]}" reset-failed "$UNIT" >/dev/null 2>&1 || true
+  fi
 }
 
 # --- target is mandatory; there is no default ---------------------
@@ -368,20 +480,11 @@ LAUNCH_ENV=(
   --setenv=STAGE_HOST_ID="${STAGE_HOST_ID:-}"
   --setenv=STAGE_TARGET_URL="$STAGE_TARGET_URL"
 )
-# Self-heal executable modes in the harness tree (Rev 9 safeguard):
-# the filing path stores files at 100644, so a fresh checkout may
-# lack exec bits. The docker shim is reached through PATH and
-# needs +x; healing here is idempotent and confined to this
-# package's own tree. (Assembly content is unaffected: modes are
-# bound separately by the v2 digest verification above.)
-for f in bin/docker run-confined.sh aggregate.sh supervise.sh; do
-  [ -f "$STAGE_HARNESS_DIR/$f" ] && chmod 0755 "$STAGE_HARNESS_DIR/$f" 2>/dev/null || true
-done
-
 if ! "${SYSTEMD_RUN[@]}" --unit="$UNIT" \
       -p PrivateNetwork=yes -p ProtectSystem=strict \
       -p ReadWritePaths="$STAGE_ROOT $TMP_JOB /var/run/docker.sock" \
       -p MemoryMax=2G -p CPUQuota=200% -p TasksMax=512 \
+      -p RuntimeMaxSec=$((DEADLINE_S + 60)) \
       "${LAUNCH_ENV[@]}" \
       /bin/bash "$STAGE_HARNESS_DIR/run-confined.sh" >"$JOB_DIR/launch.log" 2>&1; then
   HARNESS="FAIL (transient service launch failed)"
@@ -423,8 +526,8 @@ while :; do
   # collector bound): fail-closed stop of the owned unit.
   if [ -f "$JOB_DIR/producer.log" ]; then
     SPOOL_SIZE="$(stat -c %s "$JOB_DIR/producer.log" 2>/dev/null || echo 0)"
-    if [ "$SPOOL_SIZE" -gt "${STAGE_SPOOL_MAX_BYTES:-67108864}" ]; then
-      HARNESS="FAIL (producer spool exceeded ${STAGE_SPOOL_MAX_BYTES:-67108864} bytes; unit stopped)"
+    if [ "$SPOOL_SIZE" -gt "$SPOOL_BYTES" ]; then
+      HARNESS="FAIL (producer spool exceeded $SPOOL_BYTES bytes; unit stopped)"
       stop_unit
       break
     fi
@@ -486,7 +589,7 @@ done
 
 # bounded wait for the workload to actually exit (max 15s)
 for _ in $(seq 1 15); do unit_alive || break; sleep 1; done
-if unit_alive; then "${SYSTEMCTL[@]}" kill "$UNIT" >/dev/null 2>&1 || true; sleep 2; fi
+if unit_alive; then owned_kill; sleep 2; fi
 
 # harness verdict. Deadline and interruption are STICKY failures:
 # a result file produced under a fired deadline never upgrades.
@@ -506,7 +609,9 @@ elif [ -f "$JOB_DIR/result.json" ]; then
     TES="$(printf '%s\n' "$TSHOW" | sed -n 's/^ExecMainStatus=//p')"
     TRS="$(printf '%s\n' "$TSHOW" | sed -n 's/^Result=//p')"
     TIV="$(printf '%s\n' "$TSHOW" | sed -n 's/^InvocationID=//p')"
-    if [ -n "$INVOCATION_ID" ] && [ -n "$TIV" ] && [ "$TIV" != "$INVOCATION_ID" ]; then
+    if [ -z "$INVOCATION_ID" ] || [ -z "$TIV" ]; then
+      TERM_STATE="unknown"; TERM_NOTE="invocation identity missing (launch or terminal read)"
+    elif [ "$TIV" != "$INVOCATION_ID" ]; then
       TERM_STATE="unknown"; TERM_NOTE="unit invocation changed since launch"
     elif [ "$TRS" = "success" ] && [ "$TES" = "0" ]; then
       TERM_STATE="ok"; TERM_NOTE=""

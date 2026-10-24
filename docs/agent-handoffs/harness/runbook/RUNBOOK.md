@@ -82,7 +82,12 @@ staging host only.
 - tests/run-regression.sh - synthetic suite (stubs/doubles
   only) plus a real-launcher integration section. Rev 8: 45
   synthetic checks including producer-spool and lifecycle cases.
-  Rev 9: 58 synthetic checks - the independent Rev 7 alignment
+  Rev 10: 67 synthetic checks - the Rev 9
+  review's five findings carry regressions (ownership fail
+  closed E25, harvest-before-coverage E26, packaging gate
+  E24/E24b plus the shipped-manifest check H4, absolute
+  cleanup deadline E27, strict verifier H3, numeric config
+  validation E28-E30). Rev 9: 58 synthetic checks - the independent Rev 7 alignment
   review's six findings each carry regressions (launch
   ownership, unit-cleanup evidence, NanoCpus and inspection
   coverage, manager terminal status, digest v2 binding modes
@@ -118,10 +123,32 @@ push); until that commit lands, ANY fresh checkout must run:
     tests/fixtures/harness/bin/* \
     tests/fixtures/harness/run-confined.sh
 
-(paths relative to this package's root). Without this step the
-supervisor cannot exec run-confined.sh or the docker shim and
-the run FAILs at launch - which is the correct fail-closed
-behaviour, but operators should not have to discover it.
+(paths relative to this package's root). Rev 10 note: the
+supervisor ALSO gates on packaging before creating any job
+state - the harness directory must be an absolute, normalized
+path with no symlink components, and bin/docker,
+run-confined.sh, aggregate.sh and supervise.sh must be regular
+files at exactly mode 0755. Anything else exits 3 (BLOCKED).
+The supervisor never repairs modes at run time; modes are
+finalized in the tree (Git mode-fix commit) or the run does
+not start.
+
+## Configuration parameters (validated before job creation)
+
+| Name | Unit | Default | Accepted range | Enforcement point |
+| --- | --- | --- | --- | --- |
+| STAGE_HARD_DEADLINE_S | seconds | 240 | 1..86400 | supervise.sh pre-job validation; watchdog deadline; RuntimeMaxSec is deadline + 60 |
+| STAGE_CLEANUP_DEADLINE_S | seconds | 30 | 1..3600 | supervise.sh pre-job validation; one absolute cleanup deadline, checked before every phase and target |
+| STAGE_SPOOL_MAX_BYTES | bytes | 67108864 | 1024..1099511627776 | supervise.sh pre-job validation; watchdog spool watchdog stops the unit |
+
+Non-numeric, zero, negative or out-of-range values BLOCK
+(exit 3) before any job state exists. The cleanup deadline
+bounds the cleanup phase only and is independent of the hard
+deadline (cleanup runs after the deadline fires by design).
+The ranges are input sanity bounds, NOT operational budgets;
+the limits register below governs what may be claimed as
+enforced, and every figure there remains PROPOSED until
+demonstrated on the staging host.
 
 ## Limits register (PROPOSED, NOT ENFORCED until demonstrated)
 

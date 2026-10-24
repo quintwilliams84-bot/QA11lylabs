@@ -52,6 +52,7 @@ case "$cmd" in
     esac
     exit 0;;
   rm)
+    if [ -n "${STUB_DOCKER_RM_SLEEP:-}" ]; then sleep "$STUB_DOCKER_RM_SLEEP"; fi
     if [ "$MODE" = rmfail ]; then echo "rm failed (stub)" >&2; exit 1; fi
     ID="${@: -1}"
     if [ -f "$STATE/containers/$ID.created" ]; then rm -f "$STATE/containers/$ID.created"; echo "$ID"; exit 0; fi
