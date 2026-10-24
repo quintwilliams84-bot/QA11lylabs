@@ -67,3 +67,41 @@ regression suite (add a case: packaged tree at 0644 throughout runs the
 full supervisor path green under stubs), and the runbook. Muse
 implements as a harness revision for independent review through the
 normal lane. Estimated size: small, comparable to one Rev 9 finding fix.
+
+## Refinement (Oct 23, 2026, per Quintin's recorded distinction)
+
+Quintin recorded, and Muse verified against the Rev 10 source, that
+interpreter invocation does NOT cover the docker shim:
+
+- The supervisor's cleanup path calls `docker "$@"` resolved through
+  PATH (supervise.sh, the cdocker wrapper), and the supervised Node
+  process resolves `docker` from PATH through libuv execvp. Both are
+  kernel exec of the shim file. No shell interprets it, and bash hands
+  a PATH-resolved command to execve as well. A non-executable shim
+  fails with EACCES in every one of these paths.
+- Reaching the shim through an interpreter would require changing the
+  supervised program's own spawn call. That is outside the supervision
+  boundary and would defeat the shim's purpose, which is transparent
+  interception of the program as it actually runs. The supervision
+  boundary does not change under this refinement.
+
+Revised scope:
+
+1. Interpreter invocation applies to the harness-internal direct calls
+   only: the unit ExecStart (supervise.sh), run-confined.sh, and
+   aggregate.sh. These leave the mode problem entirely.
+2. The three docker shims (harness/bin/docker, tests/stubs/bin/docker,
+   tests/fixtures/harness/bin/docker) remain mode-bearing by design.
+   The packaging gate keeps its exact-mode check scoped to the shims
+   and drops it for everything else.
+3. For the shims, the mode is set at ASSEMBLY time by the operator's
+   assembly tooling on the assembled tree, never at runtime and never
+   by the supervisor (the Rev 10 removal of runtime self-heal stands).
+   The manifest records the shims as assembly-set, and the packaging
+   gate verifies the assembled tree it actually runs from. The Git
+   tree is complete as published for everything else; if assembly
+   tooling is unavailable, the fallback is the existing mode commit
+   shrunk to the three shim files only.
+4. Regression addition: packaged tree at 0644 throughout, assembly
+   step applied, full supervisor path green under stubs, and the gate
+   still exits 3 when a shim lacks its mode in the assembled tree.
