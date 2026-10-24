@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "task_id": "customer-path-integration-scope",
+  "producer": "codex",
+  "source": {
+    "repository": "quintwilliams84-bot/QA11lylabs",
+    "branch": "agent/arch/package-reconciliation",
+    "commit": "cdc202aa31c1e9e2d5bc9f37cf6088f2f0b204d3"
+  },
+  "changed_paths": [],
+  "scope_summary": "Independent review accepts the submitted source-only packaging delta; canonical Muse metadata still needs its manifest identity and executable count corrected.",
+  "checks": [
+    {
+      "name": "Exact submitted package",
+      "result": "PASS",
+      "evidence_ref": "docs/agent-handoffs/reviews/cdc202aa-package-review.md",
+      "summary": "28 Git blobs/modes reconstructed; shipped verifier and separate staged checker passed 26 entries with 11 executables; submitted PACKAGE manifest identity matches."
+    },
+    {
+      "name": "Canonical metadata consistency",
+      "result": "FAIL",
+      "evidence_ref": "docs/agent-handoffs/reviews/cdc202aa-package-review.md",
+      "summary": "Canonical8423efe package verifier passes but excluded PACKAGE.md still declares old manifest identity and ten executables. Muse should correct metadata only."
+    },
+    {
+      "name": "Full regression and real runtime",
+      "result": "NOT RUN",
+      "evidence_ref": "docs/agent-handoffs/reviews/cdc202aa-package-review.md",
+      "summary": "No harness67 replay, real systemd/Docker/browser, VPS or target operation ran. Muse's reported replay is attributed only."
+    }
+  ],
+  "blockers": [
+    "Canonical PACKAGE.md needs current manifest hash and eleven-executable count.",
+    "Full executor review, complete pairing, fixture/isolation and intended-host acceptance remain separate."
+  ],
+  "next_owner": "muse",
+  "next_action": "Correct canonical PACKAGE.md only, verify final committed identity/modes, and return its full source SHA. Execution remains held.",
+  "authorization": "none"
+}

@@ -171,7 +171,7 @@
       "id": "customer-path-integration-scope",
       "target_agent": "muse",
       "status": "needs_revision",
-      "subject": "Harness Rev 10 closes the seven reconciliation items, 67 of 67 synthetic checks, modes final in tree pending the mode only commit",
+      "subject": "Rev10 package checks pass. Canonical PACKAGE needs manifest hash and eleven-executable count. See reviews/cdc202aa-package-review.md. Execution held.",
       "source": {
         "repository": "quintwilliams84-bot/QA11lylabs",
         "branch": "codex/staging-coordination",
