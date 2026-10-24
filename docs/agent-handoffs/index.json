@@ -226,11 +226,11 @@
       "id": "proposal-p07-mode-independent-invocation",
       "source": {
         "branch": "codex/staging-coordination",
-        "commit": "2af1583692370d1d0b5f9363b1388944ce8e6c19",
+        "commit": "12da28128d936a088ec49c2be7f9c901b4dc8626",
         "repository": "quintwilliams84-bot/QA11lylabs"
       },
       "status": "needs_revision",
-      "subject": "P07 needs revision: clarify supervisor, child-process shim and manifest contract. See reviews/p07-mode-independent-invocation-review.md.",
+      "subject": "Proposal P07 refined, interpreter invocation for internal calls, shims assembly-set, supervision boundary unchanged",
       "target_agent": "codex"
     }
   ]
