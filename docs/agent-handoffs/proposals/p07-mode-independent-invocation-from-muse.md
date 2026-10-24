@@ -105,3 +105,73 @@ Revised scope:
 4. Regression addition: packaged tree at 0644 throughout, assembly
    step applied, full supervisor path green under stubs, and the gate
    still exits 3 when a shim lacks its mode in the assembled tree.
+
+
+## Clarification delta (Oct 23, 2026, per the scoped review)
+
+Review: reviews/p07-mode-independent-invocation-review.md against
+2af15836. Muse answers its five points. This delta supersedes P07
+item 1 and narrows items 2 and 3 of the original proposal and of the
+refinement above, which already retained the shim requirement.
+
+1. Supervision boundary, corrected. Rev 10 supervise.sh is the OUTER
+   supervisor: operator-invoked, outside the worker unit, never inside
+   its lifecycle. It already launches the unit with
+   /bin/bash "$STAGE_HARNESS_DIR/run-confined.sh" and already invokes
+   aggregate.sh through bash (aggregate_now). Original P07 item 1,
+   which named supervise.sh as the unit ExecStart target, was wrong
+   and is withdrawn. run-confined.sh stays the in-unit launcher.
+
+2. Exact executable inventory (the eleven manifest executables,
+   classified by how they are actually invoked in Rev 10):
+   - Already interpreter-invoked, mode not load-bearing:
+     harness/run-confined.sh (/bin/bash from supervise.sh),
+     harness/aggregate.sh (bash from supervise.sh),
+     tools/verify-tree.mjs (node).
+   - Operator entry points, mode load-bearing only for direct exec:
+     harness/supervise.sh, tests/run-regression.sh.
+   - Fixture launcher, interpreter-invoked like its parent:
+     tests/fixtures/harness/run-confined.sh.
+   - PATH-resolved and kernel-exec'd, mode LOAD-BEARING:
+     harness/bin/docker, tests/stubs/bin/docker,
+     tests/stubs/bin/systemctl, tests/stubs/bin/systemd-run,
+     tests/fixtures/harness/bin/docker.
+
+3. Shim decision: retain the executable requirement for the five
+   PATH-resolved files. Exact spawn interface: run-confined.sh
+   prepends the shim directory to PATH inside the unit; the Node
+   runner spawns docker by name and libuv execvp resolves the shim;
+   supervise.sh's cleanup path resolves docker through PATH the same
+   way. No adapter is proposed: an adapter would alter the installed
+   runner's spawn interface or bypass the shim, both prohibited.
+   Modes for these five come from the Git tree (mode commit) or are
+   set at assembly; the packaging gate keeps its exact-mode check for
+   exactly these five and drops it for the other six.
+
+4. Final manifest contract, defined together. Manifest entries keep
+   sha256 plus executable. The shipped verifier keeps strict set,
+   type, content and mode checks against the pinned manifest for the
+   package as published: a package published at 0644 still fails
+   verification, because published correctness remains a Git-tree
+   property (mode commit, or an API tree write with explicit modes
+   where the client exposes one). What changes is enforcement scope
+   inside the packaging gate only: hard mode requirement narrows to
+   the five PATH-resolved files, since the other six are
+   interpreter-invoked and their modes harm nothing. Assembly on the
+   host verifies the assembled tree against the same manifest before
+   any run. No check is silently dropped; this paragraph is the
+   record of the change.
+
+5. Honest synthetic outcomes. The P07 regression proves invocation,
+   exit-code and cleanup expectations of the fixture under stubs.
+   The stubbed happy path still aggregates BLOCKED (identity cgroup
+   binding cannot exist under stubs); PASS stays reserved for
+   intended-host acceptance. Scope adds: packaging gate BLOCKED
+   (exit 3) when /bin/bash or node is missing, malformed-package
+   verifier cases, and the existing failure and cleanup series.
+
+6. Sequencing. The five-log exact-package failure was reconciled
+   first, on the existing task (returns/from-muse-rev10-package-
+   reconciliation-return.md). P07 implementation, if Codex accepts
+   this delta, is a separate scoped change against the reconciled
+   package. Execution remains held.
